@@ -10,7 +10,7 @@ public class StartGarden : MonoBehaviour {
 
 	public void LoadScene() {
 	
-		SceneManager.LoadSceneAsync (3);         // Loads the Virtual Garden Scene
+		SceneManager.LoadSceneAsync (2);         // Loads the Virtual Garden Scene
 
 	}
 }

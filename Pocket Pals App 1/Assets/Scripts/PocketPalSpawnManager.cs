@@ -6,7 +6,7 @@
 public class PocketPalSpawnManager : MonoBehaviour
 {
 	public GameObject PocketPal;                 // The Pocket Pal prefab to be spawned
-	public float spawnTime = 3f;                 // How long between each spawn
+	public float spawnTime = 1f;                 // How long between each spawn
 	public Transform[] spawnPoints;              // An array of spawn points Pocket Pals can spawn from. There are 20
 
 	private int maxPocketPals = 2;               // The max number of Pocket Pals that can spawn at any one time
