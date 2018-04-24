@@ -3,9 +3,12 @@
 	using Mapbox.Unity.Utilities;
 	using Utils;
 	using Mapbox.Map;
+    using UnityEngine.UI;
 
 	public class BasicMap : AbstractMap
 	{
+        public Text coords;
+
 		public override void Initialize(Vector2d latLon, int zoom)
 		{
 			_worldHeightFixed = false;
@@ -21,5 +24,9 @@
 
 			SendInitialized();
 		}
-	}
+
+        private void Update()
+        {
+        }
+    }
 }

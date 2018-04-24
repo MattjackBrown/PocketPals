@@ -34,16 +34,4 @@ public class PocketPalParent : MonoBehaviour {
         // rotates the object on the x, y and z axis
         transform.Rotate(Rotation * Time.deltaTime); 
     }
-
-    // OnMouseDown also works as a touch on an iphone or other mobile device
-    void OnMouseDown()
-    {
-        //do relevant coding to add to the inventory etc.
-
-        // Removes Pocket Pal when clicked or touched
-        Destroy(gameObject);   
-
-        // Loads the Spotted Scene when called
-        SceneManager.LoadSceneAsync(2);        
-    }
 }
