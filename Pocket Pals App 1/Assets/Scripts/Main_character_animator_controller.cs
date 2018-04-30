@@ -9,7 +9,7 @@ public class Main_character_animator_controller : MonoBehaviour
     public float speed = 2.0f;
     public float rotationSpeed = 75.0f;
 
-    public PlayerMove playerMove;
+    public GPS playerMove;
 
 	// Use this for initialization
 	void Start ()

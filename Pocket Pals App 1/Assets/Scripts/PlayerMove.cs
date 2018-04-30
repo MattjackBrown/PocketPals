@@ -25,8 +25,8 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
 	{
-		var x = Input.GetAxis("Horizontal")*0.1f;  // moves the player horizontally
-		var z = Input.GetAxis("Vertical")*0.1f;    // moves the player vertically
+		var x = Input.GetAxis("Horizontal");  // moves the player horizontally
+		var z = Input.GetAxis("Vertical");    // moves the player vertically
 
 
 
@@ -84,7 +84,7 @@ public class PlayerMove : MonoBehaviour
         { //&& !(V3Equal(transform.position, endPoint))){
           //move the gameobject to the desired position
             this.transform.position = Vector3.Lerp(this.transform.position, endPoint, 1 / (duration * (Vector3.Distance(this.transform.position, endPoint))));
-            this.transform.localRotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(endPoint, new Vector3(0, 1, 0)), 10*Time.deltaTime);
+            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(endPoint, new Vector3(0, 1, 0)), 10*Time.deltaTime);
         }
         //set the movement indicator flag to false if the endPoint and current gameobject position are equal
         else if (Moving && Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude))

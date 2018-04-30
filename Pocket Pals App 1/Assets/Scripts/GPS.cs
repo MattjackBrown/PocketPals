@@ -11,16 +11,23 @@ public class GPS : MonoBehaviour {
 
     public BasicMap basicMap;
 
+    private BasicMap originalMap;
+
     public GameObject girl;
+
+    public bool Moving = false;
 
     private float StartLong = 0;
     private float StartLat = 0;
-
-
     private float CurrentLat = 0;
     private float CurrentLong = 0;
 
-    public Text text;
+    public  int duration = 50;
+    public int rotationSpeed = 5;
+
+    public Text distanceText;
+    public Text latText;
+    public Text lonText;
 
     private float DistanceTravelled = 0;
 
@@ -31,8 +38,7 @@ public class GPS : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
         Instance = this;
         StartCoroutine(StartLocationService());
-        basicMap.Initialize(new Vector2d(StartLat, StartLong), 16);
-
+        originalMap = Object.Instantiate(basicMap);
     }
 
     private IEnumerator StartLocationService()
@@ -61,9 +67,20 @@ public class GPS : MonoBehaviour {
             yield break;
         }
         HasGps = true;
-        StartLat = Input.location.lastData.latitude;
-        StartLong = Input.location.lastData.longitude;
-        
+        UpdateLocation();
+    }
+
+    public void UpdateLocation()
+    {
+        Destroy(basicMap.gameObject);
+        basicMap = Object.Instantiate(originalMap);
+        if (HasGps)
+        {
+            StartLat = Input.location.lastData.latitude;
+            StartLong = Input.location.lastData.longitude;
+        }
+        basicMap.SetCenterLatitudeLongitude(new Vector2d(StartLat, StartLong));
+        basicMap.Initialize(new Vector2d(StartLat, StartLong), 16);
     }
 
     float GetDistanceMeters(float lat1, float lon1, float lat2, float lon2)
@@ -90,27 +107,64 @@ public class GPS : MonoBehaviour {
         return direction; //direction in degree
     }
 
-        // Update is called once per frame
-        void Update ()
+    public void MoveRight()
     {
+        girl.transform.Rotate(Vector3.up * rotationSpeed);
+    }
+    public void MoveLeft()
+    {
+        girl.transform.Rotate(-Vector3.up * rotationSpeed);
+    }
+    // Update is called once per frame
+    void Update ()
+    {
+        Debug.Log(basicMap.WorldRelativeScale);
         if (HasGps)
         {
+            //latitude
             CurrentLat = Input.location.lastData.latitude;
+            latText.text = "Lat: "+CurrentLat.ToString();
+
+            //long
             CurrentLong = Input.location.lastData.longitude;
+            lonText.text = "lon: " + CurrentLong.ToString();
+
+            //distance
             DistanceTravelled = (float)GetDistanceMeters(StartLat, StartLong, CurrentLat, CurrentLong);
+            if (DistanceTravelled > 50)
+            {
+                UpdateLocation();
+            }
+            distanceText.text = DistanceTravelled.ToString();
+            float dirX = CurrentLong- StartLong;
+            float dirZ = CurrentLat - StartLat;
 
-            float xx = GetDistanceMeters(0, StartLong, 0, CurrentLong);
-            float zz = GetDistanceMeters(StartLat, 0, CurrentLat, 0);
+            if (dirX < 0) dirX = -1;
+            else dirX = 1;
+            if (dirZ < 0) dirZ = -1;
+            else dirZ = 1;
 
-            Vector3 pos = new Vector3(xx, 0, zz);
+            float xx = dirX*GetDistanceMeters(0, StartLong, 0, CurrentLong)*basicMap.WorldRelativeScale;
+            float zz = dirZ*GetDistanceMeters(StartLat, 0, CurrentLat, 0)*basicMap.WorldRelativeScale;
 
-            girl.transform.position = pos;
+            Vector3 endPoint = new Vector3(xx, 0, zz);
 
-
+            //check if the flag for movement is true and the current gameobject position is not same as the clicked / tapped position
+            if (!Mathf.Approximately(girl.transform.position.magnitude, endPoint.magnitude))
+            {
+                Moving = true;
+              //move the gameobject to the desired position
+                girl.transform.position = Vector3.Lerp(this.transform.position, endPoint, 1 / (duration * (Vector3.Distance(this.transform.position, endPoint))));
+            }
+            //set the movement indicator flag to false if the endPoint and current gameobject position are equal
+            else if (Mathf.Approximately(girl.transform.position.magnitude, endPoint.magnitude))
+            {
+                Moving = false;
+                Debug.Log("I am here");
+            }
 
 
             print(GetDistanceMeters(StartLat, StartLong, CurrentLat, CurrentLong));
-            text.text = DistanceTravelled.ToString();
         }
     }
 }

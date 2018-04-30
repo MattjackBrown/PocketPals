@@ -7,8 +7,6 @@
 
 	public class BasicMap : AbstractMap
 	{
-        public Text coords;
-
 		public override void Initialize(Vector2d latLon, int zoom)
 		{
 			_worldHeightFixed = false;
