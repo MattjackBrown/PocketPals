@@ -23,7 +23,7 @@ public class GPS : MonoBehaviour {
     private float CurrentLong = 0;
 
     public  int duration = 50;
-    public int rotationSpeed = 5;
+    public int rotationSpeed = 20;
 
     public Text distanceText;
     public Text latText;
@@ -79,8 +79,7 @@ public class GPS : MonoBehaviour {
             StartLat = Input.location.lastData.latitude;
             StartLong = Input.location.lastData.longitude;
         }
-        basicMap.SetCenterLatitudeLongitude(new Vector2d(StartLat, StartLong));
-        basicMap.Initialize(new Vector2d(StartLat, StartLong), 16);
+        basicMap.Initialize(new Vector2d(StartLat, StartLong), 18);
     }
 
     float GetDistanceMeters(float lat1, float lon1, float lat2, float lon2)
@@ -109,11 +108,11 @@ public class GPS : MonoBehaviour {
 
     public void MoveRight()
     {
-        girl.transform.Rotate(Vector3.up * rotationSpeed);
+        basicMap.transform.Rotate(Vector3.up * rotationSpeed);
     }
     public void MoveLeft()
     {
-        girl.transform.Rotate(-Vector3.up * rotationSpeed);
+        basicMap.transform.Rotate(-Vector3.up * rotationSpeed);
     }
     // Update is called once per frame
     void Update ()
