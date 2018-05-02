@@ -37,7 +37,7 @@ public class PocketPalInventory : MonoBehaviour {
 
         if (pocketPals.Count < x) x = pocketPals.Count;
 
-        for (int i = 0; i < x; i++)
+        for (int i = 1; i < x+1; i++)
         {
             rList.Add(pocketPals[pocketPals.Count - i]);
         }
