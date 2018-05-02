@@ -13,7 +13,7 @@ public class PlayerMove : MonoBehaviour
     //destination point
     private Vector3 endPoint;
     //alter this to change the speed of the movement of player / gameobject
-    public float duration = 100.0f;
+    public float duration = 25.0f;
     //vertical position of the gameobject
     private float yAxis;
 
@@ -84,7 +84,6 @@ public class PlayerMove : MonoBehaviour
         { //&& !(V3Equal(transform.position, endPoint))){
           //move the gameobject to the desired position
             this.transform.position = Vector3.Lerp(this.transform.position, endPoint, 1 / (duration * (Vector3.Distance(this.transform.position, endPoint))));
-            this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(endPoint, new Vector3(0, 1, 0)), 10*Time.deltaTime);
         }
         //set the movement indicator flag to false if the endPoint and current gameobject position are equal
         else if (Moving && Mathf.Approximately(gameObject.transform.position.magnitude, endPoint.magnitude))

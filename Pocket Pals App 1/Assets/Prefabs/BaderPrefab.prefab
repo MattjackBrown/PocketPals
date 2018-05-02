@@ -379,10 +379,11 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4973210850136858}
+  - component: {fileID: 224763501905817092}
   - component: {fileID: 95168124043661538}
   - component: {fileID: 114427311386735092}
   - component: {fileID: 65065814522638190}
+  - component: {fileID: 222044799016813208}
   m_Layer: 0
   m_Name: BaderPrefab
   m_TagString: Untagged
@@ -590,7 +591,7 @@ Transform:
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4973210850136858}
+  m_Father: {fileID: 224763501905817092}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4076383763374466
@@ -620,7 +621,7 @@ Transform:
   - {fileID: 4447875475749570}
   - {fileID: 4552209869235962}
   - {fileID: 4494319928912260}
-  m_Father: {fileID: 4973210850136858}
+  m_Father: {fileID: 224763501905817092}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4140877679631842
@@ -1014,21 +1015,6 @@ Transform:
   m_Father: {fileID: 4494319928912260}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4973210850136858
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1758309321418416}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4075281084454238}
-  - {fileID: 4106778047940868}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &65065814522638190
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -1073,6 +1059,7 @@ MonoBehaviour:
   Rotation: {x: 0, y: 15, z: 0}
   Scale: {x: 3, y: 3, z: 3}
   Offset: {x: 0, y: 1, z: 0}
+  boarder: {fileID: 21300000, guid: 20d92b0eb2b30df40b81534498419bb7, type: 3}
 --- !u!137 &137304681879320236
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -1152,3 +1139,29 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.2427448, y: -0.002697125, z: -0.115822196}
     m_Extent: {x: 0.42693865, y: 0.17485271, z: 0.24499589}
   m_DirtyAABB: 0
+--- !u!222 &222044799016813208
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1758309321418416}
+--- !u!224 &224763501905817092
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1758309321418416}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4075281084454238}
+  - {fileID: 4106778047940868}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}

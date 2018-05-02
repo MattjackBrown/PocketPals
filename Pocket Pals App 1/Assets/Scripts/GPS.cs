@@ -17,12 +17,15 @@ public class GPS : MonoBehaviour {
 
     public bool Moving = false;
 
-    private float StartLong = 0;
-    private float StartLat = 0;
+    public bool Reset = false;
+
+    private float StartLat = 50.171268f;
+    private float StartLong = -5.123837f;
     private float CurrentLat = 0;
     private float CurrentLong = 0;
+    private int zoom = 0;
 
-    public  int duration = 50;
+    private  int duration = 20;
     public int rotationSpeed = 20;
 
     public Text distanceText;
@@ -38,6 +41,7 @@ public class GPS : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
         Instance = this;
         StartCoroutine(StartLocationService());
+        zoom = basicMap.Zoom;
         originalMap = Object.Instantiate(basicMap);
     }
 
@@ -79,7 +83,8 @@ public class GPS : MonoBehaviour {
             StartLat = Input.location.lastData.latitude;
             StartLong = Input.location.lastData.longitude;
         }
-        basicMap.Initialize(new Vector2d(StartLat, StartLong), 18);
+        basicMap.Initialize(new Vector2d(StartLat, StartLong),zoom);
+        Reset = true;
     }
 
     float GetDistanceMeters(float lat1, float lon1, float lat2, float lon2)
@@ -105,34 +110,36 @@ public class GPS : MonoBehaviour {
         float direction = Mathf.Round(Mathf.Rad2Deg*teta);
         return direction; //direction in degree
     }
-
-    public void MoveRight()
-    {
-        basicMap.transform.Rotate(Vector3.up * rotationSpeed);
-    }
-    public void MoveLeft()
-    {
-        basicMap.transform.Rotate(-Vector3.up * rotationSpeed);
-    }
     // Update is called once per frame
     void Update ()
     {
-        Debug.Log(basicMap.WorldRelativeScale);
         if (HasGps)
         {
             //latitude
             CurrentLat = Input.location.lastData.latitude;
+            if (!Mathf.Approximately(CurrentLat, StartLat))
+            {
+                StartLat = CurrentLat;
+            }
             latText.text = "Lat: "+CurrentLat.ToString();
 
             //long
             CurrentLong = Input.location.lastData.longitude;
+            if (!Mathf.Approximately(CurrentLong, StartLong))
+            {
+                StartLong = CurrentLong;
+            }
             lonText.text = "lon: " + CurrentLong.ToString();
 
             //distance
             DistanceTravelled = (float)GetDistanceMeters(StartLat, StartLong, CurrentLat, CurrentLong);
-            if (DistanceTravelled > 50)
+            if (DistanceTravelled > 10)
             {
-                UpdateLocation();
+                duration = 10;
+            }
+            else
+            {
+                duration = 20;
             }
             distanceText.text = DistanceTravelled.ToString();
             float dirX = CurrentLong- StartLong;

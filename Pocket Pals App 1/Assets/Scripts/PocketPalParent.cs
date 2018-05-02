@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PocketPalParent : MonoBehaviour {
 
@@ -18,6 +19,7 @@ public class PocketPalParent : MonoBehaviour {
 
     public Vector3 Offset = new Vector3(0, 0, 0);
 
+    public Sprite boarder;
     
 	// Use this for initialization
 	void Start ()
@@ -25,7 +27,8 @@ public class PocketPalParent : MonoBehaviour {
         transform.position += Offset;
         //Some of the models are very small this will allow you to scale them
         transform.localScale = Vector3.Scale(transform.localScale, Scale);
-        
+
+        boarder  = Instantiate(boarder);
 	}
 	
 	// Update is called once per frame
