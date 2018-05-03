@@ -43,6 +43,7 @@ public class GPS : MonoBehaviour {
         StartCoroutine(StartLocationService());
         zoom = basicMap.Zoom;
         originalMap = Object.Instantiate(basicMap);
+        UpdateLocation();
     }
 
     private IEnumerator StartLocationService()
