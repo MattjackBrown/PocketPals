@@ -121,26 +121,14 @@ public class GPS : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        if (Moving)
-        {
-            MovePlayer();
-        }
         if (HasGps)
         {
             //latitude
             CurrentLat = Input.location.lastData.latitude;
-            if (!Mathf.Approximately(CurrentLat, StartLat))
-            {
-                StartLat = CurrentLat;
-            }
             latText.text = "Lat: "+CurrentLat.ToString();
 
             //long
             CurrentLong = Input.location.lastData.longitude;
-            if (!Mathf.Approximately(CurrentLong, StartLong))
-            {
-                StartLong = CurrentLong;
-            }
             lonText.text = "lon: " + CurrentLong.ToString();
 
             //distance
