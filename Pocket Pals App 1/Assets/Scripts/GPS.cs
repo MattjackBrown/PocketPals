@@ -5,9 +5,8 @@ using Mapbox.Unity.Map;
 using Mapbox.Utils;
 using UnityEngine.UI;
 
-public class GPS : MonoBehaviour {
-
-    public static GPS Instance { set; get; }
+public class GPS : MonoBehaviour
+{
 
     public BasicMap basicMap;
 
@@ -17,17 +16,23 @@ public class GPS : MonoBehaviour {
 
     public bool Moving = false;
 
-    public bool Reset = false;
-
+    //Hardcoded start lat long, should be up penryn UNI
     private float StartLat = 50.171268f;
     private float StartLong = -5.123837f;
+
+    //the last lat long read from the device.
     private float CurrentLat = 0;
     private float CurrentLong = 0;
+
+    //zoom of the map
     private int zoom = 0;
 
-    private  int duration = 20;
+    //movement variables
+    public float movementSpeed = 10000f;
     public int rotationSpeed = 20;
+    public float MovementAccuracy = 0.2f;
 
+    //Onscreen debug text
     public Text distanceText;
     public Text latText;
     public Text lonText;
@@ -35,15 +40,17 @@ public class GPS : MonoBehaviour {
     private float DistanceTravelled = 0;
 
     private bool HasGps = false;
+
+    Vector3 destination = new Vector3(0,0,0);
+
 	// Use this for initialization
 	void Start ()
     {
         DontDestroyOnLoad(gameObject);
-        Instance = this;
         StartCoroutine(StartLocationService());
         zoom = basicMap.Zoom;
         originalMap = Object.Instantiate(basicMap);
-        UpdateLocation();
+        UpdateMap();
     }
 
     private IEnumerator StartLocationService()
@@ -72,10 +79,10 @@ public class GPS : MonoBehaviour {
             yield break;
         }
         HasGps = true;
-        UpdateLocation();
+        UpdateMap();
     }
 
-    public void UpdateLocation()
+    public void UpdateMap()
     {
         Destroy(basicMap.gameObject);
         basicMap = Object.Instantiate(originalMap);
@@ -85,7 +92,6 @@ public class GPS : MonoBehaviour {
             StartLong = Input.location.lastData.longitude;
         }
         basicMap.Initialize(new Vector2d(StartLat, StartLong),zoom);
-        Reset = true;
     }
 
     float GetDistanceMeters(float lat1, float lon1, float lat2, float lon2)
@@ -111,9 +117,14 @@ public class GPS : MonoBehaviour {
         float direction = Mathf.Round(Mathf.Rad2Deg*teta);
         return direction; //direction in degree
     }
+
     // Update is called once per frame
     void Update ()
     {
+        if (Moving)
+        {
+            MovePlayer();
+        }
         if (HasGps)
         {
             //latitude
@@ -134,44 +145,53 @@ public class GPS : MonoBehaviour {
 
             //distance
             DistanceTravelled = (float)GetDistanceMeters(StartLat, StartLong, CurrentLat, CurrentLong);
-            if (DistanceTravelled > 10)
-            {
-                duration = 10;
-            }
-            else
-            {
-                duration = 20;
-            }
-            distanceText.text = DistanceTravelled.ToString();
+            distanceText.text = "Dist: " + DistanceTravelled.ToString();
+
+            //get the direction the player is heading in
             float dirX = CurrentLong- StartLong;
             float dirZ = CurrentLat - StartLat;
 
+            //switch directions, this probably could be done better.
             if (dirX < 0) dirX = -1;
             else dirX = 1;
             if (dirZ < 0) dirZ = -1;
             else dirZ = 1;
 
+            //create the player location vector
             float xx = dirX*GetDistanceMeters(0, StartLong, 0, CurrentLong)*basicMap.WorldRelativeScale;
             float zz = dirZ*GetDistanceMeters(StartLat, 0, CurrentLat, 0)*basicMap.WorldRelativeScale;
-
             Vector3 endPoint = new Vector3(xx, 0, zz);
 
-            //check if the flag for movement is true and the current gameobject position is not same as the clicked / tapped position
-            if (!Mathf.Approximately(girl.transform.position.magnitude, endPoint.magnitude))
-            {
-                Moving = true;
-              //move the gameobject to the desired position
-                girl.transform.position = Vector3.Lerp(this.transform.position, endPoint, 1 / (duration * (Vector3.Distance(this.transform.position, endPoint))));
-            }
-            //set the movement indicator flag to false if the endPoint and current gameobject position are equal
-            else if (Mathf.Approximately(girl.transform.position.magnitude, endPoint.magnitude))
-            {
-                Moving = false;
-                Debug.Log("I am here");
-            }
+            SetPlayerMovePoint(endPoint);
 
+            Debug.Log("Hit");
 
-            print(GetDistanceMeters(StartLat, StartLong, CurrentLat, CurrentLong));
+            //move
+            MovePlayer();
+
+        }
+    }
+
+    public void SetPlayerMovePoint(Vector3 endPoint)
+    {
+        destination = endPoint;
+        Moving = true;
+    }
+
+    private void MovePlayer()
+    {
+        //CalcDistance
+        float distance = Vector3.SqrMagnitude(girl.transform.position - destination);
+        Debug.Log("Hit" + distance);
+        //move
+        if (distance > MovementAccuracy)
+        {
+            girl.transform.position = Vector3.Lerp(girl.transform.position, destination, movementSpeed * Time.deltaTime);
+            Moving = true;
+        }
+        else
+        {
+            Moving = false;
         }
     }
 }

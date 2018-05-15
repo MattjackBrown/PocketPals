@@ -29,7 +29,6 @@ public class PlayerTouch : MonoBehaviour {
             //Check if the ray hits any collider
             if (Physics.Raycast(ray, out hit))
             {
-
                 if (hit.transform.gameObject.GetComponent("PocketPalParent"))
                 {
                     PocketPalParent pocketPal = (PocketPalParent)hit.transform.gameObject.GetComponent("PocketPalParent");

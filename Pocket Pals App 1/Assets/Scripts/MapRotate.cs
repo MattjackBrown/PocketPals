@@ -5,16 +5,17 @@ using UnityEngine.UI;
 
 public class MapRotate : MonoBehaviour
 {
+    public float rotationSpeed = 200;
+    public GPS map;
 
     private bool right = false;
     private bool left = false;
-    public float rotationSpeed = 200;
-    public Button rightButton;
-    public Button leftButton;
-    public GPS map;
-
+    
     void Update()
     {
+        //Make sure we're trying to rotate a valid map, if not return
+        if (!map.isActiveAndEnabled) return;
+
         if (right)
         {
             this.transform.Rotate(-Vector3.up * rotationSpeed * Time.deltaTime);

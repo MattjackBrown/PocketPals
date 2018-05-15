@@ -66,7 +66,6 @@ public class PocketPalSpawnManager : MonoBehaviour
 
         Quaternion rot = spawnPoints[spawnPointIndex].rotation;
 
-
         // Create an instance of the prefab at the randomly selected spawn point's position and rotation
         GameObject clone =  (GameObject)Instantiate(PocketPals[RandomPocketPal],pos, rot );
         spawnedPocketPals.Add(clone);
