@@ -33,7 +33,7 @@ public class CameraController : MonoBehaviour {
 
 		// Maybe swap all to a switch statement? Zero all variables on default case.
 		// Tidier, but does not easily allow for >2 touches doing pinch zooming. Using fallthrough cases
-		switch (Input.touchCount) {
+		switch (Input.touchCount) { 
 
 		// Check for pinch to zoom control. The only control to use > two touches
 		case 4:
