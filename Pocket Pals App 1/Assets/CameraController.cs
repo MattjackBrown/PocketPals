@@ -67,6 +67,12 @@ public class CameraController : MonoBehaviour {
 			// Get the horixontal component of the touch's movement
 			float deltaTouchX = touchZero.deltaPosition.x;
 
+			// Adjust for different device's screen widths. Then multiply by the angles that a total screen width swipe will rotate
+			deltaTouchX = deltaTouchX / Screen.width * 180;
+
+			// Apply the rotation to the transform around the player position
+			transform.RotateAround (playerPosition, Vector3.up, deltaTouchX);
+
 			// Todo: Use this to change the the camera location, or just the look at position and recalculate using distance and
 		} else if (Input.touchCount == 0) {
 
