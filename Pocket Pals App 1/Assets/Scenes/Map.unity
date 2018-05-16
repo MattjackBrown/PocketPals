@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3904,7 +3904,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minimumCameraDistance: 4
   maximumCameraDistance: 15
-  lookAtPositionPlayerOffset: {x: 0, y: 0, z: 2}
   player: {fileID: 1526316837}
 --- !u!1 &1360269625
 GameObject:
@@ -4248,7 +4247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _initializeOnStart: 0
   _latitudeLongitudeString: 51.50722, -0.1275
-  _zoom: 19
+  _zoom: 17
   _root: {fileID: 0}
   _tileProvider: {fileID: 1514764287}
   _mapVisualizer: {fileID: 11400000, guid: d037eb553509f489e9ba7a5a441b45dd, type: 2}
