@@ -3902,7 +3902,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc2b2513aa87045a2bc076ac87167bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomSpeed: 0.5
+  minimumCameraDistance: 4
+  maximumCameraDistance: 15
+  lookAtPositionPlayerOffset: {x: 0, y: 0, z: 2}
   player: {fileID: 1526316837}
 --- !u!1 &1360269625
 GameObject:
