@@ -54,7 +54,6 @@ public class PocketPalSpawnManager : MonoBehaviour
 
 		if(spawnedPocketPals.Count >= maxPocketPals)    // Checks whether the max number of Pocket Pals have been spawned 
 		{
-            spawnedPocketPals.Clear();
 			return;                               // Exits the function if the above statement is true
 		}
 
@@ -69,6 +68,6 @@ public class PocketPalSpawnManager : MonoBehaviour
         // Create an instance of the prefab at the randomly selected spawn point's position and rotation
         GameObject clone =  (GameObject)Instantiate(PocketPals[RandomPocketPal],pos, rot );
         spawnedPocketPals.Add(clone);
-        clone.transform.parent = gpsMap.basicMap.transform;                   // Increases the currentPocketPals value by 1
+        clone.transform.parent = gpsMap.currentMap.transform;                   // Increases the currentPocketPals value by 1
 	}
 }

@@ -8,15 +8,17 @@ using UnityEngine.UI;
 public class GPS : MonoBehaviour
 {
 
-    public BasicMap basicMap;
-
-    private BasicMap originalMap;
+    public BasicMap currentMap;
+    public GameObject originalMap;
 
     public GameObject girl;
 
     public bool Moving = false;
 
-    //Hardcoded start lat long, should be up penryn UNI
+    //Screen to cover the map re-intialising.
+    public GameObject loadingScreen;
+
+    //Hardcoded start lat long, should be up penryn campus
     private float StartLat = 50.171268f;
     private float StartLong = -5.123837f;
 
@@ -25,12 +27,12 @@ public class GPS : MonoBehaviour
     private float CurrentLong = 0;
 
     //zoom of the map
-    private int zoom = 0;
+    private int zoom = 18;
 
     //movement variables
-    public float movementSpeed = 10000f;
-    public int rotationSpeed = 20;
+    public float movementSpeed = 1f;
     public float MovementAccuracy = 0.2f;
+    public float rotationSpeed = 2.0f;
 
     //Onscreen debug text
     public Text distanceText;
@@ -48,9 +50,6 @@ public class GPS : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         StartCoroutine(StartLocationService());
-        zoom = basicMap.Zoom;
-        originalMap = Object.Instantiate(basicMap);
-        UpdateMap();
     }
 
     private IEnumerator StartLocationService()
@@ -58,6 +57,7 @@ public class GPS : MonoBehaviour
         if (!Input.location.isEnabledByUser)
         {
             Debug.Log("Request gps priv");
+            UpdateMap();
             yield break;
         }
 
@@ -82,16 +82,27 @@ public class GPS : MonoBehaviour
         UpdateMap();
     }
 
+    //Destroys and creates a new map at the location of the player. 
     public void UpdateMap()
     {
-        Destroy(basicMap.gameObject);
-        basicMap = Object.Instantiate(originalMap);
+
+        //Delete the map if there is already one
+        if (currentMap != null) Destroy(currentMap);
+
+        //Check to see if the loading screen is still active
+        if (loadingScreen.activeSelf == true) loadingScreen.SetActive(false);
+
+        //check to see if we have gps, if we do set it to the last gps location rather
+        //than the default
         if (HasGps)
         {
             StartLat = Input.location.lastData.latitude;
             StartLong = Input.location.lastData.longitude;
         }
-        basicMap.Initialize(new Vector2d(StartLat, StartLong),zoom);
+
+        //Create a new instance of the original map and initialise it
+        currentMap = Instantiate(originalMap).GetComponent<BasicMap>();
+        currentMap.Initialize(new Vector2d(StartLat, StartLong),zoom);
     }
 
     float GetDistanceMeters(float lat1, float lon1, float lat2, float lon2)
@@ -121,6 +132,7 @@ public class GPS : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
+
         if (HasGps)
         {
             //latitude
@@ -146,8 +158,8 @@ public class GPS : MonoBehaviour
             else dirZ = 1;
 
             //create the player location vector
-            float xx = dirX*GetDistanceMeters(0, StartLong, 0, CurrentLong)*basicMap.WorldRelativeScale;
-            float zz = dirZ*GetDistanceMeters(StartLat, 0, CurrentLat, 0)*basicMap.WorldRelativeScale;
+            float xx = dirX*GetDistanceMeters(0, StartLong, 0, CurrentLong)*currentMap.WorldRelativeScale;
+            float zz = dirZ*GetDistanceMeters(StartLat, 0, CurrentLat, 0)*currentMap.WorldRelativeScale;
             Vector3 endPoint = new Vector3(xx, 0, zz);
 
             SetPlayerMovePoint(endPoint);
@@ -170,12 +182,15 @@ public class GPS : MonoBehaviour
     {
         //CalcDistance
         float distance = Vector3.SqrMagnitude(girl.transform.position - destination);
-        Debug.Log("Hit" + distance);
-        //move
+
+        //calc rotation
+        Quaternion targetRotation = Quaternion.LookRotation(destination - transform.position);
+
+        //move and rotate
         if (distance > MovementAccuracy)
         {
             girl.transform.position = Vector3.Lerp(girl.transform.position, destination, movementSpeed * Time.deltaTime);
-            Moving = true;
+            girl.transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
         else
         {

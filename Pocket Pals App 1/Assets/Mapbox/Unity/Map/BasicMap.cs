@@ -3,7 +3,6 @@
 	using Mapbox.Unity.Utilities;
 	using Utils;
 	using Mapbox.Map;
-    using UnityEngine.UI;
 
 	public class BasicMap : AbstractMap
 	{
