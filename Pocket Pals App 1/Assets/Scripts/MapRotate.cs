@@ -15,7 +15,7 @@ public class MapRotate : MonoBehaviour
     {
         //Make sure we're trying to rotate a valid map, if not return
         if (!map.isActiveAndEnabled) return;
-
+/*
         if (right)
         {
             this.transform.Rotate(-Vector3.up * rotationSpeed * Time.deltaTime);
@@ -24,6 +24,7 @@ public class MapRotate : MonoBehaviour
         {
             this.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
         }
+*/        
     }
 
     public void StartRight()
