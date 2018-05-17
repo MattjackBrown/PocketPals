@@ -9,6 +9,8 @@ public class GPS : MonoBehaviour
 {
 
     public BasicMap currentMap;
+    public GameObject mapGameObject;
+
     public GameObject originalMap;
 
     public GameObject girl;
@@ -41,6 +43,9 @@ public class GPS : MonoBehaviour
 
     private float DistanceTravelled = 0;
 
+    //Set active after the map has been spawned
+    public bool isInitialised = false;
+
     private bool HasGps = false;
 
     Vector3 destination = new Vector3(0,0,0);
@@ -62,7 +67,7 @@ public class GPS : MonoBehaviour
             yield break;
         }
 
-        Input.location.Start();
+        Input.location.Start(5, 2);
         int maxWait = 20;
         while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
         {
@@ -88,7 +93,7 @@ public class GPS : MonoBehaviour
     {
 
         //Delete the map if there is already one
-        if (currentMap != null) Destroy(currentMap);
+        if (currentMap != null) Destroy(mapGameObject);
 
         //Check to see if the loading screen is still active
         if (loadingScreen.activeSelf == true) loadingScreen.SetActive(false);
@@ -101,9 +106,15 @@ public class GPS : MonoBehaviour
             StartLong = Input.location.lastData.longitude;
         }
 
-        //Create a new instance of the original map and initialise it
-        currentMap = Instantiate(originalMap).GetComponent<BasicMap>();
+        //Spawn a new map
+        mapGameObject = Instantiate(originalMap);
+        mapGameObject.SetActive(true);
+
+        //get the instance of the map and initialise it
+        currentMap = mapGameObject.GetComponent<BasicMap>();
         currentMap.Initialize(new Vector2d(StartLat, StartLong),zoom);
+
+        isInitialised = true;
     }
 
     float GetDistanceMeters(float lat1, float lon1, float lat2, float lon2)

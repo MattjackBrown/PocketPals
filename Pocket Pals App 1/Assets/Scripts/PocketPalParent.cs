@@ -8,7 +8,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class PocketPalParent : MonoBehaviour {
+public class PocketPalParent : MonoBehaviour
+{
 
     //this will be the ID for each pocketpal this should be unique to each pocketpal and used to identify it for the inventory system. 
     public int PocketPalID = 0;
@@ -20,6 +21,9 @@ public class PocketPalParent : MonoBehaviour {
     public Vector3 Offset = new Vector3(0, 0, 0);
 
     public Sprite boarder;
+
+    [Tooltip("The rarity of the spawn")]
+    public float Rarity = 10.0f;
     
 	// Use this for initialization
 	void Start ()

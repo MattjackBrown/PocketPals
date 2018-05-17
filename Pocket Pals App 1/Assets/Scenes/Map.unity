@@ -342,6 +342,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMap: {fileID: 0}
+  mapGameObject: {fileID: 0}
   originalMap: {fileID: 1514764282}
   girl: {fileID: 206820439}
   Moving: 0
@@ -352,6 +353,7 @@ MonoBehaviour:
   distanceText: {fileID: 1087010453}
   latText: {fileID: 874576670}
   lonText: {fileID: 1713641259}
+  isInitialised: 0
 --- !u!114 &206820446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,7 +1150,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 501528775}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
@@ -2819,7 +2821,7 @@ GameObject:
   - component: {fileID: 956007496}
   - component: {fileID: 956007495}
   m_Layer: 5
-  m_Name: UpdatePos
+  m_Name: DebugUpdate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2884,7 +2886,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 206820443}
-        m_MethodName: UpdateLocation
+        m_MethodName: UpdateMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3448,7 +3450,8 @@ MonoBehaviour:
   - {fileID: 1648945472042286, guid: 63c09c8bd78dfe049912e7e82bdbe493, type: 2}
   - {fileID: 1687172272050584, guid: dce2285cab9962f44960dc9c3a248745, type: 2}
   - {fileID: 1616139767182196, guid: c92b4fd8143e0004698cc6b7597447ea, type: 2}
-  spawnTime: 4
+  avgSpawnTime: 10
+  spawnTimeVariance: 200
   spawnPoints:
   - {fileID: 1267739198}
   - {fileID: 1597336364}
@@ -3471,7 +3474,7 @@ MonoBehaviour:
   - {fileID: 990544974}
   - {fileID: 470987506}
   gpsMap: {fileID: 206820443}
-  maxPocketPals: 10
+  maxPocketPals: 5
 --- !u!1 &1157508388
 GameObject:
   m_ObjectHideFlags: 0
@@ -3586,6 +3589,15 @@ Prefab:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 1331972348}
+    - target: {fileID: 1854182873453886, guid: cadd1a63b8767fe4aabbc56044ff1932, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114110380612210384, guid: cadd1a63b8767fe4aabbc56044ff1932,
+        type: 2}
+      propertyPath: _root
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: cadd1a63b8767fe4aabbc56044ff1932, type: 2}
@@ -6095,6 +6107,7 @@ MonoBehaviour:
   - {fileID: 1087010451}
   - {fileID: 874576668}
   - {fileID: 1713641257}
+  - {fileID: 956007493}
 --- !u!114 &1836403601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6508,7 +6521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2026635373
 RectTransform:
   m_ObjectHideFlags: 0
