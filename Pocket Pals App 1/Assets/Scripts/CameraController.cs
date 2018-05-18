@@ -15,6 +15,9 @@ public class CameraController : MonoBehaviour {
 	// The player gameObject from which to get the player's location from
 	public GameObject player;
 
+	// The ui compass that will rotate with the view rotation
+	public GameObject compass;
+
 	Touch touchZero;
 	Touch touchOne;
 
@@ -91,6 +94,9 @@ public class CameraController : MonoBehaviour {
 
 			// Apply the rotation to the transform around the player
 			transform.RotateAround (playerPosition, Vector3.up, deltaTouchX);
+
+			// Apply the rotation to the compass ui
+			compass.transform.localRotation = Quaternion.Euler(compass.transform.localRotation.eulerAngles + new Vector3(0.0f, 0.0f, deltaTouchX));
 
 			break;
 
