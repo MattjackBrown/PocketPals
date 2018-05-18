@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PocketPalInventory : MonoBehaviour {
 
-    private List<GameObject> pocketPals = new List<GameObject>();
+    private List<GameObject> myPPals = new List<GameObject>();
 
     public PocketPalSpawnManager spawner;
 
@@ -18,28 +18,28 @@ public class PocketPalInventory : MonoBehaviour {
     {
         obj.SetActive(false);
         spawner.PocketpalCollected(obj);
-        pocketPals.Add(obj);
+        myPPals.Add(obj);
     }
 
     public List<GameObject> GetMyPocketPals()
     {
-        return pocketPals;
+        return myPPals;
     }
 
     public GameObject GetMostRecent()
     {
-        return pocketPals[pocketPals.Count - 1];
+        return myPPals[myPPals.Count - 1];
     }
 
     public List<GameObject> GetXMostRecent(int x)
     {
         List<GameObject> rList = new List<GameObject>();
 
-        if (pocketPals.Count < x) x = pocketPals.Count;
+        if (myPPals.Count < x) x = myPPals.Count;
 
         for (int i = 1; i < x+1; i++)
         {
-            rList.Add(pocketPals[pocketPals.Count - i]);
+            rList.Add(myPPals[myPPals.Count - i]);
         }
         return rList;
     }

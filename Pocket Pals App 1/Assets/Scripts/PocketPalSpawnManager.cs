@@ -74,6 +74,7 @@ public class PocketPalSpawnManager : MonoBehaviour
         {
             if (StartDelay)
             {
+                StartDelay = false;
                 yield return new WaitForSeconds(GetSpawnDelay());
             }
 
