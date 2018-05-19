@@ -47,6 +47,7 @@ public class GPS : MonoBehaviour
     public bool isInitialised = false;
 
     private bool HasGps = false;
+    public bool IsDebug =false;
 
     Vector3 destination = new Vector3(0,0,0);
 
@@ -144,12 +145,11 @@ public class GPS : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-
         if (HasGps)
         {
             //latitude
             CurrentLat = Input.location.lastData.latitude;
-            latText.text = "Lat: "+CurrentLat.ToString();
+            latText.text = "Lat: " + CurrentLat.ToString();
 
             //long
             CurrentLong = Input.location.lastData.longitude;
@@ -160,7 +160,7 @@ public class GPS : MonoBehaviour
             distanceText.text = "Dist: " + DistanceTravelled.ToString();
 
             //get the direction the player is heading in
-            float dirX = CurrentLong- StartLong;
+            float dirX = CurrentLong - StartLong;
             float dirZ = CurrentLat - StartLat;
 
             //switch directions, this probably could be done better.
@@ -170,8 +170,8 @@ public class GPS : MonoBehaviour
             else dirZ = 1;
 
             //create the player location vector
-            float xx = dirX*GetDistanceMeters(0, StartLong, 0, CurrentLong)*currentMap.WorldRelativeScale;
-            float zz = dirZ*GetDistanceMeters(StartLat, 0, CurrentLat, 0)*currentMap.WorldRelativeScale;
+            float xx = dirX * GetDistanceMeters(0, StartLong, 0, CurrentLong) * currentMap.WorldRelativeScale;
+            float zz = dirZ * GetDistanceMeters(StartLat, 0, CurrentLat, 0) * currentMap.WorldRelativeScale;
             Vector3 endPoint = new Vector3(xx, 0, zz);
 
             SetPlayerMovePoint(endPoint);
@@ -181,6 +181,10 @@ public class GPS : MonoBehaviour
             //move
             MovePlayer();
 
+        }
+        else if (IsDebug)
+        {
+            MovePlayer();
         }
     }
 
@@ -202,7 +206,7 @@ public class GPS : MonoBehaviour
         if (distance > MovementAccuracy)
         {
             girl.transform.position = Vector3.Lerp(girl.transform.position, destination, movementSpeed * Time.deltaTime);
-            girl.transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            girl.GetComponent<Animator>().transform.rotation = Quaternion.Lerp(girl.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
         else
         {

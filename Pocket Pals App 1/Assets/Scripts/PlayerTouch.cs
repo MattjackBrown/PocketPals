@@ -6,6 +6,10 @@ public class PlayerTouch : MonoBehaviour {
 
     public PocketPalInventory inventory;
 
+    public bool IsDebug = false;
+    GameObject girl;
+
+
 	// Use this for initialization
 	void Start ()
     {
@@ -29,6 +33,11 @@ public class PlayerTouch : MonoBehaviour {
             //Check if the ray hits any collider
             if (Physics.Raycast(ray, out hit))
             {
+                if (IsDebug)
+                {
+                    GetComponentInParent<GPS>().IsDebug = true;
+                    GetComponentInParent<GPS>().SetPlayerMovePoint(hit.transform.position);
+                }
                 if (hit.transform.gameObject.GetComponent("PocketPalParent"))
                 {
                     PocketPalParent pocketPal = (PocketPalParent)hit.transform.gameObject.GetComponent("PocketPalParent");
