@@ -137,4 +137,16 @@ public class CameraController : MonoBehaviour {
 			break;
 		}
 	}
+
+	void captureCam (GameObject pocketPal) {
+
+		float captureCamDistance = 5.0f;
+		float camZoomInSpeed = 10.0f;
+
+		Vector3 pocketPalPosition = pocketPal.transform.position;
+
+		Vector3 cameraTargetPosition = pocketPalPosition - (transform.position - pocketPalPosition).normalized * captureCamDistance;
+
+		transform.position = Vector3.Lerp (transform.position, cameraTargetPosition, Time.deltaTime * camZoomInSpeed);
+	}
 }
