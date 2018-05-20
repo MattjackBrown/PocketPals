@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour {
 	public GameObject compass;
 
 	// The camera for which to use the world to screen location to determine swipe map rotation direction
-	public Camera camera;
+	public Camera gameCamera;
 
 	Touch touchZero;
 	Touch touchOne;
@@ -95,7 +95,7 @@ public class CameraController : MonoBehaviour {
 			float deltaTouchX = touchZero.deltaPosition.x;
 
 			// rotation direction reversed if touch is below the player figure
-			if (touchZero.position.y < camera.WorldToScreenPoint (playerPosition).y)
+			if (touchZero.position.y < gameCamera.WorldToScreenPoint (playerPosition).y)
 				
 				// Adjust for different device's screen widths. Then multiply by the angles that a total screen width swipe will rotate
 				deltaTouchX = deltaTouchX / Screen.width * 360;
@@ -106,7 +106,7 @@ public class CameraController : MonoBehaviour {
 			float deltaTouchY = touchZero.deltaPosition.y;
 
 			// Rotation direction reversed if touch is right of the player figure
-			if (touchZero.position.x > camera.WorldToScreenPoint (playerPosition).x)
+			if (touchZero.position.x > gameCamera.WorldToScreenPoint (playerPosition).x)
 
 				// Adjust for different device's screen widths. Then multiply by the angles that a total screen width swipe will rotate
 				deltaTouchY = deltaTouchY / Screen.height * 180;

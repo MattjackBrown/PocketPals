@@ -14,6 +14,7 @@ public class GPS : MonoBehaviour
     public GameObject originalMap;
 
     public GameObject girl;
+	public GameObject mainCamera;
 
     public bool Moving = false;
 
@@ -205,7 +206,16 @@ public class GPS : MonoBehaviour
         //move and rotate
         if (distance > MovementAccuracy)
         {
+			// Get the start position of the player before applying any movement
+			Vector3 playerStartPosition = girl.transform.position;
+
+			// Apply the movement to the player
             girl.transform.position = Vector3.Lerp(girl.transform.position, destination, movementSpeed * Time.deltaTime);
+
+			// Apply the delta position to the camera transform
+			mainCamera.transform.position += playerStartPosition - girl.transform.position; 
+
+			// Rotate the player model
             girl.GetComponent<Animator>().transform.rotation = Quaternion.Lerp(girl.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
         else
