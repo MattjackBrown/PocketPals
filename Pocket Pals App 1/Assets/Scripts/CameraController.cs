@@ -245,7 +245,7 @@ public class CameraController : MonoBehaviour {
 
 		// Get the target camera position based on player position and pocketPalPosition
 		targetPocketPalPosition = targetPocketPal.transform.position;
-		cameraTargetPosition = targetPocketPalPosition + (playerPosition - targetPocketPalPosition).normalized * captureCamDistance;
+		cameraTargetPosition = targetPocketPalPosition + lookAtPositionPlayerOffset + (playerPosition - targetPocketPalPosition).normalized * captureCamDistance;
 
 		// So that Update() knows to zoom in
 		isZoomingIn = true;
