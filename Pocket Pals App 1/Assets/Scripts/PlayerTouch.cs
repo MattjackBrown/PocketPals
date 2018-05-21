@@ -35,8 +35,9 @@ public class PlayerTouch : MonoBehaviour {
             {
                 if (IsDebug)
                 {
-                    GetComponentInParent<GPS>().IsDebug = true;
+                    GetComponentInParent<GPS>().SetIsDebug(true);
                     GetComponentInParent<GPS>().SetPlayerMovePoint(hit.transform.position);
+                    Debug.DrawLine(Input.mousePosition, hit.transform.position, Color.red);
                 }
                 if (hit.transform.gameObject.GetComponent("PocketPalParent"))
                 {

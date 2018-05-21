@@ -45,10 +45,10 @@ public class GPS : MonoBehaviour
     private float DistanceTravelled = 0;
 
     //Set active after the map has been spawned
-    public bool isInitialised = false;
+    private bool isInitialised = false;
 
     private bool HasGps = false;
-    public bool IsDebug =false;
+    private bool IsDebug =false;
 
     Vector3 destination = new Vector3(0,0,0);
 
@@ -212,15 +212,19 @@ public class GPS : MonoBehaviour
 			// Apply the movement to the player
             girl.transform.position = Vector3.Lerp(girl.transform.position, destination, movementSpeed * Time.deltaTime);
 
-			// Apply the delta position to the camera transform
-			mainCamera.transform.position += playerStartPosition - girl.transform.position; 
 
-			// Rotate the player model
-            girl.GetComponent<Animator>().transform.rotation = Quaternion.Lerp(girl.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            // Rotate the player model
+            girl.transform.rotation = Quaternion.Lerp(girl.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            // Apply the delta position to the camera transform
+            mainCamera.transform.position += playerStartPosition - girl.transform.position; 
         }
         else
         {
             Moving = false;
         }
     }
+
+    public bool GetMapInit() { return isInitialised; }
+    public void SetIsDebug(bool b) { IsDebug = b; }
 }

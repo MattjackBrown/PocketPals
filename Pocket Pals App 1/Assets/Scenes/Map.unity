@@ -345,6 +345,7 @@ MonoBehaviour:
   mapGameObject: {fileID: 0}
   originalMap: {fileID: 1514764282}
   girl: {fileID: 206820439}
+  mainCamera: {fileID: 100004, guid: c533162b445f4aa46be382d58e8077c1, type: 3}
   Moving: 0
   loadingScreen: {fileID: 786592890}
   movementSpeed: 1
@@ -353,7 +354,6 @@ MonoBehaviour:
   distanceText: {fileID: 1087010453}
   latText: {fileID: 874576670}
   lonText: {fileID: 1713641259}
-  isInitialised: 0
 --- !u!114 &206820446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -366,6 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 206820441}
+  IsDebug: 0
 --- !u!1 &264124136
 GameObject:
   m_ObjectHideFlags: 0
@@ -4272,6 +4273,8 @@ MonoBehaviour:
   minimumCameraDistance: 4
   maximumCameraDistance: 15
   player: {fileID: 1526316837}
+  compass: {fileID: 0}
+  gameCamera: {fileID: 0}
 --- !u!1 &1360269625
 GameObject:
   m_ObjectHideFlags: 0

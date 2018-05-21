@@ -79,7 +79,7 @@ public class PocketPalSpawnManager : MonoBehaviour
             }
 
             // Checks whether the max number of Pocket Pals have been spawned 
-            if (spawnedPocketPals.Count >= maxPocketPals || !gpsMap.isInitialised)    
+            if (spawnedPocketPals.Count >= maxPocketPals || !gpsMap.GetMapInit())    
             {
                 yield return new WaitForSeconds(GetSpawnDelay());
             }
