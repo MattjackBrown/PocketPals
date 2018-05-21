@@ -52,6 +52,8 @@ public class GPS : MonoBehaviour
 
     Vector3 destination = new Vector3(0,0,0);
 
+    Vector3 LastDestination = new Vector3(0, 0, 0);
+
 	// Use this for initialization
 	void Start ()
     {
@@ -191,7 +193,10 @@ public class GPS : MonoBehaviour
 
     public void SetPlayerMovePoint(Vector3 endPoint)
     {
+        LastDestination = destination;
         destination = endPoint;
+        LocalDataManager.Instance.UpdateDistance(Vector3.Magnitude(destination - LastDestination) / 1000);
+
         Moving = true;
     }
 
@@ -199,9 +204,6 @@ public class GPS : MonoBehaviour
     {
         //CalcDistance
         float distance = Vector3.SqrMagnitude(girl.transform.position - destination);
-
-        //calc rotation
-        Quaternion targetRotation = Quaternion.LookRotation(destination - transform.position);
 
         //move and rotate
         if (distance > MovementAccuracy)
@@ -215,8 +217,14 @@ public class GPS : MonoBehaviour
             // Apply the delta position to the camera transform
             mainCamera.transform.position += playerStartPosition - girl.transform.position;
 
-            // Rotate the player model
-            girl.transform.rotation = Quaternion.Lerp(girl.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            //calc rotation
+            if (destination != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(destination - transform.position);
+
+                // Rotate the player model
+                girl.transform.rotation = Quaternion.Lerp(girl.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
 
         }
         else
@@ -226,5 +234,6 @@ public class GPS : MonoBehaviour
     }
 
     public bool GetMapInit() { return isInitialised; }
+
     public void SetIsDebug(bool b) { IsDebug = b; }
 }
