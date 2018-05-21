@@ -18,12 +18,17 @@ public class CameraController : MonoBehaviour {
 	// The ui compass that will rotate with the view rotation
 	public GameObject compass;
 
+	// The camera for which to use the world to screen location to determine swipe map rotation direction
+	public Camera gameCamera;
+
 	Touch touchZero;
 	Touch touchOne;
 
 	// Use this for initialization
 	void Start () {
-		
+
+		// Set the transform rotation to look at the player + the look at position offset
+		transform.LookAt (player.transform.position + lookAtPositionPlayerOffset);
 	}
 	
 	// Update is called once per frame
@@ -89,14 +94,33 @@ public class CameraController : MonoBehaviour {
 			// Get the horixontal component of the touch's movement
 			float deltaTouchX = touchZero.deltaPosition.x;
 
-			// Adjust for different device's screen widths. Then multiply by the angles that a total screen width swipe will rotate
-			deltaTouchX = deltaTouchX / Screen.width * 180;
+			// rotation direction reversed if touch is below the player figure
+			if (touchZero.position.y < gameCamera.WorldToScreenPoint (playerPosition).y)
+				
+				// Adjust for different device's screen widths. Then multiply by the angles that a total screen width swipe will rotate
+				deltaTouchX = deltaTouchX / Screen.width * 360;
+			else
+				deltaTouchX = -deltaTouchX / Screen.width * 360;
+
+			// Repeat for deltaY touch to enable circling movements to circle the map around
+			float deltaTouchY = touchZero.deltaPosition.y;
+
+			// Rotation direction reversed if touch is right of the player figure
+			if (touchZero.position.x > gameCamera.WorldToScreenPoint (playerPosition).x)
+
+				// Adjust for different device's screen widths. Then multiply by the angles that a total screen width swipe will rotate
+				deltaTouchY = deltaTouchY / Screen.height * 180;
+			else
+				deltaTouchY = -deltaTouchY / Screen.height * 180;
+
+			// Combine both swipe directions into one final value
+			float finalRotation = deltaTouchX + deltaTouchY;
 
 			// Apply the rotation to the transform around the player
-			transform.RotateAround (playerPosition, Vector3.up, deltaTouchX);
+			transform.RotateAround (playerPosition, Vector3.up, finalRotation);
 
 			// Apply the rotation to the compass ui
-			compass.transform.localRotation = Quaternion.Euler(compass.transform.localRotation.eulerAngles + new Vector3(0.0f, 0.0f, deltaTouchX));
+			compass.transform.localRotation = Quaternion.Euler(compass.transform.localRotation.eulerAngles + new Vector3(0.0f, 0.0f, finalRotation));
 
 			break;
 
@@ -112,5 +136,17 @@ public class CameraController : MonoBehaviour {
 //			touchOne = null;
 			break;
 		}
+	}
+
+	void captureCam (GameObject pocketPal) {
+
+		float captureCamDistance = 5.0f;
+		float camZoomInSpeed = 10.0f;
+
+		Vector3 pocketPalPosition = pocketPal.transform.position;
+
+		Vector3 cameraTargetPosition = pocketPalPosition - (transform.position - pocketPalPosition).normalized * captureCamDistance;
+
+		transform.position = Vector3.Lerp (transform.position, cameraTargetPosition, Time.deltaTime * camZoomInSpeed);
 	}
 }
