@@ -1318,7 +1318,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.1, y: 0.1, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &95893897328125800
 Animator:
@@ -1353,6 +1353,7 @@ MonoBehaviour:
   Scale: {x: 5, y: 5, z: 5}
   Offset: {x: 0, y: 0, z: 0}
   boarder: {fileID: 21300000, guid: f92c83488fec8064788d46f0628770aa, type: 3}
+  Rarity: 10
 --- !u!137 &137645361246960480
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

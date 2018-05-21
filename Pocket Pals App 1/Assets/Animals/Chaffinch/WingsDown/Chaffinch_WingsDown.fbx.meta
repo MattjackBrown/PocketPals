@@ -3,7 +3,7 @@ guid: 18f05b536c03d3b4cb5782dbe72be5aa
 timeCreated: 1520273333
 licenseType: Free
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: Chaffinch_Folded_Wings
     100002: //RootNode
@@ -22,10 +22,20 @@ ModelImporter:
     4300000: Chaffinch_Folded_Wings
     4300002: Wing01
     4300004: Wing02
+    6400000: Chaffinch_Folded_Wings
+    6400002: Wing01
+    6400004: Wing02
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: f17b56fa33d412b47b57541ad596ad23, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -38,6 +48,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -51,7 +62,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

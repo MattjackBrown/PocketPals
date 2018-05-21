@@ -3,7 +3,7 @@ guid: 059e22031bc0523478c4cc8614efa0ac
 timeCreated: 1520085149
 licenseType: Free
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: Butt_CTRL
     100002: Butt_Offset
@@ -188,10 +188,17 @@ ModelImporter:
     13700036: L_Spike_08
     13700038: L_Spike_09
     13700040: L_Spike_11
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Hedgehog1
+    second: {fileID: 2100000, guid: ac8b28c52fbf47a41b9f87ee0cc44c20, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -204,6 +211,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -217,7 +225,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-    addColliders: 0
+    addColliders: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

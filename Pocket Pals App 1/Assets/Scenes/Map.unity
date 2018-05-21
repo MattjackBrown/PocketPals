@@ -260,19 +260,6 @@ MonoBehaviour:
   distanceText: {fileID: 1087010453}
   latText: {fileID: 874576670}
   lonText: {fileID: 1713641259}
---- !u!114 &206820446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 206820439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c43ea02ae7c92e4785c22e86a3eb46c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 206820441}
-  IsDebug: 1
 --- !u!1 &223471537
 GameObject:
   m_ObjectHideFlags: 0
@@ -2952,8 +2939,8 @@ MonoBehaviour:
   - {fileID: 1648945472042286, guid: a7d977456cfc9544cbf0ccb9282222f0, type: 2}
   - {fileID: 1687172272050584, guid: 6986d4d460aaf564185245ae3363df49, type: 2}
   - {fileID: 1593739566883158, guid: 3ee05626ea3191d42909d92ecefd4185, type: 2}
-  avgSpawnTime: 10
-  spawnTimeVariance: 50
+  avgSpawnTime: 1
+  spawnTimeVariance: 0
   spawnPoints:
   - {fileID: 1267739198}
   - {fileID: 1597336364}
@@ -2976,7 +2963,7 @@ MonoBehaviour:
   - {fileID: 990544974}
   - {fileID: 470987506}
   gpsMap: {fileID: 206820443}
-  maxPocketPals: 5
+  maxPocketPals: 30
 --- !u!1 &1151291767
 GameObject:
   m_ObjectHideFlags: 0
@@ -3672,9 +3659,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minimumCameraDistance: 4
   maximumCameraDistance: 15
-  player: {fileID: 1526316837}
-  compass: {fileID: 0}
-  gameCamera: {fileID: 0}
+  IsDebug: 1
+  player: {fileID: 206820439}
+  compass: {fileID: 1084178749}
+  gameCamera: {fileID: 1331972348}
+  maxCaptureDistance: 15
 --- !u!1 &1392959613
 GameObject:
   m_ObjectHideFlags: 0
@@ -4052,10 +4041,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1170925124}
   m_Script: {fileID: 11500000, guid: dae9a62a6a8194f49bab9128c9acffb7, type: 3}
---- !u!1 &1526316837 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 100002, guid: c533162b445f4aa46be382d58e8077c1, type: 3}
-  m_PrefabInternal: {fileID: 2012462310}
 --- !u!1 &1531941528
 GameObject:
   m_ObjectHideFlags: 0
