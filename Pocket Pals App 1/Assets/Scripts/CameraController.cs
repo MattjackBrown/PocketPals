@@ -25,9 +25,36 @@ public class CameraController : MonoBehaviour {
 	// The max distance allowed by the raycast hit detection
 	public float maxCaptureDistance = 10.0f;
 
+	// The distance of the camera away from the pocket pal for the minigame
+	float captureCamDistance = 4.0f;
+
+	// Zoom in speed for the camera from the game view to the minigame view
+	float captureZoomInSpeed = 0.5f;
+
+	// To store the game view camera position relative to the player, to return to after the minigame
+	Vector3 returnCamOffsetAfterCapture;
+
+	// The minigame position for the camera
+	Vector3 cameraTargetPosition;
+	Vector3 cameraLookAtPoint;
+	GameObject targetPocketPal;
+	bool isZoomingIn = false;
+	float zoomLerp;
+	Vector3 zoomCamStartPosition;
+	Vector3 zoomCamLookAtStartPosition;
+	Vector3 targetPocketPalPosition;
+
 	Touch touchZero;
 	Touch touchOne;
 	Vector3 playerPosition;
+
+	enum ControlScheme {
+		disabled,
+		map,
+		miniGame,
+	}
+
+	ControlScheme controlScheme = ControlScheme.map;
 
 	// Use this for initialization
 	void Start () {
@@ -39,20 +66,47 @@ public class CameraController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		// Switch statement behaves differently with different number of touches
-		switch (Input.touchCount) { 
+		// Choose how to parse the touch controls based on the current control scheme
+		switch (controlScheme) {
 
-		// Check for pinch to zoom control. The only control to use > two touches. Uses fallthrough cases
-		case 4:
-		case 3:
-		case 2:
-			PinchZoom ();
+		// Allows rotating, zooming, and tapping on pocketPals to initiate capture
+		case ControlScheme.map:
+			{
+				// Switch statement behaves differently with different number of touches
+				switch (Input.touchCount) { 
+
+				// Check for pinch to zoom control. The only control to use > two touches. Uses fallthrough cases
+				case 4:
+				case 3:
+				case 2:
+					PinchZoom ();
+					break;
+
+				// check for a single touch swiping
+				case 1:
+					RotateMap ();
+					CheckForTap ();
+					break;
+				}
+			}
 			break;
 
-		// check for a single touch swiping
-		case 1:
-			RotateMap ();
-			CheckForTap ();
+		case ControlScheme.miniGame:
+			{
+
+			}
+			break;
+
+		// 
+		case ControlScheme.disabled:
+			{
+				// Currently controls are only disabled when camera is transitioning between map and minigame views
+				if (isZoomingIn) {
+					MoveCaptureCamToCaptureView ();
+				} else {
+					MoveCaptureCamToMapView ();
+				}
+			}
 			break;
 		}
 	}
@@ -157,35 +211,123 @@ public class CameraController : MonoBehaviour {
 				Ray ray = Camera.main.ScreenPointToRay (Input.GetTouch (i).position);
 
 				// if hit
-				if (Physics.Raycast (ray, out hit, maxCaptureDistance)) {
+				if (Physics.Raycast (ray, out hit)) {
 
 					if (IsDebug) {
 						GetComponentInParent<GPS> ().SetIsDebug (true);
 						GetComponentInParent<GPS> ().SetPlayerMovePoint (hit.transform.position);
 						Debug.DrawLine (Input.mousePosition, hit.transform.position, Color.red, 10000, false);
 					}
-					if (hit.transform.gameObject.GetComponent ("PocketPalParent")) {
+					// If the hit gameObject has a component "PocketPalParent" and is within the capture distance from the player
+					if (hit.transform.gameObject.GetComponent ("PocketPalParent") && (hit.transform.position - playerPosition).magnitude < maxCaptureDistance) {
+
+						// Initialise the capture cam values
+						CaptureCamInit (hit.transform.gameObject);
 						
 						PocketPalParent hitPocketPal = (PocketPalParent)hit.transform.gameObject.GetComponent ("PocketPalParent");
 						Debug.Log (hitPocketPal.PocketPalID);
-
-						// Add to the player's inventory
-						player.GetComponent<PocketPalInventory>().AddPocketPal (hit.transform.gameObject);
 					}
 				}
 			}
 		}
 	}
 
-	void captureCam (GameObject pocketPal) {
+	void CaptureCamInit (GameObject pocketPal) {
 
-		float captureCamDistance = 5.0f;
-		float camZoomInSpeed = 10.0f;
+		// Store the pocketPal
+		targetPocketPal = pocketPal;
 
-		Vector3 pocketPalPosition = pocketPal.transform.position;
+		zoomCamStartPosition = transform.position;
+		zoomCamLookAtStartPosition = playerPosition + lookAtPositionPlayerOffset;
 
-		Vector3 cameraTargetPosition = pocketPalPosition - (transform.position - pocketPalPosition).normalized * captureCamDistance;
+		// Store the starting position from the player to return to after minigame finished
+		returnCamOffsetAfterCapture = transform.position - player.transform.position;
 
-		transform.position = Vector3.Lerp (transform.position, cameraTargetPosition, Time.deltaTime * camZoomInSpeed);
+		// Get the target camera position based on player position and pocketPalPosition
+		targetPocketPalPosition = targetPocketPal.transform.position;
+		cameraTargetPosition = targetPocketPalPosition + (playerPosition - targetPocketPalPosition).normalized * captureCamDistance;
+
+		// So that Update() knows to zoom in
+		isZoomingIn = true;
+
+		// For the Vector3.lerp function
+		zoomLerp = 0.0f;
+
+		// Disable the controls while the camera zooms in
+		controlScheme = ControlScheme.disabled;
+	}
+
+	void MoveCaptureCamToCaptureView() {
+
+		// Advance the lerp float
+		zoomLerp += Time.deltaTime * captureZoomInSpeed;
+
+		// Not sure about this bit. It works fine but the lerp may have to be done differently to smooth
+		transform.position = Vector3.Lerp (zoomCamStartPosition, cameraTargetPosition, zoomLerp);
+
+		// Lerp the lookAtPoint
+		cameraLookAtPoint = Vector3.Lerp (zoomCamLookAtStartPosition, targetPocketPalPosition, zoomLerp);
+
+		// Set the look at transform for the camera
+		transform.LookAt(cameraLookAtPoint);
+
+		// If camera is in position
+		if ((transform.position - targetPocketPal.transform.position).magnitude <= captureCamDistance) {
+
+			// Init minigame!!!
+			InitMiniGame();
+		}
+	}
+
+	void MoveCaptureCamToMapView() {
+
+		// Can probably just do this once somewhere
+		controlScheme = ControlScheme.disabled;
+
+
+
+		// Advance the lerp float
+		zoomLerp += Time.deltaTime * captureZoomInSpeed;
+
+		// Update the player position
+		playerPosition = player.transform.position;
+
+		// Not sure about this bit. It works fine but the lerp may have to be done differently to smooth.
+		// * 1.1f used as the self calling lerp doesn't ever reach the target. This tells it to overshoot the target
+		transform.position = Vector3.Lerp (cameraTargetPosition, returnCamOffsetAfterCapture + playerPosition, zoomLerp);
+
+		// Lerp the lookAtPoint
+		cameraLookAtPoint = Vector3.Lerp (targetPocketPalPosition, playerPosition + lookAtPositionPlayerOffset, zoomLerp);
+
+		// Set the look at transform for the camera
+		transform.LookAt(cameraLookAtPoint);
+
+		// Check if arrived. Comparing the distance away from the player to begin with vs now
+		if ((transform.position - playerPosition).magnitude >= returnCamOffsetAfterCapture.magnitude) {
+
+			// Return to map controls
+			controlScheme = ControlScheme.map;
+		}
+
+	}
+
+	void InitMiniGame () {
+
+		// temp
+		isZoomingIn = false;
+
+		zoomLerp = 0.0f;
+
+
+
+		// Add to the player's inventory
+		player.GetComponent<PocketPalInventory>().AddPocketPal (targetPocketPal);
+
+		// Set the control scheme to the minigame scheme
+//		controlScheme = ControlScheme.miniGame;
+
+		// Set the background image
+
+		// Init gameplay
 	}
 }
