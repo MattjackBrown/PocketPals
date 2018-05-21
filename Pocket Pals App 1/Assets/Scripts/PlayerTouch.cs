@@ -37,14 +37,13 @@ public class PlayerTouch : MonoBehaviour {
                 {
                     GetComponentInParent<GPS>().SetIsDebug(true);
                     GetComponentInParent<GPS>().SetPlayerMovePoint(hit.transform.position);
-                    Debug.DrawLine(Input.mousePosition, hit.transform.position, Color.red);
+                    Debug.DrawLine(Input.mousePosition, hit.transform.position, Color.red, 10000, false);
                 }
                 if (hit.transform.gameObject.GetComponent("PocketPalParent"))
                 {
                     PocketPalParent pocketPal = (PocketPalParent)hit.transform.gameObject.GetComponent("PocketPalParent");
                     Debug.Log(pocketPal.PocketPalID);
                     inventory.AddPocketPal(hit.transform.gameObject);
-
                 }
             }
         }

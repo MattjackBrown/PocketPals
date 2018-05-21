@@ -212,12 +212,12 @@ public class GPS : MonoBehaviour
 			// Apply the movement to the player
             girl.transform.position = Vector3.Lerp(girl.transform.position, destination, movementSpeed * Time.deltaTime);
 
+            // Apply the delta position to the camera transform
+            mainCamera.transform.position += playerStartPosition - girl.transform.position;
 
             // Rotate the player model
             girl.transform.rotation = Quaternion.Lerp(girl.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
-            // Apply the delta position to the camera transform
-            mainCamera.transform.position += playerStartPosition - girl.transform.position; 
         }
         else
         {
