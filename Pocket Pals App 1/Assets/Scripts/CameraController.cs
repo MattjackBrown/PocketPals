@@ -23,37 +23,36 @@ public class CameraController : MonoBehaviour {
 	Camera gameCamera;
 
 	// The max distance allowed by the raycast hit detection
-	public float maxCaptureDistance = 10.0f;
+	public float maxCaptureDistance = 15.0f;
 
 	// The distance of the camera away from the pocket pal for the minigame
-	float captureCamDistance = 4.0f;
+	float captureCamDistance = 3.0f;
 
 	// Zoom in speed for the camera from the game view to the minigame view
-	float captureZoomInSpeed = 0.5f;
+	float captureZoomInSpeed = 0.8f;
 
 	// To store the game view camera position relative to the player, to return to after the minigame
 	Vector3 returnCamOffsetAfterCapture;
 
-	// The minigame position for the camera
-	Vector3 cameraTargetPosition;
-	Vector3 cameraLookAtPoint;
+	// The positions used to lerp the camera position from map to minigame view
+	Vector3 cameraTargetPosition, cameraLookAtPoint, zoomCamStartPosition, zoomCamLookAtStartPosition, targetPocketPalPosition;
+
 	GameObject targetPocketPal;
 	bool isZoomingIn = false;
 	float zoomLerp;
-	Vector3 zoomCamStartPosition;
-	Vector3 zoomCamLookAtStartPosition;
-	Vector3 targetPocketPalPosition;
 
-	Touch touchZero;
-	Touch touchOne;
+	Touch touchZero, touchOne;
+
 	Vector3 playerPosition;
 
+	// The state machine for the controls
 	enum ControlScheme {
 		disabled,
 		map,
 		miniGame,
 	}
 
+	// Initialise as the map controls
 	ControlScheme controlScheme = ControlScheme.map;
 
 	// Use this for initialization
@@ -70,7 +69,7 @@ public class CameraController : MonoBehaviour {
 	void Update () {
 
         //used for testing on the pc
-        if (IsDebug && (Input.GetMouseButtonDown(0)) && controlScheme != ControlScheme.disabled)
+        if (IsDebug && (Input.GetMouseButtonDown(0)))
         {
             DebugTouch();
         }
@@ -221,7 +220,7 @@ public class CameraController : MonoBehaviour {
             if (hit.transform.gameObject.GetComponent<PocketPalParent>())
             {
                 CaptureCamInit(hit.transform.gameObject);
-
+                Debug.Log("hiu");
                 PocketPalParent hitPocketPal = hit.transform.gameObject.GetComponent<PocketPalParent>();
                 Debug.Log(hitPocketPal.PocketPalID);
             }
@@ -241,11 +240,9 @@ public class CameraController : MonoBehaviour {
 		// Look at each touch
 		for (int i = 0; i < Input.touchCount; i++)
         {
-
 			// If touch has just begun
 			if (Input.GetTouch (i).phase.Equals (TouchPhase.Began))
             {
-
 				// Raycast from the touch position
 				Ray ray = Camera.main.ScreenPointToRay (Input.GetTouch (i).position);
 
@@ -279,7 +276,9 @@ public class CameraController : MonoBehaviour {
 
 		// Get the target camera position based on player position and pocketPalPosition
 		targetPocketPalPosition = targetPocketPal.transform.position;
-		cameraTargetPosition = targetPocketPalPosition + lookAtPositionPlayerOffset + (playerPosition - targetPocketPalPosition).normalized * captureCamDistance;
+		cameraTargetPosition = targetPocketPalPosition + (playerPosition - targetPocketPalPosition).normalized * captureCamDistance;
+
+		cameraTargetPosition = new Vector3 (cameraTargetPosition.x, lookAtPositionPlayerOffset.y, cameraTargetPosition.z);
 
 		// So that Update() knows to zoom in
 		isZoomingIn = true;
@@ -292,7 +291,8 @@ public class CameraController : MonoBehaviour {
 	}
 
 	void MoveCaptureCamToCaptureView() {
-
+		
+		// Check if arrived. Lerp is complete when == 1.0f
 		if (zoomLerp >= 1.0f) {
 
 			// Init minigame!!!
@@ -311,14 +311,6 @@ public class CameraController : MonoBehaviour {
 
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
-
-			// If camera is in position
-			if ((transform.position - targetPocketPal.transform.position).magnitude <= captureCamDistance) {
-
-				// Init minigame!!!
-				InitMiniGame ();
-                isZoomingIn = false;
-			}
 		}
 	}
 
@@ -350,13 +342,6 @@ public class CameraController : MonoBehaviour {
 
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
-
-			// Check if arrived. Comparing the distance away from the player to begin with vs now
-			if ((transform.position - playerPosition).magnitude >= returnCamOffsetAfterCapture.magnitude) {
-
-				// Return to map controls
-				controlScheme = ControlScheme.map;
-			}
 		}
 	}
 
