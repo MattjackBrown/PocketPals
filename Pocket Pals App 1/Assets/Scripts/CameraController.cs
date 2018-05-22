@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mapbox.Unity.Map;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour {
 
@@ -55,6 +56,16 @@ public class CameraController : MonoBehaviour {
 	// Initialise as the map controls
 	ControlScheme controlScheme = ControlScheme.map;
 
+
+
+	public Image viewFinder;
+	float minigameTimer = 0.0f;
+	float minigameTimeAllowance = 4.0f;
+	float captureTimer = 0.0f;
+
+
+
+
 	// Use this for initialization
 	void Start () {
 
@@ -101,7 +112,7 @@ public class CameraController : MonoBehaviour {
 
 		case ControlScheme.miniGame:
 			{
-
+				UpdateMiniGame (touchZero.position);
 			}
 			break;
 
@@ -316,9 +327,6 @@ public class CameraController : MonoBehaviour {
 
 	void MoveCaptureCamToMapView() {
 
-		// Can probably just do this once somewhere
-		controlScheme = ControlScheme.disabled;
-
 		// Check if arrived. Lerp is complete when == 1.0f
 		if (zoomLerp >= 1.0f) {
 
@@ -348,14 +356,13 @@ public class CameraController : MonoBehaviour {
 	void InitMiniGame () {
 
 		// temp
-		isZoomingIn = false;
+		viewFinder.enabled = true;
 
-		zoomLerp = 0.0f;
+		minigameTimer = 0.0f;
+		minigameTimeAllowance = 6.0f;
+		captureTimer = 0.0f;
 
-
-
-		// Add to the player's inventory
-		player.GetComponent<PocketPalInventory>().AddPocketPal (targetPocketPal);
+		controlScheme = ControlScheme.miniGame;
 
 		// Set the control scheme to the minigame scheme
 //		controlScheme = ControlScheme.miniGame;
@@ -363,5 +370,29 @@ public class CameraController : MonoBehaviour {
 		// Set the background image
 
 		// Init gameplay
+	}
+
+	void UpdateMiniGame (Vector2 touchLocation) {
+
+		if (minigameTimer < minigameTimeAllowance) {
+
+			minigameTimer += Time.deltaTime;
+
+			viewFinder.rectTransform.anchoredPosition = touchLocation;
+
+		} else {
+
+			// Add to the player's inventory
+			player.GetComponent<PocketPalInventory> ().AddPocketPal (targetPocketPal);
+
+			viewFinder.enabled = false;
+
+			isZoomingIn = false;
+
+			zoomLerp = 0.0f;
+
+			// Can probably just do this once somewhere
+			controlScheme = ControlScheme.disabled;
+		}
 	}
 }
