@@ -1,34 +1,38 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PocketPalInventory : MonoBehaviour {
+[System.Serializable]
+public class PocketPalInventory
+{
+    private List<PocketPalData> myPPals = new List<PocketPalData>();
 
-    private List<GameObject> myPPals = new List<GameObject>();
-
-    public PocketPalSpawnManager spawner;
-
-	// Use this for initialization
-	void Start ()
+    public void AddPocketPal(PocketPalParent obj)
     {
-		
-	}
-
-    public void AddPocketPal(GameObject obj)
-    {
-        obj.SetActive(false);
-        spawner.PocketpalCollected(obj);
-        myPPals.Add(obj);
+        PocketPalData ppd = new PocketPalData(obj.name, obj.PocketPalID, Guid.NewGuid().ToString(), 0);
+        myPPals.Add(ppd);
     }
 
-    public List<GameObject> GetMyPocketPals()
+    public List<PocketPalData> GetMyPocketPals()
     {
         return myPPals;
     }
 
     public GameObject GetMostRecent()
     {
-        return myPPals[myPPals.Count - 1];
+        //Use the asset manager to look up the gameobject assosiated to that pocketpal ID
+        return AssetManager.Instance.GetPocketPalFromID(myPPals[myPPals.Count - 1].ID);
+    }
+
+    public string GetPocketPalsID()
+    {
+        string str = "";
+        foreach (PocketPalData ppd in myPPals)
+        {
+            str += ppd.ID;
+        }
+        return str;
     }
 
     public List<GameObject> GetXMostRecent(int x)
@@ -39,14 +43,9 @@ public class PocketPalInventory : MonoBehaviour {
 
         for (int i = 1; i < x+1; i++)
         {
-            rList.Add(myPPals[myPPals.Count - i]);
+            //Use the asset manager to look up the gameobject assosiated to that pocketpal ID
+            rList.Add(AssetManager.Instance.GetPocketPalFromID(myPPals[myPPals.Count - i].ID));
         }
         return rList;
     }
-
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
 }

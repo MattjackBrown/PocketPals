@@ -80,7 +80,7 @@ public class CameraController : MonoBehaviour {
 	void Update () {
 
         //used for testing on the pc
-        if (IsDebug && (Input.GetMouseButtonDown(0)))
+        if (IsDebug && (Input.GetMouseButtonDown(0)) && controlScheme == ControlScheme.map)
         {
             DebugTouch();
         }
@@ -382,8 +382,8 @@ public class CameraController : MonoBehaviour {
 
 		} else {
 
-			// Add to the player's inventory
-			player.GetComponent<PocketPalInventory> ().AddPocketPal (targetPocketPal);
+            // Add to the player's inventory
+            targetPocketPal.GetComponent<PocketPalParent>().Captured();
 
 			viewFinder.enabled = false;
 

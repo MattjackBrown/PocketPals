@@ -39,6 +39,17 @@ public class LocalDataManager : MonoBehaviour {
         SaveData();
     }
 
+    public void AddPocketPal(GameObject obj)
+    {
+        localData.Inventory.AddPocketPal(obj.GetComponent<PocketPalParent>());
+        SaveData();
+    }
+
+    public PocketPalInventory GetInventory()
+    {
+        return localData.Inventory;
+    }
+
     void SaveData()
     {
         FileStream file;
@@ -77,6 +88,7 @@ public class LocalDataManager : MonoBehaviour {
 
             Debug.Log(localData.DistanceTravelled);
             Debug.Log(localData.Username);
+            Debug.Log(localData.Inventory.GetPocketPalsID());
         }
         catch
         {

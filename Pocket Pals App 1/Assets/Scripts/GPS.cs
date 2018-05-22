@@ -118,6 +118,9 @@ public class GPS : MonoBehaviour
         currentMap = mapGameObject.GetComponent<BasicMap>();
         currentMap.Initialize(new Vector2d(StartLat, StartLong),zoom);
 
+        //offset the map to make sure the player is in the origin
+        currentMap.transform.position -= new Vector3(currentMap.UnityTileSize / 2, 0, currentMap.UnityTileSize / 2);
+
         isInitialised = true;
     }
 

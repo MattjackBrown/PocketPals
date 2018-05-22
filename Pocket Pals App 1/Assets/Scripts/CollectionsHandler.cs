@@ -5,20 +5,7 @@ using UnityEngine.UI;
 
 public class CollectionsHandler : MonoBehaviour {
 
-    public PocketPalInventory inventory;
-
     public Image[] AvailableFrames;
-
-	// Use this for initialization
-	void Start ()
-    {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void OnEnable()
     {
@@ -28,7 +15,7 @@ public class CollectionsHandler : MonoBehaviour {
     public void RefreshImages()
     {
         int iter = 0;
-        foreach (GameObject obj in inventory.GetXMostRecent(AvailableFrames.Length))
+        foreach (GameObject obj in LocalDataManager.Instance.GetInventory().GetXMostRecent(AvailableFrames.Length))
         {
             PocketPalParent p = (PocketPalParent)obj.GetComponent("PocketPalParent");
             if (p.boarder != null)

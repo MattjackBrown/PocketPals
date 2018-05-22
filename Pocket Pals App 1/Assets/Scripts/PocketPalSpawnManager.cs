@@ -8,8 +8,8 @@ using UnityEngine;
 
 public class PocketPalSpawnManager : MonoBehaviour
 {
-    // The Pocket Pal prefabs to be spawned
-    public GameObject[] PocketPals;
+
+    public static PocketPalSpawnManager Instance { set; get; }
 
     // How long between each spawn
     public float avgSpawnTime = 2f;
@@ -38,8 +38,10 @@ public class PocketPalSpawnManager : MonoBehaviour
 
 	void Start ()
 	{
+        Instance = this;
+
         //Iter throught the PocketPalscripts and set their IDs
-        foreach (GameObject o in PocketPals)
+        foreach (GameObject o in AssetManager.Instance.PocketPals)
         {
             rarityList.Add(o.GetComponent<PocketPalParent>().Rarity);
         }
@@ -54,12 +56,14 @@ public class PocketPalSpawnManager : MonoBehaviour
     public void PocketpalCollected(GameObject obj)
     {
         spawnedPocketPals.Remove(obj);
+        LocalDataManager.Instance.AddPocketPal(obj);
+        Destroy(obj);
     }
 
     private GameObject GetWeightedPocketPal()
     {
         int index = Sampler(rarityList);
-        return PocketPals[index];
+        return AssetManager.Instance.PocketPals[index];
     }
 
     private float GetSpawnDelay()
@@ -70,6 +74,7 @@ public class PocketPalSpawnManager : MonoBehaviour
     private IEnumerator Spawn()
     {
         bool StartDelay = true;
+
         while (shouldSpawn)
         {
             if (StartDelay)
@@ -87,7 +92,7 @@ public class PocketPalSpawnManager : MonoBehaviour
             {
                 // Find a random index between zero and one less than the number of spawn points
                 int spawnPointIndex = Random.Range(0, spawnPoints.Length);
-                int RandomPocketPal = Random.Range(0, PocketPals.Length);
+                int RandomPocketPal = Random.Range(0, AssetManager.Instance.PocketPals.Length);
 
                 //select spawn point's position and rotation
                 Vector3 pos = spawnPoints[spawnPointIndex].position;

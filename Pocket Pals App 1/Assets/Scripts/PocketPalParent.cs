@@ -41,4 +41,9 @@ public class PocketPalParent : MonoBehaviour
         // rotates the object on the x, y and z axis
         transform.Rotate(Rotation * Time.deltaTime); 
     }
+
+    public void Captured()
+    {
+        PocketPalSpawnManager.Instance.PocketpalCollected(gameObject);
+    }
 }
