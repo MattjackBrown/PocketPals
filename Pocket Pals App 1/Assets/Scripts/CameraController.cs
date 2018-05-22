@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour {
 	public GameObject compass;
 
 	// The camera for which to use the world to screen location to determine swipe map rotation direction
-	public Camera gameCamera;
+	Camera gameCamera;
 
 	// The max distance allowed by the raycast hit detection
 	public float maxCaptureDistance = 10.0f;
@@ -61,6 +61,9 @@ public class CameraController : MonoBehaviour {
 
 		// Set the transform rotation to look at the player + the look at position offset
 		transform.LookAt (player.transform.position + lookAtPositionPlayerOffset);
+
+		// Get the Camera component from the parent
+		gameCamera = GetComponentInParent<Camera>();
 	}
 	
 	// Update is called once per frame
@@ -224,8 +227,8 @@ public class CameraController : MonoBehaviour {
             }
             else if (IsDebug)
             {
-                GetComponentInParent<GPS>().SetIsDebug(true);
-                GetComponentInParent<GPS>().SetPlayerMovePoint(hit.transform.position);
+				player.GetComponent<GPS>().SetIsDebug(true);
+				player.GetComponent<GPS>().SetPlayerMovePoint(hit.transform.position);
             }
         }
     }
@@ -252,7 +255,6 @@ public class CameraController : MonoBehaviour {
 					// If the hit gameObject has a component "PocketPalParent" and is within the capture distance from the player
 					if (hit.transform.gameObject.GetComponent ("PocketPalParent") && (hit.transform.position - playerPosition).magnitude < maxCaptureDistance)
                     {
-
 						// Initialise the capture cam values
 						CaptureCamInit (hit.transform.gameObject);
 						
@@ -291,23 +293,31 @@ public class CameraController : MonoBehaviour {
 
 	void MoveCaptureCamToCaptureView() {
 
-		// Advance the lerp float
-		zoomLerp += Time.deltaTime * captureZoomInSpeed;
-
-		// Not sure about this bit. It works fine but the lerp may have to be done differently to smooth
-		transform.position = Vector3.Lerp (zoomCamStartPosition, cameraTargetPosition, zoomLerp);
-
-		// Lerp the lookAtPoint
-		cameraLookAtPoint = Vector3.Lerp (zoomCamLookAtStartPosition, targetPocketPalPosition, zoomLerp);
-
-		// Set the look at transform for the camera
-		transform.LookAt(cameraLookAtPoint);
-
-		// If camera is in position
-		if ((transform.position - targetPocketPal.transform.position).magnitude <= captureCamDistance) {
+		if (zoomLerp >= 1.0f) {
 
 			// Init minigame!!!
-			InitMiniGame();
+			InitMiniGame ();
+
+		} else {
+
+			// Advance the lerp float
+			zoomLerp += Time.deltaTime * captureZoomInSpeed;
+
+			// Not sure about this bit. It works fine but the lerp may have to be done differently to smooth
+			transform.position = Vector3.Lerp (zoomCamStartPosition, cameraTargetPosition, zoomLerp);
+
+			// Lerp the lookAtPoint
+			cameraLookAtPoint = Vector3.Lerp (zoomCamLookAtStartPosition, targetPocketPalPosition, zoomLerp);
+
+			// Set the look at transform for the camera
+			transform.LookAt (cameraLookAtPoint);
+
+			// If camera is in position
+			if ((transform.position - targetPocketPal.transform.position).magnitude <= captureCamDistance) {
+
+				// Init minigame!!!
+				InitMiniGame ();
+			}
 		}
 	}
 
@@ -316,31 +326,37 @@ public class CameraController : MonoBehaviour {
 		// Can probably just do this once somewhere
 		controlScheme = ControlScheme.disabled;
 
-
-
-		// Advance the lerp float
-		zoomLerp += Time.deltaTime * captureZoomInSpeed;
-
-		// Update the player position
-		playerPosition = player.transform.position;
-
-		// Not sure about this bit. It works fine but the lerp may have to be done differently to smooth.
-		// * 1.1f used as the self calling lerp doesn't ever reach the target. This tells it to overshoot the target
-		transform.position = Vector3.Lerp (cameraTargetPosition, returnCamOffsetAfterCapture + playerPosition, zoomLerp);
-
-		// Lerp the lookAtPoint
-		cameraLookAtPoint = Vector3.Lerp (targetPocketPalPosition, playerPosition + lookAtPositionPlayerOffset, zoomLerp);
-
-		// Set the look at transform for the camera
-		transform.LookAt(cameraLookAtPoint);
-
-		// Check if arrived. Comparing the distance away from the player to begin with vs now
-		if ((transform.position - playerPosition).magnitude >= returnCamOffsetAfterCapture.magnitude) {
+		// Check if arrived. Lerp is complete when == 1.0f
+		if (zoomLerp >= 1.0f) {
 
 			// Return to map controls
 			controlScheme = ControlScheme.map;
-		}
 
+		} else {
+
+			// Advance the lerp float
+			zoomLerp += Time.deltaTime * captureZoomInSpeed;
+
+			// Update the player position
+			playerPosition = player.transform.position;
+
+			// Not sure about this bit. It works fine but the lerp may have to be done differently to smooth.
+			// * 1.1f used as the self calling lerp doesn't ever reach the target. This tells it to overshoot the target
+			transform.position = Vector3.Lerp (cameraTargetPosition, returnCamOffsetAfterCapture + playerPosition, zoomLerp);
+
+			// Lerp the lookAtPoint
+			cameraLookAtPoint = Vector3.Lerp (targetPocketPalPosition, playerPosition + lookAtPositionPlayerOffset, zoomLerp);
+
+			// Set the look at transform for the camera
+			transform.LookAt (cameraLookAtPoint);
+
+			// Check if arrived. Comparing the distance away from the player to begin with vs now
+			if ((transform.position - playerPosition).magnitude >= returnCamOffsetAfterCapture.magnitude) {
+
+				// Return to map controls
+				controlScheme = ControlScheme.map;
+			}
+		}
 	}
 
 	void InitMiniGame () {
