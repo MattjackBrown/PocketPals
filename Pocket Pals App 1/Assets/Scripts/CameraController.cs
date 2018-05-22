@@ -70,7 +70,7 @@ public class CameraController : MonoBehaviour {
 	void Update () {
 
         //used for testing on the pc
-        if (IsDebug && (Input.GetMouseButtonDown(0)))
+        if (IsDebug && (Input.GetMouseButtonDown(0)) && controlScheme != ControlScheme.disabled)
         {
             DebugTouch();
         }
@@ -221,7 +221,7 @@ public class CameraController : MonoBehaviour {
             if (hit.transform.gameObject.GetComponent<PocketPalParent>())
             {
                 CaptureCamInit(hit.transform.gameObject);
-                Debug.Log("hiu");
+
                 PocketPalParent hitPocketPal = hit.transform.gameObject.GetComponent<PocketPalParent>();
                 Debug.Log(hitPocketPal.PocketPalID);
             }
@@ -317,6 +317,7 @@ public class CameraController : MonoBehaviour {
 
 				// Init minigame!!!
 				InitMiniGame ();
+                isZoomingIn = false;
 			}
 		}
 	}

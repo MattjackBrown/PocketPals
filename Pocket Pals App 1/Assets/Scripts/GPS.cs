@@ -215,7 +215,7 @@ public class GPS : MonoBehaviour
             girl.transform.position = Vector3.Lerp(girl.transform.position, destination, movementSpeed * Time.deltaTime);
 
             // Apply the delta position to the camera transform
-            mainCamera.transform.position += playerStartPosition - girl.transform.position;
+            mainCamera.transform.position += girl.transform.position -playerStartPosition;
 
             //calc rotation
             if (destination != Vector3.zero)
