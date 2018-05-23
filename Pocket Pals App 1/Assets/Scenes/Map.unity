@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2665,7 +2665,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controls: {fileID: 1331972349}
   viewFinder: {fileID: 1943813844}
-  minigameTimer: 0
 --- !u!1 &1051015893
 GameObject:
   m_ObjectHideFlags: 0
@@ -3292,6 +3291,11 @@ Prefab:
       propertyPath: _root
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114110380612210384, guid: cadd1a63b8767fe4aabbc56044ff1932,
+        type: 2}
+      propertyPath: _unityTileSize
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: cadd1a63b8767fe4aabbc56044ff1932, type: 2}
@@ -3786,7 +3790,6 @@ MonoBehaviour:
   player: {fileID: 206820439}
   cameraController: {fileID: 1331972350}
   miniGame: {fileID: 1010577586}
-  controlScheme: 0
   IsDebug: 0
   maxCaptureDistance: 15
 --- !u!114 &1331972350
@@ -3800,9 +3803,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc2b2513aa87045a2bc076ac87167bb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumCameraDistance: 4
-  maximumCameraDistance: 15
-  IsDebug: 0
   player: {fileID: 206820439}
   compass: {fileID: 1084178749}
   controls: {fileID: 1331972349}
