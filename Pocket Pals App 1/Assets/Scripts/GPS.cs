@@ -37,6 +37,7 @@ public class GPS : MonoBehaviour
     public float movementSpeed = 1f;
     public float MovementAccuracy = 0.2f;
     public float rotationSpeed = 2.0f;
+    public float resetDistance = 2500.0f;
 
     //Onscreen debug text
     public Text distanceText;
@@ -96,6 +97,11 @@ public class GPS : MonoBehaviour
     //Destroys and creates a new map at the location of the player. 
     public void UpdateMap()
     {
+        //Check to see if this is a midgame update. if so kill all animals
+        if (PocketPalSpawnManager.Instance)
+        {
+            PocketPalSpawnManager.Instance.DespawnAll();
+        }
 
         //Delete the map if there is already one
         if (currentMap != null) Destroy(mapGameObject);
@@ -119,8 +125,6 @@ public class GPS : MonoBehaviour
         currentMap = mapGameObject.GetComponent<BasicMap>();
         currentMap.Initialize(new Vector2d(StartLat, StartLong),zoom);
 
-        //offset the map to make sure the player is in the origin
-        //currentMap.transform.position -= new Vector3(-currentMap.UnityTileSize/2, 0, currentMap.UnityTileSize/2);
 
         isInitialised = true;
     }
@@ -163,8 +167,9 @@ public class GPS : MonoBehaviour
             lonText.text = "lon: " + CurrentLong.ToString();
 
             //distance
-            DistanceTravelled = (float)GetDistanceMeters(StartLat, StartLong, CurrentLat, CurrentLong);
-            distanceText.text = "Dist: " + DistanceTravelled.ToString();
+            DistanceTravelled = GetDistanceMeters(StartLat, StartLong, CurrentLat, CurrentLong);
+            distanceText.text = "Dist From Strt: " + DistanceTravelled.ToString();
+            if (DistanceTravelled > resetDistance) UpdateMap();
 
             //get the direction the player is heading in
             float dirX = CurrentLong - StartLong;
