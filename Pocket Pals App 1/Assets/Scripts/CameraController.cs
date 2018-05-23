@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mapbox.Unity.Map;
+using UnityEngine.PostProcessing;
 
 public class CameraController : MonoBehaviour {
 
@@ -40,6 +41,9 @@ public class CameraController : MonoBehaviour {
 	bool isZoomingIn = false;
 	float zoomLerp;
 
+	PostProcessingProfile postProcessing;
+	float miniGameFocalLength = 0.1f;
+
 
 	// Use this for initialization
 	void Start () {
@@ -49,6 +53,15 @@ public class CameraController : MonoBehaviour {
 
 		// Get the Camera component from the parent
 		gameCamera = GetComponentInParent<Camera>();
+
+		postProcessing = GetComponentInParent<PostProcessingBehaviour> ().profile;
+
+		// Have to use a temporary variable to set the post processing settings
+		var DOFSettings = postProcessing.depthOfField.settings;
+		DOFSettings.focalLength = miniGameFocalLength;
+		postProcessing.depthOfField.settings = DOFSettings;
+
+		postProcessing.depthOfField.enabled = false;
 	}
 /*	
 	// Update is called once per frame
@@ -227,5 +240,30 @@ public class CameraController : MonoBehaviour {
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
 		}
+	}
+
+	public Camera getCamera() {
+		return gameCamera;
+	}
+
+	public void EnableDepthOfField(bool isEnabled) {
+		postProcessing.depthOfField.enabled = isEnabled;
+	}
+
+	public void SetDepthOfField(float distance) {
+
+		// Have to use a temporary variable to change the post processing settings
+		var DOFSettings = postProcessing.depthOfField.settings;
+		DOFSettings.focusDistance = distance;
+		postProcessing.depthOfField.settings = DOFSettings;
+	}
+
+	public void SetDepthOfFieldAndFocalLength(float distance, float aperture) {
+
+		// Have to use a temporary variable to change the post processing settings
+		var DOFSettings = postProcessing.depthOfField.settings;
+		DOFSettings.focusDistance = distance;
+		DOFSettings.aperture = aperture;
+		postProcessing.depthOfField.settings = DOFSettings;
 	}
 }
