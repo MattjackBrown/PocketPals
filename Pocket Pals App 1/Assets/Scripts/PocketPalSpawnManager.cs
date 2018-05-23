@@ -19,19 +19,25 @@ public class PocketPalSpawnManager : MonoBehaviour
     public float spawnTimeVariance = 50.0f;
     private float normalisedVariance = 0.0f;
 
-    // An array of spawn points Pocket Pals can spawn from.
+    // An array of spawn locations Pocket Pals can spawn from.
     public Transform[] spawnPoints;
 
     //List of the rarities of the index
     private List<float> rarityList = new List<float>();
 
     bool shouldSpawn = true;
+
+    //Used for girl distance and To get the gps map
+    public GameObject girl;
     
     //Ref to the map, to set the parent of the pocketpals once they spawn
-    public GPS gpsMap;
+    private GPS gpsMap;
 
     // The max number of Pocket Pals that can spawn at any one time
-    public int maxPocketPals = 20;               
+    public int maxPocketPals = 20;
+
+    //distance before pocketpals despawn
+    public int maxPocketPalDistance = 20;
 
     //List of all the spawned pocketpals
     private List<GameObject> spawnedPocketPals = new List<GameObject>();
@@ -39,6 +45,8 @@ public class PocketPalSpawnManager : MonoBehaviour
 	void Start ()
 	{
         Instance = this;
+
+        gpsMap = girl.GetComponent<GPS>();
 
         //Iter throught the PocketPalscripts and set their IDs
         foreach (GameObject o in AssetManager.Instance.PocketPals)
@@ -55,9 +63,8 @@ public class PocketPalSpawnManager : MonoBehaviour
 
     public void PocketpalCollected(GameObject obj)
     {
-        spawnedPocketPals.Remove(obj);
         LocalDataManager.Instance.AddPocketPal(obj);
-        Destroy(obj);
+        DespawnPocketPal(obj);
     }
 
     private GameObject GetWeightedPocketPal()
@@ -82,6 +89,9 @@ public class PocketPalSpawnManager : MonoBehaviour
                 StartDelay = false;
                 yield return new WaitForSeconds(GetSpawnDelay());
             }
+
+            //check to see if any pps are too far away. If so destroy...
+            CheckForDespawns();
 
             // Checks whether the max number of Pocket Pals have been spawned 
             if (spawnedPocketPals.Count >= maxPocketPals || !gpsMap.GetMapInit())    
@@ -138,5 +148,22 @@ public class PocketPalSpawnManager : MonoBehaviour
         }
 
         return index;
+    }
+
+    private void DespawnPocketPal(GameObject obj)
+    {
+        spawnedPocketPals.Remove(obj);
+        Destroy(obj);
+    }
+
+    private void CheckForDespawns()
+    {
+        for(int i = 0; i < spawnedPocketPals.Count; i++)
+        {
+            if (Vector3.Magnitude(girl.transform.position - spawnedPocketPals[i].transform.position) > maxPocketPalDistance)
+            {
+                DespawnPocketPal(spawnedPocketPals[i]);
+            }
+        }
     }
 }

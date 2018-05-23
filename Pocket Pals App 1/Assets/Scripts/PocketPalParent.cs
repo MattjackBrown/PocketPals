@@ -34,9 +34,14 @@ public class PocketPalParent : MonoBehaviour
 
         boarder  = Instantiate(boarder);
 	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Destroy(collision.gameObject);
+    }
+
+    // Update is called once per frame
+    void Update ()
     {
         // rotates the object on the x, y and z axis
         transform.Rotate(Rotation * Time.deltaTime); 
