@@ -53,7 +53,14 @@ public class TouchHandler : MonoBehaviour {
 		case ControlScheme.miniGame:
 			{
 				miniGame.UpdateTimer ();
-				miniGame.UpdateControls (Input.GetTouch(0));
+                if (Input.touches.Length > 0)
+                {
+                    miniGame.UpdateControls(Input.GetTouch(0).position);
+                }
+                else if (IsDebug && Input.GetMouseButtonDown(0))
+                {
+                    miniGame.UpdateControls(Input.mousePosition);
+                }
 			}
 			break;
 

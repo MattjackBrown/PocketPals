@@ -83,16 +83,16 @@ public class CaptureMiniGame : MonoBehaviour {
 		}
 	}
 
-	public void UpdateControls (Touch touch) {
+	public void UpdateControls (Vector2 touch) {
 
 		//	Vector2 touchPosition = touch.position;
 
-		float touchX = touch.position.x / screenWidth - 0.5f;
-		float touchY = touch.position.y / screenHeight - 0.5f;
+		float touchX = touch.x / screenWidth - 0.5f;
+		float touchY = touch.y / screenHeight - 0.5f;
 
 		viewFinder.rectTransform.anchoredPosition = Camera.main.ViewportToScreenPoint (new Vector3 (touchX, touchY));
 
-		AdjustPostProcessing (touch.position);
+		AdjustPostProcessing (touch);
 
 	}
 
