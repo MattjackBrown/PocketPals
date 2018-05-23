@@ -8,7 +8,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	public TouchHandler controls;
 
 	public Image viewFinder;
-	public float minigameTimer = 0.0f;
+	float minigameTimer = 0.0f;
 	float minigameTimeAllowance = 4.0f;
 	float captureTimer = 0.0f;
 

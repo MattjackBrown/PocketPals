@@ -5,10 +5,9 @@ using Mapbox.Unity.Map;
 
 public class CameraController : MonoBehaviour {
 
-	public float minimumCameraDistance = 4.0f;
-	public float maximumCameraDistance = 15.0f;
+	float minimumCameraDistance = 4.0f;
+	float maximumCameraDistance = 15.0f;
 	float currentCameraDistance;
-	public bool IsDebug = false;
 
 	Vector3 playerPosition;
 

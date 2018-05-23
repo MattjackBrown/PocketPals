@@ -9,14 +9,14 @@ public class TouchHandler : MonoBehaviour {
 	public CaptureMiniGame miniGame;
 
 	// The state machine for the controls
-	public enum ControlScheme {
+	enum ControlScheme {
 		disabled,
 		map,
 		menu,
 		miniGame,
 	}
 
-	public ControlScheme controlScheme;
+	ControlScheme controlScheme;
 
 	public bool IsDebug = false;
 
