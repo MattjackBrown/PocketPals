@@ -21,9 +21,10 @@ public class GPS : MonoBehaviour
     //Screen to cover the map re-intialising.
     public GameObject loadingScreen;
 
+    //50.172600, -5.126206
     //Hardcoded start lat long, should be up penryn campus
-    private float StartLat =  50.171268f;
-    private float StartLong = -5.123837f;
+    private float StartLat = 50.172600f;
+    private float StartLong = -5.126206f;
 
     //the last lat long read from the device.
     private float CurrentLat = 0;
@@ -119,7 +120,7 @@ public class GPS : MonoBehaviour
         currentMap.Initialize(new Vector2d(StartLat, StartLong),zoom);
 
         //offset the map to make sure the player is in the origin
-        currentMap.transform.position -= new Vector3(-currentMap.UnityTileSize/4, 0, currentMap.UnityTileSize/4);
+        //currentMap.transform.position -= new Vector3(-currentMap.UnityTileSize/2, 0, currentMap.UnityTileSize/2);
 
         isInitialised = true;
     }
