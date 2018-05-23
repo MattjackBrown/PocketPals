@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mapbox.Unity.Map;
-using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour {
 
@@ -10,6 +9,8 @@ public class CameraController : MonoBehaviour {
 	public float maximumCameraDistance = 15.0f;
 	float currentCameraDistance;
 	public bool IsDebug = false;
+
+	Vector3 playerPosition;
 
 	// The look at position for the camera added to the player position. Roughly shoulder or head position
 	Vector3 lookAtPositionPlayerOffset = new Vector3(0.0f, 2.0f, 0.0f);
@@ -19,12 +20,10 @@ public class CameraController : MonoBehaviour {
 
 	// The ui compass that will rotate with the view rotation
 	public GameObject compass;
+	public TouchHandler controls;
 
 	// The camera for which to use the world to screen location to determine swipe map rotation direction
 	Camera gameCamera;
-
-	// The max distance allowed by the raycast hit detection
-	public float maxCaptureDistance = 15.0f;
 
 	// The distance of the camera away from the pocket pal for the minigame
 	float captureCamDistance = 3.0f;
@@ -42,29 +41,6 @@ public class CameraController : MonoBehaviour {
 	bool isZoomingIn = false;
 	float zoomLerp;
 
-	Touch touchZero, touchOne;
-
-	Vector3 playerPosition;
-
-	// The state machine for the controls
-	enum ControlScheme {
-		disabled,
-		map,
-		miniGame,
-	}
-
-	// Initialise as the map controls
-	ControlScheme controlScheme = ControlScheme.map;
-
-
-
-	public Image viewFinder;
-	float minigameTimer = 0.0f;
-	float minigameTimeAllowance = 4.0f;
-	float captureTimer = 0.0f;
-
-
-
 
 	// Use this for initialization
 	void Start () {
@@ -75,72 +51,19 @@ public class CameraController : MonoBehaviour {
 		// Get the Camera component from the parent
 		gameCamera = GetComponentInParent<Camera>();
 	}
-	
+/*	
 	// Update is called once per frame
 	void Update () {
-
-        //used for testing on the pc
-        if (IsDebug && (Input.GetMouseButtonDown(0)) && controlScheme == ControlScheme.map)
-        {
-            DebugTouch();
-        }
-
-		// Choose how to parse the touch controls based on the current control scheme
-		switch (controlScheme) {
-
-		// Allows rotating, zooming, and tapping on pocketPals to initiate capture
-		case ControlScheme.map:
-			{
-				// Switch statement behaves differently with different number of touches
-				switch (Input.touchCount) { 
-
-				// Check for pinch to zoom control. The only control to use > two touches. Uses fallthrough cases
-				case 4:
-				case 3:
-				case 2:
-					PinchZoom ();
-					break;
-
-				// check for a single touch swiping
-				case 1:
-					RotateMap ();
-					CheckForTap ();
-					break;
-				}
-			}
-			break;
-
-		case ControlScheme.miniGame:
-			{
-				UpdateMiniGame (touchZero.position);
-			}
-			break;
-
-		// 
-		case ControlScheme.disabled:
-			{
-				// Currently controls are only disabled when camera is transitioning between map and minigame views
-				if (isZoomingIn) {
-					MoveCaptureCamToCaptureView ();
-				} else {
-					MoveCaptureCamToMapView ();
-				}
-			}
-			break;
-		}
+		
 	}
-
-	void PinchZoom() {
+*/
+	public void PinchZoom(Touch touchZero, Touch touchOne) {
 
 		// Get the position of the player
 		playerPosition = player.transform.position;
 
 		// Get the distance of the camera from the player at the start of this frame
 		currentCameraDistance = (transform.position - playerPosition).magnitude;
-
-		// Just store the first two touches, two is all we need
-		touchZero = Input.GetTouch (0);
-		touchOne = Input.GetTouch (1);
 
 		// Find the position in the previous frame of each touch
 		Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
@@ -175,13 +98,10 @@ public class CameraController : MonoBehaviour {
 		transform.LookAt (playerPosition + lookAtPositionPlayerOffset);
 	}
 
-	void RotateMap() {
+	public void RotateMap(Touch touchZero) {
 
 		// Get the position of the player
 		playerPosition = player.transform.position;
-
-		// Store the touch
-		touchZero = Input.GetTouch (0);
 
 		// Get the horixontal component of the touch's movement
 		float deltaTouchX = touchZero.deltaPosition.x;
@@ -215,66 +135,7 @@ public class CameraController : MonoBehaviour {
 		compass.transform.localRotation = Quaternion.Euler (compass.transform.localRotation.eulerAngles + new Vector3 (0.0f, 0.0f, finalRotation));
 	}
 
-    void DebugTouch()
-    {
-        //declare a variable of RaycastHit struct
-        RaycastHit hit;
-        //Create a Ray on the tapped / clicked position
-        Ray ray;
-        //for unity editor
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //for touch device
-
-        //Check if the ray hits any collider
-        if (Physics.Raycast(ray, out hit))
-        {
-            if (hit.transform.gameObject.GetComponent<PocketPalParent>())
-            {
-                CaptureCamInit(hit.transform.gameObject);
-                Debug.Log("hiu");
-                PocketPalParent hitPocketPal = hit.transform.gameObject.GetComponent<PocketPalParent>();
-                Debug.Log(hitPocketPal.PocketPalID);
-            }
-            else if (IsDebug)
-            {
-				player.GetComponent<GPS>().SetIsDebug(true);
-				player.GetComponent<GPS>().SetPlayerMovePoint(hit.transform.position);
-            }
-        }
-    }
-
-	void CheckForTap() {
-		
-		// Create a rayCastHit object
-		RaycastHit hit = new RaycastHit ();
-
-		// Look at each touch
-		for (int i = 0; i < Input.touchCount; i++)
-        {
-			// If touch has just begun
-			if (Input.GetTouch (i).phase.Equals (TouchPhase.Began))
-            {
-				// Raycast from the touch position
-				Ray ray = Camera.main.ScreenPointToRay (Input.GetTouch (i).position);
-
-				// if hit
-				if (Physics.Raycast (ray, out hit))
-                {
-					// If the hit gameObject has a component "PocketPalParent" and is within the capture distance from the player
-					if (hit.transform.gameObject.GetComponent ("PocketPalParent") && (hit.transform.position - playerPosition).magnitude < maxCaptureDistance)
-                    {
-						// Initialise the capture cam values
-						CaptureCamInit (hit.transform.gameObject);
-						
-						PocketPalParent hitPocketPal = (PocketPalParent)hit.transform.gameObject.GetComponent ("PocketPalParent");
-						Debug.Log (hitPocketPal.PocketPalID);
-					}
-				}
-			}
-		}
-	}
-
-	void CaptureCamInit (GameObject pocketPal) {
+	public void CaptureCamInit (GameObject pocketPal) {
 
 		// Store the pocketPal
 		targetPocketPal = pocketPal;
@@ -298,7 +159,23 @@ public class CameraController : MonoBehaviour {
 		zoomLerp = 0.0f;
 
 		// Disable the controls while the camera zooms in
-		controlScheme = ControlScheme.disabled;
+		controls.DisableControls();
+	}
+
+	public void UpdateCaptureCam() {
+		
+		if (isZoomingIn) {
+			MoveCaptureCamToCaptureView ();
+		} else {
+			MoveCaptureCamToMapView ();
+		}
+	}
+
+	public void zoomOutInit() {
+
+		isZoomingIn = false;
+
+		zoomLerp = 0.0f;
 	}
 
 	void MoveCaptureCamToCaptureView() {
@@ -307,7 +184,7 @@ public class CameraController : MonoBehaviour {
 		if (zoomLerp >= 1.0f) {
 
 			// Init minigame!!!
-			InitMiniGame ();
+			controls.miniGame.InitMiniGame (targetPocketPal.GetComponent<PocketPalParent>());
 
 		} else {
 
@@ -331,7 +208,7 @@ public class CameraController : MonoBehaviour {
 		if (zoomLerp >= 1.0f) {
 
 			// Return to map controls
-			controlScheme = ControlScheme.map;
+			controls.MapControls();
 
 		} else {
 
@@ -350,49 +227,6 @@ public class CameraController : MonoBehaviour {
 
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
-		}
-	}
-
-	void InitMiniGame () {
-
-		// temp
-		viewFinder.enabled = true;
-
-		minigameTimer = 0.0f;
-		minigameTimeAllowance = 6.0f;
-		captureTimer = 0.0f;
-
-		controlScheme = ControlScheme.miniGame;
-
-		// Set the control scheme to the minigame scheme
-//		controlScheme = ControlScheme.miniGame;
-
-		// Set the background image
-
-		// Init gameplay
-	}
-
-	void UpdateMiniGame (Vector2 touchLocation) {
-
-		if (minigameTimer < minigameTimeAllowance) {
-
-			minigameTimer += Time.deltaTime;
-
-			viewFinder.rectTransform.anchoredPosition = touchLocation;
-
-		} else {
-
-            // Add to the player's inventory
-            targetPocketPal.GetComponent<PocketPalParent>().Captured();
-
-			viewFinder.enabled = false;
-
-			isZoomingIn = false;
-
-			zoomLerp = 0.0f;
-
-			// Can probably just do this once somewhere
-			controlScheme = ControlScheme.disabled;
 		}
 	}
 }

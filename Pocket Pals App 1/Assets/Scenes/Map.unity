@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -2568,6 +2568,7 @@ GameObject:
   - component: {fileID: 1010577584}
   - component: {fileID: 1010577583}
   - component: {fileID: 1010577582}
+  - component: {fileID: 1010577586}
   m_Layer: 5
   m_Name: MinigameCanvasUI
   m_TagString: Untagged
@@ -2651,6 +2652,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1010577586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1010577581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 687d4ad48a90b4ce18d7445c1354000f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controls: {fileID: 1331972349}
+  viewFinder: {fileID: 1943813844}
+  minigameTimer: 0
 --- !u!1 &1051015893
 GameObject:
   m_ObjectHideFlags: 0
@@ -3700,6 +3715,7 @@ GameObject:
   - component: {fileID: 1331972346}
   - component: {fileID: 1331972350}
   - component: {fileID: 1331972351}
+  - component: {fileID: 1331972349}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -3756,6 +3772,23 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &1331972349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1331972345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc505844ebed947d8a40b497633b47c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 206820439}
+  cameraController: {fileID: 1331972350}
+  miniGame: {fileID: 1010577586}
+  controlScheme: 0
+  IsDebug: 0
+  maxCaptureDistance: 15
 --- !u!114 &1331972350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3772,8 +3805,7 @@ MonoBehaviour:
   IsDebug: 0
   player: {fileID: 206820439}
   compass: {fileID: 1084178749}
-  maxCaptureDistance: 15
-  viewFinder: {fileID: 1943813844}
+  controls: {fileID: 1331972349}
 --- !u!222 &1331972351
 CanvasRenderer:
   m_ObjectHideFlags: 0
