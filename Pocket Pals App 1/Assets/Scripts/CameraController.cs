@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour {
 	Vector3 playerPosition;
 
 	// The look at position for the camera added to the player position. Roughly shoulder or head position
-	Vector3 lookAtPositionPlayerOffset = new Vector3(0.0f, 2.0f, 0.0f);
+	Vector3 lookAtPlayerPositionOffset = new Vector3(0.0f, 2.0f, 0.0f);
 
 	// The player gameObject from which to get the player's location and inventory from
 	public GameObject player;
@@ -38,9 +38,11 @@ public class CameraController : MonoBehaviour {
 	Vector3 cameraTargetPosition, cameraLookAtPoint, zoomCamStartPosition, zoomCamLookAtStartPosition, targetPocketPalPosition;
 
 	GameObject targetPocketPal;
+
 	bool isZoomingIn = false;
 	float zoomLerp;
 
+	// For the depth of field in the minigame
 	PostProcessingProfile postProcessing;
 	float miniGameFocalLength = 0.1f;
 
@@ -49,14 +51,14 @@ public class CameraController : MonoBehaviour {
 	void Start () {
 
 		// Set the transform rotation to look at the player + the look at position offset
-		transform.LookAt (player.transform.position + lookAtPositionPlayerOffset);
+		transform.LookAt (player.transform.position + lookAtPlayerPositionOffset);
 
 		// Get the Camera component from the parent
 		gameCamera = GetComponentInParent<Camera>();
 
 		postProcessing = GetComponentInParent<PostProcessingBehaviour> ().profile;
 
-		// Have to use a temporary variable to set the post processing settings
+		// Have to use a temporary variable to initialise the post processing settings
 		var DOFSettings = postProcessing.depthOfField.settings;
 		DOFSettings.focalLength = miniGameFocalLength;
 		postProcessing.depthOfField.settings = DOFSettings;
@@ -107,7 +109,7 @@ public class CameraController : MonoBehaviour {
 		transform.position = playerPosition + currentCameraVector * currentCameraDistance;
 
 		// Set the transform rotation to look at the player + the look at position offset
-		transform.LookAt (playerPosition + lookAtPositionPlayerOffset);
+		transform.LookAt (playerPosition + lookAtPlayerPositionOffset);
 	}
 
 	public void RotateMap(Touch touchZero) {
@@ -153,7 +155,7 @@ public class CameraController : MonoBehaviour {
 		targetPocketPal = pocketPal;
 
 		zoomCamStartPosition = transform.position;
-		zoomCamLookAtStartPosition = playerPosition + lookAtPositionPlayerOffset;
+		zoomCamLookAtStartPosition = playerPosition + lookAtPlayerPositionOffset;
 
 		// Store the starting position from the player to return to after minigame finished
 		returnCamOffsetAfterCapture = transform.position - player.transform.position;
@@ -162,7 +164,7 @@ public class CameraController : MonoBehaviour {
 		targetPocketPalPosition = targetPocketPal.transform.position;
 		cameraTargetPosition = targetPocketPalPosition + (playerPosition - targetPocketPalPosition).normalized * captureCamDistance;
 
-		cameraTargetPosition = new Vector3 (cameraTargetPosition.x, lookAtPositionPlayerOffset.y, cameraTargetPosition.z);
+		cameraTargetPosition = new Vector3 (cameraTargetPosition.x, lookAtPlayerPositionOffset.y, cameraTargetPosition.z);
 
 		// So that Update() knows to zoom in
 		isZoomingIn = true;
@@ -186,8 +188,8 @@ public class CameraController : MonoBehaviour {
 	public void zoomOutInit() {
 
 		isZoomingIn = false;
-
 		zoomLerp = 0.0f;
+		controls.DisableControls ();
 	}
 
 	void MoveCaptureCamToCaptureView() {
@@ -235,7 +237,7 @@ public class CameraController : MonoBehaviour {
 			transform.position = Vector3.Lerp (cameraTargetPosition, returnCamOffsetAfterCapture + playerPosition, zoomLerp);
 
 			// Lerp the lookAtPoint
-			cameraLookAtPoint = Vector3.Lerp (targetPocketPalPosition, playerPosition + lookAtPositionPlayerOffset, zoomLerp);
+			cameraLookAtPoint = Vector3.Lerp (targetPocketPalPosition, playerPosition + lookAtPlayerPositionOffset, zoomLerp);
 
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);

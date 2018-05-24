@@ -11,9 +11,10 @@ public class CaptureMiniGame : MonoBehaviour {
 	public Canvas MiniGameUI;
 	public Canvas MapUI;
 
-	float minigameTimer = 0.0f;
-	float minigameTimeAllowance = 4.0f;
-	float captureTimer = 0.0f;
+	float minigameTimer, captureTimer;
+
+	// Thee max time allowed by the minigame before timing out
+	float minigameTimeAllowance = 10.0f;
 
 	float unfocusedDOFDistance = 30.0f;
 	float defaultAperture = 0.03f;
@@ -38,60 +39,69 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	public void InitMiniGame (PocketPalParent targetPocketPal) {
 
-		// temp
+		// Swap the UI over just with enabled will do
 		MapUI.enabled = false;
 		MiniGameUI.enabled = true;
 		viewFinder.enabled = true;
 
+		// Reset the timers
 		minigameTimer = 0.0f;
-		minigameTimeAllowance = 10.0f;
 		captureTimer = 0.0f;
 
+		// Set the target pocketPal for this minigame
 		pocketPal = targetPocketPal;
 
 		// Initially set the viewport image to the centre of the screen
 		viewFinder.rectTransform.anchoredPosition = Camera.main.ViewportToScreenPoint (new Vector3 (0.0f, 0.0f));
 
+		// Enable the depth of field component
 		controls.cameraController.EnableDepthOfField (true);
 
 		// Set initial post processing to centre of screen
 		AdjustPostProcessing (new Vector2 (screenWidth, screenHeight) / 2.0f);
 
+		// Set the controlScheme in the touchHandler
 		controls.MiniGameControls ();
 	}
 
 	public void UpdateTimer () {
 
+		// If has not timed out yet
 		if (minigameTimer < minigameTimeAllowance) {
 
+			// Step the timer
 			minigameTimer += Time.deltaTime;
 
 		} else {
 
+			// TimeOut Temp
+
 			// Add to the player's inventory
 			pocketPal.Captured();
 
+			// Swap the UI
 			MapUI.enabled = true;
 			MiniGameUI.enabled = false;
 			viewFinder.enabled = false;
 
+			// Tell the cameraController to zoom out
 			controls.cameraController.zoomOutInit ();
 
-			controls.DisableControls();
-
+			// Remove the depth of field component
 			controls.cameraController.EnableDepthOfField (false);
 		}
 	}
 
 	public void UpdateControls (Vector2 touch) {
 
-		//	Vector2 touchPosition = touch.position;
-
+		// Adjust the touch position by the device's screen dimensions and adjust for the coming anchor position being from the centre of the screen
 		float touchX = touch.x / screenWidth - 0.5f;
 		float touchY = touch.y / screenHeight - 0.5f;
 
+		// Set the position of the viewFinder image in the viewport to the adjusted touch position
 		viewFinder.rectTransform.anchoredPosition = Camera.main.ViewportToScreenPoint (new Vector3 (touchX, touchY));
 
+		// Funtion sets the depth of field using the touched on position's distance away
 		AdjustPostProcessing (touch);
 
 	}
@@ -110,19 +120,24 @@ public class CaptureMiniGame : MonoBehaviour {
 			// If the hit gameObject has a component "PocketPalParent"
 			if (hit.transform.gameObject.GetComponent ("PocketPalParent")) {
 
+				// Get the distance from the camera to the pocketPal's gameObject transform position
 				float distance = Vector3.Distance (controls.cameraController.getCamera().transform.position, hit.transform.gameObject.transform.position);
 
+				// Update the post processing settings to look at the pocketPal
 				controls.cameraController.SetDepthOfFieldAndFocalLength (distance, pocketPalAperture);
-				
+
+				// Step the capture timer
 				captureTimer += Time.deltaTime;
 
 			} else {
 
+				// Update the post processing settings to look at the touched on position
 				controls.cameraController.SetDepthOfFieldAndFocalLength (hit.distance, defaultAperture);
 			}
 
 		} else {
-			
+
+			// Update the post processing settings to look at a set far away position
 			controls.cameraController.SetDepthOfFieldAndFocalLength (unfocusedDOFDistance, defaultAperture);
 		}
 	}

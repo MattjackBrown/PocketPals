@@ -79,6 +79,7 @@ public class TouchHandler : MonoBehaviour {
 		}
 	}
 
+	// Setters for all controlSchemes
 	public void DisableControls() {
 		controlScheme = ControlScheme.disabled;
 	}
