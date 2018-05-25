@@ -46,6 +46,8 @@ public class CameraController : MonoBehaviour {
 	PostProcessingProfile postProcessing;
 	float miniGameFocalLength = 0.1f;
 
+	// The offset of the camera to the player to return to after viewing a virtualGarden
+	Vector3 returnCamOffsetAfterGarden;
 
 	// Use this for initialization
 	void Start () {
@@ -267,5 +269,30 @@ public class CameraController : MonoBehaviour {
 		DOFSettings.focusDistance = distance;
 		DOFSettings.aperture = aperture;
 		postProcessing.depthOfField.settings = DOFSettings;
+	}
+
+	public void InitVirtualGardenTour (Vector3 newCameraPosition, Vector3 startingLookAtPoint) {
+
+		// Store the camera offset from the player
+		returnCamOffsetAfterGarden = transform.position - player.transform.position;
+
+		// Set the camera to the new location and rotation
+		transform.position = newCameraPosition;
+		transform.LookAt (startingLookAtPoint);
+
+		// Set the controls to the virtual garden scheme
+		controls.VirtualGardenControls ();
+	}
+
+	public void ReturnCamToAfterVirtualGarden () {
+
+		// Set the camera position to the player's position + the pre garden tour offset
+		transform.position = player.transform.position + returnCamOffsetAfterGarden;
+
+		// Set the transform rotation to look at the player + the look at position offset
+		transform.LookAt (playerPosition + lookAtPlayerPositionOffset);
+
+		// Return the controls to the map scheme
+		controls.MapControls ();
 	}
 }

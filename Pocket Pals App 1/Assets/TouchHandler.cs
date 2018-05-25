@@ -14,6 +14,7 @@ public class TouchHandler : MonoBehaviour {
 		map,
 		menu,
 		miniGame,
+		VirtualGarden,
 	}
 
 	ControlScheme controlScheme;
@@ -70,6 +71,12 @@ public class TouchHandler : MonoBehaviour {
 			}
 			break;
 
+		case ControlScheme.VirtualGarden:
+			{
+
+			}
+			break;
+
 		case ControlScheme.disabled:
 			{
 				// Currently controls are only disabled when camera is transitioning between map and minigame views
@@ -94,6 +101,10 @@ public class TouchHandler : MonoBehaviour {
 
 	public void MiniGameControls() {
 		controlScheme = ControlScheme.miniGame;
+	}
+
+	public void VirtualGardenControls() {
+		controlScheme = ControlScheme.VirtualGarden;
 	}
 
 	void DebugTouch()
