@@ -14,7 +14,7 @@ public class EnvironmentChanger : MonoBehaviour
     public GameObject player;
     private GPS gps;
 
-    //Script Behaviours
+    private int activeIndex;
     
 	// Use this for initialization
 	void Start ()
@@ -34,9 +34,30 @@ public class EnvironmentChanger : MonoBehaviour
 
    public void SceneInit(int index)
     {
+        index = activeIndex;
+
+        //deactivate map stuff and stop gps ticking???
         gps.currentMap.gameObject.SetActive(false);
+        gps.gameObject.SetActive(false);
+
+        //set positions and acticate scene.
         gps.mainCamera.transform.position = playerPositions[index].transform.position;
         scenes[index].SetActive(true);
+        
+        //to do start custom scripts depending on scene user story.
+
+    }
+
+    public void ResetScene()
+    {
+        //activate map stuff
+        gps.currentMap.gameObject.SetActive(true);
+        gps.gameObject.SetActive(true);
+
+        //set scene inactive.
+        scenes[activeIndex].SetActive(false);
+
+        //To Do set camera back and stuff.
     }
 
 }
