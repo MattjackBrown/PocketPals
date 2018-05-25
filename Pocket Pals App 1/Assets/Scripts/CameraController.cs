@@ -4,7 +4,9 @@ using UnityEngine;
 using Mapbox.Unity.Map;
 using UnityEngine.PostProcessing;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : MonoBehaviour
+{
+    public static CameraController Instance { set; get; }
 
 	float minimumCameraDistance = 4.0f;
 	float maximumCameraDistance = 15.0f;
@@ -51,6 +53,8 @@ public class CameraController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+        Instance = this;
 
 		// Set the transform rotation to look at the player + the look at position offset
 		transform.LookAt (player.transform.position + lookAtPlayerPositionOffset);

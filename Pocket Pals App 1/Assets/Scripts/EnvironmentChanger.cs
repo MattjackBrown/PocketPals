@@ -41,7 +41,7 @@ public class EnvironmentChanger : MonoBehaviour
         gps.gameObject.SetActive(false);
 
         //set positions and acticate scene.
-        gps.mainCamera.transform.position = playerPositions[index].transform.position;
+        CameraController.Instance.InitVirtualGardenTour(playerPositions[index].transform.position, playerPositions[index].transform.forward);
         scenes[index].SetActive(true);
         
         //to do start custom scripts depending on scene user story.
@@ -57,7 +57,8 @@ public class EnvironmentChanger : MonoBehaviour
         //set scene inactive.
         scenes[activeIndex].SetActive(false);
 
-        //To Do set camera back and stuff.
+
+        CameraController.Instance.ReturnCamToAfterVirtualGarden();
     }
 
 }

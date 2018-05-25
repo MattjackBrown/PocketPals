@@ -34,34 +34,28 @@ public class TouchHandler : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 
-		//used for testing on the pc
-		if (IsDebug && (Input.GetMouseButtonDown(0)) && controlScheme == ControlScheme.map)
-		{
-			DebugTouch();
-		}
+        //Return if there is no current input for this function
+        if (!Input.GetMouseButtonDown(0) && Input.touches.Length < 1) return;
 
 		// Choose how to parse the touch controls based on the current control scheme
 		switch (controlScheme) {
 
 		case ControlScheme.map:
 			{
-				UseMapControls ();
+                if (IsDebug) DebugTouch();
+				else UseMapControls ();
 			}
 			break;
 
 		case ControlScheme.miniGame:
 			{
 				miniGame.UpdateTimer ();
-                if (Input.touches.Length > 0)
-                {
-                    miniGame.UpdateControls(Input.GetTouch(0).position);
-                }
-                else if (IsDebug && Input.GetMouseButtonDown(0))
-                {
-                    miniGame.UpdateControls(Input.mousePosition);
-                }
+
+                if (IsDebug)  miniGame.UpdateControls(Input.mousePosition);
+                else miniGame.UpdateControls(Input.GetTouch(0).position);
 			}
 			break;
 
@@ -73,7 +67,8 @@ public class TouchHandler : MonoBehaviour {
 
 		case ControlScheme.VirtualGarden:
 			{
-				cameraController.RotateCamera (Input.GetTouch (0));
+				if(Input.GetMouseButtonDown(0))Debug.Log("Cannot rotate camera using mouse button try touches,");
+                else cameraController.RotateCamera (Input.GetTouch (0));
 			}
 			break;
 
