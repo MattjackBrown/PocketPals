@@ -73,7 +73,7 @@ public class TouchHandler : MonoBehaviour {
 
 		case ControlScheme.VirtualGarden:
 			{
-
+				cameraController.RotateCamera (Input.GetTouch (0));
 			}
 			break;
 

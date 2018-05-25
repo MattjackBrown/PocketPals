@@ -295,4 +295,25 @@ public class CameraController : MonoBehaviour {
 		// Return the controls to the map scheme
 		controls.MapControls ();
 	}
+
+	public void RotateCamera (Touch touch) {
+
+		// Get the delta x position and adjust for screen dimensions and sensitivity
+		float yRotation = touch.deltaPosition.x / Screen.width * -360;
+
+		// Allow vertical swipes on each side of the screen to adjust the rotation also
+		if (touch.position.x > Screen.width / 2.0f)
+			yRotation += touch.deltaPosition.y / Screen.height * 180;
+		else
+			yRotation += touch.deltaPosition.y / Screen.height * -180;
+
+		// Use temporary variable method to adjust transform
+		Quaternion currentRotation = transform.rotation;
+
+		// Add the new rotation
+		Vector3 newRotation = currentRotation.eulerAngles + new Vector3 (0.0f, 0.0f, yRotation);
+
+		// Convert to Quaternian and set
+		transform.rotation = Quaternion.Euler (newRotation);
+	}
 }
