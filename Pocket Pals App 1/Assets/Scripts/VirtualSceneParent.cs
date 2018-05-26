@@ -8,20 +8,18 @@ public class VirtualSceneParent : MonoBehaviour
 {
     public VirtualGardenSpawn[] AnimalObjects;
 
-	// Use this for initialization
-	void Start ()
+    private void OnEnable()
     {
+        List<int> obtainedAnimals =  LocalDataManager.Instance.GetInventory().GetUniqueAnimalIDs();
         foreach (VirtualGardenSpawn obj in AnimalObjects)
         {
-            if (obj.ID != 0) obj.Used = true;
+            if (obtainedAnimals.Contains(obj.ID))
+            {
+                Debug.Log(obj.ID);
+                obj.animalObj.SetActive(true);
+            }
         }
-	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
+    }
 
     public void SetObtained(int id)
     {

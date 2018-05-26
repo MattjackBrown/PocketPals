@@ -45,6 +45,15 @@ public class LocalDataManager : MonoBehaviour {
         SaveData();
     }
 
+    public void ResetLocalData()
+    {
+        //delete one if already exsists
+        if (File.Exists(destination)) File.Delete(destination);
+
+        //create new file and data for use
+        localData = new GameData();
+    }
+
     public PocketPalInventory GetInventory()
     {
         return localData.Inventory;
@@ -98,7 +107,7 @@ public class LocalDataManager : MonoBehaviour {
         }
     }
 
-    FileStream ResetFile()
+    public FileStream ResetFile()
     {
         //delete one if already exsists
         if (File.Exists(destination)) File.Delete(destination);

@@ -25,6 +25,16 @@ public class PocketPalInventory
         return AssetManager.Instance.GetPocketPalFromID(myPPals[myPPals.Count - 1].ID);
     }
 
+    public List<int> GetUniqueAnimalIDs()
+    {
+        List<int> UniqueIDs = new List<int>();
+        foreach (PocketPalData ppd in myPPals)
+        {
+            if (!UniqueIDs.Contains(ppd.ID)) UniqueIDs.Add(ppd.ID);
+        }
+        return UniqueIDs;
+    }
+
     public string GetPocketPalsID()
     {
         string str = "";
