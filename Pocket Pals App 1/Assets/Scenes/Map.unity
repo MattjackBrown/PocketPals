@@ -3860,8 +3860,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e946f5af7bd244b9ba9b0c888ef19532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avgSpawnTime: 0.1
-  spawnTimeVariance: 0
+  avgSpawnTime: 15
+  spawnTimeVariance: 50
   spawnPoints:
   - {fileID: 1267739198}
   - {fileID: 1597336364}
@@ -3884,7 +3884,7 @@ MonoBehaviour:
   - {fileID: 990544974}
   - {fileID: 470987506}
   girl: {fileID: 206820439}
-  maxPocketPals: 30
+  maxPocketPals: 5
   maxPocketPalDistance: 30
 --- !u!1 &1151291767
 GameObject:

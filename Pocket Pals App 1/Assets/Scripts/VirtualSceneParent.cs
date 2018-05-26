@@ -13,6 +13,7 @@ public class VirtualSceneParent : MonoBehaviour
         List<int> obtainedAnimals =  LocalDataManager.Instance.GetInventory().GetUniqueAnimalIDs();
         foreach (VirtualGardenSpawn obj in AnimalObjects)
         {
+            obj.animalObj.SetActive(false);
             if (obtainedAnimals.Contains(obj.ID))
             {
                 Debug.Log(obj.ID);
