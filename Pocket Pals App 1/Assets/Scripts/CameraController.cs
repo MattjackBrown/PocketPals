@@ -179,7 +179,7 @@ public class CameraController : MonoBehaviour
 		zoomLerp = 0.0f;
 
 		// Disable the controls while the camera zooms in
-		controls.DisableControls();
+		controls.MapCameraTransition();
 	}
 
 	public void UpdateCaptureCam() {
@@ -195,7 +195,7 @@ public class CameraController : MonoBehaviour
 
 		isZoomingIn = false;
 		zoomLerp = 0.0f;
-		controls.DisableControls ();
+		controls.MapCameraTransition ();
 	}
 
 	void MoveCaptureCamToCaptureView() {
@@ -284,6 +284,9 @@ public class CameraController : MonoBehaviour
 		transform.position = newCameraPosition;
 		transform.LookAt (startingLookAtPoint);
 
+		// Tell the controls to ignore current touches and wait for a virtual garden control
+		controls.InitVirtualGardenControls ();
+
 		// Set the controls to the virtual garden scheme
 		controls.VirtualGardenControls ();
 	}
@@ -300,7 +303,7 @@ public class CameraController : MonoBehaviour
 		controls.MapControls ();
 	}
 
-	public void RotateCamera (Touch touch) {
+	public void VGRotateCamera (Touch touch) {
 
 		// Get the delta x position and adjust for screen dimensions and sensitivity
 		float yRotation = touch.deltaPosition.x / Screen.width * -360;
@@ -315,9 +318,21 @@ public class CameraController : MonoBehaviour
 		Quaternion currentRotation = transform.rotation;
 
 		// Add the new rotation
-		Vector3 newRotation = currentRotation.eulerAngles + new Vector3 (0.0f, 0.0f, yRotation);
+		Vector3 newRotation = currentRotation.eulerAngles + new Vector3 (0.0f, yRotation, 0.0f);
 
 		// Convert to Quaternian and set
 		transform.rotation = Quaternion.Euler (newRotation);
+	}
+
+	public void VGInitLookAtNextPPal () {
+		// Examine the inventory to set the target cam position and target cam look at point for the upcoming lerp
+
+		// Set the controlScheme
+//		controls.VirtualGardenCameraTransitionControls ();
+	}
+
+	public void VGMoveCamToNextPPal () {
+		// Lerp the camera position and look at point, also check if arrived
+
 	}
 }

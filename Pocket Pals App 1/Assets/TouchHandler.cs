@@ -10,11 +10,12 @@ public class TouchHandler : MonoBehaviour {
 
 	// The state machine for the controls
 	enum ControlScheme {
-		disabled,
 		map,
+		mapCameraTransition,
 		menu,
 		miniGame,
 		VirtualGarden,
+		VirtualGardenCameraTransition
 	}
 
 	ControlScheme controlScheme;
@@ -23,6 +24,13 @@ public class TouchHandler : MonoBehaviour {
 
 	// The max distance allowed by the raycast hit detection
 	public float maxCaptureDistance = 15.0f;
+
+	// Used to determine swipe length in VirtualGarden controlScheme
+	Vector2 startTouchPosition;
+	bool virtualGardenTouchPlaced = false;
+
+	// Portion of screen width needed to swipe to look at next inventory in virtual garden
+	float swipeLengthToLookAtNext = 0.2f;
 
 
 
@@ -42,8 +50,13 @@ public class TouchHandler : MonoBehaviour {
 
 		case ControlScheme.map:
 			{
-                if (IsDebug && Input.GetMouseButtonDown(0)) DebugTouch();
-				else UseMapControls ();
+                UseMapControls ();
+			}
+			break;
+
+		case ControlScheme.mapCameraTransition:
+			{
+				cameraController.UpdateCaptureCam();
 			}
 			break;
 
@@ -64,27 +77,25 @@ public class TouchHandler : MonoBehaviour {
 
 		case ControlScheme.VirtualGarden:
 			{
-				if(Input.GetMouseButtonDown(0))Debug.Log("Cannot rotate camera using mouse button try touches,");
-                else if(Input.touches.Length > 0) cameraController.RotateCamera (Input.GetTouch (0));
+				UseVirtualGardenControls ();
 			}
 			break;
 
-		case ControlScheme.disabled:
+		case ControlScheme.VirtualGardenCameraTransition:
 			{
-				// Currently controls are only disabled when camera is transitioning between map and minigame views
-				cameraController.UpdateCaptureCam();
+				cameraController.VGMoveCamToNextPPal ();
 			}
 			break;
 		}
 	}
 
 	// Setters for all controlSchemes
-	public void DisableControls() {
-		controlScheme = ControlScheme.disabled;
-	}
-
 	public void MapControls() {
 		controlScheme = ControlScheme.map;
+	}
+	
+	public void MapCameraTransition() {
+		controlScheme = ControlScheme.mapCameraTransition;
 	}
 
 	public void MenuControls() {
@@ -97,6 +108,14 @@ public class TouchHandler : MonoBehaviour {
 
 	public void VirtualGardenControls() {
 		controlScheme = ControlScheme.VirtualGarden;
+	}
+
+	public void VirtualGardenCameraTransitionControls() {
+		controlScheme = ControlScheme.VirtualGardenCameraTransition;
+	}
+
+	public void InitVirtualGardenControls() {
+		virtualGardenTouchPlaced = false;
 	}
 
 	void DebugTouch()
@@ -160,6 +179,8 @@ public class TouchHandler : MonoBehaviour {
 
 	void UseMapControls() {
 
+		if (IsDebug && Input.GetMouseButtonDown(0)) DebugTouch();
+
 		// Switch statement behaves differently with different number of touches
 		switch (Input.touchCount) { 
 
@@ -175,6 +196,42 @@ public class TouchHandler : MonoBehaviour {
 			cameraController.RotateMap (Input.GetTouch(0));
 			CheckForTap ();
 			break;
+		}
+	}
+
+	void UseVirtualGardenControls() {
+		
+		if(Input.GetMouseButtonDown(0))Debug.Log("Cannot rotate camera using mouse button try touches,");
+
+		if (Input.touches.Length > 0) {
+
+			// A lot simpler if we only look at touch(0)
+			Touch touchZero = Input.GetTouch (0);
+
+			// Controls begin after touch(0) is placed when in virtual garden. Previous touches are ignored
+			if (touchZero.phase == TouchPhase.Began) {
+
+				// Update the start touch position
+				startTouchPosition = touchZero.position;
+
+				// Virtual garden controls are not reachable until this is true. Ignores previous pre VG touches
+				virtualGardenTouchPlaced = true;
+
+			} else if (virtualGardenTouchPlaced) {
+
+				// If the delta touch position is above th e threshold needed to look at next PPal
+				if ((touchZero.position - startTouchPosition).magnitude > swipeLengthToLookAtNext * Screen.width) {
+
+					// Init VirtualGardenCameraTransition. ControlScheme, Init function in cameraController
+					cameraController.VGInitLookAtNextPPal();
+
+				} else {
+
+					// Allow a rotation movement when not switching between inventory animals, add in small up and down?
+					cameraController.VGRotateCamera (touchZero);
+
+				}
+			}
 		}
 	}
 }
