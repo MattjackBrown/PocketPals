@@ -37,7 +37,10 @@ public class PocketPalSpawnManager : MonoBehaviour
     public int maxPocketPals = 20;
 
     //distance before pocketpals despawn
-    public int maxPocketPalDistance = 20;
+	public int maxPocketPalDistance = 20;
+
+	// The minimum distance allowed between spawning pocket pals to avoid overlaps
+	float minimumDistanceBetweenSpawns = 2.0f;
 
     //List of all the spawned pocketpals
     private List<GameObject> spawnedPocketPals = new List<GameObject>();
@@ -101,19 +104,43 @@ public class PocketPalSpawnManager : MonoBehaviour
             else
             {
                 // Find a random index between zero and one less than the number of spawn points
-                int spawnPointIndex = Random.Range(0, spawnPoints.Length);
+
                 int RandomPocketPal = Random.Range(0, AssetManager.Instance.PocketPals.Length);
 
-                //select spawn point's position and rotation
-                Vector3 pos = spawnPoints[spawnPointIndex].position;
-                Quaternion rot = spawnPoints[spawnPointIndex].rotation;
+				// Even though these are set, the compiler requires them to be initialised here
+				Vector3 spawnPosition = Vector3.zero;
+				int spawnPointIndex = 0, tempCount = 0, maxCount = 10;
+				bool validSpawnFound = false;
 
-                // Create an instance of the prefab at select pocketpal via rarity 
-                GameObject clone = Instantiate(GetWeightedPocketPal(), pos, rot);
-                spawnedPocketPals.Add(clone);
+				// Find a randomly chosen spawn position that does not overlap an existing pocketPal
+				// As a safety measure, include a count to break out if no valid positions can be found
+				while (!validSpawnFound || tempCount < maxCount) {
 
-                // Increases the currentPocketPals value by 1
-                clone.transform.parent = gpsMap.currentMap.transform;
+					// Find a randomly chosen spawn position
+					spawnPointIndex = Random.Range (0, spawnPoints.Length);
+					spawnPosition = spawnPoints [spawnPointIndex].position;
+
+					// Check if a valid spawn position
+					if (DoesNotOverlapExistingPPal (spawnPosition)) {
+						validSpawnFound = true;
+					}
+
+					// Increment count
+					tempCount++;
+				}
+
+				// If valid spawn position found then spawn, otherwise wait and repeat
+				if (validSpawnFound) {
+
+					Quaternion rot = spawnPoints [spawnPointIndex].rotation;
+
+					// Create an instance of the prefab at select pocketpal via rarity 
+					GameObject clone = Instantiate (GetWeightedPocketPal (), spawnPosition, rot);
+					spawnedPocketPals.Add (clone);
+
+					// Increases the currentPocketPals value by 1
+					clone.transform.parent = gpsMap.currentMap.transform;
+				}
 
                 yield return new WaitForSeconds(GetSpawnDelay());
             }
@@ -177,4 +204,19 @@ public class PocketPalSpawnManager : MonoBehaviour
             }
         }
     }
+
+	bool DoesNotOverlapExistingPPal (Vector3 spawnPosition) {
+
+		// Check position against all currently spawned PPal positions
+		foreach (GameObject PPal in spawnedPocketPals) {
+
+			// If deemed too close
+			if ((spawnPosition - PPal.transform.position).magnitude < minimumDistanceBetweenSpawns) {
+
+				// Break out early returning false
+				return false;
+			}
+		}
+		return true;
+	}
 }
