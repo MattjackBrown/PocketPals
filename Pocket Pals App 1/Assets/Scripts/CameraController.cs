@@ -39,7 +39,7 @@ public class CameraController : MonoBehaviour
 	// The default distance of the camera from the targeted PPal in the virtual garden
 	float VGPPalCamDistance = 3.0f;
 
-	Vector3 VGCamHeight = new Vector3 (0.0f, 0.2f, 0.0f);
+	Vector3 VGCamHeight = new Vector3 (0.0f, 0.5f, 0.0f);
 
 	// To store the game view camera position relative to the player, to return to after the minigame
 	Vector3 returnCamOffsetAfterCapture;
@@ -107,7 +107,7 @@ public class CameraController : MonoBehaviour
 		float deltaTouchDifference = prevTouchDelta - currentTouchDelta;
 
 		// Adjust for different device's screen pixel density
-		deltaTouchDifference = 1 + deltaTouchDifference / Screen.width;
+		deltaTouchDifference = 1 + deltaTouchDifference * 2.0f / Screen.width;
 
 		// Apply the modifier to the current camera distance
 		currentCameraDistance *= deltaTouchDifference;
@@ -342,10 +342,10 @@ public class CameraController : MonoBehaviour
 		cameraLookAtStartPosition = cameraStartPosition + transform.forward;
 
 		// Get the target camera position
-		targetPocketPalPosition = targetPocketPal.transform.position + VGCamHeight;
+		targetPocketPalPosition = targetPocketPal.transform.position;
 
 		// Temp. Each pocket pal may require a hard coded position
-		cameraTargetPosition = targetPocketPalPosition + targetPocketPal.transform.forward * VGPPalCamDistance;
+		cameraTargetPosition = targetPocketPalPosition + targetPocketPal.transform.forward * VGPPalCamDistance + VGCamHeight;
 
 		// For the Vector3.lerp function
 		lerp = 0.0f;
