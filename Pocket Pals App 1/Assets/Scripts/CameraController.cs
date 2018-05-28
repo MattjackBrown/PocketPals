@@ -33,16 +33,24 @@ public class CameraController : MonoBehaviour
 	// Zoom in speed for the camera from the game view to the minigame view
 	float captureZoomInSpeed = 0.8f;
 
+	// Rotation and movement speed when changing the looked at PPal in the virtual garden
+	float virtualGardenMovementSpeed = 1.5f;
+
+	// The default distance of the camera from the targeted PPal in the virtual garden
+	float VGPPalCamDistance = 3.0f;
+
+	Vector3 VGCamHeight = new Vector3 (0.0f, 0.2f, 0.0f);
+
 	// To store the game view camera position relative to the player, to return to after the minigame
 	Vector3 returnCamOffsetAfterCapture;
 
 	// The positions used to lerp the camera position from map to minigame view
-	Vector3 cameraTargetPosition, cameraLookAtPoint, zoomCamStartPosition, zoomCamLookAtStartPosition, targetPocketPalPosition;
+	Vector3 cameraTargetPosition, cameraLookAtPoint, cameraStartPosition, cameraLookAtStartPosition, targetPocketPalPosition;
 
 	GameObject targetPocketPal;
 
 	bool isZoomingIn = false;
-	float zoomLerp;
+	float lerp;
 
 	// For the depth of field in the minigame
 	PostProcessingProfile postProcessing;
@@ -160,8 +168,8 @@ public class CameraController : MonoBehaviour
 		// Store the pocketPal
 		targetPocketPal = pocketPal;
 
-		zoomCamStartPosition = transform.position;
-		zoomCamLookAtStartPosition = playerPosition + lookAtPlayerPositionOffset;
+		cameraStartPosition = transform.position;
+		cameraLookAtStartPosition = playerPosition + lookAtPlayerPositionOffset;
 
 		// Store the starting position from the player to return to after minigame finished
 		returnCamOffsetAfterCapture = transform.position - player.transform.position;
@@ -176,7 +184,7 @@ public class CameraController : MonoBehaviour
 		isZoomingIn = true;
 
 		// For the Vector3.lerp function
-		zoomLerp = 0.0f;
+		lerp = 0.0f;
 
 		// Disable the controls while the camera zooms in
 		controls.MapCameraTransition();
@@ -194,14 +202,14 @@ public class CameraController : MonoBehaviour
 	public void zoomOutInit() {
 
 		isZoomingIn = false;
-		zoomLerp = 0.0f;
+		lerp = 0.0f;
 		controls.MapCameraTransition ();
 	}
 
 	void MoveCaptureCamToCaptureView() {
 		
 		// Check if arrived. Lerp is complete when == 1.0f
-		if (zoomLerp >= 1.0f) {
+		if (lerp >= 1.0f) {
 
 			// Init minigame!!!
 			controls.miniGame.InitMiniGame (targetPocketPal.GetComponent<PocketPalParent>());
@@ -209,13 +217,13 @@ public class CameraController : MonoBehaviour
 		} else {
 
 			// Advance the lerp float
-			zoomLerp += Time.deltaTime * captureZoomInSpeed;
+			lerp += Time.deltaTime * captureZoomInSpeed;
 
 			// Not sure about this bit. It works fine but the lerp may have to be done differently to smooth
-			transform.position = Vector3.Lerp (zoomCamStartPosition, cameraTargetPosition, zoomLerp);
+			transform.position = Vector3.Lerp (cameraStartPosition, cameraTargetPosition, lerp);
 
 			// Lerp the lookAtPoint
-			cameraLookAtPoint = Vector3.Lerp (zoomCamLookAtStartPosition, targetPocketPalPosition, zoomLerp);
+			cameraLookAtPoint = Vector3.Lerp (cameraLookAtStartPosition, targetPocketPalPosition, lerp);
 
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
@@ -225,7 +233,7 @@ public class CameraController : MonoBehaviour
 	void MoveCaptureCamToMapView() {
 
 		// Check if arrived. Lerp is complete when == 1.0f
-		if (zoomLerp >= 1.0f) {
+		if (lerp >= 1.0f) {
 
 			// Return to map controls
 			controls.MapControls();
@@ -233,17 +241,17 @@ public class CameraController : MonoBehaviour
 		} else {
 
 			// Advance the lerp float
-			zoomLerp += Time.deltaTime * captureZoomInSpeed;
+			lerp += Time.deltaTime * captureZoomInSpeed;
 
 			// Update the player position
 			playerPosition = player.transform.position;
 
 			// Not sure about this bit. It works fine but the lerp may have to be done differently to smooth.
 			// * 1.1f used as the self calling lerp doesn't ever reach the target. This tells it to overshoot the target
-			transform.position = Vector3.Lerp (cameraTargetPosition, returnCamOffsetAfterCapture + playerPosition, zoomLerp);
+			transform.position = Vector3.Lerp (cameraTargetPosition, returnCamOffsetAfterCapture + playerPosition, lerp);
 
 			// Lerp the lookAtPoint
-			cameraLookAtPoint = Vector3.Lerp (targetPocketPalPosition, playerPosition + lookAtPlayerPositionOffset, zoomLerp);
+			cameraLookAtPoint = Vector3.Lerp (targetPocketPalPosition, playerPosition + lookAtPlayerPositionOffset, lerp);
 
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
@@ -305,34 +313,68 @@ public class CameraController : MonoBehaviour
 
 	public void VGRotateCamera (Touch touch) {
 
-		// Get the delta x position and adjust for screen dimensions and sensitivity
-		float yRotation = touch.deltaPosition.x / Screen.width * -360;
-
-		// Allow vertical swipes on each side of the screen to adjust the rotation also
-		if (touch.position.x > Screen.width / 2.0f)
-			yRotation += touch.deltaPosition.y / Screen.height * 180;
-		else
-			yRotation += touch.deltaPosition.y / Screen.height * -180;
+		// Get the delta x and y positions and adjust for screen dimensions and sensitivity
+		float yRotation = touch.deltaPosition.x / Screen.width * -60;
+		float xRotation = touch.deltaPosition.y / Screen.height * 30;
 
 		// Use temporary variable method to adjust transform
-		Quaternion currentRotation = transform.rotation;
+		Quaternion currentLocalRotation = transform.localRotation;
 
 		// Add the new rotation
-		Vector3 newRotation = currentRotation.eulerAngles + new Vector3 (0.0f, yRotation, 0.0f);
+		Vector3 newLocalRotation = currentLocalRotation.eulerAngles + new Vector3 (xRotation, yRotation, 0.0f);
 
 		// Convert to Quaternian and set
-		transform.rotation = Quaternion.Euler (newRotation);
+		transform.localRotation = Quaternion.Euler (newLocalRotation);
 	}
 
-	public void VGInitLookAtNextPPal () {
-		// Examine the inventory to set the target cam position and target cam look at point for the upcoming lerp
+	public void VGInitLookAtNextPPal (GameObject pocketPal) {
+
+		// Update to the current player position
+		playerPosition = player.transform.position;
+
+		// Store the pocketPal
+		targetPocketPal = pocketPal;
+
+		// Store the camera start position
+		cameraStartPosition = transform.position;
+
+		// Get the current look at point. Anywhere along the current forward vector
+		cameraLookAtStartPosition = cameraStartPosition + transform.forward;
+
+		// Get the target camera position
+		targetPocketPalPosition = targetPocketPal.transform.position + VGCamHeight;
+
+		// Temp. Each pocket pal may require a hard coded position
+		cameraTargetPosition = targetPocketPalPosition + targetPocketPal.transform.forward * VGPPalCamDistance;
+
+		// For the Vector3.lerp function
+		lerp = 0.0f;
 
 		// Set the controlScheme
-//		controls.VirtualGardenCameraTransitionControls ();
+		controls.VirtualGardenCameraTransitionControls ();
 	}
 
 	public void VGMoveCamToNextPPal () {
-		// Lerp the camera position and look at point, also check if arrived
 
+		// Check if arrived. Lerp is complete when == 1.0f
+		if (lerp >= 1.0f) {
+
+			// Set controls back to standard VG controls
+			controls.VirtualGardenControls();
+
+		} else {
+
+			// Advance the lerp float
+			lerp += Time.deltaTime * virtualGardenMovementSpeed;
+
+			// Not sure about this bit. It works fine but the lerp may have to be done differently to smooth
+			transform.position = Vector3.Lerp (cameraStartPosition, cameraTargetPosition, lerp);
+
+			// Lerp the lookAtPoint
+			cameraLookAtPoint = Vector3.Lerp (cameraLookAtStartPosition, targetPocketPalPosition, lerp);
+
+			// Set the look at transform for the camera
+			transform.LookAt (cameraLookAtPoint);
+		}
 	}
 }

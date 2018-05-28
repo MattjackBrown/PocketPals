@@ -7,6 +7,7 @@ public class TouchHandler : MonoBehaviour {
 	public GameObject player;
 	public CameraController cameraController;
 	public CaptureMiniGame miniGame;
+	public VirtualSceneParent virtualGarden;
 
 	// The state machine for the controls
 	enum ControlScheme {
@@ -107,6 +108,13 @@ public class TouchHandler : MonoBehaviour {
 	}
 
 	public void VirtualGardenControls() {
+		
+		// Set a new start position for swipe controls to stop continuous swiping
+		if (IsDebug && Input.GetMouseButtonDown (0))
+			startTouchPosition = Input.mousePosition;
+		else if (Input.touches.Length > 0)
+			startTouchPosition = Input.GetTouch (0).position;
+		
 		controlScheme = ControlScheme.VirtualGarden;
 	}
 
@@ -116,6 +124,10 @@ public class TouchHandler : MonoBehaviour {
 
 	public void InitVirtualGardenControls() {
 		virtualGardenTouchPlaced = false;
+	}
+
+	public void SetStartTouchPosition (Vector2 position) {
+		startTouchPosition = position;
 	}
 
 	void DebugTouch()
@@ -219,11 +231,15 @@ public class TouchHandler : MonoBehaviour {
 
 			} else if (virtualGardenTouchPlaced) {
 
-				// If the delta touch position is above th e threshold needed to look at next PPal
-				if ((touchZero.position - startTouchPosition).magnitude > swipeLengthToLookAtNext * Screen.width) {
+				// If the delta touch position.x is above the threshold needed to look at next PPal
+				if (touchZero.position.x - startTouchPosition.x > swipeLengthToLookAtNext * Screen.width) {
 
 					// Init VirtualGardenCameraTransition. ControlScheme, Init function in cameraController
-					cameraController.VGInitLookAtNextPPal();
+					cameraController.VGInitLookAtNextPPal (virtualGarden.GetNextPPal());
+
+				} else if (touchZero.position.x - startTouchPosition.x < -swipeLengthToLookAtNext * Screen.width) {
+
+					cameraController.VGInitLookAtNextPPal (virtualGarden.GetPreviousPPal());
 
 				} else {
 
