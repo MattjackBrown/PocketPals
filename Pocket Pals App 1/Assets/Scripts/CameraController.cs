@@ -56,13 +56,19 @@ public class CameraController : MonoBehaviour
 	PostProcessingProfile postProcessing;
 	float miniGameFocalLength = 0.1f;
 
-	// The offset of the camera to the player to return to after viewing a virtualGarden
+	// The offset of the camera to the player to return to after viewing a virtual garden
 	Vector3 returnCamOffsetAfterGarden;
+
+	// Used as a central point to calculate virtual garden PPal inspect positions
+	public GameObject VGCentre;
+	Vector3 VGCentrePosition;
 
 	// Use this for initialization
 	void Start () {
 
         Instance = this;
+
+		VGCentrePosition = VGCentre.transform.position; //VGCentre.transform.position;
 
 		// Set the transform rotation to look at the player + the look at position offset
 		transform.LookAt (player.transform.position + lookAtPlayerPositionOffset);
@@ -345,7 +351,10 @@ public class CameraController : MonoBehaviour
 		targetPocketPalPosition = targetPocketPal.transform.position;
 
 		// Temp. Each pocket pal may require a hard coded position
-		cameraTargetPosition = targetPocketPalPosition + targetPocketPal.transform.forward * VGPPalCamDistance + VGCamHeight;
+//		cameraTargetPosition = targetPocketPalPosition + targetPocketPal.transform.forward * VGPPalCamDistance + VGCamHeight;
+
+		// Better way without hardcoding. Picks a targetPosition based on the direction to the centre and a cam distance
+		cameraTargetPosition = VGCentrePosition + (targetPocketPal.transform.position - VGCentrePosition).normalized * VGPPalCamDistance;
 
 		// For the Vector3.lerp function
 		lerp = 0.0f;

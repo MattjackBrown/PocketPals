@@ -58,7 +58,7 @@ public class VirtualSceneParent : MonoBehaviour
 		if (currentLookedAtPPalIndex == 0)
 			currentLookedAtPPalIndex = AnimalObjects.Length-1;
 		else
-			// else increment index
+			// else deccrement index
 			currentLookedAtPPalIndex--;
 
 		// Return the GameObject of that index in the AnimalObjects

@@ -117,6 +117,7 @@ public class PocketPalSpawnManager : MonoBehaviour
 				while (!validSpawnFound || tempCount < maxCount) {
 
 					// Find a randomly chosen spawn position
+					// Better way may be to randomise the spawnPoints and go through them all
 					spawnPointIndex = Random.Range (0, spawnPoints.Length);
 					spawnPosition = spawnPoints [spawnPointIndex].position;
 
@@ -217,6 +218,8 @@ public class PocketPalSpawnManager : MonoBehaviour
 				return false;
 			}
 		}
+
+		// If all PPal distance checks pass then return true
 		return true;
 	}
 }
