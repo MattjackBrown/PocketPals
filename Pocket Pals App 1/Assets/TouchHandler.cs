@@ -235,11 +235,11 @@ public class TouchHandler : MonoBehaviour {
 				if (touchZero.position.x - startTouchPosition.x > swipeLengthToLookAtNext * Screen.width) {
 
 					// Init VirtualGardenCameraTransition. ControlScheme, Init function in cameraController
-					cameraController.VGInitLookAtNextPPal (virtualGarden.GetNextPPal());
+					cameraController.VGInitLookAtNextPPal (virtualGarden.GetPreviousPPal());
 
 				} else if (touchZero.position.x - startTouchPosition.x < -swipeLengthToLookAtNext * Screen.width) {
 
-					cameraController.VGInitLookAtNextPPal (virtualGarden.GetPreviousPPal());
+					cameraController.VGInitLookAtNextPPal (virtualGarden.GetNextPPal());
 
 				} else {
 

@@ -37,9 +37,9 @@ public class CameraController : MonoBehaviour
 	float virtualGardenMovementSpeed = 1.5f;
 
 	// The default distance of the camera from the targeted PPal in the virtual garden
-	float VGPPalCamDistance = 3.0f;
+	float VGPPalCamDistance = 4.0f;
 
-	Vector3 VGCamHeight = new Vector3 (0.0f, 0.5f, 0.0f);
+//	Vector3 VGCamHeight = new Vector3 (0.0f, 0.5f, 0.0f);
 
 	// To store the game view camera position relative to the player, to return to after the minigame
 	Vector3 returnCamOffsetAfterCapture;
@@ -354,7 +354,7 @@ public class CameraController : MonoBehaviour
 //		cameraTargetPosition = targetPocketPalPosition + targetPocketPal.transform.forward * VGPPalCamDistance + VGCamHeight;
 
 		// Better way without hardcoding. Picks a targetPosition based on the direction to the centre and a cam distance
-		cameraTargetPosition = VGCentrePosition + (targetPocketPal.transform.position - VGCentrePosition).normalized * VGPPalCamDistance;
+		cameraTargetPosition = targetPocketPalPosition - (targetPocketPalPosition - VGCentrePosition).normalized * VGPPalCamDistance;
 
 		// For the Vector3.lerp function
 		lerp = 0.0f;
