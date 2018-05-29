@@ -85,7 +85,7 @@ public class CaptureMiniGame : MonoBehaviour {
 			viewFinder.enabled = false;
 
 			// Tell the cameraController to zoom out
-			controls.cameraController.zoomOutInit ();
+			controls.cameraController.MapZoomOutInit ();
 
 			// Remove the depth of field component
 			controls.cameraController.EnableDepthOfField (false);

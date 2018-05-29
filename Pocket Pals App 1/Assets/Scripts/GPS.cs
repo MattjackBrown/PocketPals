@@ -16,6 +16,8 @@ public class GPS : MonoBehaviour
     public GameObject girl;
 	public GameObject mainCamera;
 
+	public TouchHandler controls;
+
     public bool Moving = false;
 
     //Screen to cover the map re-intialising.
@@ -223,8 +225,12 @@ public class GPS : MonoBehaviour
 			// Apply the movement to the player
             girl.transform.position = Vector3.Lerp(girl.transform.position, destination, movementSpeed * Time.deltaTime);
 
-            // Apply the delta position to the camera transform
-            mainCamera.transform.position += girl.transform.position -playerStartPosition;
+			// Don't move the camera if in minigame. There is probably a better place to do this
+			if (!controls.IsMiniGame ()) {
+
+				// Apply the delta position to the camera transform
+				mainCamera.transform.position += girl.transform.position - playerStartPosition;
+			}
 
             //calc rotation
             if (destination != Vector3.zero)

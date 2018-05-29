@@ -183,24 +183,24 @@ MonoBehaviour:
   - ID: 13
     Used: 0
     animalObj: {fileID: 1853975534}
-  - ID: 11
-    Used: 0
-    animalObj: {fileID: 1891712976}
-  - ID: 12
-    Used: 0
-    animalObj: {fileID: 1065508541}
-  - ID: 10
-    Used: 0
-    animalObj: {fileID: 1743683827}
   - ID: 8
     Used: 0
     animalObj: {fileID: 195044314}
-  - ID: 9
+  - ID: 10
     Used: 0
-    animalObj: {fileID: 508280170}
+    animalObj: {fileID: 1743683827}
   - ID: 5
     Used: 0
     animalObj: {fileID: 478437832}
+  - ID: 12
+    Used: 0
+    animalObj: {fileID: 1065508541}
+  - ID: 11
+    Used: 0
+    animalObj: {fileID: 1891712976}
+  - ID: 9
+    Used: 0
+    animalObj: {fileID: 508280170}
 --- !u!1 &36652898
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,6 +364,7 @@ MonoBehaviour:
   originalMap: {fileID: 1514764282}
   girl: {fileID: 206820439}
   mainCamera: {fileID: 1331972345}
+  controls: {fileID: 1331972349}
   Moving: 0
   loadingScreen: {fileID: 786592890}
   movementSpeed: 1
@@ -7718,6 +7719,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: fc04180b2e119f840b40154e3b59716e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 28135bb5203cc2f43a5e60311ef78ab4, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fc04180b2e119f840b40154e3b59716e, type: 3}
   m_IsPrefabParent: 0

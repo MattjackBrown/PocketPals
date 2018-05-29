@@ -21,8 +21,15 @@ public class VirtualSceneParent : MonoBehaviour
             {
                 Debug.Log(obj.ID);
                 obj.animalObj.SetActive(true);
+
+				// Re Triss? What's this used for? I'm using it for whether it is in the inventory/whether it should be in the scene for the
+				// getNextPPal() and getPrevPPal()
+				obj.Used = true;
             }
         }
+
+		// Initialise the idle camera action variables when no touches
+		CameraController.Instance.VGInitLookAtNextPPal(GetNextPPal());
     }
 
     public void SetObtained(int id)
@@ -41,28 +48,48 @@ public class VirtualSceneParent : MonoBehaviour
 
 	public GameObject GetNextPPal () {
 
-		// If the current index is the end of the array, then set as zero
-		if (currentLookedAtPPalIndex >= AnimalObjects.Length-1)
-			currentLookedAtPPalIndex = 0;
-		else
-			// else increment index
-			currentLookedAtPPalIndex++;
+		foreach (VirtualGardenSpawn PPal in AnimalObjects) {
+			// If the current index is the end of the array, then set as zero
+			if (currentLookedAtPPalIndex >= AnimalObjects.Length - 1)
+				currentLookedAtPPalIndex = 0;
+			else
+				// else increment index
+				currentLookedAtPPalIndex++;
 
-		// Return the GameObject of that index in the AnimalObjects
-		return AnimalObjects [currentLookedAtPPalIndex].animalObj;
+			// Look at that index value
+			var indexVGS = AnimalObjects [currentLookedAtPPalIndex];
+
+			// Next check whether it is in the inventory
+			if (indexVGS.Used) {
+				
+				// Return the GameObject of that index in the AnimalObjects
+				return indexVGS.animalObj;
+			}
+		}
+		return null;
 	}
 
 	public GameObject GetPreviousPPal () {
 
-		// If the current index is the start of the array, then set as the last
-		if (currentLookedAtPPalIndex == 0)
-			currentLookedAtPPalIndex = AnimalObjects.Length-1;
-		else
+		foreach (VirtualGardenSpawn PPal in AnimalObjects) {
+			// If the current index is the start of the array, then set as the last
+			if (currentLookedAtPPalIndex == 0)
+				currentLookedAtPPalIndex = AnimalObjects.Length - 1;
+			else
 			// else deccrement index
 			currentLookedAtPPalIndex--;
 
-		// Return the GameObject of that index in the AnimalObjects
-		return AnimalObjects [currentLookedAtPPalIndex].animalObj;
+			// Look at that index value
+			var indexVGS = AnimalObjects [currentLookedAtPPalIndex];
+
+			// Next check whether it is in the inventory
+			if (indexVGS.Used) {
+
+				// Return the GameObject of that index in the AnimalObjects
+				return indexVGS.animalObj;
+			}
+		}
+		return null;
 	}
 }
 
