@@ -341,8 +341,11 @@ public class CameraController : MonoBehaviour
 		// Store the pocketPal
 		targetPocketPal = pocketPal;
 
-		// Store the camera start position
-		cameraStartPosition = transform.position;
+        //Check to make sure there is a target pocketpal
+        if (targetPocketPal == null) return;
+
+        // Store the camera start position
+        cameraStartPosition = transform.position;
 
 		// Get the current look at point. Anywhere along the current forward vector
 		cameraLookAtStartPosition = cameraStartPosition + transform.forward;
