@@ -50,7 +50,7 @@ public class CameraController : MonoBehaviour
 	GameObject targetPocketPal;
 
 	bool isZoomingIn = false;
-	float lerp;
+	float lerp, VGPinchLerp;
 
 	// For the depth of field in the minigame
 	PostProcessingProfile postProcessing;
@@ -61,7 +61,7 @@ public class CameraController : MonoBehaviour
 
 	// Used as a central point to calculate virtual garden PPal inspect positions
 	public GameObject VGCentre;
-	Vector3 VGCentrePosition;
+	Vector3 VGCentrePosition, VGZoomedPosition;
 
 	// Use this for initialization
 	void Start () {
@@ -91,7 +91,7 @@ public class CameraController : MonoBehaviour
 		
 	}
 */
-	public void PinchZoom(Touch touchZero, Touch touchOne) {
+	public void MapPinchZoom(Touch touchZero, Touch touchOne) {
 
 		// Get the position of the player
 		playerPosition = player.transform.position;
@@ -132,7 +132,7 @@ public class CameraController : MonoBehaviour
 		transform.LookAt (playerPosition + lookAtPlayerPositionOffset);
 	}
 
-	public void RotateMap(Touch touchZero) {
+	public void MapRotate(Touch touchZero) {
 
 		// Get the position of the player
 		playerPosition = player.transform.position;
@@ -205,7 +205,7 @@ public class CameraController : MonoBehaviour
 		}
 	}
 
-	public void zoomOutInit() {
+	public void MapZoomOutInit() {
 
 		isZoomingIn = false;
 		lerp = 0.0f;
@@ -358,6 +358,10 @@ public class CameraController : MonoBehaviour
 
 		// For the Vector3.lerp function
 		lerp = 0.0f;
+		VGPinchLerp = 0.0f;
+
+		// Temp. VGZoomedPosition set as halfway between the camera position and the target PPal
+		VGZoomedPosition = cameraTargetPosition + (targetPocketPalPosition - cameraTargetPosition) / 2.0f;
 
 		// Set the controlScheme
 		controls.VirtualGardenCameraTransitionControls ();
@@ -370,6 +374,8 @@ public class CameraController : MonoBehaviour
 
 			// Set controls back to standard VG controls
 			controls.VirtualGardenControls();
+
+			VGPinchLerp = 0.0f;
 
 		} else {
 
@@ -385,5 +391,57 @@ public class CameraController : MonoBehaviour
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
 		}
+	}
+
+	public void VGInitReturn () {
+
+		// Get the current look at point. Distance doesn't matter, just the direction vector being correct
+		cameraLookAtStartPosition = transform.position  + transform.forward;
+
+		// For the Vector3.lerp function
+		lerp = 0.0f;
+	}
+
+	public void VGReturnCamToTargetedPPal () {
+		
+		// Opposite of VGMoveCamToNextPPal
+		if (lerp < 1.0f) {
+
+			// Decrease the lerp float (a bit slower than other VG movement)
+			lerp += Time.deltaTime * virtualGardenMovementSpeed / 2.0f;
+
+			// Lerp the lookAtPoint
+			cameraLookAtPoint = Vector3.Lerp (cameraLookAtStartPosition, targetPocketPalPosition, lerp);
+
+			// Set the look at transform for the camera
+			transform.LookAt (cameraLookAtPoint);
+		}
+	}
+
+	public void VGPinchZoom (Touch touchZero, Touch touchOne) {
+
+		// Find the position in the previous frame of each touch
+		Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+		Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+
+		// Find the magnitude of the vector (the distance) between the touches in each frame
+		// Previous frame
+		float prevTouchDelta = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+		// Current frame
+		float currentTouchDelta = (touchZero.position - touchOne.position).magnitude;
+
+		// Find the difference in the distances between each frame
+		float deltaTouchDifference = currentTouchDelta - prevTouchDelta;
+
+		// Adjust for different device's screen pixel density
+		deltaTouchDifference *= 2.0f / Screen.width;
+
+		// Apply the modifier to the current camera distance
+		VGPinchLerp += deltaTouchDifference;
+
+		// Clamp between min and max allowed values
+		VGPinchLerp = Mathf.Clamp (VGPinchLerp, 0.0f, 1.0f);
+
+		transform.position = Vector3.Lerp(cameraTargetPosition, VGZoomedPosition, VGPinchLerp);
 	}
 }

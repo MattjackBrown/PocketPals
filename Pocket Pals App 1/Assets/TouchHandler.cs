@@ -200,12 +200,12 @@ public class TouchHandler : MonoBehaviour {
 		case 4:
 		case 3:
 		case 2:
-			cameraController.PinchZoom (Input.GetTouch(0), Input.GetTouch(1));
+			cameraController.MapPinchZoom (Input.GetTouch(0), Input.GetTouch(1));
 			break;
 
 			// check for a single touch swiping
 		case 1:
-			cameraController.RotateMap (Input.GetTouch(0));
+			cameraController.MapRotate (Input.GetTouch(0));
 			CheckForTap ();
 			break;
 		}
@@ -215,9 +215,15 @@ public class TouchHandler : MonoBehaviour {
 		
 		if(Input.GetMouseButtonDown(0))Debug.Log("Cannot rotate camera using mouse button try touches,");
 
-		if (Input.touches.Length > 0) {
+		int numberOfTouches = Input.touches.Length;
 
-			// A lot simpler if we only look at touch(0)
+		if (numberOfTouches > 1) {
+
+			// Pinch zoom for the virtual garden
+			cameraController.VGPinchZoom (Input.GetTouch(0), Input.GetTouch(1));
+
+		} else if (numberOfTouches == 1) {
+
 			Touch touchZero = Input.GetTouch (0);
 
 			// Controls begin after touch(0) is placed when in virtual garden. Previous touches are ignored
@@ -229,25 +235,35 @@ public class TouchHandler : MonoBehaviour {
 				// Virtual garden controls are not reachable until this is true. Ignores previous pre VG touches
 				virtualGardenTouchPlaced = true;
 
+			// if the last present touch has just ended. No touches present after this
+			} else if (touchZero.phase == TouchPhase.Ended) {
+
+				// Init the camera returning to a default direction when no touches present
+				cameraController.VGInitReturn ();
+
 			} else if (virtualGardenTouchPlaced) {
 
 				// If the delta touch position.x is above the threshold needed to look at next PPal
 				if (touchZero.position.x - startTouchPosition.x > swipeLengthToLookAtNext * Screen.width) {
 
-					// Init VirtualGardenCameraTransition. ControlScheme, Init function in cameraController
-					cameraController.VGInitLookAtNextPPal (virtualGarden.GetPreviousPPal());
+					// Init lerp values to look at the previous PPal
+					cameraController.VGInitLookAtNextPPal (virtualGarden.GetPreviousPPal ());
 
 				} else if (touchZero.position.x - startTouchPosition.x < -swipeLengthToLookAtNext * Screen.width) {
 
-					cameraController.VGInitLookAtNextPPal (virtualGarden.GetNextPPal());
+					// Init lerp values to look athe next PPal
+					cameraController.VGInitLookAtNextPPal (virtualGarden.GetNextPPal ());
 
 				} else {
 
 					// Allow a rotation movement when not switching between inventory animals, add in small up and down?
 					cameraController.VGRotateCamera (touchZero);
-
 				}
 			}
+		} else {
+
+			// With no touch present return the orientation of the camera to look directly at the targeted inventory PPal
+			cameraController.VGReturnCamToTargetedPPal ();
 		}
 	}
 }

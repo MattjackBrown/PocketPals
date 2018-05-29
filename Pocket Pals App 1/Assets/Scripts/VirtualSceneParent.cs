@@ -23,10 +23,13 @@ public class VirtualSceneParent : MonoBehaviour
                 obj.animalObj.SetActive(true);
 
 				// Re Triss? What's this used for? I'm using it for whether it is in the inventory/whether it should be in the scene for the
-				// getNExtPPal() and getPrevPPal()
+				// getNextPPal() and getPrevPPal()
 				obj.Used = true;
             }
         }
+
+		// Initialise the idle camera action variables when no touches
+		CameraController.Instance.VGInitLookAtNextPPal(GetNextPPal());
     }
 
     public void SetObtained(int id)
