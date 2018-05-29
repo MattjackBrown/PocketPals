@@ -130,6 +130,13 @@ public class TouchHandler : MonoBehaviour {
 		startTouchPosition = position;
 	}
 
+	public bool IsMiniGame() {
+		if (controlScheme == ControlScheme.miniGame)
+			return true;
+		else
+			return false;
+	}
+
 	void DebugTouch()
 	{
 		//declare a variable of RaycastHit struct

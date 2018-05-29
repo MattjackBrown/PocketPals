@@ -40,7 +40,7 @@ public class PocketPalSpawnManager : MonoBehaviour
 	public int maxPocketPalDistance = 20;
 
 	// The minimum distance allowed between spawning pocket pals to avoid overlaps
-	float minimumDistanceBetweenSpawns = 2.0f;
+	float minimumDistanceBetweenSpawns = 4.0f;
 
     //List of all the spawned pocketpals
     private List<GameObject> spawnedPocketPals = new List<GameObject>();
