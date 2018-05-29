@@ -253,13 +253,27 @@ public class TouchHandler : MonoBehaviour {
 				// If the delta touch position.x is above the threshold needed to look at next PPal
 				if (touchZero.position.x - startTouchPosition.x > swipeLengthToLookAtNext * Screen.width) {
 
-					// Init lerp values to look at the previous PPal
-					cameraController.VGInitLookAtNextPPal (virtualGarden.GetPreviousPPal ());
+					GameObject nextPPal = virtualGarden.GetPreviousPPal ();
+
+					if (nextPPal != null) {
+						// Init lerp values to look at the previous PPal
+						cameraController.VGInitLookAtNextPPal (nextPPal);
+					} else {
+						// If no PPals in inventory just rotate
+						cameraController.VGRotateCamera (touchZero);
+					}
 
 				} else if (touchZero.position.x - startTouchPosition.x < -swipeLengthToLookAtNext * Screen.width) {
 
-					// Init lerp values to look athe next PPal
-					cameraController.VGInitLookAtNextPPal (virtualGarden.GetNextPPal ());
+					GameObject nextPPal = virtualGarden.GetNextPPal ();
+
+					if (nextPPal != null) {
+						// Init lerp values to look at the previous PPal
+						cameraController.VGInitLookAtNextPPal (nextPPal);
+					} else {
+						// If no PPals in inventory just rotate
+						cameraController.VGRotateCamera (touchZero);
+					}
 
 				} else {
 

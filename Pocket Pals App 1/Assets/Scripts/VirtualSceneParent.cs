@@ -16,7 +16,8 @@ public class VirtualSceneParent : MonoBehaviour
         List<int> obtainedAnimals =  LocalDataManager.Instance.GetInventory().GetUniqueAnimalIDs();
         foreach (VirtualGardenSpawn obj in AnimalObjects)
         {
-            obj.animalObj.SetActive(false);
+			obj.animalObj.SetActive (false);
+			obj.Used = false;
             if (obtainedAnimals.Contains(obj.ID))
             {
                 Debug.Log(obj.ID);
@@ -27,9 +28,11 @@ public class VirtualSceneParent : MonoBehaviour
 				obj.Used = true;
             }
         }
-
-		// Initialise the idle camera action variables when no touches
-		CameraController.Instance.VGInitLookAtNextPPal(GetNextPPal());
+		if (obtainedAnimals.Count > 0) {
+			
+			// Initialise the idle camera action variables when no touches
+			CameraController.Instance.VGInitLookAtNextPPal (GetNextPPal ());
+		}
     }
 
     public void SetObtained(int id)
