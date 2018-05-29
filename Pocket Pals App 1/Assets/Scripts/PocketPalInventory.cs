@@ -10,8 +10,26 @@ public class PocketPalInventory
 
     public void AddPocketPal(PocketPalParent obj)
     {
-        PocketPalData ppd = new PocketPalData(obj.name, obj.PocketPalID, Guid.NewGuid().ToString(), 0);
-        myPPals.Add(ppd);
+        //try and get the animal from an exsisting inventory
+        PocketPalData ppd = GetDataFromID(obj.PocketPalID);
+        if (ppd == null)
+        {
+            myPPals.Add(obj.GetAnimalData());
+        }
+        //merge it if its a repeat animal
+        else
+        {
+            ppd.MergePocketPal(obj.GetAnimalData(), 1.0f);
+        }
+    }
+
+    public PocketPalData GetDataFromID(int ID)
+    {
+        foreach (PocketPalData p in myPPals)
+        {
+            if (p.ID == ID) return p;
+        }
+        return null;
     }
 
     public List<PocketPalData> GetMyPocketPals()
@@ -35,14 +53,12 @@ public class PocketPalInventory
         return UniqueIDs;
     }
 
-    public string GetPocketPalsID()
+    public void PrintMyPocketPals()
     {
-        string str = "";
         foreach (PocketPalData ppd in myPPals)
         {
-            str += ppd.ID;
+            Debug.Log("Name: " + ppd.name + " ID: " + ppd.ID + " Level: " + ppd.level + " Size: " + ppd.size + " EXP: " + ppd.GetExp());   
         }
-        return str;
     }
 
     public List<GameObject> GetXMostRecent(int x)

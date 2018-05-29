@@ -97,7 +97,7 @@ public class LocalDataManager : MonoBehaviour {
 
             Debug.Log(localData.DistanceTravelled);
             Debug.Log(localData.Username);
-            Debug.Log(localData.Inventory.GetPocketPalsID());
+            localData.Inventory.PrintMyPocketPals();
         }
         catch
         {

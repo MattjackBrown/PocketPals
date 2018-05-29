@@ -138,6 +138,7 @@ public class PocketPalSpawnManager : MonoBehaviour
 					// Create an instance of the prefab at select pocketpal via rarity 
 					GameObject clone = Instantiate (GetWeightedPocketPal (), spawnPosition, rot);
 					spawnedPocketPals.Add (clone);
+                    clone.GetComponent<PocketPalParent>().GenerateAnimalData();
 
 					// Increases the currentPocketPals value by 1
 					clone.transform.parent = gpsMap.currentMap.transform;
