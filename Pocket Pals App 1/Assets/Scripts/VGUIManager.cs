@@ -71,13 +71,13 @@ public class VGUIManager : MonoBehaviour
         if (currentDisplayData != null)
         {
             nameText.text = currentDisplayData.name;
-            sizeText.text = currentDisplayData.size.ToString();
-            agressionText.text = currentDisplayData.agressiveness.ToString();
+            sizeText.text = currentDisplayData.GetSize().ToString();
+            agressionText.text = currentDisplayData.GetAgression().ToString();
             caughtText.text = currentDisplayData.numberCaught.ToString();
-            rarityText.text = currentDisplayData.rarity.ToString();
+            rarityText.text = currentDisplayData.GetRarity().ToString();
             expText.text = currentDisplayData.GetExp().ToString();
             levelText.text = currentDisplayData.GetLevel().ToString();
-            expToNextLevelText.text = currentDisplayData.EXPToNextLevel.ToString();
+            expToNextLevelText.text = currentDisplayData.GetExpToNextLevel().ToString();
 
             progressBar.fillAmount = currentDisplayData.GetPercentageToNextLevel();
 

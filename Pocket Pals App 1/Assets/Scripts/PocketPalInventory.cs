@@ -19,6 +19,7 @@ public class PocketPalInventory
         //merge it if its a repeat animal
         else
         {
+            Debug.Log("Repeat");
             ppd.MergePocketPal(obj.GetAnimalData(), 1.0f);
         }
     }
@@ -57,7 +58,7 @@ public class PocketPalInventory
     {
         foreach (PocketPalData ppd in myPPals)
         {
-            Debug.Log("Name: " + ppd.name + " ID: " + ppd.ID + " Level: " + ppd.GetLevel() + " Size: " + ppd.size + " EXP: " + ppd.GetExp());   
+            Debug.Log("Name: " + ppd.name + " ID: " + ppd.ID + " Level: " + ppd.GetLevel() + " Size: " + ppd.GetSize() + " EXP: " + ppd.GetExp());   
         }
     }
 

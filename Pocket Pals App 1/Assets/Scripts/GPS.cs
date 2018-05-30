@@ -226,7 +226,7 @@ public class GPS : MonoBehaviour
             girl.transform.position = Vector3.Lerp(girl.transform.position, destination, movementSpeed * Time.deltaTime);
 
 			// Don't move the camera if in minigame. There is probably a better place to do this
-			if (!controls.IsMiniGame ()) {
+			if (controls.CameraShouldFollowGPS ()) {
 
 				// Apply the delta position to the camera transform
 				mainCamera.transform.position += girl.transform.position - playerStartPosition;

@@ -27,6 +27,11 @@ public class PocketPalParent : MonoBehaviour
     public float averageSpawnSize = 5.0f;
     public float sizeVariance = 0.5f;
 
+    public float averageAgro = 5.0f;
+    public float agroVariance = 0.5f;
+
+    public string name = "none";
+
     private PocketPalData pocketPalData;
 
     [Tooltip("The rarity of the spawn")]
@@ -70,7 +75,10 @@ public class PocketPalParent : MonoBehaviour
         float tSizeVar = averageSpawnSize * sizeVariance;
         float size = Random.Range(averageSpawnSize - tSizeVar, averageSpawnSize + tSizeVar);
 
-        pocketPalData = new PocketPalData("None", PocketPalID,exp, size, 0 );
+        float tAgroVar = averageAgro * agroVariance;
+        float agro = Random.Range(averageAgro - tAgroVar, averageAgro + tAgroVar);
+
+        pocketPalData = new PocketPalData(name, PocketPalID,exp, size, agro, Rarity);
     }
 
     public PocketPalData GetAnimalData(){ return pocketPalData; }

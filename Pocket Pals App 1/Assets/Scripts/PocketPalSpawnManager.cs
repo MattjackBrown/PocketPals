@@ -33,6 +33,10 @@ public class PocketPalSpawnManager : MonoBehaviour
     //Ref to the map, to set the parent of the pocketpals once they spawn
     private GPS gpsMap;
 
+    public static float TotalRarity = 0;
+    public static int NumberOfPPals = 0;
+    public static float AverageRarity = 0;
+
     // The max number of Pocket Pals that can spawn at any one time
     public int maxPocketPals = 20;
 
@@ -54,8 +58,11 @@ public class PocketPalSpawnManager : MonoBehaviour
         //Iter throught the PocketPalscripts and set their IDs
         foreach (GameObject o in AssetManager.Instance.PocketPals)
         {
+            TotalRarity += o.GetComponent<PocketPalParent>().Rarity;
+            NumberOfPPals++;
             rarityList.Add(o.GetComponent<PocketPalParent>().Rarity);
         }
+        AverageRarity = TotalRarity / NumberOfPPals;
 
         //making it percentage based seem easier too understand, but harder to work with.
         normalisedVariance = spawnTimeVariance / 100;
@@ -123,6 +130,8 @@ public class PocketPalSpawnManager : MonoBehaviour
 
 					// Check if a valid spawn position
 					if (DoesNotOverlapExistingPPal (spawnPosition)) {
+
+						// If does not overlap then set the bool to true, breaking out of the while loop, and allowing spawning
 						validSpawnFound = true;
 					}
 

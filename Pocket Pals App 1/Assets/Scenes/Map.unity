@@ -2349,7 +2349,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1100457657}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2811,7 +2811,7 @@ MonoBehaviour:
   RoamCanvas: {fileID: 438227163}
   nameText: {fileID: 1397197153}
   sizeText: {fileID: 1419360025}
-  agressionText: {fileID: 0}
+  agressionText: {fileID: 665480102}
   caughtText: {fileID: 2040990046}
   rarityText: {fileID: 495625675}
   levelText: {fileID: 800971971}
@@ -3874,7 +3874,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1100457657}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5014,8 +5014,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 664572018}
   - {fileID: 921309995}
+  - {fileID: 664572018}
   m_Father: {fileID: 554822274}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5121,8 +5121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e946f5af7bd244b9ba9b0c888ef19532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avgSpawnTime: 15
-  spawnTimeVariance: 50
+  avgSpawnTime: 1
+  spawnTimeVariance: 0
   spawnPoints:
   - {fileID: 1267739198}
   - {fileID: 1597336364}
@@ -5145,7 +5145,7 @@ MonoBehaviour:
   - {fileID: 990544974}
   - {fileID: 470987506}
   girl: {fileID: 206820439}
-  maxPocketPals: 5
+  maxPocketPals: 25
   maxPocketPalDistance: 30
 --- !u!1 &1136291998
 GameObject:
@@ -6127,7 +6127,7 @@ MonoBehaviour:
   cameraController: {fileID: 1331972350}
   miniGame: {fileID: 1010577586}
   virtualGarden: {fileID: 32817350}
-  IsDebug: 0
+  IsDebug: 1
   maxCaptureDistance: 16
 --- !u!114 &1331972350
 MonoBehaviour:

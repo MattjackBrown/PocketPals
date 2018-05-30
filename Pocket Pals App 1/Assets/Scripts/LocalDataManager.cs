@@ -39,8 +39,10 @@ public class LocalDataManager : MonoBehaviour {
         SaveData();
     }
 
+
     public void AddPocketPal(GameObject obj)
     {
+       
         localData.Inventory.AddPocketPal(obj.GetComponent<PocketPalParent>());
         SaveData();
     }
@@ -71,16 +73,23 @@ public class LocalDataManager : MonoBehaviour {
 
     void SaveData()
     {
-        FileStream file;
+        try
+        {
+            FileStream file;
 
-        //try and get the save game file
-        if (File.Exists(destination)) file = File.OpenWrite(destination);
-        else file = ResetFile();
+            //try and get the save game file
+            if (File.Exists(destination)) file = File.OpenWrite(destination);
+            else file = ResetFile();
 
-        //serialise and save our data
-        BinaryFormatter bf = new BinaryFormatter();
-        bf.Serialize(file, localData);
-        file.Close();
+            //serialise and save our data
+            BinaryFormatter bf = new BinaryFormatter();
+            bf.Serialize(file, localData);
+            file.Close();
+        }
+        catch(System.Exception ex)
+        {
+            Debug.Log("Failed to save" + ex);
+        }
     }
 
     void LoadData()
