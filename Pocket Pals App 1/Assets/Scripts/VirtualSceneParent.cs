@@ -8,28 +8,37 @@ public class VirtualSceneParent : MonoBehaviour
 {
     public VirtualGardenSpawn[] AnimalObjects;
 
+    public VGUIManager gUIManager;
+
 	// Used to cycle through the virtual garden's PPals
 	int currentLookedAtPPalIndex = 0;
 
     private void OnEnable()
     {
-        List<int> obtainedAnimals =  LocalDataManager.Instance.GetInventory().GetUniqueAnimalIDs();
+        bool hasAPocketPal = false;
+
         foreach (VirtualGardenSpawn obj in AnimalObjects)
         {
+            //make sure all are inactive and not used, unless check is correct.
 			obj.animalObj.SetActive (false);
 			obj.Used = false;
-            if (obtainedAnimals.Contains(obj.ID))
-            {
-                Debug.Log(obj.ID);
-                obj.animalObj.SetActive(true);
 
-				// Re Triss? What's this used for? I'm using it for whether it is in the inventory/whether it should be in the scene for the
-				// getNextPPal() and getPrevPPal()
+            //Check to see if the player has the pocketpal.
+            PocketPalData data = LocalDataManager.Instance.TryGetPocketPal(obj.ID);
+            if (data != null)
+            {
+                hasAPocketPal = true;
+
+                //set the animal obj to have the data of the collected pocketpal.
+                obj.SetAnimalData(data);
+
+                //we Know the player owns the pocketpal so make used true and make it active in scene
 				obj.Used = true;
+                obj.animalObj.SetActive(true);
             }
         }
-		if (obtainedAnimals.Count > 0) {
-			
+		if (hasAPocketPal)
+        { 
 			// Initialise the idle camera action variables when no touches
 			CameraController.Instance.VGInitLookAtNextPPal (GetNextPPal ());
 		}
@@ -63,10 +72,14 @@ public class VirtualSceneParent : MonoBehaviour
 			var indexVGS = AnimalObjects [currentLookedAtPPalIndex];
 
 			// Next check whether it is in the inventory
-			if (indexVGS.Used) {
-				
-				// Return the GameObject of that index in the AnimalObjects
-				return indexVGS.animalObj;
+			if (indexVGS.Used)
+            {
+
+                //Set the inspect data in the virtual garden UI manager
+                gUIManager.SetInspectData(AnimalObjects[currentLookedAtPPalIndex].GetAnimalData());
+
+                // Return the GameObject of that index in the AnimalObjects
+                return indexVGS.animalObj;
 			}
 		}
 		return null;
@@ -88,6 +101,9 @@ public class VirtualSceneParent : MonoBehaviour
 			// Next check whether it is in the inventory
 			if (indexVGS.Used) {
 
+                //Set the inspect data in the virtual garden UI manager
+                gUIManager.SetInspectData(AnimalObjects[currentLookedAtPPalIndex].GetAnimalData());
+
 				// Return the GameObject of that index in the AnimalObjects
 				return indexVGS.animalObj;
 			}
@@ -102,4 +118,8 @@ public class VirtualGardenSpawn
     public int ID;
     public bool Used;
     public GameObject animalObj;
+    private PocketPalData animalData;
+
+    public PocketPalData GetAnimalData() { return animalData; }
+    public void SetAnimalData(PocketPalData ppd) { animalData = ppd; }
 }

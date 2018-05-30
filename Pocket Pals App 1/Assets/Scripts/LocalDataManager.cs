@@ -54,6 +54,16 @@ public class LocalDataManager : MonoBehaviour {
         localData = new GameData();
     }
 
+    //try and get a players pocketpal. If player does not own Pocket pal with ID returns null
+    public PocketPalData TryGetPocketPal(int ID)
+    {
+        foreach (PocketPalData ppd in localData.Inventory.GetMyPocketPals())
+        {
+            if (ppd.ID == ID) return ppd;
+        }
+        return null;
+    }
+
     public PocketPalInventory GetInventory()
     {
         return localData.Inventory;

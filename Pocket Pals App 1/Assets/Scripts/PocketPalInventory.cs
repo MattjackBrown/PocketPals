@@ -57,7 +57,7 @@ public class PocketPalInventory
     {
         foreach (PocketPalData ppd in myPPals)
         {
-            Debug.Log("Name: " + ppd.name + " ID: " + ppd.ID + " Level: " + ppd.level + " Size: " + ppd.size + " EXP: " + ppd.GetExp());   
+            Debug.Log("Name: " + ppd.name + " ID: " + ppd.ID + " Level: " + ppd.GetLevel() + " Size: " + ppd.size + " EXP: " + ppd.GetExp());   
         }
     }
 
