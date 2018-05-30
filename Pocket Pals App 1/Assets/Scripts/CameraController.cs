@@ -61,7 +61,7 @@ public class CameraController : MonoBehaviour
 
 	// Used as a central point to calculate virtual garden PPal inspect positions
 	public GameObject VGCentre;
-	Vector3 VGCentrePosition, VGZoomedPosition;
+	Vector3 VGCentrePosition, VGZoomedPosition, VGInfoLookAtPoint;
 
 	// Use this for initialization
 	void Start () {
@@ -253,7 +253,6 @@ public class CameraController : MonoBehaviour
 			playerPosition = player.transform.position;
 
 			// Not sure about this bit. It works fine but the lerp may have to be done differently to smooth.
-			// * 1.1f used as the self calling lerp doesn't ever reach the target. This tells it to overshoot the target
 			transform.position = Vector3.Lerp (cameraTargetPosition, returnCamOffsetAfterCapture + playerPosition, lerp);
 
 			// Lerp the lookAtPoint
@@ -335,9 +334,6 @@ public class CameraController : MonoBehaviour
 
 	public void VGInitLookAtNextPPal (GameObject pocketPal) {
 
-		// Update to the current player position
-		playerPosition = player.transform.position;
-
 		// Store the pocketPal
 		targetPocketPal = pocketPal;
 
@@ -406,6 +402,10 @@ public class CameraController : MonoBehaviour
 	}
 
 	public void VGReturnCamToTargetedPPal () {
+
+		// Empty inventory check
+		if (targetPocketPal == null)
+			return;
 		
 		// Opposite of VGMoveCamToNextPPal
 		if (lerp < 1.0f) {
@@ -446,5 +446,101 @@ public class CameraController : MonoBehaviour
 		VGPinchLerp = Mathf.Clamp (VGPinchLerp, 0.0f, 1.0f);
 
 		transform.position = Vector3.Lerp(cameraTargetPosition, VGZoomedPosition, VGPinchLerp);
+	}
+
+	public void VGInspectInit (GameObject pocketPal) {
+
+		// Store the pocketPal
+		targetPocketPal = pocketPal;
+
+		// Store the camera start position
+		cameraStartPosition = transform.position;
+
+		// Get the current look at point. Anywhere along the current forward vector
+		cameraLookAtStartPosition = cameraStartPosition + transform.forward;
+
+		// Get the target camera position
+		targetPocketPalPosition = targetPocketPal.transform.position;
+
+		VGInfoLookAtPoint = targetPocketPalPosition + Camera.main.transform.right * 0.5f + Camera.main.transform.up * 0.5f;
+
+		// Better way without hardcoding. Picks a targetPosition based on the direction to the pocketPal and a cam distance
+		// Reusing the other cam distance but making a lot closer
+		cameraTargetPosition = targetPocketPalPosition - (targetPocketPalPosition - cameraStartPosition).normalized * VGPPalCamDistance/2.0f;
+
+//		cameraTargetPosition += Camera.main.transform.right * -2.0f;// Camera.main.ViewportToWorldPoint (new Vector3(0.25f, 0.25f, transform.position.z));
+
+		// For the Vector3.lerp function
+		lerp = 0.0f;
+		VGPinchLerp = 0.0f;
+
+		isZoomingIn = true;
+
+		// Set the controlScheme
+		controls.VirtualGardenInfoTransitionControls();
+	}
+
+	public void VGInfoZoomOutInit() {
+
+		isZoomingIn = false;
+		lerp = 0.0f;
+		controls.VirtualGardenInfoTransitionControls ();
+	}
+
+	public void VGUpdateInfoCam() {
+		if (isZoomingIn)
+			VGMoveToInspect ();
+		else
+			VGReturnFromInspect ();
+	}
+
+	void VGMoveToInspect () {
+
+		// Check if arrived. Lerp is complete when == 1.0f
+		if (lerp >= 1.0f) {
+
+			// Init Info screen
+
+			// Change controlScheme
+			controls.VirtualGardenInfoControls();
+
+		} else {
+
+			// Advance the lerp float (reusing cam zoom speed var from elsewhere here)
+			lerp += Time.deltaTime * captureZoomInSpeed;
+
+			// Not sure about this bit. It works fine but the lerp may have to be done differently to smooth
+			transform.position = Vector3.Lerp (cameraStartPosition, cameraTargetPosition, lerp);
+
+			// Lerp the lookAtPoint
+			cameraLookAtPoint = Vector3.Lerp (cameraLookAtStartPosition, VGInfoLookAtPoint, lerp);
+
+			// Set the look at transform for the camera
+			transform.LookAt (cameraLookAtPoint);
+		}
+	}
+
+	void VGReturnFromInspect () {
+
+		// Check if arrived. Lerp is complete when == 1.0f
+		if (lerp >= 1.0f) {
+
+			// Return to VG controls
+			controls.VirtualGardenControls ();
+
+		} else {
+
+			// Advance the lerp float
+			lerp += Time.deltaTime * captureZoomInSpeed;
+
+			// Not sure about this bit. It works fine but the lerp may have to be done differently to smooth.
+			transform.position = Vector3.Lerp (cameraTargetPosition, cameraStartPosition, lerp);
+
+			// Lerp the lookAtPoint
+			cameraLookAtPoint = Vector3.Lerp (VGInfoLookAtPoint, targetPocketPalPosition, lerp);
+
+			// Set the look at transform for the camera
+			transform.LookAt (cameraLookAtPoint);
+		}
 	}
 }

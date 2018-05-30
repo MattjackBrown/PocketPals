@@ -123,6 +123,8 @@ public class PocketPalSpawnManager : MonoBehaviour
 
 					// Check if a valid spawn position
 					if (DoesNotOverlapExistingPPal (spawnPosition)) {
+
+						// If does not overlap then set the bool to true, breaking out of the while loop, and allowing spawning
 						validSpawnFound = true;
 					}
 

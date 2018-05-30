@@ -16,7 +16,9 @@ public class TouchHandler : MonoBehaviour {
 		menu,
 		miniGame,
 		VirtualGarden,
-		VirtualGardenCameraTransition
+		VirtualGardenCameraTransition,
+		VirtualGardenInfo,
+		VirtualGardenInfoTransition
 	}
 
 	ControlScheme controlScheme;
@@ -79,12 +81,27 @@ public class TouchHandler : MonoBehaviour {
 		case ControlScheme.VirtualGarden:
 			{
 				UseVirtualGardenControls ();
+
+				CheckForVGTap ();
 			}
 			break;
 
 		case ControlScheme.VirtualGardenCameraTransition:
 			{
 				cameraController.VGMoveCamToNextPPal ();
+			}
+			break;
+
+		case ControlScheme.VirtualGardenInfo:
+			{
+				// Temp. Just tap anywhere to return
+				if (Input.touches.Length > 0 && Input.GetTouch(0).phase == TouchPhase.Began) cameraController.VGInfoZoomOutInit();
+			}
+			break;
+
+		case ControlScheme.VirtualGardenInfoTransition:
+			{
+				cameraController.VGUpdateInfoCam ();
 			}
 			break;
 		}
@@ -122,6 +139,14 @@ public class TouchHandler : MonoBehaviour {
 		controlScheme = ControlScheme.VirtualGardenCameraTransition;
 	}
 
+	public void VirtualGardenInfoControls() {
+		controlScheme = ControlScheme.VirtualGardenInfo;
+	}
+
+	public void VirtualGardenInfoTransitionControls () {
+		controlScheme = ControlScheme.VirtualGardenInfoTransition;
+	}
+
 	public void InitVirtualGardenControls() {
 		virtualGardenTouchPlaced = false;
 	}
@@ -130,11 +155,14 @@ public class TouchHandler : MonoBehaviour {
 		startTouchPosition = position;
 	}
 
-	public bool IsMiniGame() {
-		if (controlScheme == ControlScheme.miniGame)
-			return true;
-		else
+	public bool CameraShouldFollowGPS() {
+		if (controlScheme == ControlScheme.miniGame || 
+			controlScheme == ControlScheme.VirtualGarden ||
+			controlScheme == ControlScheme.VirtualGardenCameraTransition ||
+			controlScheme == ControlScheme.VirtualGardenInfo)
 			return false;
+		else
+			return true;
 	}
 
 	void DebugTouch()
@@ -165,7 +193,7 @@ public class TouchHandler : MonoBehaviour {
 		}
 	}
 
-	public void CheckForTap() {
+	public void CheckForMapTap() {
 
 		// Create a rayCastHit object
 		RaycastHit hit = new RaycastHit ();
@@ -190,6 +218,9 @@ public class TouchHandler : MonoBehaviour {
 
 						PocketPalParent hitPocketPal = (PocketPalParent)hit.transform.gameObject.GetComponent ("PocketPalParent");
 						Debug.Log (hitPocketPal.PocketPalID);
+
+						// Only need to find one, Don't bother checking other touches after this
+						return;
 					}
 				}
 			}
@@ -213,8 +244,46 @@ public class TouchHandler : MonoBehaviour {
 			// check for a single touch swiping
 		case 1:
 			cameraController.MapRotate (Input.GetTouch(0));
-			CheckForTap ();
+			CheckForMapTap ();
 			break;
+		}
+	}
+
+	void CheckForVGTap () {
+		
+		// Create a rayCastHit object
+		RaycastHit hit = new RaycastHit ();
+
+		// Look at each touch
+		for (int i = 0; i < Input.touchCount; i++)
+		{
+			// Store the touch
+			Touch touch = Input.GetTouch (i);
+
+			// If touch has just begun
+			if (touch.phase.Equals (TouchPhase.Began))
+			{
+				// Raycast from the touch position
+				Ray ray = Camera.main.ScreenPointToRay (touch.position);
+
+				// if hit
+				if (Physics.Raycast (ray, out hit))
+				{
+					Debug.Log ("Hit : " + hit.transform.gameObject);
+					// This is not a good way. Need a cast to whatever data structure will be used here
+					// Either PocketPalParent, or look for the int ID component of the VirtualGardenSpawn maybe
+					if (hit.transform.gameObject.GetComponent("VirtualGardenInfo"))
+					{
+
+						Debug.Log ("Inspect");
+						// Initialise the info cam values
+						cameraController.VGInspectInit (hit.transform.gameObject);
+
+						// Only need to find one, Don't bother checking other touches after this
+						return;
+					}
+				}
+			}
 		}
 	}
 
