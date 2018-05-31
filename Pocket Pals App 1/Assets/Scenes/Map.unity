@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -202,6 +202,7 @@ MonoBehaviour:
     Used: 0
     animalObj: {fileID: 508280170}
   gUIManager: {fileID: 759308568}
+  centreOfMap: {fileID: 36652898}
 --- !u!1 &36652898
 GameObject:
   m_ObjectHideFlags: 0
@@ -2913,6 +2914,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: clip
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1331972350}
+        m_MethodName: VGInspectButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -6143,6 +6155,11 @@ MonoBehaviour:
   player: {fileID: 206820439}
   compass: {fileID: 1084178749}
   controls: {fileID: 1331972349}
+  cameraTargetPosition: {x: 0, y: 0, z: 0}
+  cameraLookAtPoint: {x: 0, y: 0, z: 0}
+  cameraStartPosition: {x: 0, y: 0, z: 0}
+  cameraLookAtStartPosition: {x: 0, y: 0, z: 0}
+  targetPocketPalPosition: {x: 0, y: 0, z: 0}
   VGCentre: {fileID: 36652898}
 --- !u!222 &1331972351
 CanvasRenderer:

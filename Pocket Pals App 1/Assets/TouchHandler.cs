@@ -95,7 +95,9 @@ public class TouchHandler : MonoBehaviour {
 		case ControlScheme.VirtualGardenInfo:
 			{
 				// Temp. Just tap anywhere to return
-				if (Input.touches.Length > 0 && Input.GetTouch(0).phase == TouchPhase.Began) cameraController.VGInfoZoomOutInit();
+	//			if (Input.touches.Length > 0 && Input.GetTouch(0).phase == TouchPhase.Began) cameraController.VGInfoZoomOutInit();
+
+				UseVGInfoControls ();
 			}
 			break;
 
@@ -279,7 +281,7 @@ public class TouchHandler : MonoBehaviour {
 
 						Debug.Log ("Inspect");
 						// Initialise the info cam values
-						cameraController.VGInspectInit (hit.transform.gameObject);
+						cameraController.VGInspectInit ();//hit.transform.gameObject);
 
 						// Only need to find one, Don't bother checking other touches after this
 						return;
@@ -296,6 +298,9 @@ public class TouchHandler : MonoBehaviour {
 		int numberOfTouches = Input.touches.Length;
 
 		if (numberOfTouches > 1) {
+
+			// Disable the swipe control if pinch zooming
+			virtualGardenTouchPlaced = false;
 
 			// Pinch zoom for the virtual garden
 			cameraController.VGPinchZoom (Input.GetTouch(0), Input.GetTouch(1));
@@ -356,6 +361,39 @@ public class TouchHandler : MonoBehaviour {
 
 			// With no touch present return the orientation of the camera to look directly at the targeted inventory PPal
 			cameraController.VGReturnCamToTargetedPPal ();
+		}
+	}
+
+	void UseVGInfoControls () {
+		
+		if (Input.touches.Length > 0) {
+
+			Touch touchZero = Input.GetTouch (0);
+
+			// Controls begin after touch(0) is placed when in virtual garden. Previous touches are ignored
+			if (touchZero.phase == TouchPhase.Began) {
+
+				// Update the start touch position
+				startTouchPosition = touchZero.position;
+
+				// Virtual garden controls are not reachable until this is true. Ignores previous pre VG touches
+				virtualGardenTouchPlaced = true;
+
+			// if the last present touch has just ended. No touches present after this
+			} else if (virtualGardenTouchPlaced) {
+
+				// If the delta touch position.x is above the threshold needed to look at next PPal
+				if (touchZero.position.x - startTouchPosition.x > swipeLengthToLookAtNext * Screen.width) {
+
+					// cameraController move to previous and swap ui
+					cameraController.VGInspectPrevPPal ();
+
+				} else if (touchZero.position.x - startTouchPosition.x < -swipeLengthToLookAtNext * Screen.width) {
+
+					// cameraController move to next and swap ui
+					cameraController.VGInspectNextPPal ();
+				}
+			}
 		}
 	}
 }

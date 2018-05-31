@@ -7,14 +7,19 @@ using UnityEngine;
 public class VirtualSceneParent : MonoBehaviour
 {
     public VirtualGardenSpawn[] AnimalObjects;
-
     public VGUIManager gUIManager;
+	public GameObject centreOfMap;
+
+	// The default distance of the camera from the targeted PPal in the virtual garden
+	float VGPPalCamDistance = 2.0f;
 
 	// Used to cycle through the virtual garden's PPals
 	int currentLookedAtPPalIndex = 0;
 
     private void OnEnable()
     {
+		Camera gameCamera = Camera.main;
+
         bool hasAPocketPal = false;
 
         foreach (VirtualGardenSpawn obj in AnimalObjects)
@@ -35,6 +40,15 @@ public class VirtualSceneParent : MonoBehaviour
                 //we Know the player owns the pocketpal so make used true and make it active in scene
 				obj.Used = true;
                 obj.animalObj.SetActive(true);
+
+				// Set the inspect position field
+				Vector3 PPPosition = obj.animalObj.transform.position;
+				obj.camInspectPosition = PPPosition - (PPPosition - centreOfMap.transform.position).normalized * VGPPalCamDistance;
+
+				// This bit is a bit complicated.
+				// Get the vector line of sight from the cam to the centre of the screen at the camDistance, do the same for the 0.25f position, and subtract
+				Vector3 VGInfoCamOffset = ((gameCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, transform.position.z)) - transform.position).normalized * VGPPalCamDistance) -
+					((gameCamera.ViewportToWorldPoint(new Vector3(0.25f, 0.25f, transform.position.z)) - transform.position).normalized * VGPPalCamDistance);
             }
         }
 		if (hasAPocketPal)
@@ -110,6 +124,12 @@ public class VirtualSceneParent : MonoBehaviour
 		}
 		return null;
 	}
+
+	public Vector3 GetInspectPosition () {
+
+		// Get the current looked at PPal's inspect position
+		return AnimalObjects[currentLookedAtPPalIndex].camInspectPosition;
+	}
 }
 
 [Serializable]
@@ -119,6 +139,7 @@ public class VirtualGardenSpawn
     public bool Used;
     public GameObject animalObj;
     private PocketPalData animalData;
+	public Vector3 camInspectPosition { get; set; }
 
     public PocketPalData GetAnimalData() { return animalData; }
     public void SetAnimalData(PocketPalData ppd) { animalData = ppd; }
