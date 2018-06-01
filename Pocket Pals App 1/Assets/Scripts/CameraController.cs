@@ -214,9 +214,6 @@ public class CameraController : MonoBehaviour
 			// Init minigame!!!
 			controls.miniGame.InitMiniGame (targetPocketPal.GetComponent<PocketPalParent>());
 
-
-			Debug.Log ("kjdknsvkn");
-
 		} else {
 
 			// Advance the lerp float
@@ -370,6 +367,9 @@ public class CameraController : MonoBehaviour
 
 			// Set controls back to standard VG controls
 			controls.VirtualGardenControls();
+
+			// Do we still want DOF in the VG?
+	//		SetDepthOfField()
 
 			VGPinchLerp = 0.0f;
 
