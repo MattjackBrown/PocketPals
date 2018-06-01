@@ -36,16 +36,11 @@ public class CameraController : MonoBehaviour
 	// Rotation and movement speed when changing the looked at PPal in the virtual garden
 	float virtualGardenMovementSpeed = 1.5f;
 
-	// The default distance of the camera from the targeted PPal in the virtual garden
-	float VGPPalCamDistance = 4.0f;
-
-//	Vector3 VGCamHeight = new Vector3 (0.0f, 0.5f, 0.0f);
-
 	// To store the game view camera position relative to the player, to return to after the minigame
 	Vector3 returnCamOffsetAfterCapture;
 
 	// The positions used to lerp the camera position from map to minigame view
-	public Vector3 cameraTargetPosition, cameraLookAtPoint, cameraStartPosition, cameraLookAtStartPosition, targetPocketPalPosition;
+	Vector3 cameraTargetPosition, cameraLookAtPoint, cameraStartPosition, cameraLookAtStartPosition, targetPocketPalPosition;
 
 	GameObject targetPocketPal;
 
@@ -62,14 +57,12 @@ public class CameraController : MonoBehaviour
 
 	// Used as a central point to calculate virtual garden PPal inspect positions
 	public GameObject VGCentre;
-	Vector3 VGCentrePosition, VGZoomedPosition, VGInfoLookAtPoint, VGInfoCamOffset;
+	Vector3 VGZoomedPosition, VGInfoLookAtPoint, VGInfoCamOffset;
 
 	// Use this for initialization
 	void Start () {
 
         Instance = this;
-
-		VGCentrePosition = VGCentre.transform.position; //VGCentre.transform.position;
 
 		// Set the transform rotation to look at the player + the look at position offset
 		transform.LookAt (player.transform.position + lookAtPlayerPositionOffset);
@@ -354,7 +347,7 @@ public class CameraController : MonoBehaviour
 //		cameraTargetPosition = targetPocketPalPosition + targetPocketPal.transform.forward * VGPPalCamDistance + VGCamHeight;
 
 		// Better way without hardcoding. Picks a targetPosition based on the direction to the centre and a cam distance
-		cameraTargetPosition = targetPocketPalPosition - (targetPocketPalPosition - VGCentrePosition).normalized * VGPPalCamDistance;
+		cameraTargetPosition = controls.virtualGarden.GetViewPosition(); //targetPocketPalPosition - (targetPocketPalPosition - VGCentrePosition).normalized * VGPPalCamDistance;
 
 		// For the Vector3.lerp function
 		lerp = 0.0f;
@@ -501,6 +494,7 @@ public class CameraController : MonoBehaviour
 
 		isZoomingIn = false;
 		isMovingToInspect = false;
+		cameraStartPosition = controls.virtualGarden.GetViewPosition ();
 		lerp = 0.0f;
 		controls.VirtualGardenInfoTransitionControls ();
 	}
