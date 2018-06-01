@@ -45,7 +45,7 @@ public class CameraController : MonoBehaviour
 	Vector3 returnCamOffsetAfterCapture;
 
 	// The positions used to lerp the camera position from map to minigame view
-	Vector3 cameraTargetPosition, cameraLookAtPoint, cameraStartPosition, cameraLookAtStartPosition, targetPocketPalPosition;
+	public Vector3 cameraTargetPosition, cameraLookAtPoint, cameraStartPosition, cameraLookAtStartPosition, targetPocketPalPosition;
 
 	GameObject targetPocketPal;
 
@@ -475,7 +475,7 @@ public class CameraController : MonoBehaviour
 		// Get the target camera position
 		targetPocketPalPosition = targetPocketPal.transform.position;
 
-		VGInfoLookAtPoint = targetPocketPalPosition + Camera.main.transform.right * 0.5f + Camera.main.transform.up * 0.5f;
+		VGInfoLookAtPoint = controls.virtualGarden.GetInspectLookAtPosition (); //targetPocketPalPosition + Camera.main.transform.right * 0.5f + Camera.main.transform.up * 0.5f;
 
 		// Better way without hardcoding. Picks a targetPosition based on the direction to the pocketPal and a cam distance
 		// Reusing the other cam distance but making a lot closer

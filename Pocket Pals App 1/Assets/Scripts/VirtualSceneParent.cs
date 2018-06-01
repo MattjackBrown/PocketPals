@@ -9,6 +9,7 @@ public class VirtualSceneParent : MonoBehaviour
     public VirtualGardenSpawn[] AnimalObjects;
     public VGUIManager gUIManager;
 	public GameObject centreOfMap;
+	Vector3 centreOfMapPosition;
 
 	// The default distance of the camera from the targeted PPal in the virtual garden
 	float VGPPalCamDistance = 2.0f;
@@ -21,6 +22,8 @@ public class VirtualSceneParent : MonoBehaviour
 		Camera gameCamera = Camera.main;
 
         bool hasAPocketPal = false;
+
+		centreOfMapPosition = centreOfMap.transform.position;
 
         foreach (VirtualGardenSpawn obj in AnimalObjects)
         {
@@ -43,12 +46,20 @@ public class VirtualSceneParent : MonoBehaviour
 
 				// Set the inspect position field
 				Vector3 PPPosition = obj.animalObj.transform.position;
-				obj.camInspectPosition = PPPosition - (PPPosition - centreOfMap.transform.position).normalized * VGPPalCamDistance;
+				obj.camInspectPosition = PPPosition - (PPPosition - centreOfMapPosition).normalized * VGPPalCamDistance;
 
 				// This bit is a bit complicated.
-				// Get the vector line of sight from the cam to the centre of the screen at the camDistance, do the same for the 0.25f position, and subtract
-				Vector3 VGInfoCamOffset = ((gameCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, transform.position.z)) - transform.position).normalized * VGPPalCamDistance) -
-					((gameCamera.ViewportToWorldPoint(new Vector3(0.25f, 0.25f, transform.position.z)) - transform.position).normalized * VGPPalCamDistance);
+				// Get the real world distance between the centre of the viewport and the 0.25f, 0.25f of the viewport at PPal distance
+				float VGInfoCamOffsetHorizontal = (gameCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.0f, VGPPalCamDistance)) -// - centreOfMap.transform.position).magnitude)) -
+					gameCamera.ViewportToWorldPoint(new Vector3(0.25f, 0.0f, VGPPalCamDistance))).magnitude;
+
+				float VGInfoCamOffsetVertical = (gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.5f, VGPPalCamDistance)) -// - centreOfMap.transform.position).magnitude)) -
+					gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.25f, VGPPalCamDistance))).magnitude;
+
+				// Cross product of the direction vector to the PPal and V3.up will add the relative offset 
+				obj.camInspectLookAtPosition = obj.camInspectPosition + Vector3.Cross(centreOfMapPosition - PPPosition.normalized, Vector3.up) * VGInfoCamOffsetHorizontal + 
+					Vector3.up * VGInfoCamOffsetVertical;
+
             }
         }
 		if (hasAPocketPal)
@@ -125,6 +136,12 @@ public class VirtualSceneParent : MonoBehaviour
 		return null;
 	}
 
+	public Vector3 GetInspectLookAtPosition () {
+
+		// Get the current looked at PPal's inspect look at position
+		return AnimalObjects[currentLookedAtPPalIndex].camInspectLookAtPosition;
+	}
+
 	public Vector3 GetInspectPosition () {
 
 		// Get the current looked at PPal's inspect position
@@ -139,6 +156,7 @@ public class VirtualGardenSpawn
     public bool Used;
     public GameObject animalObj;
     private PocketPalData animalData;
+	public Vector3 camInspectLookAtPosition { get; set; }
 	public Vector3 camInspectPosition { get; set; }
 
     public PocketPalData GetAnimalData() { return animalData; }
