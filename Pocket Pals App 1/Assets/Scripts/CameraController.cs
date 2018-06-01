@@ -214,6 +214,9 @@ public class CameraController : MonoBehaviour
 			// Init minigame!!!
 			controls.miniGame.InitMiniGame (targetPocketPal.GetComponent<PocketPalParent>());
 
+
+			Debug.Log ("kjdknsvkn");
+
 		} else {
 
 			// Advance the lerp float

@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class CaptureMiniGame : MonoBehaviour {
 
 	public TouchHandler controls;
+	
+	public Canvas MapUI;
+	public Canvas MiniGameMenu;
+	public Canvas MiniGameUI;
 
 	public Image viewFinder;
-	public Canvas MiniGameUI;
-	public Canvas MapUI;
 
 	float minigameTimer, captureTimer;
 
@@ -27,29 +29,16 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		
 		screenWidth = Screen.width;
 		screenHeight = Screen.height;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-		// Prob need to update DOF on tick if in minigame
-	}
 
-	public void InitMiniGame (PocketPalParent targetPocketPal) {
+	public void PlayButtonPressed () {
 
-		// Swap the UI over just with enabled will do
-		MapUI.enabled = false;
-		MiniGameUI.enabled = true;
-		viewFinder.enabled = true;
-
-		// Reset the timers
-		minigameTimer = 0.0f;
-		captureTimer = 0.0f;
-
-		// Set the target pocketPal for this minigame
-		pocketPal = targetPocketPal;
+		// Adjust the UI
+		MiniGameMenu.gameObject.SetActive(false);
+		MiniGameUI.gameObject.SetActive(true);
 
 		// Initially set the viewport image to the centre of the screen
 		viewFinder.rectTransform.anchoredPosition = Camera.main.ViewportToScreenPoint (new Vector3 (0.0f, 0.0f));
@@ -62,6 +51,35 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Set the controlScheme in the touchHandler
 		controls.MiniGameControls ();
+	}
+
+	public void BackButtonPressed () {
+
+		// Swap the UI over just with enabled will do
+		MapUI.gameObject.SetActive(true);
+		MiniGameMenu.gameObject.SetActive (false);
+
+		// Tell the cameraController to zoom out
+		controls.cameraController.MapZoomOutInit ();
+	}
+
+	public void InitMiniGame (PocketPalParent targetPocketPal) {
+
+		// Swap the UI over just with enabled will do
+		MapUI.gameObject.SetActive(false);
+		MiniGameMenu.gameObject.SetActive (true);
+
+		Debug.Log ("ggggggg");
+
+		// Reset the timers
+		minigameTimer = 0.0f;
+		captureTimer = 0.0f;
+
+		// Set the target pocketPal for this minigame
+		pocketPal = targetPocketPal;
+
+		// A passive control scheme waiting for a button press
+		controls.MenuControls ();
 	}
 
 	public void UpdateTimer () {
@@ -80,9 +98,9 @@ public class CaptureMiniGame : MonoBehaviour {
 			pocketPal.Captured();
 
 			// Swap the UI
-			MapUI.enabled = true;
-			MiniGameUI.enabled = false;
-			viewFinder.enabled = false;
+			MapUI.gameObject.SetActive(true);
+			MiniGameMenu.gameObject.SetActive(false);
+			viewFinder.gameObject.SetActive(false);
 
 			// Tell the cameraController to zoom out
 			controls.cameraController.MapZoomOutInit ();
@@ -140,5 +158,13 @@ public class CaptureMiniGame : MonoBehaviour {
 			// Update the post processing settings to look at a set far away position
 			controls.cameraController.SetDepthOfFieldAndFocalLength (unfocusedDOFDistance, defaultAperture);
 		}
+	}
+
+	void MinigameSuccess () {
+
+	}
+
+	void MinigameFail () {
+
 	}
 }
