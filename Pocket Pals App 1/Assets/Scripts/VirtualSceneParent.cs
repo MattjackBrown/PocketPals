@@ -28,6 +28,13 @@ public class VirtualSceneParent : MonoBehaviour
 
 		centreOfMapPosition = centreOfMap.transform.position;
 
+		// Get the real world distance between the centre of the viewport and the 0.25f, 0.25f of the viewport at PPal distance
+		float VGInfoCamOffsetHorizontal = (gameCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.0f, VGPPalInspectDistance)) -// - centreOfMap.transform.position).magnitude)) -
+			gameCamera.ViewportToWorldPoint(new Vector3(0.25f, 0.0f, VGPPalInspectDistance))).magnitude;
+
+		float VGInfoCamOffsetVertical = (gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.5f, VGPPalInspectDistance)) -// - centreOfMap.transform.position).magnitude)) -
+			gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.25f, VGPPalInspectDistance))).magnitude;
+
         foreach (VirtualGardenSpawn obj in AnimalObjects)
         {
             //make sure all are inactive and not used, unless check is correct.
@@ -50,14 +57,6 @@ public class VirtualSceneParent : MonoBehaviour
 				// Set the inspect position field
 				Vector3 PPPosition = obj.animalObj.transform.position;
 				obj.camInspectPosition = PPPosition - (PPPosition - centreOfMapPosition).normalized * VGPPalInspectDistance;
-
-				// This bit is a bit complicated.
-				// Get the real world distance between the centre of the viewport and the 0.25f, 0.25f of the viewport at PPal distance
-				float VGInfoCamOffsetHorizontal = (gameCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.0f, VGPPalInspectDistance)) -// - centreOfMap.transform.position).magnitude)) -
-					gameCamera.ViewportToWorldPoint(new Vector3(0.25f, 0.0f, VGPPalInspectDistance))).magnitude;
-
-				float VGInfoCamOffsetVertical = (gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.5f, VGPPalInspectDistance)) -// - centreOfMap.transform.position).magnitude)) -
-					gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.25f, VGPPalInspectDistance))).magnitude;
 
 				// Cross product of the direction vector to the PPal and V3.up will add the relative offset 
 				obj.camInspectLookAtPosition = PPPosition + Vector3.Cross((centreOfMapPosition - PPPosition).normalized, Vector3.up) * VGInfoCamOffsetHorizontal + 
