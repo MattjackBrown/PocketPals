@@ -125,7 +125,7 @@ public class PocketPalSpawnManager : MonoBehaviour
 
                 // Find a randomly chosen spawn position that does not overlap an existing pocketPal
                 // As a safety measure, include a count to break out if no valid positions can be found
-                while (!validSpawnFound && tempCount < spawnPoints.Count)
+                while (!validSpawnFound || tempCount < spawnPoints.Count)
                 {
                     //get spawn point
 					spawnPosition = spawnPoints [tempCount].position;
