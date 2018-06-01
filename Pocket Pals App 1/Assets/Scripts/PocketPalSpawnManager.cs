@@ -1,6 +1,7 @@
 ﻿using Mapbox.Unity.Map;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // This script is responsible for the spawning of Pocket Pals
@@ -20,7 +21,7 @@ public class PocketPalSpawnManager : MonoBehaviour
     private float normalisedVariance = 0.0f;
 
     // An array of spawn locations Pocket Pals can spawn from.
-    public Transform[] spawnPoints;
+    public List<Transform> spawnPoints;
 
     //List of the rarities of the index
     private List<float> rarityList = new List<float>();
@@ -116,24 +117,27 @@ public class PocketPalSpawnManager : MonoBehaviour
 
 				// Even though these are set, the compiler requires them to be initialised here
 				Vector3 spawnPosition = Vector3.zero;
-				int spawnPointIndex = 0, tempCount = 0, maxCount = 10;
+                int spawnPointIndex = 0, tempCount = 0;
 				bool validSpawnFound = false;
 
-				// Find a randomly chosen spawn position that does not overlap an existing pocketPal
-				// As a safety measure, include a count to break out if no valid positions can be found
-				while (!validSpawnFound || tempCount < maxCount) {
+                //randomise the spawn point list
+                spawnPoints = spawnPoints.OrderBy(a => System.Guid.NewGuid()).ToList();
 
-					// Find a randomly chosen spawn position
-					// Better way may be to randomise the spawnPoints and go through them all
-					spawnPointIndex = Random.Range (0, spawnPoints.Length);
-					spawnPosition = spawnPoints [spawnPointIndex].position;
+                // Find a randomly chosen spawn position that does not overlap an existing pocketPal
+                // As a safety measure, include a count to break out if no valid positions can be found
+                while (!validSpawnFound && tempCount < spawnPoints.Count)
+                {
+                    //get spawn point
+					spawnPosition = spawnPoints [tempCount].position;
 
-					// Check if a valid spawn position
-					if (DoesNotOverlapExistingPPal (spawnPosition)) {
+                    // Check if a valid spawn position
+                    if (DoesNotOverlapExistingPPal(spawnPosition))
+                    {
 
-						// If does not overlap then set the bool to true, breaking out of the while loop, and allowing spawning
-						validSpawnFound = true;
-					}
+                        // If does not overlap then set the bool to true, breaking out of the while loop, and allowing spawning
+                        validSpawnFound = true;
+                    }
+                    else Debug.Log("Bad spawn");
 
 					// Increment count
 					tempCount++;
@@ -146,11 +150,11 @@ public class PocketPalSpawnManager : MonoBehaviour
 
 					// Create an instance of the prefab at select pocketpal via rarity 
 					GameObject clone = Instantiate (GetWeightedPocketPal (), spawnPosition, rot);
-					spawnedPocketPals.Add (clone);
-                    clone.GetComponent<PocketPalParent>().GenerateAnimalData();
+                    // Increases the currentPocketPals value by 1
+                    clone.transform.parent = gpsMap.currentMap.transform;
 
-					// Increases the currentPocketPals value by 1
-					clone.transform.parent = gpsMap.currentMap.transform;
+                    spawnedPocketPals.Add (clone);
+                    clone.GetComponent<PocketPalParent>().GenerateAnimalData();
 				}
 
                 yield return new WaitForSeconds(GetSpawnDelay());

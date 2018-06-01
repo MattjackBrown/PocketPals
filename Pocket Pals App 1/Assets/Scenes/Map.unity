@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -5158,7 +5158,7 @@ MonoBehaviour:
   - {fileID: 470987506}
   girl: {fileID: 206820439}
   maxPocketPals: 5
-  maxPocketPalDistance: 30
+  maxPocketPalDistance: 100
 --- !u!1 &1136291998
 GameObject:
   m_ObjectHideFlags: 0
@@ -6155,11 +6155,6 @@ MonoBehaviour:
   player: {fileID: 206820439}
   compass: {fileID: 1084178749}
   controls: {fileID: 1331972349}
-  cameraTargetPosition: {x: 0, y: 0, z: 0}
-  cameraLookAtPoint: {x: 0, y: 0, z: 0}
-  cameraStartPosition: {x: 0, y: 0, z: 0}
-  cameraLookAtStartPosition: {x: 0, y: 0, z: 0}
-  targetPocketPalPosition: {x: 0, y: 0, z: 0}
   VGCentre: {fileID: 36652898}
 --- !u!222 &1331972351
 CanvasRenderer:

@@ -8,7 +8,7 @@ public class PocketPalInventory
 {
     private List<PocketPalData> myPPals = new List<PocketPalData>();
 
-    public void AddPocketPal(PocketPalParent obj)
+    public void AddPocketPal(PocketPalParent obj, float multiplier = 1.0f)
     {
         //try and get the animal from an exsisting inventory
         PocketPalData ppd = GetDataFromID(obj.PocketPalID);
@@ -20,7 +20,7 @@ public class PocketPalInventory
         else
         {
             Debug.Log("Repeat");
-            ppd.MergePocketPal(obj.GetAnimalData(), 1.0f);
+            ppd.MergePocketPal(obj.GetAnimalData(), multiplier);
         }
     }
 
