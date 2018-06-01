@@ -1,114 +1,156 @@
 fileFormatVersion: 2
-guid: 820db3af3e1ab9e4380d5d245f37972f
-timeCreated: 1519396713
+guid: e430d8e8e106bfb409c39114ef2aff75
+timeCreated: 1527868440
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: blue_tit_geometry
-    100002: //RootNode
-    100004: joint1
-    100006: skeleton1:joint10
-    100008: skeleton1:joint11
-    100010: skeleton1:joint12
-    100012: skeleton1:joint13
-    100014: skeleton1:joint2
-    100016: skeleton1:joint3
-    100018: skeleton1:joint4
-    100020: skeleton1:joint5
-    100022: skeleton1:joint6
-    100024: skeleton1:joint7
-    100026: skeleton1:joint8
-    100028: skeleton1:joint9
-    100030: skeleton1:L_leg_ankle
-    100032: skeleton1:L_leg_knee1
-    100034: skeleton1:L_wing_elbow
-    100036: skeleton1:L_wing_mid
-    100038: skeleton1:L_wing_shoulder
-    100040: skeleton1:L_wing_tip
-    100042: skeleton1:R_leg_ankle
-    100044: skeleton1:R_leg_knee
-    100046: skeleton1:R_wing_elbow
-    100048: skeleton1:R_wing_mid
-    100050: skeleton1:R_wing_shoulder
-    100052: skeleton1:R_wing_tip
-    100054: skeleton1:skeleton_01
-    100056: skeleton2:L_leg_foot
-    100058: skeleton2:L_leg_foot_back_base
-    100060: skeleton2:L_leg_foot_back_end
-    100062: skeleton2:L_leg_foot_front_base
-    100064: skeleton2:L_leg_foot_mid_toa_end_
-    100066: skeleton2:L_leg_foot_mid_toa_mid_
-    100068: skeleton2:L_leg_foot_R_toa_end_
-    100070: skeleton2:L_leg_foot_R_toa_end_ 1
-    100072: skeleton2:L_leg_foot_R_toa_mid_
-    100074: skeleton2:L_leg_foot_R_toa_mid_1
-    100076: skeleton2:R_leg_foot
-    100078: skeleton2:R_leg_foot_back_base
-    100080: skeleton2:R_leg_foot_back_end
-    100082: skeleton2:R_leg_foot_front_base
-    100084: skeleton2:R_leg_foot_mid_toa_end_
-    100086: skeleton2:R_leg_foot_mid_toa_mid_
-    100088: skeleton2:R_leg_foot_R_toa_end_
-    100090: skeleton2:R_leg_foot_R_toa_end_ 1
-    100092: skeleton2:R_leg_foot_R_toa_mid_
-    100094: skeleton2:R_leg_foot_R_toa_mid_1
-    400000: blue_tit_geometry
-    400002: //RootNode
-    400004: joint1
-    400006: skeleton1:joint10
-    400008: skeleton1:joint11
-    400010: skeleton1:joint12
-    400012: skeleton1:joint13
-    400014: skeleton1:joint2
-    400016: skeleton1:joint3
-    400018: skeleton1:joint4
-    400020: skeleton1:joint5
-    400022: skeleton1:joint6
-    400024: skeleton1:joint7
-    400026: skeleton1:joint8
-    400028: skeleton1:joint9
-    400030: skeleton1:L_leg_ankle
-    400032: skeleton1:L_leg_knee1
-    400034: skeleton1:L_wing_elbow
-    400036: skeleton1:L_wing_mid
-    400038: skeleton1:L_wing_shoulder
-    400040: skeleton1:L_wing_tip
-    400042: skeleton1:R_leg_ankle
-    400044: skeleton1:R_leg_knee
-    400046: skeleton1:R_wing_elbow
-    400048: skeleton1:R_wing_mid
-    400050: skeleton1:R_wing_shoulder
-    400052: skeleton1:R_wing_tip
-    400054: skeleton1:skeleton_01
-    400056: skeleton2:L_leg_foot
-    400058: skeleton2:L_leg_foot_back_base
-    400060: skeleton2:L_leg_foot_back_end
-    400062: skeleton2:L_leg_foot_front_base
-    400064: skeleton2:L_leg_foot_mid_toa_end_
-    400066: skeleton2:L_leg_foot_mid_toa_mid_
-    400068: skeleton2:L_leg_foot_R_toa_end_
-    400070: skeleton2:L_leg_foot_R_toa_end_ 1
-    400072: skeleton2:L_leg_foot_R_toa_mid_
-    400074: skeleton2:L_leg_foot_R_toa_mid_1
-    400076: skeleton2:R_leg_foot
-    400078: skeleton2:R_leg_foot_back_base
-    400080: skeleton2:R_leg_foot_back_end
-    400082: skeleton2:R_leg_foot_front_base
-    400084: skeleton2:R_leg_foot_mid_toa_end_
-    400086: skeleton2:R_leg_foot_mid_toa_mid_
-    400088: skeleton2:R_leg_foot_R_toa_end_
-    400090: skeleton2:R_leg_foot_R_toa_end_ 1
-    400092: skeleton2:R_leg_foot_R_toa_mid_
-    400094: skeleton2:R_leg_foot_R_toa_mid_1
-    4300000: blue_tit_geometry
+    100000: //RootNode
+    100002: BlueTit_WingsOut_Fly1:blue_tit_geometry
+    100004: BlueTit_WingsOut_Fly1:hip_spine_04_ctrl
+    100006: BlueTit_WingsOut_Fly1:joint1
+    100008: BlueTit_WingsOut_Fly1:L_wing_end_ctrl
+    100010: BlueTit_WingsOut_Fly1:L_wing_mid_02_ctrl
+    100012: BlueTit_WingsOut_Fly1:model_main_ctrl
+    100014: BlueTit_WingsOut_Fly1:R_wing_end_ctrl
+    100016: BlueTit_WingsOut_Fly1:R_wing_mid_02_ctrl
+    100018: BlueTit_WingsOut_Fly1:skeleton1:head_base_ctrl
+    100020: BlueTit_WingsOut_Fly1:skeleton1:head_lower_jaw_ctrl
+    100022: BlueTit_WingsOut_Fly1:skeleton1:hip_spine_02_ctrl
+    100024: BlueTit_WingsOut_Fly1:skeleton1:hip_spine_03_ctrl
+    100026: BlueTit_WingsOut_Fly1:skeleton1:joint10
+    100028: BlueTit_WingsOut_Fly1:skeleton1:joint11
+    100030: BlueTit_WingsOut_Fly1:skeleton1:joint12
+    100032: BlueTit_WingsOut_Fly1:skeleton1:joint13
+    100034: BlueTit_WingsOut_Fly1:skeleton1:joint2
+    100036: BlueTit_WingsOut_Fly1:skeleton1:joint3
+    100038: BlueTit_WingsOut_Fly1:skeleton1:joint4
+    100040: BlueTit_WingsOut_Fly1:skeleton1:joint5
+    100042: BlueTit_WingsOut_Fly1:skeleton1:joint6
+    100044: BlueTit_WingsOut_Fly1:skeleton1:joint7
+    100046: BlueTit_WingsOut_Fly1:skeleton1:joint8
+    100048: BlueTit_WingsOut_Fly1:skeleton1:joint9
+    100050: BlueTit_WingsOut_Fly1:skeleton1:L_leg_ankle
+    100052: BlueTit_WingsOut_Fly1:skeleton1:L_leg_knee1
+    100054: BlueTit_WingsOut_Fly1:skeleton1:L_wing_ctrl
+    100056: BlueTit_WingsOut_Fly1:skeleton1:L_wing_elbow
+    100058: BlueTit_WingsOut_Fly1:skeleton1:L_wing_mid
+    100060: BlueTit_WingsOut_Fly1:skeleton1:L_wing_mid_01_ctrl
+    100062: BlueTit_WingsOut_Fly1:skeleton1:L_wing_shoulder
+    100064: BlueTit_WingsOut_Fly1:skeleton1:L_wing_tip
+    100066: BlueTit_WingsOut_Fly1:skeleton1:main_body_ctrl
+    100068: BlueTit_WingsOut_Fly1:skeleton1:neck_01_ctrl
+    100070: BlueTit_WingsOut_Fly1:skeleton1:neck_02_ctrl
+    100072: BlueTit_WingsOut_Fly1:skeleton1:R_leg_ankle
+    100074: BlueTit_WingsOut_Fly1:skeleton1:R_leg_knee
+    100076: BlueTit_WingsOut_Fly1:skeleton1:R_wing_ctrl
+    100078: BlueTit_WingsOut_Fly1:skeleton1:R_wing_elbow
+    100080: BlueTit_WingsOut_Fly1:skeleton1:R_wing_mid
+    100082: BlueTit_WingsOut_Fly1:skeleton1:R_wing_mid_01_ctrl
+    100084: BlueTit_WingsOut_Fly1:skeleton1:R_wing_shoulder
+    100086: BlueTit_WingsOut_Fly1:skeleton1:R_wing_tip
+    100088: BlueTit_WingsOut_Fly1:skeleton1:skeleton_01
+    100090: BlueTit_WingsOut_Fly1:skeleton1:spine_01_ctrl3
+    100092: BlueTit_WingsOut_Fly1:skeleton1:tail_base_ctrl
+    100094: BlueTit_WingsOut_Fly1:skeleton1:tail_end_ctrl
+    100096: BlueTit_WingsOut_Fly1:skeleton1:tail_mid_ctrl
+    100098: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot
+    100100: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_back_base
+    100102: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_back_end
+    100104: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_front_base
+    100106: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_mid_toa_end_
+    100108: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_mid_toa_mid_
+    100110: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_R_toa_end_
+    100112: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_R_toa_end_ 1
+    100114: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_R_toa_mid_
+    100116: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_R_toa_mid_1
+    100118: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot
+    100120: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_back_base
+    100122: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_back_end
+    100124: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_front_base
+    100126: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_mid_toa_end_
+    100128: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_mid_toa_mid_
+    100130: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_R_toa_end_
+    100132: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_R_toa_end_ 1
+    100134: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_R_toa_mid_
+    100136: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_R_toa_mid_1
+    400000: //RootNode
+    400002: BlueTit_WingsOut_Fly1:blue_tit_geometry
+    400004: BlueTit_WingsOut_Fly1:hip_spine_04_ctrl
+    400006: BlueTit_WingsOut_Fly1:joint1
+    400008: BlueTit_WingsOut_Fly1:L_wing_end_ctrl
+    400010: BlueTit_WingsOut_Fly1:L_wing_mid_02_ctrl
+    400012: BlueTit_WingsOut_Fly1:model_main_ctrl
+    400014: BlueTit_WingsOut_Fly1:R_wing_end_ctrl
+    400016: BlueTit_WingsOut_Fly1:R_wing_mid_02_ctrl
+    400018: BlueTit_WingsOut_Fly1:skeleton1:head_base_ctrl
+    400020: BlueTit_WingsOut_Fly1:skeleton1:head_lower_jaw_ctrl
+    400022: BlueTit_WingsOut_Fly1:skeleton1:hip_spine_02_ctrl
+    400024: BlueTit_WingsOut_Fly1:skeleton1:hip_spine_03_ctrl
+    400026: BlueTit_WingsOut_Fly1:skeleton1:joint10
+    400028: BlueTit_WingsOut_Fly1:skeleton1:joint11
+    400030: BlueTit_WingsOut_Fly1:skeleton1:joint12
+    400032: BlueTit_WingsOut_Fly1:skeleton1:joint13
+    400034: BlueTit_WingsOut_Fly1:skeleton1:joint2
+    400036: BlueTit_WingsOut_Fly1:skeleton1:joint3
+    400038: BlueTit_WingsOut_Fly1:skeleton1:joint4
+    400040: BlueTit_WingsOut_Fly1:skeleton1:joint5
+    400042: BlueTit_WingsOut_Fly1:skeleton1:joint6
+    400044: BlueTit_WingsOut_Fly1:skeleton1:joint7
+    400046: BlueTit_WingsOut_Fly1:skeleton1:joint8
+    400048: BlueTit_WingsOut_Fly1:skeleton1:joint9
+    400050: BlueTit_WingsOut_Fly1:skeleton1:L_leg_ankle
+    400052: BlueTit_WingsOut_Fly1:skeleton1:L_leg_knee1
+    400054: BlueTit_WingsOut_Fly1:skeleton1:L_wing_ctrl
+    400056: BlueTit_WingsOut_Fly1:skeleton1:L_wing_elbow
+    400058: BlueTit_WingsOut_Fly1:skeleton1:L_wing_mid
+    400060: BlueTit_WingsOut_Fly1:skeleton1:L_wing_mid_01_ctrl
+    400062: BlueTit_WingsOut_Fly1:skeleton1:L_wing_shoulder
+    400064: BlueTit_WingsOut_Fly1:skeleton1:L_wing_tip
+    400066: BlueTit_WingsOut_Fly1:skeleton1:main_body_ctrl
+    400068: BlueTit_WingsOut_Fly1:skeleton1:neck_01_ctrl
+    400070: BlueTit_WingsOut_Fly1:skeleton1:neck_02_ctrl
+    400072: BlueTit_WingsOut_Fly1:skeleton1:R_leg_ankle
+    400074: BlueTit_WingsOut_Fly1:skeleton1:R_leg_knee
+    400076: BlueTit_WingsOut_Fly1:skeleton1:R_wing_ctrl
+    400078: BlueTit_WingsOut_Fly1:skeleton1:R_wing_elbow
+    400080: BlueTit_WingsOut_Fly1:skeleton1:R_wing_mid
+    400082: BlueTit_WingsOut_Fly1:skeleton1:R_wing_mid_01_ctrl
+    400084: BlueTit_WingsOut_Fly1:skeleton1:R_wing_shoulder
+    400086: BlueTit_WingsOut_Fly1:skeleton1:R_wing_tip
+    400088: BlueTit_WingsOut_Fly1:skeleton1:skeleton_01
+    400090: BlueTit_WingsOut_Fly1:skeleton1:spine_01_ctrl3
+    400092: BlueTit_WingsOut_Fly1:skeleton1:tail_base_ctrl
+    400094: BlueTit_WingsOut_Fly1:skeleton1:tail_end_ctrl
+    400096: BlueTit_WingsOut_Fly1:skeleton1:tail_mid_ctrl
+    400098: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot
+    400100: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_back_base
+    400102: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_back_end
+    400104: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_front_base
+    400106: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_mid_toa_end_
+    400108: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_mid_toa_mid_
+    400110: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_R_toa_end_
+    400112: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_R_toa_end_ 1
+    400114: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_R_toa_mid_
+    400116: BlueTit_WingsOut_Fly1:skeleton2:L_leg_foot_R_toa_mid_1
+    400118: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot
+    400120: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_back_base
+    400122: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_back_end
+    400124: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_front_base
+    400126: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_mid_toa_end_
+    400128: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_mid_toa_mid_
+    400130: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_R_toa_end_
+    400132: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_R_toa_end_ 1
+    400134: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_R_toa_mid_
+    400136: BlueTit_WingsOut_Fly1:skeleton2:R_leg_foot_R_toa_mid_1
+    4300000: BlueTit_WingsOut_Fly1:blue_tit_geometry
     9500000: //RootNode
-    13700000: blue_tit_geometry
+    13700000: BlueTit_WingsOut_Fly1:blue_tit_geometry
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lambert3
+      name: BlueTit_WingsOut_Fly1_lambert3
     second: {fileID: 2100000, guid: 7d36875351b65494b8ed87bf199ae80b, type: 2}
   materials:
     importMaterials: 1
@@ -139,9 +181,9 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 40
     meshCompression: 0
-    addColliders: 1
+    addColliders: 0
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1

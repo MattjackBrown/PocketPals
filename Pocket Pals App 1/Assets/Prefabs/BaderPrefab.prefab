@@ -380,10 +380,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 224763501905817092}
-  - component: {fileID: 95168124043661538}
   - component: {fileID: 114427311386735092}
   - component: {fileID: 65065814522638190}
-  - component: {fileID: 222044799016813208}
+  - component: {fileID: 95132921996719250}
   m_Layer: 8
   m_Name: BaderPrefab
   m_TagString: Untagged
@@ -1027,7 +1026,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3, y: 0.4, z: 0.8}
   m_Center: {x: 0, y: 0.22, z: 0.05}
---- !u!95 &95168124043661538
+--- !u!95 &95132921996719250
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -1035,8 +1034,8 @@ Animator:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1758309321418416}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: fc04180b2e119f840b40154e3b59716e, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6cf61c788c9e8a84da52216d1c6a62eb, type: 2}
+  m_Avatar: {fileID: 9000000, guid: 96e7868507b8d5b4c937665ce0e009dc, type: 3}
+  m_Controller: {fileID: 9100000, guid: 3729992ca6330894fbe0852226430847, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1146,12 +1145,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.2427448, y: -0.002697125, z: -0.115822196}
     m_Extent: {x: 0.42693865, y: 0.17485271, z: 0.24499589}
   m_DirtyAABB: 0
---- !u!222 &222044799016813208
-CanvasRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1758309321418416}
 --- !u!224 &224763501905817092
 RectTransform:
   m_ObjectHideFlags: 1

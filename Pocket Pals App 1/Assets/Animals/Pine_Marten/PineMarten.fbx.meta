@@ -1,9 +1,9 @@
 fileFormatVersion: 2
 guid: 78ed24d6604b1784d84692543c533432
-timeCreated: 1520337407
-licenseType: Pro
+timeCreated: 1527870148
+licenseType: Free
 ModelImporter:
-  serializedVersion: 21
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: Body
     100002: head_base
@@ -52,6 +52,7 @@ ModelImporter:
     100088: tail_04
     100090: tail_05_end
     100092: tail_0_base
+    100094: transform1
     400000: Body
     400002: head_base
     400004: head_mid
@@ -99,13 +100,21 @@ ModelImporter:
     400088: tail_04
     400090: tail_05_end
     400092: tail_0_base
+    400094: transform1
     4300000: Body
     9500000: //RootNode
     13700000: Body
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert4
+    second: {fileID: 2100000, guid: 1162268cfb8778d42a151e1c974a9804, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
@@ -118,6 +127,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -129,7 +139,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 40
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
