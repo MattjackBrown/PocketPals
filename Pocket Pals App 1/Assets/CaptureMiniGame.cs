@@ -10,13 +10,14 @@ public class CaptureMiniGame : MonoBehaviour {
 	public Canvas MapUI;
 	public Canvas MiniGameMenu;
 	public Canvas MiniGameUI;
-
 	public Image viewFinder;
+	public Slider captureMeter;
 
 	float minigameTimer, captureTimer;
 
 	// Thee max time allowed by the minigame before timing out
 	float minigameTimeAllowance = 10.0f;
+	float timeToCapture = 4.0f;
 
 	float unfocusedDOFDistance = 30.0f;
 	float defaultAperture = 0.03f;
@@ -26,6 +27,8 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	// The targeted pocket pal for this minigame
 	PocketPalParent pocketPal;
+
+	bool focussedOnPPal = false;
 
 	// Use this for initialization
 	void Start () {
@@ -55,12 +58,8 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	public void BackButtonPressed () {
 
-		// Swap the UI over just with enabled will do
-		MapUI.gameObject.SetActive(true);
-		MiniGameMenu.gameObject.SetActive (false);
-
-		// Tell the cameraController to zoom out
-		controls.cameraController.MapZoomOutInit ();
+		// Exit the minigame
+		MinigameExit ();
 	}
 
 	public void InitMiniGame (PocketPalParent targetPocketPal) {
@@ -68,8 +67,6 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Swap the UI over just with enabled will do
 		MapUI.gameObject.SetActive(false);
 		MiniGameMenu.gameObject.SetActive (true);
-
-		Debug.Log ("ggggggg");
 
 		// Reset the timers
 		minigameTimer = 0.0f;
@@ -90,23 +87,30 @@ public class CaptureMiniGame : MonoBehaviour {
 			// Step the timer
 			minigameTimer += Time.deltaTime;
 
+			if (focussedOnPPal) {
+				
+				// Step the capture timer
+				captureTimer += Time.deltaTime / timeToCapture;
+
+				// Check for winstate
+				if (captureMeter.value >= 1.0f)
+					MinigameSuccess ();
+				
+			} else {
+
+				// Deplete the minigame timer
+				captureTimer -= Time.deltaTime / timeToCapture * 0.25f;
+
+				if (captureTimer < 0.0f)
+					captureTimer = 0.0f;
+			}
+
+			// Change the slider value
+			captureMeter.value = captureTimer;
+
 		} else {
 
-			// TimeOut Temp
-
-			// Add to the player's inventory
-			pocketPal.Captured();
-
-			// Swap the UI
-			MapUI.gameObject.SetActive(true);
-			MiniGameMenu.gameObject.SetActive(false);
-			viewFinder.gameObject.SetActive(false);
-
-			// Tell the cameraController to zoom out
-			controls.cameraController.MapZoomOutInit ();
-
-			// Remove the depth of field component
-			controls.cameraController.EnableDepthOfField (false);
+			MinigameExit ();
 		}
 	}
 
@@ -144,13 +148,14 @@ public class CaptureMiniGame : MonoBehaviour {
 				// Update the post processing settings to look at the pocketPal
 				controls.cameraController.SetDepthOfFieldAndFocalLength (distance, pocketPalAperture);
 
-				// Step the capture timer
-				captureTimer += Time.deltaTime;
+				focussedOnPPal = true;
 
 			} else {
 
 				// Update the post processing settings to look at the touched on position
 				controls.cameraController.SetDepthOfFieldAndFocalLength (hit.distance, defaultAperture);
+
+				focussedOnPPal = false;
 			}
 
 		} else {
@@ -162,9 +167,24 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	void MinigameSuccess () {
 
+		// Add to the player's inventory
+		pocketPal.Captured();
+
+		// Exit the minigame
+		MinigameExit ();
 	}
 
-	void MinigameFail () {
+	void MinigameExit () {
 
+		// Swap the UI
+		MapUI.gameObject.SetActive(true);
+		MiniGameMenu.gameObject.SetActive(false);
+		MiniGameUI.gameObject.SetActive(false);
+
+		// Tell the cameraController to zoom out
+		controls.cameraController.MapZoomOutInit ();
+
+		// Remove the depth of field component
+		controls.cameraController.EnableDepthOfField (false);
 	}
 }
