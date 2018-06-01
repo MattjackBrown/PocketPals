@@ -71,6 +71,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Reset the timers
 		minigameTimer = 0.0f;
 		captureTimer = 0.0f;
+		captureMeter.value = 0.0f;
 
 		// Set the target pocketPal for this minigame
 		pocketPal = targetPocketPal;
