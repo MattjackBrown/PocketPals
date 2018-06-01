@@ -16,6 +16,9 @@ public class PocketPalParent : MonoBehaviour
 
     public Vector3 RotationPerSecond = new Vector3(0, 15, 0);
 
+    //used to offset some of the flying creatures
+    public Vector3 SpawnOffset = new Vector3(0, 0, 0);
+
     public float maxSpawnExp = 1000.0f;
 
     public float averageSpawnSize = 5.0f;
@@ -34,6 +37,7 @@ public class PocketPalParent : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        transform.position += SpawnOffset;
 	}
 
     private void OnCollisionEnter(Collision collision)
