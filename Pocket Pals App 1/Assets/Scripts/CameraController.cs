@@ -28,7 +28,7 @@ public class CameraController : MonoBehaviour
 	Camera gameCamera;
 
 	// The distance of the camera away from the pocket pal for the minigame
-	float captureCamDistance = 3.0f;
+	float captureCamDistance = 4.0f;
 
 	// Zoom in speed for the camera from the game view to the minigame view
 	float captureZoomInSpeed = 0.8f;
@@ -255,6 +255,10 @@ public class CameraController : MonoBehaviour
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
 		}
+	}
+
+	public void SetCameraPosition (Vector3 newPosition) {
+		transform.position = newPosition;
 	}
 
 	public Camera getCamera() {

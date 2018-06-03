@@ -43,6 +43,7 @@ public class EnvironmentChanger : MonoBehaviour
         //set positions and acticate scene.
         CameraController.Instance.InitVirtualGardenTour(playerPositions[index].transform.position, playerPositions[index].transform.forward + playerPositions[index].transform.position);
 		scenes[index].SetActive(true);
+		scenes [index].GetComponent<VirtualSceneParent> ().InitVGTour ();
         
         //to do start custom scripts depending on scene user story.
 

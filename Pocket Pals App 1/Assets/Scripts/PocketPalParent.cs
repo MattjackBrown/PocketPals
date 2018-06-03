@@ -54,7 +54,8 @@ public class PocketPalParent : MonoBehaviour
 
     public void Captured()
     {
-        PocketPalSpawnManager.Instance.PocketpalCollected(gameObject);
+		if (gameObject != null)
+        	PocketPalSpawnManager.Instance.PocketpalCollected(gameObject);
     }
 
     //called on the pocketPalSpawnManager after a new clone is made of the original asset.

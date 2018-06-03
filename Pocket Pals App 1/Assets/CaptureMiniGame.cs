@@ -13,10 +13,17 @@ public class CaptureMiniGame : MonoBehaviour {
 	public Image viewFinder;
 	public Slider captureMeter;
 
+	public GameObject miniGameEnvironment;
+
+	public GameObject miniGamePlayerPositionObject;
+	public GameObject miniGamePPalPositionObject;
+	Vector3 miniGamePlayerPosition;
+	Vector3 miniGamePPalPosition;
+
 	float minigameTimer, captureTimer;
 
 	// Thee max time allowed by the minigame before timing out
-	float minigameTimeAllowance = 10.0f;
+	float minigameTimeAllowance = 15.0f;
 	float timeToCapture = 4.0f;
 
 	float unfocusedDOFDistance = 30.0f;
@@ -27,6 +34,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	// The targeted pocket pal for this minigame
 	PocketPalParent pocketPal;
+	Vector3 PPalMapPosition;
 
 	bool focussedOnPPal = false;
 
@@ -35,6 +43,9 @@ public class CaptureMiniGame : MonoBehaviour {
 		
 		screenWidth = Screen.width;
 		screenHeight = Screen.height;
+
+		miniGamePlayerPosition = miniGamePlayerPositionObject.transform.position;
+		miniGamePPalPosition = miniGamePPalPositionObject.transform.position;
 	}
 
 	public void PlayButtonPressed () {
@@ -78,6 +89,21 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// A passive control scheme waiting for a button press
 		controls.MenuControls ();
+
+		// Store the map position if the minigame fails and the PPal should reappear back in the pmap
+		PPalMapPosition = targetPocketPal.transform.position;
+
+		// Set the virtual garden environment to be active
+		miniGameEnvironment.SetActive (true);
+
+		//deactivate map stuff and stop gps ticking
+//		controls.player.GetComponent<GPS>().currentMap.gameObject.SetActive(false);
+//		controls.player.GetComponent<GPS>().gameObject.SetActive(false);
+
+		// Set the Positions for the miniGame
+		controls.cameraController.transform.position = miniGamePlayerPosition;
+		targetPocketPal.transform.position = miniGamePPalPosition;
+		controls.cameraController.transform.LookAt (miniGamePPalPosition);
 	}
 
 	public void UpdateTimer () {
@@ -91,7 +117,7 @@ public class CaptureMiniGame : MonoBehaviour {
 			if (focussedOnPPal) {
 				
 				// Step the capture timer
-				captureTimer += Time.deltaTime / timeToCapture;
+				captureTimer += Time.deltaTime / timeToCapture * 0.5f;
 
 				// Check for winstate
 				if (captureMeter.value >= 1.0f)
@@ -110,8 +136,14 @@ public class CaptureMiniGame : MonoBehaviour {
 			captureMeter.value = captureTimer;
 
 		} else {
-
+			
+			// Minigame failed
 			MinigameExit ();
+
+			if (pocketPal != null)
+				
+				// Place the uncaptured PPal back in the map
+				pocketPal.transform.position = PPalMapPosition;
 		}
 	}
 
@@ -151,6 +183,8 @@ public class CaptureMiniGame : MonoBehaviour {
 
 				focussedOnPPal = true;
 
+				Debug.Log (hit.transform.gameObject);
+
 			} else {
 
 				// Update the post processing settings to look at the touched on position
@@ -168,11 +202,11 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	void MinigameSuccess () {
 
-		// Add to the player's inventory
-		pocketPal.Captured();
-
 		// Exit the minigame
 		MinigameExit ();
+
+		// Add to the player's inventory
+		pocketPal.Captured();
 	}
 
 	void MinigameExit () {
@@ -187,5 +221,10 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Remove the depth of field component
 		controls.cameraController.EnableDepthOfField (false);
+
+		// Deactivate the minigame environment
+		miniGameEnvironment.SetActive(false);
+//		controls.player.GetComponent<GPS>().currentMap.gameObject.SetActive(true);
+		controls.player.GetComponent<GPS>().gameObject.SetActive(true);
 	}
 }
