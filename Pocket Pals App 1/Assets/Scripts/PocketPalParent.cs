@@ -29,6 +29,8 @@ public class PocketPalParent : MonoBehaviour
 
     public string name = "none";
 
+    public bool InMinigame { set; get; }
+
     private PocketPalData pocketPalData;
 
     [Tooltip("The rarity of the spawn")]
@@ -38,6 +40,7 @@ public class PocketPalParent : MonoBehaviour
 	void Start ()
     {
         transform.position += SpawnOffset;
+        InMinigame = false;
 	}
 
     private void OnCollisionEnter(Collision collision)

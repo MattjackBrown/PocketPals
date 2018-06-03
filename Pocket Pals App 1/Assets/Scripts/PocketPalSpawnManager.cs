@@ -211,9 +211,15 @@ public class PocketPalSpawnManager : MonoBehaviour
         for(int i = 0; i < spawnedPocketPals.Count; i++)
         {
             //not sure why this check is makes it work. Just does.
-            if (spawnedPocketPals[i] == null || girl == null) break;
-
-            if (Vector3.Magnitude(girl.transform.position - spawnedPocketPals[i].transform.position) > maxPocketPalDistance)
+            if (spawnedPocketPals[i] == null || girl == null)
+            {
+                //check
+            }
+            else if (spawnedPocketPals[i].GetComponent<PocketPalParent>().InMinigame)
+            {
+                // check
+            }
+            else if (Vector3.Magnitude(girl.transform.position - spawnedPocketPals[i].transform.position) > maxPocketPalDistance)
             {
                 DespawnPocketPal(spawnedPocketPals[i]);
             }
