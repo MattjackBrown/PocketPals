@@ -125,7 +125,7 @@ public class PocketPalSpawnManager : MonoBehaviour
 
                 // Find a randomly chosen spawn position that does not overlap an existing pocketPal
                 // As a safety measure, include a count to break out if no valid positions can be found
-                while (!validSpawnFound || tempCount < spawnPoints.Count)
+                while (!validSpawnFound && tempCount < spawnPoints.Count)
                 {
                     //get spawn point
 					spawnPosition = spawnPoints [tempCount].position;
@@ -170,7 +170,7 @@ public class PocketPalSpawnManager : MonoBehaviour
         //get total of floats
         foreach (float f in weightings)
         {
-            total += f;
+            total += 1/f;
         }
 
         //if they all have no probability return random
@@ -181,7 +181,7 @@ public class PocketPalSpawnManager : MonoBehaviour
         float tmp = Random.Range(0, total);
         for (int i = 0; i < weightings.Count; i++)
         {
-            accum += weightings[i];
+            accum += 1/weightings[i];
             if (accum >= tmp)
             {
                 index = i;
