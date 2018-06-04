@@ -33,13 +33,6 @@ public class VirtualSceneParent : MonoBehaviour
 
 		centreOfMapPosition = centreOfMap.transform.position;
 
-		// Get the real world distance between the centre of the viewport and the 0.25f, 0.25f of the viewport at PPal distance
-		float VGInfoCamOffsetHorizontal = (gameCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.0f, VGPPalInspectDistance)) -// - centreOfMap.transform.position).magnitude)) -
-			gameCamera.ViewportToWorldPoint(new Vector3(0.25f, 0.0f, VGPPalInspectDistance))).magnitude;
-
-		float VGInfoCamOffsetVertical = (gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.5f, VGPPalInspectDistance)) -// - centreOfMap.transform.position).magnitude)) -
-			gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.25f, VGPPalInspectDistance))).magnitude;
-
         foreach (VirtualGardenSpawn obj in AnimalObjects)
         {
             //make sure all are inactive and not used, unless check is correct.
@@ -61,6 +54,16 @@ public class VirtualSceneParent : MonoBehaviour
 
 				// Set the inspect position field
 				Vector3 PPPosition = obj.animalObj.transform.position;
+
+				float camDistanceModifier = 1;//obj.animalObj.GetComponent<VirtualGardenInfo> ().camDistanceModifier;
+
+				// Get the real world distance between the centre of the viewport and the 0.25f, 0.25f of the viewport at PPal distance
+				float VGInfoCamOffsetHorizontal = (gameCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.0f, VGPPalInspectDistance * camDistanceModifier)) -
+					gameCamera.ViewportToWorldPoint(new Vector3(0.25f, 0.0f, VGPPalInspectDistance))).magnitude;
+
+				float VGInfoCamOffsetVertical = (gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.5f, VGPPalInspectDistance * camDistanceModifier)) -
+					gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.25f, VGPPalInspectDistance))).magnitude;
+
 				obj.camInspectPosition = PPPosition - (PPPosition - centreOfMapPosition).normalized * VGPPalInspectDistance;
 
 				// Cross product of the direction vector to the PPal and V3.up will add the relative offset 
@@ -157,7 +160,7 @@ public class VirtualSceneParent : MonoBehaviour
 
 	public Vector3 GetViewPosition () {
 		var PPPos = AnimalObjects [currentLookedAtPPalIndex].animalObj.transform.position;
-		return PPPos - (PPPos - centreOfMapPosition).normalized * VGPPalViewDistance;
+		return PPPos - (PPPos - centreOfMapPosition).normalized * VGPPalViewDistance;// * AnimalObjects [currentLookedAtPPalIndex].camDistanceModifier;
 	}
 }
 
@@ -170,6 +173,7 @@ public class VirtualGardenSpawn
     private PocketPalData animalData;
 	public Vector3 camInspectLookAtPosition { get; set; }
 	public Vector3 camInspectPosition { get; set; }
+	public float camDistanceModifier { get; set; }
 
     public PocketPalData GetAnimalData() { return animalData; }
     public void SetAnimalData(PocketPalData ppd) { animalData = ppd; }

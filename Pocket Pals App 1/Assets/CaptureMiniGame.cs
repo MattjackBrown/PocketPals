@@ -72,6 +72,10 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Exit the minigame
 		MinigameExit ();
+
+		// Place the uncaptured PPal back in the map
+		pocketPal.transform.position = PPalMapPosition;
+		pocketPal.InMinigame = false;
 	}
 
 	public void InitMiniGame (PocketPalParent targetPocketPal) {

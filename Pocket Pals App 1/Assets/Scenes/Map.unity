@@ -224,7 +224,6 @@ MonoBehaviour:
     animalObj: {fileID: 889331253}
   gUIManager: {fileID: 759308568}
   centreOfMap: {fileID: 36652898}
-  isInspecting: 0
 --- !u!1 &36371159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1844,6 +1843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 1
 --- !u!1 &469544020
 GameObject:
   m_ObjectHideFlags: 0
@@ -2497,6 +2497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 0.5
 --- !u!1001 &585376118
 Prefab:
   m_ObjectHideFlags: 0
@@ -3935,6 +3936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 1.5
 --- !u!1 &849541916 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100046, guid: 78ed24d6604b1784d84692543c533432, type: 3}
@@ -3962,6 +3964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 1
 --- !u!4 &851203529 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400088, guid: e078baee72c4997409fded27ddfef421, type: 3}
@@ -4155,6 +4158,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 1.1
 --- !u!1 &921309994
 GameObject:
   m_ObjectHideFlags: 0
@@ -4462,6 +4466,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 1
 --- !u!1001 &975084622
 Prefab:
   m_ObjectHideFlags: 0
@@ -4628,6 +4633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 1
 --- !u!1 &990544973
 GameObject:
   m_ObjectHideFlags: 0
@@ -6099,6 +6105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 1.2
 --- !u!4 &1233243678 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400010, guid: b2456491d8c0110499f2c9eab614ec20, type: 3}
@@ -6304,6 +6311,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 1.5
 --- !u!4 &1309343559 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400056, guid: 9e6abed90a7e55b47848e6475f653d5e, type: 3}
@@ -6694,6 +6702,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 1.2
 --- !u!1 &1392959613
 GameObject:
   m_ObjectHideFlags: 0
@@ -8025,6 +8034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 0.7
 --- !u!1 &1596401106
 GameObject:
   m_ObjectHideFlags: 0
@@ -9027,6 +9037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 1
 --- !u!1 &1825996520
 GameObject:
   m_ObjectHideFlags: 0
@@ -9136,7 +9147,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1331972349}
-        m_MethodName: MenuControls
+        m_MethodName: MapControls
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -9321,6 +9332,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 0.8
 --- !u!1 &1860113451
 GameObject:
   m_ObjectHideFlags: 0
@@ -9660,6 +9672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 1.5
 --- !u!1 &1934744141
 GameObject:
   m_ObjectHideFlags: 0
@@ -10103,6 +10116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 0.7
 --- !u!1 &1990872683
 GameObject:
   m_ObjectHideFlags: 0
@@ -11259,6 +11273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camDistanceModifier: 0.5
 --- !u!1 &2121213428
 GameObject:
   m_ObjectHideFlags: 0
