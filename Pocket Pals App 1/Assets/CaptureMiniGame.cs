@@ -35,6 +35,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	// The targeted pocket pal for this minigame
 	PocketPalParent pocketPal;
 	Vector3 PPalMapPosition;
+	Vector3 CameraMapPosition;
 
 	bool focussedOnPPal = false;
 
@@ -84,6 +85,8 @@ public class CaptureMiniGame : MonoBehaviour {
 		captureTimer = 0.0f;
 		captureMeter.value = 0.0f;
 
+		targetPocketPal.InMinigame = true;
+
 		// Set the target pocketPal for this minigame
 		pocketPal = targetPocketPal;
 
@@ -92,6 +95,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Store the map position if the minigame fails and the PPal should reappear back in the pmap
 		PPalMapPosition = targetPocketPal.transform.position;
+		CameraMapPosition = controls.cameraController.transform.position;
 
 		// Set the virtual garden environment to be active
 		miniGameEnvironment.SetActive (true);
@@ -140,10 +144,9 @@ public class CaptureMiniGame : MonoBehaviour {
 			// Minigame failed
 			MinigameExit ();
 
-			if (pocketPal != null)
-				
-				// Place the uncaptured PPal back in the map
-				pocketPal.transform.position = PPalMapPosition;
+			// Place the uncaptured PPal back in the map
+			pocketPal.transform.position = PPalMapPosition;
+			pocketPal.InMinigame = false;
 		}
 	}
 
@@ -216,6 +219,8 @@ public class CaptureMiniGame : MonoBehaviour {
 		MiniGameMenu.gameObject.SetActive(false);
 		MiniGameUI.gameObject.SetActive(false);
 
+		controls.cameraController.transform.position = CameraMapPosition;
+
 		// Tell the cameraController to zoom out
 		controls.cameraController.MapZoomOutInit ();
 
@@ -225,6 +230,8 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Deactivate the minigame environment
 		miniGameEnvironment.SetActive(false);
 //		controls.player.GetComponent<GPS>().currentMap.gameObject.SetActive(true);
-		controls.player.GetComponent<GPS>().gameObject.SetActive(true);
+//		controls.player.GetComponent<GPS>().gameObject.SetActive(true);
+
+		controls.cameraController.transform.position = CameraMapPosition;
 	}
 }

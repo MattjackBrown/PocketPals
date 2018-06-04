@@ -3098,11 +3098,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: ffe75fd3a94b2924fbc9ccb437841add, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.8
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: ffe75fd3a94b2924fbc9ccb437841add, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 100068, guid: ffe75fd3a94b2924fbc9ccb437841add, type: 3}
       propertyPath: m_Name
@@ -3114,7 +3114,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: ffe75fd3a94b2924fbc9ccb437841add, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.8
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ffe75fd3a94b2924fbc9ccb437841add, type: 3}
@@ -6953,6 +6953,17 @@ MonoBehaviour:
           m_StringArgument: clop
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1331972349}
+        m_MethodName: MapControls
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1419360023
@@ -8858,6 +8869,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1331972349}
+        m_MethodName: MenuControls
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1825996523
@@ -10738,6 +10760,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: clip
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1331972349}
+        m_MethodName: MenuControls
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
