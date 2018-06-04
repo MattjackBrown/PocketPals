@@ -1,7 +1,7 @@
 ﻿
 public class LevelCalculator
 {
-    public const float LevelCoefficent = 1.05f;
+    public const float LevelCoefficent = 1.5f;
     public const float ExpForFirstLevel = 100;
 
     public static float GetPercentageToNextLevel(float EXP)
@@ -17,7 +17,7 @@ public class LevelCalculator
         int lvl = 1;
         while (EXP > temp)
         {
-            temp = temp * lvl * LevelCoefficent;
+            temp = temp * LevelCoefficent;
             lvl++;
         }
         return lvl;
@@ -29,7 +29,7 @@ public class LevelCalculator
         int lvl = 1;
         while (EXP > temp)
         {
-            temp = temp * lvl * LevelCoefficent;
+            temp = temp * LevelCoefficent;
             lvl++;
         }
         return temp - EXP;

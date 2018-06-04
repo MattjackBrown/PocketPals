@@ -42,8 +42,12 @@ public class LocalDataManager : MonoBehaviour {
 
     public void AddPocketPal(GameObject obj)
     {
-       
+       //Add the pocketPal to the players inventory
         localData.Inventory.AddPocketPal(obj.GetComponent<PocketPalParent>());
+
+        //increas the players EXP
+        localData.IncreaseExp(obj.GetComponent<PocketPalParent>().GetAnimalData().GetExp());
+
         SaveData();
     }
 

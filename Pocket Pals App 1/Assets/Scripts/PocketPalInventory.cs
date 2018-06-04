@@ -32,6 +32,32 @@ public class PocketPalInventory
         }
         return null;
     }
+    
+    public PocketPalData GetMostCaught()
+    {
+        PocketPalData mostCaught = null;
+        foreach (PocketPalData ppd in myPPals)
+        {
+            if (mostCaught == null || mostCaught.numberCaught < ppd.numberCaught)
+            {
+                mostCaught = ppd;
+            }
+        }
+        return mostCaught;
+    }
+
+    public PocketPalData GetHighestLevel()
+    {
+        PocketPalData highestLevel = null;
+        foreach (PocketPalData ppd in myPPals)
+        {
+            if (highestLevel == null || highestLevel.GetExp() < ppd.GetExp())
+            {
+                highestLevel = ppd;
+            }
+        }
+        return highestLevel;
+    }
 
     public List<PocketPalData> GetMyPocketPals()
     {

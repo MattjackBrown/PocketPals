@@ -44,7 +44,7 @@ public class PocketPalData
 
     public float GetRarity()
     {
-        return Mathf.RoundToInt(baseRarity / PocketPalSpawnManager.AverageRarity);
+        return Mathf.RoundToInt(baseRarity);
     }
 
     public float GetExpToNextLevel()
@@ -62,6 +62,8 @@ public class PocketPalData
         if (weight > ppd.weight) weight = ppd.weight;
         if (agressiveness > ppd.agressiveness) agressiveness = ppd.agressiveness;
         if (size > ppd.size) size = ppd.size;
+        if (name != ppd.name) name = ppd.name;
+        if (baseRarity != ppd.baseRarity) baseRarity = ppd.baseRarity;
         numberCaught++;
         EXP += ppd.EXP*expMultiplier;
     }

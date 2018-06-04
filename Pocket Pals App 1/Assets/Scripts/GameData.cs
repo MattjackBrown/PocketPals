@@ -13,7 +13,7 @@ public class GameData
         Inventory = new PocketPalInventory();
     }
 
-    public void IncreasExp(float delta)
+    public void IncreaseExp(float delta)
     {
         EXP += delta;
     }
@@ -23,4 +23,13 @@ public class GameData
         return LevelCalculator.CalculateLevel(EXP);
     }
 
+    public float GetExpToLevel()
+    {
+        return LevelCalculator.GetExpNeeded(EXP);
+    }
+
+    public float GetPercentageExp()
+    {
+        return LevelCalculator.GetPercentageToNextLevel(EXP);
+    }
 }

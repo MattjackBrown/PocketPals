@@ -5,15 +5,13 @@ using UnityEngine;
 public class IngameMenuScript : MonoBehaviour {
 
     public List<GameObject> SubMenus;
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public TouchHandler touchHandler;
+
+    private void OnDisable()
+    {
+        touchHandler.MenuControls();
+    }
 
     void OnEnable()
     {
@@ -21,5 +19,6 @@ public class IngameMenuScript : MonoBehaviour {
         {
             obj.SetActive(false);
         }
+        touchHandler.MapControls();
     }
 }
