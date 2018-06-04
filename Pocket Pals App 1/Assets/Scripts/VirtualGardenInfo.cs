@@ -7,7 +7,7 @@ public class VirtualGardenInfo : MonoBehaviour {
 	// Keep inspect info here maybe?
 
 	// Different PPals will probably require different cam distances because of their size
-	public float inspectCamDistance;
+	public float inspectCamDistance { get; set; }
 
 	// Use this for initialization
 	void Start () {

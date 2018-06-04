@@ -449,7 +449,10 @@ public class CameraController : MonoBehaviour
 		transform.position = Vector3.Lerp(cameraTargetPosition, VGZoomedPosition, VGPinchLerp);
 	}
 
-	public void VGInspectButtonPressed () {
+	public void VGToggleInspect () {
+
+		// Show the info or not
+		controls.virtualGarden.gUIManager.ToggleInspect ();
 
 		// Button toggles the Inits on each press
 		if (isMovingToInspect)

@@ -81,8 +81,7 @@ public class TouchHandler : MonoBehaviour {
 		case ControlScheme.VirtualGarden:
 			{
 				UseVirtualGardenControls ();
-
-				//CheckForVGTap ();
+				CheckForVGTap ();
 			}
 			break;
 
@@ -94,9 +93,7 @@ public class TouchHandler : MonoBehaviour {
 
 		case ControlScheme.VirtualGardenInfo:
 			{
-				// Temp. Just tap anywhere to return
-	//			if (Input.touches.Length > 0 && Input.GetTouch(0).phase == TouchPhase.Began) cameraController.VGInfoZoomOutInit();
-
+				CheckForVGTap ();
 				UseVGInfoControls ();
 			}
 			break;
@@ -273,15 +270,11 @@ public class TouchHandler : MonoBehaviour {
 				// if hit
 				if (Physics.Raycast (ray, out hit))
 				{
-					Debug.Log ("Hit : " + hit.transform.gameObject);
-					// This is not a good way. Need a cast to whatever data structure will be used here
+					// This might not be a good way. Need a cast to whatever data structure will be used here
 					// Either PocketPalParent, or look for the int ID component of the VirtualGardenSpawn maybe
 					if (hit.transform.gameObject.GetComponent("VirtualGardenInfo"))
 					{
-
-						Debug.Log ("Inspect");
-						// Initialise the info cam values
-						cameraController.VGInspectInit ();//hit.transform.gameObject);
+						cameraController.VGToggleInspect ();
 
 						// Only need to find one, Don't bother checking other touches after this
 						return;
