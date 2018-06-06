@@ -39,6 +39,14 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	bool focussedOnPPal = false;
 
+	Vector2 viewfinderPosition;
+
+	public List<GameObject> patrolPositions;
+	float patrolSpeed = 0.5f;
+	float patrolLerp;
+	Vector3 previousPosition, nextPosition;
+	int patrolIndex;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -66,6 +74,8 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Set the controlScheme in the touchHandler
 		controls.MiniGameControls ();
+
+		patrolLerp = 0.0f;
 	}
 
 	public void BackButtonPressed () {
@@ -112,6 +122,11 @@ public class CaptureMiniGame : MonoBehaviour {
 		controls.cameraController.transform.position = miniGamePlayerPosition;
 		targetPocketPal.transform.position = miniGamePPalPosition;
 		controls.cameraController.transform.LookAt (miniGamePPalPosition);
+
+		previousPosition = pocketPal.transform.position;
+
+		patrolIndex = Random.Range(0, patrolPositions.Count-1);
+		nextPosition = patrolPositions [patrolIndex].transform.position;
 	}
 
 	public void UpdateTimer () {
@@ -121,6 +136,12 @@ public class CaptureMiniGame : MonoBehaviour {
 
 			// Step the timer
 			minigameTimer += Time.deltaTime;
+
+			// Move the PPal around
+			MovePPal ();
+
+			// Funtion sets the depth of field using the touched on position's distance away
+			AdjustPostProcessing (viewfinderPosition);
 
 			if (focussedOnPPal) {
 				
@@ -154,18 +175,47 @@ public class CaptureMiniGame : MonoBehaviour {
 		}
 	}
 
-	public void UpdateControls (Vector2 touch) {
+	public void UpdateControls (Vector2 touchPosition) {
+
+		viewfinderPosition = touchPosition;
 
 		// Adjust the touch position by the device's screen dimensions and adjust for the coming anchor position being from the centre of the screen
-		float touchX = touch.x / screenWidth - 0.5f;
-		float touchY = touch.y / screenHeight - 0.5f;
+		float touchX = viewfinderPosition.x / screenWidth - 0.5f;
+		float touchY = viewfinderPosition.y / screenHeight - 0.5f;
 
 		// Set the position of the viewFinder image in the viewport to the adjusted touch position
 		viewFinder.rectTransform.anchoredPosition = Camera.main.ViewportToScreenPoint (new Vector3 (touchX, touchY));
+	}
 
-		// Funtion sets the depth of field using the touched on position's distance away
-		AdjustPostProcessing (touch);
+	void MovePPal () {
 
+		// If arrived at current target lerp will be >= 1.0f
+		if (patrolLerp >= 1.0f) {
+
+			// Reset the lerp float
+			patrolLerp = 0.0f;
+
+			// Set the new position values, Don't use old nextPosition as the new start point as it may have overshot that position
+			previousPosition = pocketPal.transform.position;
+
+			// Pick a random next patrol position that is not the last one. Do by repeatedly picking a random index until it does not match the current index
+			int tempIndex;
+			do {
+				tempIndex = Random.Range(0, patrolPositions.Count-1);
+			} while (tempIndex == patrolIndex);
+
+			// When found, update the stored current index
+			patrolIndex = tempIndex;
+
+			// Get the patrol position from the list at that index
+			nextPosition = patrolPositions [patrolIndex].transform.position;
+		}
+
+		// Step the lerp
+		patrolLerp += Time.deltaTime * patrolSpeed;
+
+		// Move the PPal
+		pocketPal.transform.position = Vector3.Lerp (previousPosition, nextPosition, patrolLerp);
 	}
 
 	void AdjustPostProcessing(Vector2 touchPosition) {
