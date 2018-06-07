@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CaptureMiniGame : MonoBehaviour {
 
 	public TouchHandler controls;
-	
+
 	public Canvas MapUI;
 	public Canvas MiniGameMenu;
 	public Canvas MiniGameUI;
@@ -14,11 +14,10 @@ public class CaptureMiniGame : MonoBehaviour {
 	public Slider captureMeter;
 
 	public GameObject miniGameEnvironment;
-
 	public GameObject miniGamePlayerPositionObject;
 	public GameObject miniGamePPalPositionObject;
-	Vector3 miniGamePlayerPosition;
-	Vector3 miniGamePPalPosition;
+
+	Vector3 miniGamePlayerPosition, miniGamePPalPosition;
 
 	float minigameTimer, captureTimer;
 
@@ -34,8 +33,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	// The targeted pocket pal for this minigame
 	PocketPalParent pocketPal;
-	Vector3 PPalMapPosition;
-	Vector3 CameraMapPosition;
+	Vector3 PPalMapPosition, CameraMapPosition;
 
 	bool focussedOnPPal = false;
 
@@ -113,10 +111,6 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Set the virtual garden environment to be active
 		miniGameEnvironment.SetActive (true);
-
-		//deactivate map stuff and stop gps ticking
-//		controls.player.GetComponent<GPS>().currentMap.gameObject.SetActive(false);
-//		controls.player.GetComponent<GPS>().gameObject.SetActive(false);
 
 		// Set the Positions for the miniGame
 		controls.cameraController.transform.position = miniGamePlayerPosition;
@@ -216,6 +210,8 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Move the PPal
 		pocketPal.transform.position = Vector3.Lerp (previousPosition, nextPosition, patrolLerp);
+
+		pocketPal.transform.LookAt (nextPosition);
 	}
 
 	void AdjustPostProcessing(Vector2 touchPosition) {
@@ -283,9 +279,11 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Deactivate the minigame environment
 		miniGameEnvironment.SetActive(false);
-//		controls.player.GetComponent<GPS>().currentMap.gameObject.SetActive(true);
-//		controls.player.GetComponent<GPS>().gameObject.SetActive(true);
 
+		// Place the camera back in the map area
 		controls.cameraController.transform.position = CameraMapPosition;
+
+		// Because why not
+		controls.Vibrate ();
 	}
 }

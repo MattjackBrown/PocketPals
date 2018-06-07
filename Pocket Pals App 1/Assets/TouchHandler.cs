@@ -180,7 +180,6 @@ public class TouchHandler : MonoBehaviour {
 			if (hit.transform.gameObject.GetComponent<PocketPalParent>())
 			{
 				cameraController.CaptureCamInit(hit.transform.gameObject);
-				PocketPalParent hitPocketPal = hit.transform.gameObject.GetComponent<PocketPalParent>();
 			}
 			else if (IsDebug)
 			{
@@ -388,5 +387,9 @@ public class TouchHandler : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	public void Vibrate () {
+		Handheld.Vibrate ();
 	}
 }

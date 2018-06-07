@@ -51,8 +51,9 @@ public class PocketPalParent : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        // rotates the object on the x, y and z axis
-        transform.Rotate(RotationPerSecond * Time.deltaTime); 
+		if (!InMinigame)
+        	// rotates the object on the x, y and z axis
+        	transform.Rotate(RotationPerSecond * Time.deltaTime); 
     }
 
     public void Captured()

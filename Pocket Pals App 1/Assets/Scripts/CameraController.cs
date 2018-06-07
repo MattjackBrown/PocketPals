@@ -347,9 +347,6 @@ public class CameraController : MonoBehaviour
 		// Get the target camera position
 		targetPocketPalPosition = targetPocketPal.transform.position;
 
-		// Temp. Each pocket pal may require a hard coded position
-//		cameraTargetPosition = targetPocketPalPosition + targetPocketPal.transform.forward * VGPPalCamDistance + VGCamHeight;
-
 		// Better way without hardcoding. Picks a targetPosition based on the direction to the centre and a cam distance
 		cameraTargetPosition = controls.virtualGarden.GetViewPosition(); //targetPocketPalPosition - (targetPocketPalPosition - VGCentrePosition).normalized * VGPPalCamDistance;
 
@@ -461,10 +458,7 @@ public class CameraController : MonoBehaviour
 			VGInspectInit ();
 	}
 
-	public void VGInspectInit () { //GameObject pocketPal) {
-
-		// Store the pocketPal
-//		targetPocketPal = pocketPal;
+	public void VGInspectInit () {
 
 		// If targetPP has not been set, i.e. inventory empty
 		if (targetPocketPal == null) return;
@@ -478,16 +472,9 @@ public class CameraController : MonoBehaviour
 		// Get the target camera position
 		targetPocketPalPosition = targetPocketPal.transform.position;
 
-		VGInfoLookAtPoint = controls.virtualGarden.GetInspectLookAtPosition (); //targetPocketPalPosition + Camera.main.transform.right * 0.5f + Camera.main.transform.up * 0.5f;
-
-		// Better way without hardcoding. Picks a targetPosition based on the direction to the pocketPal and a cam distance
-		// Reusing the other cam distance but making a lot closer
+		VGInfoLookAtPoint = controls.virtualGarden.GetInspectLookAtPosition ();
 
 		cameraTargetPosition = controls.virtualGarden.GetInspectPosition ();
-
-//		cameraTargetPosition = targetPocketPalPosition - (targetPocketPalPosition - cameraStartPosition).normalized * VGPPalCamDistance/2.0f;
-
-//		cameraTargetPosition += Camera.main.transform.right * -2.0f;// Camera.main.ViewportToWorldPoint (new Vector3(0.25f, 0.25f, transform.position.z));
 
 		// For the Vector3.lerp function
 		lerp = 0.0f;
