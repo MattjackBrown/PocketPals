@@ -165,6 +165,8 @@ public class CameraController : MonoBehaviour
 
 	public void CaptureCamInit (GameObject pocketPal) {
 
+		playerPosition = player.transform.position;
+
 		// Store the pocketPal
 		targetPocketPal = pocketPal;
 
@@ -172,7 +174,7 @@ public class CameraController : MonoBehaviour
 		cameraLookAtStartPosition = playerPosition + lookAtPlayerPositionOffset;
 
 		// Store the starting position from the player to return to after minigame finished
-		returnCamOffsetAfterCapture = transform.position - player.transform.position;
+		returnCamOffsetAfterCapture = transform.position - playerPosition;
 
 		// Get the target camera position based on player position and pocketPalPosition
 		targetPocketPalPosition = targetPocketPal.transform.position;
@@ -200,6 +202,8 @@ public class CameraController : MonoBehaviour
 	}
 
 	public void MapZoomOutInit() {
+
+		// Does this need a position update?
 
 		isZoomingIn = false;
 		lerp = 0.0f;
@@ -348,7 +352,7 @@ public class CameraController : MonoBehaviour
 		targetPocketPalPosition = targetPocketPal.transform.position;
 
 		// Better way without hardcoding. Picks a targetPosition based on the direction to the centre and a cam distance
-		cameraTargetPosition = controls.virtualGarden.GetViewPosition(); //targetPocketPalPosition - (targetPocketPalPosition - VGCentrePosition).normalized * VGPPalCamDistance;
+		cameraTargetPosition = controls.virtualGarden.GetViewPosition();
 
 		// For the Vector3.lerp function
 		lerp = 0.0f;
@@ -444,6 +448,7 @@ public class CameraController : MonoBehaviour
 		VGPinchLerp = Mathf.Clamp (VGPinchLerp, 0.0f, 1.0f);
 
 		transform.position = Vector3.Lerp(cameraTargetPosition, VGZoomedPosition, VGPinchLerp);
+	//	transform.LookAt (targetPocketPalPosition);
 	}
 
 	public void VGToggleInspect () {
@@ -493,6 +498,7 @@ public class CameraController : MonoBehaviour
 		isMovingToInspect = false;
 		cameraStartPosition = controls.virtualGarden.GetViewPosition ();
 		lerp = 0.0f;
+		VGPinchLerp = 0.0f;
 		controls.VirtualGardenInfoTransitionControls ();
 	}
 
@@ -511,6 +517,8 @@ public class CameraController : MonoBehaviour
 
 			// Change controlScheme
 			controls.VirtualGardenInfoControls();
+
+		//	VGUpdateCameraPositions ();
 
 		} else {
 
@@ -536,6 +544,8 @@ public class CameraController : MonoBehaviour
 			// Return to VG controls
 			controls.VirtualGardenControls ();
 
+			VGUpdateCameraPositions ();
+
 		} else {
 
 			// Advance the lerp float
@@ -555,12 +565,22 @@ public class CameraController : MonoBehaviour
 	public void VGInspectNextPPal () {
 
 		targetPocketPal = controls.virtualGarden.GetNextPPal ();
+		VGUpdateCameraPositions ();
 		VGInspectInit ();
 	}
 
 	public void VGInspectPrevPPal () {
 
 		targetPocketPal = controls.virtualGarden.GetPreviousPPal ();
+		VGUpdateCameraPositions ();
 		VGInspectInit ();
+	}
+
+	public void VGUpdateCameraPositions () {
+		
+		// Temp. VGZoomedPosition set as halfway between the camera position and the target PPal
+		VGZoomedPosition = cameraTargetPosition + (targetPocketPalPosition - cameraTargetPosition) / 2.0f;
+		cameraTargetPosition = controls.virtualGarden.GetViewPosition();
+		VGPinchLerp = 0.0f;
 	}
 }
