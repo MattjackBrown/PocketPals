@@ -190,8 +190,6 @@ public class GPS : MonoBehaviour
 
             SetPlayerMovePoint(endPoint);
 
-            Debug.Log("Hit");
-
             //move
             MovePlayer();
 
