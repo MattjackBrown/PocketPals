@@ -144,6 +144,8 @@ public class ServerDataManager : MonoBehaviour {
     public void GetPlayerData(GameData gd)
     {
 
+        int iter = 0;
+
         mDatabaseRef.Child("Users").Child(gd.ID).GetValueAsync().ContinueWith(task => {
             if (task.IsFaulted)
             {
@@ -155,10 +157,11 @@ public class ServerDataManager : MonoBehaviour {
                 try
                 {
                     DataSnapshot snapshot = task.Result;
-
+                    
                     //Read the Data received from the server.
                     foreach (DataSnapshot obj in snapshot.Children)
                     {
+                        iter++;
                         switch (obj.Key.ToLower())
                         {
                             case "distancetravelled":
@@ -179,7 +182,6 @@ public class ServerDataManager : MonoBehaviour {
 
                             case "inventoryid":
                                 gd.inventoryID = (string)obj.Value;
-                                Debug.Log(gd.inventoryID);
                                 break;
                         }
                     }
@@ -188,6 +190,12 @@ public class ServerDataManager : MonoBehaviour {
                 {
                     Debug.Log(ex);
                 }
+            }
+            //If iter a new user Write it to the server... This is a bad fix but the only one 
+            //that seems to work consistently
+            if (iter < 2)
+            {
+                WriteNewUser(gd);
             }
             GetInventory(gd);
         });
@@ -201,7 +209,7 @@ public class ServerDataManager : MonoBehaviour {
             if (task.IsFaulted)
             {
                 Debug.Log("Failed Getting user from databse Writing new user");
-                WriteNewUser(LocalDataManager.Instance.GetData());
+                WriteNewUser(gd);
             }
             else if (task.IsCompleted)
             {
