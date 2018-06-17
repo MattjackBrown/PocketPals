@@ -27,6 +27,7 @@ public class PocketPalInventory
     public void InitialServerAdd(PocketPalData ppd)
     {
         myPPals.Add(ppd);
+
     }
 
     public string GetInventoryJson()

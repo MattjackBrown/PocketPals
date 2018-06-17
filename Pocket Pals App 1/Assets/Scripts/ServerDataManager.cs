@@ -136,7 +136,7 @@ public class ServerDataManager : MonoBehaviour {
         mDatabaseRef.Child("Users").Child(gd.ID).Child("Username").SetValueAsync(gd.Username);
     }
 
-    public void WritePlayerExp(GameData gd)
+    public void UpdatePlayerExp(GameData gd)
     {
         mDatabaseRef.Child("Users").Child(gd.ID).Child("EXP").SetValueAsync(gd.EXP);
     }

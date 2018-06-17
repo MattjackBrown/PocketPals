@@ -56,6 +56,7 @@ public class LocalDataManager : MonoBehaviour {
         //update the server
         ServerDataManager.Instance.WritePocketPal(localData, localData.Inventory.GetDataFromID(ppd.ID));
 
+        ServerDataManager.Instance.UpdatePlayerExp(localData);
     }
 
     public void ResetLocalData()
