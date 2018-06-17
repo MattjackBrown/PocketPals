@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnvironmentChanger : MonoBehaviour
 {
@@ -61,5 +62,9 @@ public class EnvironmentChanger : MonoBehaviour
 
         CameraController.Instance.ReturnCamToAfterVirtualGarden();
     }
+
+	public void ARKitSceneLoad () {
+		SceneManager.LoadScene ("SimpleARScene");
+	}
 
 }
