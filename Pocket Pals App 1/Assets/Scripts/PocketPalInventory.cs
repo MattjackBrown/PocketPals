@@ -24,6 +24,22 @@ public class PocketPalInventory
         }
     }
 
+    public void InitialServerAdd(PocketPalData ppd)
+    {
+        myPPals.Add(ppd);
+    }
+
+    public string GetInventoryJson()
+    {
+        string str = "";
+        foreach (PocketPalData ppd in myPPals)
+        {
+            str += JsonUtility.ToJson(ppd);
+        }
+        Debug.Log(str);
+        return str;
+    }
+
     public PocketPalData GetDataFromID(int ID)
     {
         foreach (PocketPalData p in myPPals)

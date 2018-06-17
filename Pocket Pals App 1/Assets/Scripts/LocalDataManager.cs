@@ -18,37 +18,44 @@ public class LocalDataManager : MonoBehaviour {
     {
         //This makes the local datamanager accessible from anywhere
         Instance = this;
+
+        localData = new GameData();
+
         DontDestroyOnLoad(gameObject);
     }
 
     private void Awake()
     {
         destination = Application.persistentDataPath + dataFileName;
-        LoadData();
     }
 
     public void UpdateName(string newName)
     {
         localData.Username = newName;
-        SaveData();
+        ServerDataManager.Instance.UpdatePlayerName(localData);
     }
 
    public void UpdateDistance(float delta)
     {
         localData.DistanceTravelled += delta;
-        SaveData();
+        ServerDataManager.Instance.UpdateDistace(localData);
     }
 
 
     public void AddPocketPal(GameObject obj)
     {
+        //Get the data reference
+        PocketPalData ppd = obj.GetComponent<PocketPalParent>().GetAnimalData();
+
        //Add the pocketPal to the players inventory
         localData.Inventory.AddPocketPal(obj.GetComponent<PocketPalParent>());
 
         //increas the players EXP
         localData.IncreaseExp(obj.GetComponent<PocketPalParent>().GetAnimalData().GetExp());
 
-        SaveData();
+        //update the server
+        ServerDataManager.Instance.WritePocketPal(localData, localData.Inventory.GetDataFromID(ppd.ID));
+
     }
 
     public void ResetLocalData()
@@ -73,61 +80,6 @@ public class LocalDataManager : MonoBehaviour {
     public PocketPalInventory GetInventory()
     {
         return localData.Inventory;
-    }
-
-    void SaveData()
-    {
-        try
-        {
-            FileStream file;
-
-            //try and get the save game file
-            if (File.Exists(destination)) file = File.OpenWrite(destination);
-            else file = ResetFile();
-
-            //serialise and save our data
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(file, localData);
-            file.Close();
-        }
-        catch(System.Exception ex)
-        {
-            Debug.Log("Failed to save" + ex);
-        }
-    }
-
-    void LoadData()
-    {
-        FileStream file;
-
-        //try and get save game file 
-        if (File.Exists(destination)) file = File.OpenRead(destination);
-        else
-        {
-            //if the file does not exsist create new local data class and save it;
-            Debug.Log("File not found");
-
-            ResetFile();
-
-            //exit load
-            return;
-        }
-        try
-        {
-            BinaryFormatter bf = new BinaryFormatter();
-            localData = (GameData)bf.Deserialize(file);
-            file.Close();
-
-            Debug.Log(localData.DistanceTravelled);
-            Debug.Log(localData.Username);
-            localData.Inventory.PrintMyPocketPals();
-        }
-        catch
-        {
-            file.Close();
-            Debug.Log("Failed to read exsisting load file. Creating a new one");
-            ResetFile();
-        }
     }
 
     public FileStream ResetFile()

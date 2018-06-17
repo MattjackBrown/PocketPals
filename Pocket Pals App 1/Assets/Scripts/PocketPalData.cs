@@ -11,11 +11,11 @@ public class PocketPalData
 
     public int numberCaught = 1;
     public float weight = 0;
-    private float agressiveness = 0;
-    private float EXP = 0;
+    public float agressiveness = 0;
+    public float EXP = 0;
 
-    private float size = 0;
-    private float baseRarity = 0;
+    public float size = 0;
+    public float baseRarity = 0;
 
     public PocketPalData(string str, int id, float exp, float siz, float agress, float rare)
     {
@@ -26,6 +26,8 @@ public class PocketPalData
         agressiveness = agress;
         baseRarity = rare;
     }
+
+    public PocketPalData() { }
 
     public float GetSize()
     {

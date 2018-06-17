@@ -4,6 +4,7 @@ using Firebase.Unity.Editor;
 using Firebase.Auth;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ServerDataManager : MonoBehaviour {
 
@@ -19,9 +20,6 @@ public class ServerDataManager : MonoBehaviour {
 
     //Rerfernce to the user provided after the user has successfully logged in
     FirebaseUser newUser;
-
-    //Probs going to vanish soon
-    GameData gameData;
 
     //Text to print any error messages
     public Text ErrorText;
@@ -46,13 +44,12 @@ public class ServerDataManager : MonoBehaviour {
                 // Set a flag here indiciating that Firebase is ready to use by your
                 // application.
 
-                UnityEngine.Debug.Log(System.String.Format(
-                    "Could not resolve all Firebase dependencies: {0}", dependencyStatus));
-
                 FirebaseInitialised = true;
             }
             else
             {
+
+                FirebaseInitialised = true;
 
                 UnityEngine.Debug.Log(System.String.Format(
                   "Could not resolve all Firebase dependencies: {0}", dependencyStatus));
@@ -90,8 +87,6 @@ public class ServerDataManager : MonoBehaviour {
             //Assign a listner to check for a state change to the authentication
             auth.StateChanged += AuthStateChanged;
             AuthStateChanged(this, null);
-
-            gameData = new GameData();
         }
     }
 
@@ -101,7 +96,11 @@ public class ServerDataManager : MonoBehaviour {
 
         Debug.Log(json);
 
+        //write the new user to the database
         mDatabaseRef.Child("Users").Child(gd.ID).SetRawJsonValueAsync(json);
+
+        //write the user inventory to the databse.
+        WriteInventory(gd);
     }
 
     public void WriteExsistingUser(GameData gd)
@@ -110,12 +109,150 @@ public class ServerDataManager : MonoBehaviour {
 
         Debug.Log(json);
 
-        mDatabaseRef.Child("Users").Child(gd.Username).SetValueAsync(json);
+        mDatabaseRef.Child("Users").Child(gd.ID).SetRawJsonValueAsync(json);
     }
 
-    public void WritePocketPals(GameData gd)
+    public void WriteInventory(GameData gd)
     {
-        //TO DO write pocketpals to server.      
+        foreach (PocketPalData ppd in gd.Inventory.GetMyPocketPals())
+        {
+            WritePocketPal(gd, ppd);
+        }
+    }
+
+    public void UpdateDistace(GameData gd)
+    {
+        mDatabaseRef.Child("Users").Child(gd.ID).Child("DistanceTravelled").SetValueAsync(gd.DistanceTravelled);
+    }
+
+    public void WritePocketPal(GameData gd, PocketPalData ppd)
+    {
+        string json = JsonUtility.ToJson(ppd);
+        mDatabaseRef.Child("Inventories").Child(gd.inventoryID).Child(ppd.ID.ToString()).SetRawJsonValueAsync(json);
+    }
+
+    public void UpdatePlayerName(GameData gd)
+    {
+        mDatabaseRef.Child("Users").Child(gd.ID).Child("Username").SetValueAsync(gd.Username);
+    }
+
+    public void WritePlayerExp(GameData gd)
+    {
+        mDatabaseRef.Child("Users").Child(gd.ID).Child("EXP").SetValueAsync(gd.EXP);
+    }
+
+    public void GetPlayerData(GameData gd)
+    {
+
+        mDatabaseRef.Child("Users").Child(gd.ID).GetValueAsync().ContinueWith(task => {
+            if (task.IsFaulted)
+            {
+                    Debug.Log("Failed Getting user from databse Writing new user");
+                    WriteNewUser(LocalDataManager.Instance.GetData());
+            }
+            else if (task.IsCompleted)
+            {
+                try
+                {
+                    DataSnapshot snapshot = task.Result;
+
+                    //Read the Data received from the server.
+                    foreach (DataSnapshot obj in snapshot.Children)
+                    {
+                        switch (obj.Key.ToLower())
+                        {
+                            case "distancetravelled":
+                                gd.DistanceTravelled = Convert.ToSingle(obj.Value);
+                                break;
+
+                            case "exp":
+                                gd.EXP = Convert.ToSingle(obj.Value);
+                                break;
+
+                            case "usernmae":
+                                gd.Username = (string)obj.Value;
+                                break;
+
+                            case "id":
+                                gd.ID = (string)obj.Value;
+                                break;
+
+                            case "inventoryid":
+                                gd.inventoryID = (string)obj.Value;
+                                Debug.Log(gd.inventoryID);
+                                break;
+                        }
+                    }
+                }
+                catch(Exception ex)
+                {
+                    Debug.Log(ex);
+                }
+            }
+            GetInventory(gd);
+        });
+    }
+
+    public void GetInventory(GameData gd)
+    {
+        Debug.Log(gd.inventoryID);
+        //Start a task that will populate the players inventory with their ppals.
+        mDatabaseRef.Child("Inventories").Child(gd.inventoryID).GetValueAsync().ContinueWith(task => {
+            if (task.IsFaulted)
+            {
+                Debug.Log("Failed Getting user from databse Writing new user");
+                WriteNewUser(LocalDataManager.Instance.GetData());
+            }
+            else if (task.IsCompleted)
+            {
+                try
+                {
+                    DataSnapshot snapshot = task.Result;
+                    foreach (DataSnapshot obj in snapshot.Children)
+                    {
+                        PocketPalData ppd = new PocketPalData();
+
+                        foreach (DataSnapshot child in obj.Children)
+                        {
+                            switch (child.Key.ToLower())
+                            {
+                                case "exp":
+                                    ppd.EXP = Convert.ToSingle(child.Value);
+                                    break;
+                                case "id":
+                                    ppd.ID = Convert.ToInt32(child.Value);
+                                    break;
+                                case "agressiveness":
+                                    ppd.agressiveness = Convert.ToSingle(child.Value);
+                                    break;
+                                case "weight":
+                                    ppd.weight = Convert.ToSingle(child.Value);
+                                    break;
+                                case "name":
+                                    ppd.name = Convert.ToString(child.Value);
+                                    break;
+                                case "size":
+                                    ppd.size = Convert.ToSingle(child.Value);
+                                    break;
+                                case "numbercaught":
+                                    ppd.numberCaught = Convert.ToInt32(child.Value);
+                                    break;
+                                case "baserarity":
+                                    ppd.baseRarity = Convert.ToInt32(child.Value);
+                                    break;
+                            }
+
+                        }
+                        gd.Inventory.GetMyPocketPals().Add(ppd);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.Log(ex);
+                }
+                WelcomeScreen.SetActive(true);
+            }
+        });
     }
 
     public void CreateUser(string email, string password,Text failedText)
@@ -170,8 +307,12 @@ public class ServerDataManager : MonoBehaviour {
             if (signedIn)
             {
                 Debug.Log("Signed in " + newUser.UserId);
-                gameData.Username = newUser.DisplayName ?? "";
-                WelcomeScreen.SetActive(true);
+                ErrorText.text = "Logging in....";
+                LocalDataManager.Instance.GetData().ID = newUser.UserId ?? "";
+                LocalDataManager.Instance.GetData().Username = newUser.DisplayName ?? "";
+
+                GetPlayerData(LocalDataManager.Instance.GetData());
+
             }
         }
     }

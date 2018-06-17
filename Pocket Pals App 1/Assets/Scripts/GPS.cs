@@ -70,7 +70,6 @@ public class GPS : MonoBehaviour
     {
         if (!Input.location.isEnabledByUser)
         {
-            Debug.Log("Request gps priv");
             UpdateMap();
             yield break;
         }

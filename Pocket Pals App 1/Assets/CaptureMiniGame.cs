@@ -236,8 +236,6 @@ public class CaptureMiniGame : MonoBehaviour {
 
 				focussedOnPPal = true;
 
-				Debug.Log (hit.transform.gameObject);
-
 			} else {
 
 				// Update the post processing settings to look at the touched on position
