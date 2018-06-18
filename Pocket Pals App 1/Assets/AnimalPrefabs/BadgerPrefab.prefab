@@ -1069,8 +1069,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db39247a5b7fa2e4faf352d933422d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  restAnimController: {fileID: 9100000, guid: 3729992ca6330894fbe0852226430847, type: 2}
+  moveAnimController: {fileID: 9100000, guid: 3729992ca6330894fbe0852226430847, type: 2}
+  restAvatar: {fileID: 9000000, guid: 96e7868507b8d5b4c937665ce0e009dc, type: 3}
+  moveAvatar: {fileID: 9000000, guid: 96e7868507b8d5b4c937665ce0e009dc, type: 3}
   PocketPalID: 1
   RotationPerSecond: {x: 0, y: 15, z: 0}
+  SpawnOffset: {x: 0, y: 0, z: 0}
   maxSpawnExp: 1000
   averageSpawnSize: 5
   sizeVariance: 0.5

@@ -74,6 +74,9 @@ public class CaptureMiniGame : MonoBehaviour {
 		controls.MiniGameControls ();
 
 		patrolLerp = 0.0f;
+
+		// Change the animation and avatar to the movement style
+		pocketPal.SetMoveAnimation ();
 	}
 
 	public void BackButtonPressed () {
@@ -166,6 +169,9 @@ public class CaptureMiniGame : MonoBehaviour {
 			// Place the uncaptured PPal back in the map
 			pocketPal.transform.position = PPalMapPosition;
 			pocketPal.InMinigame = false;
+
+			// Change the animation and avatar to the rest style
+			pocketPal.SetMoveAnimation ();
 		}
 	}
 

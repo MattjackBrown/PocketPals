@@ -10,6 +10,11 @@ using UnityEngine.UI;
 
 public class PocketPalParent : MonoBehaviour
 {
+	Animator animator;
+	public RuntimeAnimatorController restAnimController;
+	public RuntimeAnimatorController moveAnimController;
+	public Avatar restAvatar;
+	public Avatar moveAvatar;
 
     //this will be the ID for each pocketpal this should be unique to each pocketpal and used to identify it for the inventory system. 
     public int PocketPalID = 0;
@@ -41,6 +46,8 @@ public class PocketPalParent : MonoBehaviour
     {
         transform.position += SpawnOffset;
         InMinigame = false;
+		animator = GetComponent<Animator>();
+
 	}
 
     private void OnCollisionEnter(Collision collision)
@@ -79,5 +86,15 @@ public class PocketPalParent : MonoBehaviour
     }
 
     public PocketPalData GetAnimalData(){ return pocketPalData; }
+
+	public void SetRestAnimation() {
+		animator.avatar = restAvatar;
+		animator.runtimeAnimatorController = restAnimController;
+	}
+
+	public void SetMoveAnimation() {
+		animator.avatar = moveAvatar;
+		animator.runtimeAnimatorController = moveAnimController;
+	}
 
 }
