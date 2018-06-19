@@ -425,30 +425,33 @@ public class CameraController : MonoBehaviour
 
 	public void VGPinchZoom (Touch touchZero, Touch touchOne) {
 
-		// Find the position in the previous frame of each touch
-		Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
-		Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+		// Only zoom in virtual garden if a target has been set. i.e. if the inventory is empty
+		if (targetPocketPal != null) {
 
-		// Find the magnitude of the vector (the distance) between the touches in each frame
-		// Previous frame
-		float prevTouchDelta = (touchZeroPrevPos - touchOnePrevPos).magnitude;
-		// Current frame
-		float currentTouchDelta = (touchZero.position - touchOne.position).magnitude;
+			// Find the position in the previous frame of each touch
+			Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+			Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
 
-		// Find the difference in the distances between each frame
-		float deltaTouchDifference = currentTouchDelta - prevTouchDelta;
+			// Find the magnitude of the vector (the distance) between the touches in each frame
+			// Previous frame
+			float prevTouchDelta = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+			// Current frame
+			float currentTouchDelta = (touchZero.position - touchOne.position).magnitude;
 
-		// Adjust for different device's screen pixel density
-		deltaTouchDifference *= 2.0f / Screen.width;
+			// Find the difference in the distances between each frame
+			float deltaTouchDifference = currentTouchDelta - prevTouchDelta;
 
-		// Apply the modifier to the current camera distance
-		VGPinchLerp += deltaTouchDifference;
+			// Adjust for different device's screen pixel density
+			deltaTouchDifference *= 2.0f / Screen.width;
 
-		// Clamp between min and max allowed values
-		VGPinchLerp = Mathf.Clamp (VGPinchLerp, 0.0f, 1.0f);
+			// Apply the modifier to the current camera distance
+			VGPinchLerp += deltaTouchDifference;
 
-		transform.position = Vector3.Lerp(cameraTargetPosition, VGZoomedPosition, VGPinchLerp);
-	//	transform.LookAt (targetPocketPalPosition);
+			// Clamp between min and max allowed values
+			VGPinchLerp = Mathf.Clamp (VGPinchLerp, 0.0f, 1.0f);
+
+			transform.position = Vector3.Lerp (cameraTargetPosition, VGZoomedPosition, VGPinchLerp);
+		}
 	}
 
 	public void VGToggleInspect () {

@@ -10,13 +10,18 @@ public class PlaceOnPlane : ARBase
 
 	Camera ARCamera;
 
+	public GameObject pocketPal;
+
 	void Start () {
 		
 		ARCamera = GetCamera ();
+
+		// Set the PPal as inactive until the initial position is chosen
+		pocketPal.SetActive (false);
 	}
 
     void Update ()
-    {
+	{
 		int numTouches = Input.touchCount;
 
 		if (numTouches > 0) {
@@ -24,7 +29,7 @@ public class PlaceOnPlane : ARBase
 				
 				Touch tempTouch = Input.GetTouch (i);
 
-				if (tempTouch.phase.Equals(TouchPhase.Began)) {
+				if (tempTouch.phase.Equals (TouchPhase.Began)) {
 
 					Ray ray = ARCamera.ScreenPointToRay (tempTouch.position);
 
@@ -32,12 +37,29 @@ public class PlaceOnPlane : ARBase
 
 					RaycastHit rayHit;
 					if (Physics.Raycast (ray, out rayHit, float.MaxValue, layerMask)) {
+						pocketPal.SetActive (true);
 						transform.position = rayHit.point;
+						SetPPalRotation ();
 						//break;
 					}
 				}
 			}
 		}
+	}
+
+	void SetPPalRotation () {
+
+		// Set the look at position to the camera position, but at the PPal's height so as to keep it level
+		Vector3 PPalLookAtLocation = new Vector3 (
+			ARCamera.transform.position.x, 
+			pocketPal.transform.position.y, 
+			ARCamera.transform.position.z
+		);
+
+		pocketPal.transform.LookAt (PPalLookAtLocation);
+	}
+
+
 
 /*
         if (Input.GetMouseButton(0))
@@ -54,5 +76,4 @@ public class PlaceOnPlane : ARBase
         }
 */
 
-    }
 }

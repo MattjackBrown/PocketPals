@@ -19,6 +19,8 @@ public class VirtualSceneParent : MonoBehaviour
 
 	// Used to cycle through the virtual garden's PPals
 	int currentLookedAtPPalIndex = 0;
+
+
 /*
     private void OnEnable()
 	{
