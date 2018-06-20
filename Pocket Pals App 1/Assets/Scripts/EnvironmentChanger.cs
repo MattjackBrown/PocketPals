@@ -11,12 +11,29 @@ public class EnvironmentChanger : MonoBehaviour
 
     public GameObject[] scenes;
 
+	public GameObject StartLoginUI, VGUI;
+	public VirtualSceneParent VGInfo;
+
     //Used to reset the camera back in posisition.
     public GameObject player;
     private GPS gps;
 
-    private int activeIndex;
-    
+	private int activeIndex;
+
+	bool created = false;
+
+/*
+	void Awake()
+	{
+		// Global variables! Have to stop this being deleted between scenes
+		if (!created)
+		{
+			DontDestroyOnLoad(this.gameObject);
+			created = true;
+		}
+	}
+*/
+
 	// Use this for initialization
 	void Start ()
     {
@@ -24,13 +41,31 @@ public class EnvironmentChanger : MonoBehaviour
         gps = player.GetComponent<GPS>();
 
     }
-	
+
+
+/*	
 	// Update is called once per frame
 	void Update ()
     {
 		
 	}
+*/
 
+	// Wait for all references to populate
+	void  LateUpdate () {
+		
+		if (!created) {
+
+			// If scene is being initialised from the AR scene then go straight to virtual garden
+			if (GlobalVariables.currentScene == GlobalVariables.SceneName.AR) {
+//WIP!!!				StartSceneInVirtualGarden ();
+				Debug.Log ("working");
+			} else {
+				Debug.Log ("not working");
+			}
+			created = true;
+		}
+	}
 
 
    public void SceneInit(int index)
@@ -59,12 +94,57 @@ public class EnvironmentChanger : MonoBehaviour
         //set scene inactive.
         scenes[activeIndex].SetActive(false);
 
-
         CameraController.Instance.ReturnCamToAfterVirtualGarden();
     }
 
 	public void ARKitSceneLoad () {
-		SceneManager.LoadScene ("SimpleARScene");
+
+		// Get the current looked at PPal in the virtual garden
+		GameObject targetedPPal = VGInfo.GetCurrentPPal ();
+
+		// If there is a valid PPal to look at in AR, i.e. inventory is not empty
+		if (targetedPPal != null) {
+
+			// Clone it
+			GameObject ARPPal = Instantiate (targetedPPal);
+
+			// Keep it between scenes
+			DontDestroyOnLoad (ARPPal);
+
+			// Change the static variable to reference it and load the new scene
+			GlobalVariables.ARPocketPAl = ARPPal;
+			GlobalVariables.currentScene = GlobalVariables.SceneName.AR;
+			SceneManager.LoadScene ("SimpleARScene");
+		}
+	}
+
+	public void StartSceneInVirtualGarden () {
+
+		// Change the static variable
+		GlobalVariables.currentScene = GlobalVariables.SceneName.Map;
+
+		// Starts the virtual garden
+		// This int argument is not being used I think?
+		SceneInit (0);
+
+		// Set the virtual garden ui
+		StartLoginUI.SetActive (false);
+		VGUI.SetActive (true);
 	}
 
 }
+/*
+public static class GlobalVariables
+{
+	public enum SceneName {
+		Map,
+		AR
+	}
+
+	// Used for scene initialisation to determine an entry point. i.e. whether to start the scene in the virtual garden if coming from the AR scene
+	public static SceneName currentScene = SceneName.Map;
+
+	// The gameObject to focus on in the AR scene
+	public static GameObject ARPocketPAl { get; set; }
+}
+*/

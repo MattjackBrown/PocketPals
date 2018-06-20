@@ -13,9 +13,14 @@ public class LoginScreenScript : MonoBehaviour
 
     public Text error;
 
+	public string DebugUserName, DebugPassword;
+
     public void TryLogin()
     {
         ServerDataManager.Instance.SignIn(email.text, password.text, error);
     }
 
+	public void DebugQuickLogin () {
+		ServerDataManager.Instance.SignIn(DebugUserName, DebugPassword, error);
+	}
 }

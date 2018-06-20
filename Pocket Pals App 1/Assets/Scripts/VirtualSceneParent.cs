@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class VirtualSceneParent : MonoBehaviour
 {
+	VirtualSceneParent Instance { set; get; }
+
     public VirtualGardenSpawn[] AnimalObjects;
     public VGUIManager gUIManager;
 	public GameObject centreOfMap;
@@ -20,6 +22,8 @@ public class VirtualSceneParent : MonoBehaviour
 	// Used to cycle through the virtual garden's PPals
 	int currentLookedAtPPalIndex = 0;
 
+	bool hasAPocketPal = false;
+
 
 /*
     private void OnEnable()
@@ -31,7 +35,7 @@ public class VirtualSceneParent : MonoBehaviour
 		
 		Camera gameCamera = Camera.main;
 
-        bool hasAPocketPal = false;
+        hasAPocketPal = false;
 
 		centreOfMapPosition = centreOfMap.transform.position;
 
@@ -144,6 +148,14 @@ public class VirtualSceneParent : MonoBehaviour
 				// Return the GameObject of that index in the AnimalObjects
 				return indexVGS.animalObj;
 			}
+		}
+		return null;
+	}
+
+	public GameObject GetCurrentPPal () {
+
+		if (hasAPocketPal) {
+			return AnimalObjects [currentLookedAtPPalIndex].animalObj;
 		}
 		return null;
 	}
