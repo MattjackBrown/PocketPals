@@ -42,15 +42,6 @@ public class EnvironmentChanger : MonoBehaviour
 
     }
 
-
-/*	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-	}
-*/
-
 	// Wait for all references to populate
 	void  LateUpdate () {
 		
@@ -119,6 +110,9 @@ public class EnvironmentChanger : MonoBehaviour
 	}
 
 	public void StartSceneInVirtualGarden () {
+
+		// Returning from the AR scene so deactivate the static PPal gameObject
+		GlobalVariables.ARPocketPAl.SetActive (false);
 
 		// Change the static variable
 		GlobalVariables.currentScene = GlobalVariables.SceneName.Map;
