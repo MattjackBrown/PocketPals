@@ -24,7 +24,6 @@ public class VirtualSceneParent : MonoBehaviour
 
 	bool hasAPocketPal = false;
 
-
 /*
     private void OnEnable()
 	{

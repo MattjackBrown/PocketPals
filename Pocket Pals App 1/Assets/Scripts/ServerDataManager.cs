@@ -32,6 +32,8 @@ public class ServerDataManager : MonoBehaviour {
     {
         Instance = this;
 
+		DontDestroyOnLoad (this.gameObject);
+
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
             var dependencyStatus = task.Result;
@@ -280,6 +282,8 @@ public class ServerDataManager : MonoBehaviour {
             }
             newUser = task.Result;
             Debug.LogFormat("User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
+
+			GlobalVariables.hasLoggedIn = true;
         });
     }
 
@@ -298,7 +302,9 @@ public class ServerDataManager : MonoBehaviour {
             }
            newUser = task.Result;
             Debug.LogFormat("User signed in successfully: {0} ({1})",
-                newUser.DisplayName, newUser.UserId);
+				newUser.DisplayName, newUser.UserId);
+
+			GlobalVariables.hasLoggedIn = true;
         });
     }
 
@@ -324,7 +330,7 @@ public class ServerDataManager : MonoBehaviour {
             }
         }
     }
-
+/*
     void OnDestroy()
     {
         auth.SignOut();
@@ -332,6 +338,7 @@ public class ServerDataManager : MonoBehaviour {
         auth.StateChanged -= AuthStateChanged;
         auth = null;
     }
+*/
 }
 
 

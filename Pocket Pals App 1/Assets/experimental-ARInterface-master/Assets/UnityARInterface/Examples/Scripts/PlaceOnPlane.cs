@@ -10,17 +10,11 @@ public class PlaceOnPlane : ARBase
 
 	Camera ARCamera;
 
-//	public GameObject pocketPal;
-
 	void Start () {
 		
 		ARCamera = GetCamera ();
 
-		// Instantiate the pocketPal that is stored in the static scene Loader
-//		pocketPal = Instantiate (GlobalVariables.ARPocketPAl, Vector3.zero, Quaternion.identity, this.transform);
-
 		// Set the PPal as inactive until the initial position is chosen
-//		pocketPal.SetActive (false);
 		GlobalVariables.ARPocketPAl.SetActive (false);
 	}
 
@@ -41,10 +35,6 @@ public class PlaceOnPlane : ARBase
 
 					RaycastHit rayHit;
 					if (Physics.Raycast (ray, out rayHit, float.MaxValue, layerMask)) {
-	//					pocketPal.SetActive (true);
-	//					pocketPal.transform.position = rayHit.point;
-	//					transform.position = rayHit.point;
-	//					SetPPalRotation ();
 
 						GlobalVariables.ARPocketPAl.SetActive (true);
 						GlobalVariables.ARPocketPAl.transform.position = rayHit.point;

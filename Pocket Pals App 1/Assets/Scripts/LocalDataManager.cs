@@ -11,7 +11,7 @@ public class LocalDataManager : MonoBehaviour {
 
     private string dataFileName = "/data.dat";
     private string destination;
-    private GameData localData;
+    private static GameData localData;
 
 	// Use this for initialization
 	void Start ()

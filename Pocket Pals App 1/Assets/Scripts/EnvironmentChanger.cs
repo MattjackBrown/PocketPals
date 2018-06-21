@@ -49,7 +49,7 @@ public class EnvironmentChanger : MonoBehaviour
 
 			// If scene is being initialised from the AR scene then go straight to virtual garden
 			if (GlobalVariables.currentScene == GlobalVariables.SceneName.AR) {
-//WIP!!!				StartSceneInVirtualGarden ();
+				StartSceneInVirtualGarden ();
 				Debug.Log ("working");
 			} else {
 				Debug.Log ("not working");

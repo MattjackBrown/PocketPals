@@ -62,7 +62,7 @@ public class GPS : MonoBehaviour
 	void Start ()
     {
         loadingScreen.SetActive(true);
-        DontDestroyOnLoad(gameObject);
+//        DontDestroyOnLoad(gameObject);
         StartCoroutine(StartLocationService());
     }
 

@@ -14,4 +14,6 @@ public static class GlobalVariables {
 
 	// The gameObject to focus on in the AR scene
 	public static GameObject ARPocketPAl { get; set; }
+
+	public static bool hasLoggedIn = false;
 }
