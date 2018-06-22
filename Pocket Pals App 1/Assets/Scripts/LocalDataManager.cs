@@ -22,10 +22,20 @@ public class LocalDataManager : MonoBehaviour {
         localData = new GameData();
 
         DontDestroyOnLoad(gameObject);
+
+		// Store this instance reference as a static variable in the Global variables class
+		GlobalVariables.localDataManager = this;
     }
 
     private void Awake()
-    {
+	{
+		// Don't destroy on load does not stop new instances from being instantiated on scene load. This will check and delete
+		if (FindObjectsOfType(typeof(LocalDataManager)).Length > 1)
+		{
+			Debug.Log("Dirty Singleton management. Deleting new instance.");
+			DestroyImmediate(gameObject);
+		}
+
         destination = Application.persistentDataPath + dataFileName;
     }
 

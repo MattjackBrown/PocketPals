@@ -16,4 +16,7 @@ public static class GlobalVariables {
 	public static GameObject ARPocketPAl { get; set; }
 
 	public static bool hasLoggedIn = false;
+
+	public static LocalDataManager localDataManager;
+	public static ServerDataManager serverDataManager;
 }
