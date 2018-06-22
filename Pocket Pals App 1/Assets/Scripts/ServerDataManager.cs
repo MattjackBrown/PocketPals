@@ -341,15 +341,6 @@ public class ServerDataManager : MonoBehaviour {
             }
         }
     }
-/*
-    void OnDestroy()
-    {
-        auth.SignOut();
-        newUser.DeleteAsync();
-        auth.StateChanged -= AuthStateChanged;
-        auth = null;
-    }
-*/
 }
 
 

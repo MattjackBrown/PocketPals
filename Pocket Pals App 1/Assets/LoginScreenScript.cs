@@ -20,7 +20,11 @@ public class LoginScreenScript : MonoBehaviour
         ServerDataManager.Instance.SignIn(email.text, password.text, error);
     }
 
-	public void DebugQuickLogin () {
-		ServerDataManager.Instance.SignIn(DebugUserName, DebugPassword, error);
+	public void DebugQuickLogin ()
+    {
+        email.GetComponentInParent<InputField>().text = DebugUserName;
+        password.GetComponentInParent<InputField>().text = DebugPassword;
+        Debug.Log(email.text);
+		ServerDataManager.Instance.SignIn(email.text, password.text, error);
 	}
 }
