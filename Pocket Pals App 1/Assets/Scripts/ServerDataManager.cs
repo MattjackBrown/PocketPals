@@ -34,6 +34,10 @@ public class ServerDataManager : MonoBehaviour {
 
 		DontDestroyOnLoad (this.gameObject);
 
+		// Store this instance reference as a static variable in the Global variables class
+		GlobalVariables.serverDataManager = this;
+
+
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
         {
             var dependencyStatus = task.Result;
@@ -63,7 +67,14 @@ public class ServerDataManager : MonoBehaviour {
     }
 
     void Awake()
-    {
+	{
+		// Don't destroy on load does not stop new instances from being instantiated on scene load. This will check and delete
+		if (FindObjectsOfType(typeof(LocalDataManager)).Length > 1)
+		{
+			Debug.Log("Dirty Singleton management. Deleting new instance.");
+			DestroyImmediate(gameObject);
+		}
+
         FirebaseInitialised = true;
 
         if (FirebaseInitialised)
