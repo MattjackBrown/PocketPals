@@ -4,6 +4,7 @@ using UnityEngine;
 using Mapbox.Unity.Map;
 using Mapbox.Utils;
 using UnityEngine.UI;
+using Mapbox.Unity.Utilities;
 
 public class GPS : MonoBehaviour
 {
@@ -31,6 +32,10 @@ public class GPS : MonoBehaviour
     //the last lat long read from the device.
     private float CurrentLat = 0;
     private float CurrentLong = 0;
+
+    //for degbug lat longs
+    public float fakeLat = 50.172600f;
+    public float fakelong = -5.126206f;
 
     //zoom of the map
     private int zoom = 18;
@@ -154,40 +159,58 @@ public class GPS : MonoBehaviour
         return direction; //direction in degree
     }
 
+    private Vector3 ManualCalc()
+    {
+        //latitude
+        CurrentLat = Input.location.lastData.latitude;
+        latText.text = "Lat: " + CurrentLat.ToString();
+
+        //long
+        CurrentLong = Input.location.lastData.longitude;
+        lonText.text = "lon: " + CurrentLong.ToString();
+
+        //distance
+        DistanceTravelled = GetDistanceMeters(StartLat, StartLong, CurrentLat, CurrentLong);
+        distanceText.text = "Dist From Strt: " + DistanceTravelled.ToString();
+        if (DistanceTravelled > resetDistance) UpdateMap();
+
+        //get the direction the player is heading in
+        float dirX = CurrentLong - StartLong;
+        float dirZ = CurrentLat - StartLat;
+
+        //switch directions, this probably could be done better.
+        if (dirX < 0) dirX = -1;
+        else dirX = 1;
+        if (dirZ < 0) dirZ = -1;
+        else dirZ = 1;
+
+        //create the player location vector
+        float xx = dirX * GetDistanceMeters(0, StartLong, 0, CurrentLong) * currentMap.WorldRelativeScale;
+        float zz = dirZ * GetDistanceMeters(StartLat, 0, CurrentLat, 0) * currentMap.WorldRelativeScale;
+        return new Vector3(xx, 0, zz);
+    }
+
+    private Vector3 GetWorldPos(double lat, double lon)
+    {
+
+        Vector2d end2d = Conversions.GeoToWorldPosition(lat, lon, currentMap.CenterMercator, currentMap.WorldRelativeScale);
+
+        Vector3 pos = new Vector3((float)end2d.x, 0.0f, (float)end2d.y);
+
+        return pos;
+    }
+
     // Update is called once per frame
     void Update ()
     {
         if (HasGps)
         {
-            //latitude
-            CurrentLat = Input.location.lastData.latitude;
-            latText.text = "Lat: " + CurrentLat.ToString();
 
-            //long
-            CurrentLong = Input.location.lastData.longitude;
-            lonText.text = "lon: " + CurrentLong.ToString();
+            //Vector3 endPoint = ManualCalc();
 
-            //distance
-            DistanceTravelled = GetDistanceMeters(StartLat, StartLong, CurrentLat, CurrentLong);
-            distanceText.text = "Dist From Strt: " + DistanceTravelled.ToString();
-            if (DistanceTravelled > resetDistance) UpdateMap();
+            Vector3 altEnd = GetWorldPos(Input.location.lastData.latitude, Input.location.lastData.longitude);
 
-            //get the direction the player is heading in
-            float dirX = CurrentLong - StartLong;
-            float dirZ = CurrentLat - StartLat;
-
-            //switch directions, this probably could be done better.
-            if (dirX < 0) dirX = -1;
-            else dirX = 1;
-            if (dirZ < 0) dirZ = -1;
-            else dirZ = 1;
-
-            //create the player location vector
-            float xx = dirX * GetDistanceMeters(0, StartLong, 0, CurrentLong) * currentMap.WorldRelativeScale;
-            float zz = dirZ * GetDistanceMeters(StartLat, 0, CurrentLat, 0) * currentMap.WorldRelativeScale;
-            Vector3 endPoint = new Vector3(xx, 0, zz);
-
-            SetPlayerMovePoint(endPoint);
+            SetPlayerMovePoint(altEnd);
 
             //move
             MovePlayer();
@@ -195,6 +218,7 @@ public class GPS : MonoBehaviour
         }
         else if (IsDebug)
         {
+           
             MovePlayer();
         }
     }
