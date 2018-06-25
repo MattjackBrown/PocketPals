@@ -90,23 +90,79 @@ public class EnvironmentChanger : MonoBehaviour
 
 	public void ARKitSceneLoad () {
 
-		// Get the current looked at PPal in the virtual garden
-		GameObject targetedPPal = VGInfo.GetCurrentPPal ();
+		if (IsARSupported()) {
 
-		// If there is a valid PPal to look at in AR, i.e. inventory is not empty
-		if (targetedPPal != null) {
+			// Get the current looked at PPal in the virtual garden
+			GameObject targetedPPal = VGInfo.GetCurrentPPal ();
 
-			// Clone it
-			GameObject ARPPal = Instantiate (targetedPPal);
+			// If there is a valid PPal to look at in AR, i.e. inventory is not empty
+			if (targetedPPal != null) {
 
-			// Keep it between scenes
-			DontDestroyOnLoad (ARPPal);
+				// Clone it
+				GameObject ARPPal = Instantiate (targetedPPal);
 
-			// Change the static variable to reference it and load the new scene
-			GlobalVariables.ARPocketPAl = ARPPal;
-			GlobalVariables.currentScene = GlobalVariables.SceneName.AR;
-			SceneManager.LoadScene ("SimpleARScene");
+				// Keep it between scenes
+				DontDestroyOnLoad (ARPPal);
+
+				// Change the static variable to reference it and load the new scene
+				GlobalVariables.ARPocketPAl = ARPPal;
+				GlobalVariables.currentScene = GlobalVariables.SceneName.AR;
+				SceneManager.LoadScene ("SimpleARScene");
+			}
 		}
+	}
+
+	bool IsARSupported () {
+
+		// Check iOS version
+		#if UNITY_IOS
+
+		float iosVersion = 0.0f;
+
+		// Check for minimum iOS software version of 11
+		float.TryParse(UnityEngine.iOS.Device.systemVersion, out iosVersion);
+
+		if (iosVersion < 11.0f) {
+			return false;
+		}
+
+		// Check for minimum device version
+		var gen = UnityEngine.iOS.Device.generation;
+
+		if (gen == UnityEngine.iOS.DeviceGeneration.iPhone4 ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPhone4S ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPhone5 ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPhone5C ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPhone5S ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPhone6 ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPhone6Plus ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPad1Gen ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPad2Gen ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPad3Gen ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPad4Gen ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPadAir1 ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPadAir2 ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPadMini1Gen ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPadMini2Gen ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPadMini3Gen ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPadMini4Gen ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPodTouch1Gen ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPodTouch2Gen ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPodTouch3Gen ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPodTouch4Gen ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPodTouch5Gen ||
+			gen == UnityEngine.iOS.DeviceGeneration.iPodTouch6Gen) 
+		{
+			return false;
+		}
+
+		// If device and iOS version pass minimum check then return true
+		return true;
+
+		#endif
+
+		// Temp just supported through iOS currently
+		return false;
 	}
 
 	public void StartSceneInVirtualGarden () {
