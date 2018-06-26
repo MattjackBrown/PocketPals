@@ -90,7 +90,7 @@ public class EnvironmentChanger : MonoBehaviour
 
 	public void ARKitSceneLoad () {
 
-		if (IsARSupported()) {
+		if (true/*IsARSupported()*/) {
 
 			// Get the current looked at PPal in the virtual garden
 			GameObject targetedPPal = VGInfo.GetCurrentPPal ();
