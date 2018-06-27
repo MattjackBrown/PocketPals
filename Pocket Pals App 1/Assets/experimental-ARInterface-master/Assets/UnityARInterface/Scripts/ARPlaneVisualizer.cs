@@ -71,5 +71,13 @@ namespace UnityARInterface
                 m_Planes.Remove(plane.id);
             }
         }
+
+		public bool PlaneFound () {
+
+			if (m_Planes.Count > 0)
+				return true;
+			else
+				return false;
+		}
     }
 }
