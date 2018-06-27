@@ -60,17 +60,16 @@ public class VirtualSceneParent : MonoBehaviour
 				// Set the inspect position field
 				Vector3 PPPosition = obj.animalObj.transform.position;
 
-				float camDistanceModifier = obj.animalObj.GetComponent<VirtualGardenInfo> ().camDistanceModifier;
-				obj.camDistanceModifier = camDistanceModifier;
+				float camDistanceModifier = 1;//obj.animalObj.GetComponent<VirtualGardenInfo> ().camDistanceModifier;
 
 				// Get the real world distance between the centre of the viewport and the 0.25f, 0.25f of the viewport at PPal distance
 				float VGInfoCamOffsetHorizontal = (gameCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.0f, VGPPalInspectDistance * camDistanceModifier)) -
-					gameCamera.ViewportToWorldPoint(new Vector3(0.25f, 0.0f, VGPPalInspectDistance * camDistanceModifier))).magnitude;
+					gameCamera.ViewportToWorldPoint(new Vector3(0.25f, 0.0f, VGPPalInspectDistance))).magnitude;
 
 				float VGInfoCamOffsetVertical = (gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.5f, VGPPalInspectDistance * camDistanceModifier)) -
-					gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.25f, VGPPalInspectDistance * camDistanceModifier))).magnitude;
+					gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.25f, VGPPalInspectDistance))).magnitude;
 
-				obj.camInspectPosition = PPPosition - (PPPosition - centreOfMapPosition).normalized * VGPPalInspectDistance * camDistanceModifier;
+				obj.camInspectPosition = PPPosition - (PPPosition - centreOfMapPosition).normalized * VGPPalInspectDistance;
 
 				// Cross product of the direction vector to the PPal and V3.up will add the relative offset 
 				obj.camInspectLookAtPosition = PPPosition + Vector3.Cross((centreOfMapPosition - PPPosition).normalized, Vector3.up) * VGInfoCamOffsetHorizontal + 
@@ -173,9 +172,8 @@ public class VirtualSceneParent : MonoBehaviour
 	}
 
 	public Vector3 GetViewPosition () {
-		var PPalTarget = AnimalObjects [currentLookedAtPPalIndex];
-		var PPPos = PPalTarget.animalObj.transform.position;
-		return PPPos - (PPPos - centreOfMapPosition).normalized * VGPPalViewDistance * PPalTarget.camDistanceModifier;
+		var PPPos = AnimalObjects [currentLookedAtPPalIndex].animalObj.transform.position;
+		return PPPos - (PPPos - centreOfMapPosition).normalized * VGPPalViewDistance;// * AnimalObjects [currentLookedAtPPalIndex].camDistanceModifier;
 	}
 }
 
