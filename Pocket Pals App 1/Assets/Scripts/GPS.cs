@@ -8,7 +8,7 @@ using Mapbox.Unity.Utilities;
 
 public class GPS : MonoBehaviour
 {
-
+    public static GPS Insatance { set; get; }
     public BasicMap currentMap;
     public GameObject mapGameObject;
 
@@ -25,9 +25,9 @@ public class GPS : MonoBehaviour
     public GameObject loadingScreen;
 
     //50.172600, -5.126206
-    //Hardcoded start lat long, should be up penryn campus
-    private float StartLat = 50.172600f;
-    private float StartLong = -5.126206f;
+    //Hardcoded start lat long, should be up penryn campus50.171115, -5.507848
+    private float StartLat = 50.171115f;
+    private float StartLong = -5.507848f;
 
     //the last lat long read from the device.
     private float CurrentLat = 0;
@@ -35,7 +35,7 @@ public class GPS : MonoBehaviour
 
     //for degbug lat longs
     public float fakeLat = 50.172600f;
-    public float fakelong = -5.126206f;
+    public float fakeLong = -5.126206f;
 
     //zoom of the map
     private int zoom = 18;
@@ -66,8 +66,8 @@ public class GPS : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        Insatance = this;
         loadingScreen.SetActive(true);
-//        DontDestroyOnLoad(gameObject);
         StartCoroutine(StartLocationService());
     }
 
@@ -159,19 +159,24 @@ public class GPS : MonoBehaviour
         return direction; //direction in degree
     }
 
+    private void UpdateDebugText()
+    {
+        latText.text = "Lat: " + CurrentLat.ToString();
+        lonText.text = "lon: " + CurrentLong.ToString();
+        distanceText.text = "Dist From Strt: " + DistanceTravelled.ToString();
+    }
+
     private Vector3 ManualCalc()
     {
         //latitude
         CurrentLat = Input.location.lastData.latitude;
-        latText.text = "Lat: " + CurrentLat.ToString();
 
         //long
         CurrentLong = Input.location.lastData.longitude;
-        lonText.text = "lon: " + CurrentLong.ToString();
 
         //distance
         DistanceTravelled = GetDistanceMeters(StartLat, StartLong, CurrentLat, CurrentLong);
-        distanceText.text = "Dist From Strt: " + DistanceTravelled.ToString();
+
         if (DistanceTravelled > resetDistance) UpdateMap();
 
         //get the direction the player is heading in
@@ -200,15 +205,23 @@ public class GPS : MonoBehaviour
         return pos;
     }
 
+    public Vector2 GetLatLon()
+    {
+        return new Vector2(CurrentLat, CurrentLong);
+    }
+
     // Update is called once per frame
     void Update ()
     {
         if (HasGps)
         {
+            //Set the current position used for seeding
+            CurrentLat = Input.location.lastData.latitude;
+            CurrentLong = Input.location.lastData.longitude;
 
-            //Vector3 endPoint = ManualCalc();
+            UpdateDebugText();
 
-            Vector3 altEnd = GetWorldPos(Input.location.lastData.latitude, Input.location.lastData.longitude);
+            Vector3 altEnd = GetWorldPos(CurrentLat, CurrentLong);
 
             SetPlayerMovePoint(altEnd);
 
@@ -218,7 +231,16 @@ public class GPS : MonoBehaviour
         }
         else if (IsDebug)
         {
-           
+            CurrentLat = fakeLat;
+            CurrentLong = fakeLong;
+
+            UpdateDebugText();
+
+            Vector3 altEnd = GetWorldPos(CurrentLat, CurrentLong);
+
+            SetPlayerMovePoint(altEnd);
+
+            //move
             MovePlayer();
         }
     }
