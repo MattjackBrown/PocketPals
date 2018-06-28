@@ -24,7 +24,7 @@ public class PocketPalSpawnManager : MonoBehaviour
     public List<Transform> spawnPoints;
 
     //List of the rarities of the index
-    private List<float> rarityList = new List<float>();
+    private static List<float> rarityList = new List<float>();
 
     bool shouldSpawn = true;
 
@@ -49,6 +49,8 @@ public class PocketPalSpawnManager : MonoBehaviour
 
     //List of all the spawned pocketpals
     private List<GameObject> spawnedPocketPals = new List<GameObject>();
+
+    public bool TrySyncedSpawns = true;
 
 	void Start ()
 	{
@@ -80,13 +82,25 @@ public class PocketPalSpawnManager : MonoBehaviour
 
     private GameObject GetWeightedPocketPal()
     {
-        int index = Sampler(rarityList);
+        int index = Sampler(new System.Random(), rarityList);
+        return AssetManager.Instance.PocketPals[index];
+    }
+
+    private GameObject GetSyncedPocketPal()
+    {
+        int index = ContentGenerator.Instance.GetSeededAnimal("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, 5, rarityList);
+
         return AssetManager.Instance.PocketPals[index];
     }
 
     private float GetSpawnDelay()
     {
         return Random.Range(avgSpawnTime - normalisedVariance, avgSpawnTime + normalisedVariance);
+    }
+
+    public List<float> GetSpawnSamples()
+    {
+        return rarityList;
     }
 
     private IEnumerator Spawn()
@@ -144,12 +158,17 @@ public class PocketPalSpawnManager : MonoBehaviour
 				}
 
 				// If valid spawn position found then spawn, otherwise wait and repeat
-				if (validSpawnFound) {
-
+				if (validSpawnFound)
+                {
+                    GameObject ppal;
 					Quaternion rot = spawnPoints [spawnPointIndex].rotation;
 
+                    //Try and get a synced animals spawn
+                    if (TrySyncedSpawns) ppal = GetSyncedPocketPal();
+                    else ppal = GetWeightedPocketPal();
+
 					// Create an instance of the prefab at select pocketpal via rarity 
-					GameObject clone = Instantiate (GetWeightedPocketPal (), spawnPosition, rot);
+					GameObject clone = Instantiate (ppal, spawnPosition, rot);
                     // Increases the currentPocketPals value by 1
                     clone.transform.parent = gpsMap.currentMap.transform;
 
@@ -162,7 +181,7 @@ public class PocketPalSpawnManager : MonoBehaviour
         }
     }
 
-    private static int Sampler(List<float> weightings)
+    public static int Sampler(System.Random r, List<float> weightings)
     {
         int index = 0;
         float total = 0;
@@ -174,11 +193,11 @@ public class PocketPalSpawnManager : MonoBehaviour
         }
 
         //if they all have no probability return random
-        if (total == 0) return Random.Range(0, weightings.Count);
+        if (total == 0) return r.Next(0, weightings.Count);
 
         //seudo-random sampling
-        float accum = 0;
-        float tmp = Random.Range(0, total);
+        double accum = 0;
+        double tmp = r.NextDouble()*total;
         for (int i = 0; i < weightings.Count; i++)
         {
             accum += 1/weightings[i];
