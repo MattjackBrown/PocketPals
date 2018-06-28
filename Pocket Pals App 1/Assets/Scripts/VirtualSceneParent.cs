@@ -20,7 +20,7 @@ public class VirtualSceneParent : MonoBehaviour
 	float VGPPalViewDistance = 4.0f;
 
 	// Used to cycle through the virtual garden's PPals
-	int currentLookedAtPPalIndex = 0;
+	int currentLookedAtPPalIndex;
 
 	bool hasAPocketPal = false;
 
@@ -35,6 +35,8 @@ public class VirtualSceneParent : MonoBehaviour
 		Camera gameCamera = Camera.main;
 
         hasAPocketPal = false;
+
+		currentLookedAtPPalIndex = GlobalVariables.VGCurrentIndex;
 
 		centreOfMapPosition = centreOfMap.transform.position;
 
@@ -174,6 +176,10 @@ public class VirtualSceneParent : MonoBehaviour
 	public Vector3 GetViewPosition () {
 		var PPPos = AnimalObjects [currentLookedAtPPalIndex].animalObj.transform.position;
 		return PPPos - (PPPos - centreOfMapPosition).normalized * VGPPalViewDistance;// * AnimalObjects [currentLookedAtPPalIndex].camDistanceModifier;
+	}
+
+	public int GetPPalIndex() {
+		return currentLookedAtPPalIndex;
 	}
 }
 
