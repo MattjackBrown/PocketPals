@@ -19,4 +19,7 @@ public static class GlobalVariables {
 
 	public static LocalDataManager localDataManager;
 	public static ServerDataManager serverDataManager;
+
+	// Stores the index of the virtual garden current looked at 
+	public static int VGCurrentIndex = 0;
 }
