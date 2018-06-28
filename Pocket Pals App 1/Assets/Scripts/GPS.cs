@@ -231,6 +231,7 @@ public class GPS : MonoBehaviour
         }
         else if (IsDebug)
         {
+            //used when debuging in editor to simulate player movements
             CurrentLat = fakeLat;
             CurrentLong = fakeLong;
 

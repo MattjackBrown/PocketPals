@@ -31,18 +31,20 @@ public class ContentGenerator : MonoBehaviour
 
     private static int GetSeed(string seed, double lat, double lon)
     {
+        //Get the time init variables
         String timeSeed = "";
         DateTime dt = DateTime.UtcNow;
         int minute = dt.Minute;
+
+        //We only want to look at the 10th minute.
         minute -= minute % 10;
 
+        //Create the time seed, Animals will repeat if players are in the same spot on the same day next year.
         timeSeed += dt.Date.DayOfYear.ToString() + dt.Hour.ToString() + minute.ToString();
 
+        //Round the lat lon positions to get rough areas.
         double roundedLat = System.Math.Round(lat, DecimalPlacesToRound);
         double roundedLon = System.Math.Round(lon, DecimalPlacesToRound);
-
-        Debug.Log("Lat: " + roundedLat);
-        Debug.Log("Lon:" + roundedLon);
 
         seed += roundedLat.ToString() + roundedLon.ToString() + timeSeed;
 
@@ -63,12 +65,15 @@ public class ContentGenerator : MonoBehaviour
     public int GetSeededAnimal(string seed, double lat, double lon, int numberOfAnimals, List<float>samples)
     {
         newSeed = GetSeed(seed, lat, lon);
+
+        //check to see if the seed has changed since the last time we spawned an animal
         if (newSeed != currentSeed)
         {
             currentSeed = newSeed;
-
+            //create the random using a seed which is shared by all in the same rough area.
             System.Random r = new System.Random(currentSeed);
 
+            //Generate the 5 unique animals to be used for this areas spawns. 
             for (int i = 0; i < numberOfAnimals; i++)
             {
                 GeneratedAnimalsIDs.Add(PocketPalSpawnManager.Sampler(r, samples));
