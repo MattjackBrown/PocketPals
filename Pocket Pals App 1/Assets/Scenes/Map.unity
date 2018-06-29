@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -10003,12 +10003,23 @@ MonoBehaviour:
           m_StringArgument: clip
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1761681922}
-        m_MethodName: 
+      - m_Target: {fileID: 1761681925}
+        m_MethodName: LogOut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2026635372}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -13188,7 +13199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ErrorText: {fileID: 1200489145}
   WelcomeScreen: {fileID: 1728885058}
-  LoginScreen: {fileID: 0}
+  LoginScreen: {fileID: 2039017364}
 --- !u!1 &1762200215
 GameObject:
   m_ObjectHideFlags: 0
@@ -15614,7 +15625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2026635373
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15687,7 +15698,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2039017365
 RectTransform:
   m_ObjectHideFlags: 0

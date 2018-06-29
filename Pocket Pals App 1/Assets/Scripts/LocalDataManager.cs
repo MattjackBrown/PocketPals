@@ -48,7 +48,10 @@ public class LocalDataManager : MonoBehaviour {
    public void UpdateDistance(float delta)
     {
         localData.DistanceTravelled += delta;
-        ServerDataManager.Instance.UpdateDistace(localData);
+        if (ServerDataManager.Instance != null)
+        {
+            ServerDataManager.Instance.UpdateDistace(localData);
+        }
     }
 
 

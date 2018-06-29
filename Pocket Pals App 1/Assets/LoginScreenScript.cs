@@ -27,12 +27,13 @@ public class LoginScreenScript : MonoBehaviour
 
 	void Start () {
 
-		// Load any default login values
+		//Load any default login values
 		LoadDefaults ();
 	}
 
     public void TryLogin()
     {
+
         ServerDataManager.Instance.SignIn(email.text, password.text, error);
 
 		// Save attempted data to use aas a default for next time
@@ -76,7 +77,7 @@ public class LoginScreenScript : MonoBehaviour
 		if (File.Exists(destination))
 			file = File.OpenRead(destination);
 		else {
-			Debug.LogError("File not found");
+			Debug.Log("File not found");
 			return;
 		}
 

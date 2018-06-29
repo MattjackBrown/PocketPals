@@ -30,6 +30,8 @@ public class ServerDataManager : MonoBehaviour {
     //Login screen ref
     public GameObject LoginScreen;
 
+    private bool IsLogginIn = false;
+
     // Use this for initialization
     void Start ()
     {
@@ -67,6 +69,7 @@ public class ServerDataManager : MonoBehaviour {
                 // Firebase Unity SDK is not safe to use here.
             }
         });
+        AuthStateChanged(this, null);
     }
 
     void Awake()
@@ -78,6 +81,7 @@ public class ServerDataManager : MonoBehaviour {
 			DestroyImmediate(gameObject);
 		}
 
+
         FirebaseInitialised = true;
 
         if (FirebaseInitialised)
@@ -87,32 +91,17 @@ public class ServerDataManager : MonoBehaviour {
             
             //Assign references.
             mDatabaseRef = FirebaseDatabase.DefaultInstance.RootReference;
-            auth = FirebaseAuth.DefaultInstance;
+           
 
-            //Make sure there is nothing left over from the last session
-            if (auth.CurrentUser != null)
-            {
-                LoginProcess();
-                return;
-            }
-  
-            ErrorText.text = "Ready To login";
+            auth = FirebaseAuth.DefaultInstance;
 
             //Assign a listner to check for a state change to the authentication
             auth.StateChanged += AuthStateChanged;
-            AuthStateChanged(this, null);
+
         }
     }
 
-    private void LoginProcess()
-    {
-        Debug.Log("Signed in " + newUser.UserId);
-        ErrorText.text = "Logging in....";
-        LocalDataManager.Instance.GetData().ID = newUser.UserId ?? "";
-        LocalDataManager.Instance.GetData().Username = newUser.DisplayName ?? "";
 
-        GetPlayerData(LocalDataManager.Instance.GetData());
-    }
 
     public void WriteNewUser(GameData gd)
     {
@@ -170,6 +159,10 @@ public class ServerDataManager : MonoBehaviour {
 
         int iter = 0;
 
+        if (ErrorText.text != null)
+        {
+            ErrorText.text = "Getting Player Data";
+        }
         mDatabaseRef.Child("Users").Child(gd.ID).GetValueAsync().ContinueWith(task => {
             if (task.IsFaulted)
             {
@@ -222,6 +215,8 @@ public class ServerDataManager : MonoBehaviour {
                 WriteNewUser(gd);
             }
             GetInventory(gd);
+
+            IsLogginIn = false;
         });
     }
 
@@ -322,9 +317,11 @@ public class ServerDataManager : MonoBehaviour {
                 failedText.text = "Wrong username or password";
                 return;
             }
-           newUser = task.Result;
+            ErrorText.text = "Logging in....";
+            newUser = task.Result;
             Debug.LogFormat("User signed in successfully: {0} ({1})",
-				newUser.DisplayName, newUser.UserId);
+		    newUser.DisplayName, newUser.UserId);
+
 
 			GlobalVariables.hasLoggedIn = true;
         });
@@ -332,17 +329,32 @@ public class ServerDataManager : MonoBehaviour {
 
     void AuthStateChanged(object sender, System.EventArgs eventArgs)
     {
+
         if (auth.CurrentUser != newUser)
         {
-            bool signedIn = newUser != auth.CurrentUser && auth.CurrentUser != null;
-            if (!signedIn && newUser != null)
+            try
             {
-                Debug.Log("Signed out " + newUser.UserId);
+                bool signedIn = newUser != auth.CurrentUser && auth.CurrentUser != null;
+                if (!signedIn && newUser != null)
+                {
+                    Debug.Log("Signed out " + newUser.UserId);
+                    ErrorText.text = "Signed out";
+                }
+                else
+                {
+                    newUser = auth.CurrentUser;
+                    LocalDataManager.Instance.GetData().ID = newUser.UserId ?? "";
+                    LocalDataManager.Instance.GetData().Username = newUser.DisplayName ?? "";
+
+                    GetPlayerData(LocalDataManager.Instance.GetData());
+                }
             }
-            newUser = auth.CurrentUser;
-            if (signedIn)
+            catch (Exception ex)
             {
-                LoginProcess();
+                Debug.Log("Failed sigining in " + ex);
+                auth.SignOut();
+                auth.StateChanged -= AuthStateChanged;
+                auth = null;
             }
         }
     }
@@ -351,6 +363,12 @@ public class ServerDataManager : MonoBehaviour {
     {
         auth.SignOut();
         LoginScreen.SetActive(true);
+    }
+
+    void OnDestroy()
+    {
+        auth.StateChanged -= AuthStateChanged;
+        auth = null;
     }
 }
 
