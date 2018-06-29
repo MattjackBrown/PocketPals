@@ -141,7 +141,7 @@ public class ServerDataManager : MonoBehaviour {
     public void WritePocketPal(GameData gd, PocketPalData ppd)
     {
         string json = JsonUtility.ToJson(ppd);
-        mDatabaseRef.Child("Inventories").Child(gd.inventoryID).Child(ppd.ID.ToString()).SetRawJsonValueAsync(json);
+        mDatabaseRef.Child("Inventories").Child(gd.ID).Child(ppd.ID.ToString()).SetRawJsonValueAsync(json);
     }
 
     public void UpdatePlayerName(GameData gd)
@@ -224,7 +224,7 @@ public class ServerDataManager : MonoBehaviour {
     {
         Debug.Log(gd.inventoryID);
         //Start a task that will populate the players inventory with their ppals.
-        mDatabaseRef.Child("Inventories").Child(gd.inventoryID).GetValueAsync().ContinueWith(task => {
+        mDatabaseRef.Child("Inventories").Child(gd.ID).GetValueAsync().ContinueWith(task => {
             if (task.IsFaulted)
             {
                 Debug.Log("Failed Getting user from databse Writing new user");

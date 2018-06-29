@@ -1238,18 +1238,6 @@ MonoBehaviour:
   distanceText: {fileID: 1087010453}
   latText: {fileID: 874576670}
   lonText: {fileID: 1713641259}
---- !u!114 &206820444
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 206820439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 149494904f742d344a13bc120e486f69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentIndex: 0
 --- !u!1 &208799965
 GameObject:
   m_ObjectHideFlags: 0
@@ -13155,6 +13143,7 @@ GameObject:
   - component: {fileID: 1761681924}
   - component: {fileID: 1761681923}
   - component: {fileID: 1761681925}
+  - component: {fileID: 1761681926}
   m_Layer: 0
   m_Name: DataManager
   m_TagString: Untagged
@@ -13200,6 +13189,18 @@ MonoBehaviour:
   ErrorText: {fileID: 1200489145}
   WelcomeScreen: {fileID: 1728885058}
   LoginScreen: {fileID: 2039017364}
+--- !u!114 &1761681926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1761681922}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 149494904f742d344a13bc120e486f69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentIndex: 0
 --- !u!1 &1762200215
 GameObject:
   m_ObjectHideFlags: 0

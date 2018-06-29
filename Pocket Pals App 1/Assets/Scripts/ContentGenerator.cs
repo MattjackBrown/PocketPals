@@ -29,6 +29,11 @@ public class ContentGenerator : MonoBehaviour
 		Instance = this;
 	}
 
+    public void GenerateResourceSpots()
+    {
+
+    }
+
 	private static int GetSeed(string seed, double lat, double lon)
 	{
 		//Get the time init variables
