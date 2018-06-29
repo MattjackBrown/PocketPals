@@ -8,8 +8,8 @@ public class VirtualSceneParent : MonoBehaviour
 {
 	VirtualSceneParent Instance { set; get; }
 
-    public VirtualGardenSpawn[] AnimalObjects;
-    public VGUIManager gUIManager;
+	public VirtualGardenSpawn[] AnimalObjects;
+	public VGUIManager gUIManager;
 	public GameObject centreOfMap;
 	Vector3 centreOfMapPosition;
 
@@ -20,21 +20,23 @@ public class VirtualSceneParent : MonoBehaviour
 	float VGPPalViewDistance = 4.0f;
 
 	// Used to cycle through the virtual garden's PPals
-	int currentLookedAtPPalIndex = 0;
+	int currentLookedAtPPalIndex;
 
 	bool hasAPocketPal = false;
 
-/*
+	/*
     private void OnEnable()
-	{
-
-	}
+  {
+ 
+  }
 */
 	public void InitVGTour () {
-		
+
 		Camera gameCamera = Camera.main;
 
         hasAPocketPal = false;
+
+		currentLookedAtPPalIndex = GlobalVariables.VGCurrentIndex;
 
 		centreOfMapPosition = centreOfMap.transform.position;
 
@@ -60,8 +62,8 @@ public class VirtualSceneParent : MonoBehaviour
 				// Set the inspect position field
 				Vector3 PPPosition = obj.animalObj.transform.position;
 
-				float camDistanceModifier = obj.animalObj.GetComponent<VirtualGardenInfo> ().camDistanceModifier;
-				obj.camDistanceModifier = camDistanceModifier;
+				float camDistanceModifier = obj.animalObj.GetComponent<VirtualGardenInfo> ().camDistanceModifier; 
+				obj.camDistanceModifier = camDistanceModifier; 
 
 				// Get the real world distance between the centre of the viewport and the 0.25f, 0.25f of the viewport at PPal distance
 				float VGInfoCamOffsetHorizontal = (gameCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.0f, VGPPalInspectDistance * camDistanceModifier)) -
@@ -119,6 +121,9 @@ public class VirtualSceneParent : MonoBehaviour
                 //Set the inspect data in the virtual garden UI manager
                 gUIManager.SetInspectData(AnimalObjects[currentLookedAtPPalIndex].GetAnimalData());
 
+				// Update the global variable
+				GlobalVariables.VGCurrentIndex = currentLookedAtPPalIndex;
+
                 // Return the GameObject of that index in the AnimalObjects
                 return indexVGS.animalObj;
 			}
@@ -143,7 +148,10 @@ public class VirtualSceneParent : MonoBehaviour
 			if (indexVGS.Used) {
 
                 //Set the inspect data in the virtual garden UI manager
-                gUIManager.SetInspectData(AnimalObjects[currentLookedAtPPalIndex].GetAnimalData());
+				gUIManager.SetInspectData(AnimalObjects[currentLookedAtPPalIndex].GetAnimalData());
+
+				// Update the global variable
+				GlobalVariables.VGCurrentIndex = currentLookedAtPPalIndex;
 
 				// Return the GameObject of that index in the AnimalObjects
 				return indexVGS.animalObj;
@@ -173,9 +181,13 @@ public class VirtualSceneParent : MonoBehaviour
 	}
 
 	public Vector3 GetViewPosition () {
-		var PPalTarget = AnimalObjects [currentLookedAtPPalIndex];
-		var PPPos = PPalTarget.animalObj.transform.position;
-		return PPPos - (PPPos - centreOfMapPosition).normalized * VGPPalViewDistance * PPalTarget.camDistanceModifier;
+		var PPalTarget = AnimalObjects [currentLookedAtPPalIndex]; 
+		var PPPos = PPalTarget.animalObj.transform.position; 
+		return PPPos - (PPPos - centreOfMapPosition).normalized * VGPPalViewDistance * PPalTarget.camDistanceModifier; 
+	}
+
+	public int GetPPalIndex() {
+		return currentLookedAtPPalIndex;
 	}
 }
 

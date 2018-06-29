@@ -163,6 +163,7 @@ public class PocketPalSpawnManager : MonoBehaviour
                     GameObject ppal;
 					Quaternion rot = spawnPoints [spawnPointIndex].rotation;
 
+                    //Try and get a synced animals spawn
                     if (TrySyncedSpawns) ppal = GetSyncedPocketPal();
                     else ppal = GetWeightedPocketPal();
 

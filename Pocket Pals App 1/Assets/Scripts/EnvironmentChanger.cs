@@ -50,9 +50,6 @@ public class EnvironmentChanger : MonoBehaviour
 			// If scene is being initialised from the AR scene then go straight to virtual garden
 			if (GlobalVariables.currentScene == GlobalVariables.SceneName.AR) {
 				StartSceneInVirtualGarden ();
-				Debug.Log ("working");
-			} else {
-				Debug.Log ("not working");
 			}
 			created = true;
 		}
@@ -107,6 +104,8 @@ public class EnvironmentChanger : MonoBehaviour
 				// Change the static variable to reference it and load the new scene
 				GlobalVariables.ARPocketPAl = ARPPal;
 				GlobalVariables.currentScene = GlobalVariables.SceneName.AR;
+				GlobalVariables.VGCurrentIndex = CameraController.Instance.controls.virtualGarden.GetPPalIndex ();
+
 				SceneManager.LoadScene ("SimpleARScene");
 			}
 		}

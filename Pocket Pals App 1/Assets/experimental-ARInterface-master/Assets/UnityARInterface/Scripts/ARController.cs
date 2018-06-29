@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using UnityEngine.UI; 
 
 #if UNITY_EDITOR
 using UnityEngine.Networking.PlayerConnection;
@@ -12,10 +12,11 @@ namespace UnityARInterface
 {
     public class ARController : MonoBehaviour
     {
-		public Text UIText;
-		string planeFoundText = "Tap to place";
+		public Text UIText; 
+		string planeFoundText = "Tap to place"; 
 		bool planeFound = false;
-		ARPlaneVisualizer planeDetecter;
+
+		ARPlaneVisualizer planeDetecter; 
 
         protected ARInterface m_ARInterface;
 
@@ -178,16 +179,16 @@ namespace UnityARInterface
         {
             m_ARInterface.Update();
 
-			// Check local variable
-			if (!planeFound) {
+			// Check local variable 
+			if (!planeFound) { 
 
-				// Check the ARPlaneVisualiser to see if it has found a plane
-				if (planeDetecter.PlaneFound ()) {
+				// Check the ARPlaneVisualiser to see if it has found a plane 
+				if (planeDetecter.PlaneFound ()) { 
 
-					UIText.text = planeFoundText;
-					UIText.color = new Color (0.0f, 1.0f, 0.0f);
-					planeFound = true;
-				}
+					UIText.text = planeFoundText; 
+					UIText.color = new Color (0.0f, 1.0f, 0.0f); 
+					planeFound = true; 
+				} 
 			}
         }
 

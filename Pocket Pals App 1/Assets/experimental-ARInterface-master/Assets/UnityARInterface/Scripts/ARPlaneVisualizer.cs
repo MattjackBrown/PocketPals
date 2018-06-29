@@ -72,12 +72,12 @@ namespace UnityARInterface
             }
         }
 
-		public bool PlaneFound () {
+		public bool PlaneFound () { 
 
-			if (m_Planes.Count > 0)
-				return true;
-			else
-				return false;
-		}
+			if (m_Planes.Count > 0) 
+				return true; 
+			else 
+				return false; 
+		} 
     }
 }

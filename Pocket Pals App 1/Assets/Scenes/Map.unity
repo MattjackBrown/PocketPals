@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1238,6 +1238,18 @@ MonoBehaviour:
   distanceText: {fileID: 1087010453}
   latText: {fileID: 874576670}
   lonText: {fileID: 1713641259}
+--- !u!114 &206820444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 206820439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 149494904f742d344a13bc120e486f69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentIndex: 0
 --- !u!1 &208799965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1694,7 +1706,6 @@ GameObject:
   m_Component:
   - component: {fileID: 235507996}
   - component: {fileID: 235507997}
-  - component: {fileID: 235507998}
   m_Layer: 0
   m_Name: AssetManager
   m_TagString: Untagged
@@ -1743,18 +1754,6 @@ MonoBehaviour:
   - {fileID: 1676706781926812, guid: 8f5d834bc23e8ba42bea0b07a0a2cd6a, type: 2}
   - {fileID: 1973645986944904, guid: 16b8a84bec6fffd408e75808d40342e5, type: 2}
   - {fileID: 1980741068803564, guid: d5729b8e3cc9ecd469520b5c3f912dc6, type: 2}
---- !u!114 &235507998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 235507995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 149494904f742d344a13bc120e486f69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentIndex: 0
 --- !u!1001 &241814274
 Prefab:
   m_ObjectHideFlags: 0
@@ -3755,7 +3754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camDistanceModifier: 1.8
+  camDistanceModifier: 1.5
 --- !u!1 &561770514
 GameObject:
   m_ObjectHideFlags: 0
@@ -7151,7 +7150,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1001676963
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10136,7 +10135,7 @@ MonoBehaviour:
   cameraController: {fileID: 1331972350}
   miniGame: {fileID: 1072576559}
   virtualGarden: {fileID: 32817350}
-  IsDebug: 1
+  IsDebug: 0
   maxCaptureDistance: 16
 --- !u!114 &1331972350
 MonoBehaviour:
@@ -12184,7 +12183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camDistanceModifier: 1.4
+  camDistanceModifier: 1.2
 --- !u!1 &1596401106
 GameObject:
   m_ObjectHideFlags: 0
@@ -14093,7 +14092,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camDistanceModifier: 1.2
+  camDistanceModifier: 0.8
 --- !u!1 &1860113451
 GameObject:
   m_ObjectHideFlags: 0
@@ -15277,7 +15276,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camDistanceModifier: 0.65
+  camDistanceModifier: 0.6
 --- !u!1 &1990872683
 GameObject:
   m_ObjectHideFlags: 0
