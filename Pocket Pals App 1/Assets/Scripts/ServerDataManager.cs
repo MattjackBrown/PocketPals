@@ -27,6 +27,9 @@ public class ServerDataManager : MonoBehaviour {
     //This will be the first screen to come up after a successful log in.
     public GameObject WelcomeScreen;
 
+    //Login screen ref
+    public GameObject LoginScreen;
+
     // Use this for initialization
     void Start ()
     {
@@ -86,13 +89,11 @@ public class ServerDataManager : MonoBehaviour {
             mDatabaseRef = FirebaseDatabase.DefaultInstance.RootReference;
             auth = FirebaseAuth.DefaultInstance;
 
-            //Sometimes firebase will leave a user logged in from a previous session this will stop that.
-            auth.SignOut();
-
             //Make sure there is nothing left over from the last session
             if (auth.CurrentUser != null)
             {
-                auth.CurrentUser.DeleteAsync();
+                LoginProcess();
+                return;
             }
   
             ErrorText.text = "Ready To login";
@@ -101,6 +102,16 @@ public class ServerDataManager : MonoBehaviour {
             auth.StateChanged += AuthStateChanged;
             AuthStateChanged(this, null);
         }
+    }
+
+    private void LoginProcess()
+    {
+        Debug.Log("Signed in " + newUser.UserId);
+        ErrorText.text = "Logging in....";
+        LocalDataManager.Instance.GetData().ID = newUser.UserId ?? "";
+        LocalDataManager.Instance.GetData().Username = newUser.DisplayName ?? "";
+
+        GetPlayerData(LocalDataManager.Instance.GetData());
     }
 
     public void WriteNewUser(GameData gd)
@@ -331,15 +342,15 @@ public class ServerDataManager : MonoBehaviour {
             newUser = auth.CurrentUser;
             if (signedIn)
             {
-                Debug.Log("Signed in " + newUser.UserId);
-                ErrorText.text = "Logging in....";
-                LocalDataManager.Instance.GetData().ID = newUser.UserId ?? "";
-                LocalDataManager.Instance.GetData().Username = newUser.DisplayName ?? "";
-
-                GetPlayerData(LocalDataManager.Instance.GetData());
-
+                LoginProcess();
             }
         }
+    }
+
+    public void LogOut()
+    {
+        auth.SignOut();
+        LoginScreen.SetActive(true);
     }
 }
 
