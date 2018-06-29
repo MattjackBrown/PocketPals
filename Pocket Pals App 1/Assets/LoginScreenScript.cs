@@ -8,30 +8,26 @@ using System.Runtime.Serialization.Formatters.Binary;
 [System.Serializable]
 public class DefaultLogin
 {
-	public string m_Name;
-	public string m_Password;
+	public string name, password;
 
-	public DefaultLogin(string name, string password)
+	public DefaultLogin(string newName, string newPassword)
 	{
-		m_Name = name;
-		m_Password = password;
+		name = newName;
+		password = newPassword;
 	}
 }
-
-
+	
 public class LoginScreenScript : MonoBehaviour
 {
+	// The UI fields
+    public Text email, password, error;
 
-
-    public Text email;
-
-    public Text password;
-
-    public Text error;
-
+	// Default values
 	public string DebugUserName, DebugPassword;
 
 	void Start () {
+
+		// Load any default login values
 		LoadDefaults ();
 	}
 
@@ -39,10 +35,11 @@ public class LoginScreenScript : MonoBehaviour
     {
         ServerDataManager.Instance.SignIn(email.text, password.text, error);
 
+		// Save attempted data to use aas a default for next time
 		// Empty string check
 		if (email.text.Length > 0 && password.text.Length > 0) {
 
-			// Actually prob best to do this if login successful
+			// Actually prob best to do this only if login successful
 			SaveDefaults (email.text, password.text);
 		}
     }
@@ -60,8 +57,10 @@ public class LoginScreenScript : MonoBehaviour
 		string destination = Application.persistentDataPath + "/save.dat";
 		FileStream file;
 
-		if(File.Exists(destination)) file = File.OpenWrite(destination);
-		else file = File.Create(destination);
+		if (File.Exists(destination))
+			file = File.OpenWrite(destination);
+		else
+			file = File.Create(destination);
 
 		DefaultLogin data = new DefaultLogin (name, password);
 		BinaryFormatter bf = new BinaryFormatter();
@@ -74,9 +73,9 @@ public class LoginScreenScript : MonoBehaviour
 		string destination = Application.persistentDataPath + "/save.dat";
 		FileStream file;
 
-		if(File.Exists(destination)) file = File.OpenRead(destination);
-		else
-		{
+		if (File.Exists(destination))
+			file = File.OpenRead(destination);
+		else {
 			Debug.LogError("File not found");
 			return;
 		}
@@ -85,7 +84,7 @@ public class LoginScreenScript : MonoBehaviour
 		DefaultLogin data = (DefaultLogin) bf.Deserialize(file);
 		file.Close();
 
-		email.GetComponentInParent<InputField>().text = data.m_Name;
-		password.GetComponentInParent<InputField>().text = data.m_Password;
+		email.GetComponentInParent<InputField>().text = data.name;
+		password.GetComponentInParent<InputField>().text = data.password;
 	}
 }

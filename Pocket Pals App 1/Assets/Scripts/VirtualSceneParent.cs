@@ -8,8 +8,8 @@ public class VirtualSceneParent : MonoBehaviour
 {
 	VirtualSceneParent Instance { set; get; }
 
-    public VirtualGardenSpawn[] AnimalObjects;
-    public VGUIManager gUIManager;
+	public VirtualGardenSpawn[] AnimalObjects;
+	public VGUIManager gUIManager;
 	public GameObject centreOfMap;
 	Vector3 centreOfMapPosition;
 
@@ -24,14 +24,14 @@ public class VirtualSceneParent : MonoBehaviour
 
 	bool hasAPocketPal = false;
 
-/*
+	/*
     private void OnEnable()
-	{
-
-	}
+  {
+ 
+  }
 */
 	public void InitVGTour () {
-		
+
 		Camera gameCamera = Camera.main;
 
         hasAPocketPal = false;
@@ -62,16 +62,17 @@ public class VirtualSceneParent : MonoBehaviour
 				// Set the inspect position field
 				Vector3 PPPosition = obj.animalObj.transform.position;
 
-				float camDistanceModifier = 1;//obj.animalObj.GetComponent<VirtualGardenInfo> ().camDistanceModifier;
+				float camDistanceModifier = obj.animalObj.GetComponent<VirtualGardenInfo> ().camDistanceModifier; 
+				obj.camDistanceModifier = camDistanceModifier; 
 
 				// Get the real world distance between the centre of the viewport and the 0.25f, 0.25f of the viewport at PPal distance
 				float VGInfoCamOffsetHorizontal = (gameCamera.ViewportToWorldPoint(new Vector3(0.5f, 0.0f, VGPPalInspectDistance * camDistanceModifier)) -
-					gameCamera.ViewportToWorldPoint(new Vector3(0.25f, 0.0f, VGPPalInspectDistance))).magnitude;
+					gameCamera.ViewportToWorldPoint(new Vector3(0.25f, 0.0f, VGPPalInspectDistance * camDistanceModifier))).magnitude;
 
 				float VGInfoCamOffsetVertical = (gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.5f, VGPPalInspectDistance * camDistanceModifier)) -
-					gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.25f, VGPPalInspectDistance))).magnitude;
+					gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.25f, VGPPalInspectDistance * camDistanceModifier))).magnitude;
 
-				obj.camInspectPosition = PPPosition - (PPPosition - centreOfMapPosition).normalized * VGPPalInspectDistance;
+				obj.camInspectPosition = PPPosition - (PPPosition - centreOfMapPosition).normalized * VGPPalInspectDistance * camDistanceModifier;
 
 				// Cross product of the direction vector to the PPal and V3.up will add the relative offset 
 				obj.camInspectLookAtPosition = PPPosition + Vector3.Cross((centreOfMapPosition - PPPosition).normalized, Vector3.up) * VGInfoCamOffsetHorizontal + 
@@ -120,6 +121,9 @@ public class VirtualSceneParent : MonoBehaviour
                 //Set the inspect data in the virtual garden UI manager
                 gUIManager.SetInspectData(AnimalObjects[currentLookedAtPPalIndex].GetAnimalData());
 
+				// Update the global variable
+				GlobalVariables.VGCurrentIndex = currentLookedAtPPalIndex;
+
                 // Return the GameObject of that index in the AnimalObjects
                 return indexVGS.animalObj;
 			}
@@ -144,7 +148,10 @@ public class VirtualSceneParent : MonoBehaviour
 			if (indexVGS.Used) {
 
                 //Set the inspect data in the virtual garden UI manager
-                gUIManager.SetInspectData(AnimalObjects[currentLookedAtPPalIndex].GetAnimalData());
+				gUIManager.SetInspectData(AnimalObjects[currentLookedAtPPalIndex].GetAnimalData());
+
+				// Update the global variable
+				GlobalVariables.VGCurrentIndex = currentLookedAtPPalIndex;
 
 				// Return the GameObject of that index in the AnimalObjects
 				return indexVGS.animalObj;
@@ -174,8 +181,9 @@ public class VirtualSceneParent : MonoBehaviour
 	}
 
 	public Vector3 GetViewPosition () {
-		var PPPos = AnimalObjects [currentLookedAtPPalIndex].animalObj.transform.position;
-		return PPPos - (PPPos - centreOfMapPosition).normalized * VGPPalViewDistance;// * AnimalObjects [currentLookedAtPPalIndex].camDistanceModifier;
+		var PPalTarget = AnimalObjects [currentLookedAtPPalIndex]; 
+		var PPPos = PPalTarget.animalObj.transform.position; 
+		return PPPos - (PPPos - centreOfMapPosition).normalized * VGPPalViewDistance * PPalTarget.camDistanceModifier; 
 	}
 
 	public int GetPPalIndex() {
