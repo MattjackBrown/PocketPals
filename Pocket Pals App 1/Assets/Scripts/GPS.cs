@@ -121,6 +121,10 @@ public class GPS : MonoBehaviour
         {
             StartLat = Input.location.lastData.latitude;
             StartLong = Input.location.lastData.longitude;
+            CurrentLat = Input.location.lastData.latitude;
+            CurrentLong = Input.location.lastData.longitude;
+
+            Debug.Log("GPS Initialised");
         }
 
         //Spawn a new map
@@ -195,7 +199,7 @@ public class GPS : MonoBehaviour
         return new Vector3(xx, 0, zz);
     }
 
-    private Vector3 GetWorldPos(double lat, double lon)
+    public Vector3 GetWorldPos(double lat, double lon)
     {
 
         Vector2d end2d = Conversions.GeoToWorldPosition(lat, lon, currentMap.CenterMercator, currentMap.WorldRelativeScale);
@@ -207,6 +211,7 @@ public class GPS : MonoBehaviour
 
     public Vector2 GetLatLon()
     {
+        if (CurrentLat == 0.0f) return new Vector2(StartLat, StartLong);
         return new Vector2(CurrentLat, CurrentLong);
     }
 
