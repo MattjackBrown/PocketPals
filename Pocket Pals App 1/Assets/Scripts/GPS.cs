@@ -121,8 +121,6 @@ public class GPS : MonoBehaviour
         {
             StartLat = Input.location.lastData.latitude;
             StartLong = Input.location.lastData.longitude;
-            CurrentLat = Input.location.lastData.latitude;
-            CurrentLong = Input.location.lastData.longitude;
 
             Debug.Log("GPS Initialised");
         }
@@ -135,6 +133,8 @@ public class GPS : MonoBehaviour
         currentMap = mapGameObject.GetComponent<BasicMap>();
         currentMap.Initialize(new Vector2d(StartLat, StartLong),zoom);
 
+        //Start the resourcespot manager co routine
+        StartCoroutine(ResourceSpotManager.Instance.Spawn());
 
         isInitialised = true;
     }
@@ -211,13 +211,14 @@ public class GPS : MonoBehaviour
 
     public Vector2 GetLatLon()
     {
-        if (CurrentLat == 0.0f) return new Vector2(StartLat, StartLong);
         return new Vector2(CurrentLat, CurrentLong);
     }
 
     // Update is called once per frame
     void Update ()
     {
+        if (!isInitialised) return;
+
         if (HasGps)
         {
             //Set the current position used for seeding

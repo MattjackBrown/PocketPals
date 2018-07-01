@@ -39,11 +39,19 @@ public class ContentGenerator : MonoBehaviour
         //Generate the seed that should be the same for everyone in the rough area.
         double roundedLat = System.Math.Round(lat, DecimalPlacesToRound);
         double roundedLon = System.Math.Round(lon, DecimalPlacesToRound);
-        string seed = ResourceSpotSeed + lat + lon;
+        string seed = ResourceSpotSeed + roundedLat + roundedLon;
         rsNewSeed = seed.GetHashCode();
 
         //If the two seeds are equal (the player has not moved out of this zone) stop generating
-        if (rsNewSeed == rsCurrentSeed) return null;
+        if (rsNewSeed == rsCurrentSeed)
+        {
+            Debug.Log("Its the same");
+            return null;
+        }
+        else
+        {
+            Debug.Log("Changed");
+        }
 
         rsCurrentSeed = rsNewSeed;
 

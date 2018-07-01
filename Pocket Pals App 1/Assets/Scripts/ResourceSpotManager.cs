@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class ResourceSpotManager : MonoBehaviour
 {
+    static public ResourceSpotManager Instance { set; get; }
 
     private List<GameObject> ResourceSpots = new List<GameObject>();
 
@@ -27,19 +28,21 @@ public class ResourceSpotManager : MonoBehaviour
     void Start ()
     {
         gpsMap = girl.GetComponent<GPS>();
-        StartCoroutine(Spawn());
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
-    private IEnumerator Spawn()
+    private void Awake()
     {
-        yield return new WaitForSeconds(1);
+        Instance = this;
+    }
+
+    public IEnumerator Spawn()
+    {
+
         while (shouldSpawn)
         {
+
+            //check to make sure we have refs to the required classes
+            if (GPS.Insatance == null || GPS.Insatance.currentMap == null || ContentGenerator.Instance == null) yield return new WaitForSeconds(1);
+
             List<Vector2> LatLonPositions =  ContentGenerator.Instance.GenerateResourceSpots(GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, number, spread);
 
             if (LatLonPositions != null)
@@ -58,9 +61,9 @@ public class ResourceSpotManager : MonoBehaviour
 
                     ResourceSpots.Add(clone);
                 }
-            }
 
-            ContentGenerator.Instance.WipeResouceSpots();
+                ContentGenerator.Instance.WipeResouceSpots();
+            }
 
             yield return new WaitForSeconds(10);
             
@@ -71,13 +74,9 @@ public class ResourceSpotManager : MonoBehaviour
     {
         for (int i = 0; i < ResourceSpots.Count; i++)
         {
-            DespawnResourceSpot(ResourceSpots[i]);
+            Destroy(ResourceSpots[i]);
         }
+        ResourceSpots.Clear();
     }
 
-    private void DespawnResourceSpot(GameObject obj)
-    {
-        ResourceSpots.Remove(obj);
-        Destroy(obj);
-    }
 }
