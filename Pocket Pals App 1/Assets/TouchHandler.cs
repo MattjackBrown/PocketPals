@@ -65,10 +65,17 @@ public class TouchHandler : MonoBehaviour {
 
 		case ControlScheme.miniGame:
 			{
-				miniGame.UpdateTimer ();
+				// Move the PPal between patrol points
+				miniGame.MovePPal ();
 
-                if (IsDebug && Input.GetMouseButtonDown(0))  miniGame.UpdateControls(Input.mousePosition);
-                else if(Input.touches.Length > 0) miniGame.UpdateControls(Input.GetTouch(0).position);
+				// Use the input to update the controls and timer
+				if (IsDebug && Input.GetMouseButtonDown (0)) {
+					miniGame.UpdateControls (Input.mousePosition);
+					miniGame.UpdateTimer ();
+				} else if (Input.touches.Length > 0) {
+					miniGame.UpdateControls (Input.GetTouch (0).position);
+					miniGame.UpdateTimer ();
+				}
 			}
 			break;
 

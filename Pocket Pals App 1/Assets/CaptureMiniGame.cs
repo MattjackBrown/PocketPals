@@ -134,12 +134,6 @@ public class CaptureMiniGame : MonoBehaviour {
 			// Step the timer
 			minigameTimer += Time.deltaTime;
 
-			// Move the PPal around
-			MovePPal ();
-
-			// Funtion sets the depth of field using the touched on position's distance away
-			AdjustPostProcessing (viewfinderPosition);
-
 			if (focussedOnPPal) {
 				
 				// Step the capture timer
@@ -187,7 +181,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		viewFinder.rectTransform.anchoredPosition = Camera.main.ViewportToScreenPoint (new Vector3 (touchX, touchY));
 	}
 
-	void MovePPal () {
+	public void MovePPal () {
 
 		// If arrived at current target lerp will be >= 1.0f
 		if (patrolLerp >= 1.0f) {
@@ -218,6 +212,9 @@ public class CaptureMiniGame : MonoBehaviour {
 		pocketPal.transform.position = Vector3.Lerp (previousPosition, nextPosition, patrolLerp);
 
 		pocketPal.transform.LookAt (nextPosition);
+
+		// Funtion sets the depth of field using the touched on position's distance away
+		AdjustPostProcessing (viewfinderPosition);
 	}
 
 	void AdjustPostProcessing(Vector2 touchPosition) {
