@@ -16,7 +16,7 @@ namespace UnityARInterface
 		string planeFoundText = "Tap to place"; 
 		bool planeFound = false;
 
-		ARPlaneVisualizer planeDetecter; 
+		public ARPlaneVisualizer planeDetecter; 
 
         protected ARInterface m_ARInterface;
 
@@ -163,7 +163,6 @@ namespace UnityARInterface
                 enabled = false;
             }
         }
-
 
         void OnDisable()
         {

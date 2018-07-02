@@ -154,7 +154,7 @@ public class CameraController : MonoBehaviour
 			deltaTouchY = -deltaTouchY / Screen.height * 180;
 
 		// Combine both swipe directions into one final value
-		float finalRotation = deltaTouchX + deltaTouchY;
+		float finalRotation = deltaTouchX + deltaTouchY; // Consider changing this to sqr(x^2 + y^2) true circling movement?
 
 		// Apply the rotation to the transform around the player
 		transform.RotateAround (playerPosition, Vector3.up, finalRotation);
