@@ -10,11 +10,11 @@ public class PlaceOnPlane : ARBase
 
 	Camera ARCamera;
 
-	public GameObject PPal;
+	GameObject PPal;
 
 	float PPalScale;
-	float maxPPalScale = 10.0f;
-	float minPPalScale = 0.5f;
+	float maxPPalScale = 6.0f;
+	float minPPalScale = 0.15f;
 	float initialRotationOffset = 30.0f;
 
 	float tapTimer = 0.0f;
@@ -25,7 +25,7 @@ public class PlaceOnPlane : ARBase
 		ARCamera = GetCamera ();
 
 		// Get a local reference to the ppal
-//		PPal = GlobalVariables.ARPocketPAl;
+		PPal = GlobalVariables.ARPocketPAl;
 
 		// Grab the current scale. Uniform scales so any float from the v3 will do
 		PPalScale = PPal.transform.localScale.x;
@@ -107,7 +107,7 @@ public class PlaceOnPlane : ARBase
 		float currentTouchDelta = (touchZero.position - touchOne.position).magnitude;
 
 		// Find the difference in the distances between each frame
-		float deltaTouchDifference = prevTouchDelta - currentTouchDelta;
+		float deltaTouchDifference = currentTouchDelta - prevTouchDelta;
 
 		// Adjust for different device's screen pixel density
 		deltaTouchDifference = 1.0f + deltaTouchDifference * 2.0f / Screen.width;
