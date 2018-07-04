@@ -12,6 +12,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	public Canvas MiniGameUI;
 	public Image viewFinder;
 	public Slider captureMeter;
+	public Slider berryMeter;
 
 	public GameObject miniGameEnvironment;
 	public GameObject miniGamePlayerPositionObject;
@@ -45,6 +46,13 @@ public class CaptureMiniGame : MonoBehaviour {
 	Vector3 previousPosition, nextPosition;
 	int patrolIndex;
 
+	bool berryUsed;
+	float berryTimer, berryDuration = 5.0f;
+
+	// Speed multiplier if berry used
+	float berrySpeedModifier = 0.3f;
+
+
 	// Use this for initialization
 	void Start () {
 		
@@ -74,6 +82,10 @@ public class CaptureMiniGame : MonoBehaviour {
 		controls.MiniGameControls ();
 
 		patrolLerp = 0.0f;
+
+		berrySpeedModifier = 1.0f;
+		berryTimer = 0.0f;
+		berryUsed = false;
 
 		// Change the animation and avatar to the movement style
 		pocketPal.SetMoveAnimation ();
@@ -124,6 +136,9 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		patrolIndex = Random.Range(0, patrolPositions.Count-1);
 		nextPosition = patrolPositions [patrolIndex].transform.position;
+
+		// Hide the berry meter until used
+		berryMeter.enabled = false;
 	}
 
 	public void UpdateTimer () {
@@ -154,6 +169,20 @@ public class CaptureMiniGame : MonoBehaviour {
 
 			// Change the slider value
 			captureMeter.value = captureTimer;
+
+			// Berry timer
+			if (berryUsed) {
+				berryTimer += Time.deltaTime;
+
+				// Convert to 0-1 range and set the slider 
+				berryMeter.value = berryTimer / berryDuration;
+
+				if (berryTimer > berryDuration) {
+					berryMeter.enabled = false;
+					berryUsed = false;
+					berryTimer = 0.0f;
+				}
+			}
 
 		} else {
 			
@@ -207,6 +236,9 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Step the lerp
 		patrolLerp += Time.deltaTime * patrolSpeed;
+
+		if (berryUsed)
+			patrolLerp *= berrySpeedModifier;
 
 		// Move the PPal
 		pocketPal.transform.position = Vector3.Lerp (previousPosition, nextPosition, patrolLerp);
@@ -286,5 +318,14 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Because why not
 		controls.Vibrate ();
+	}
+
+	public void UseBerry () {
+		
+		berryMeter.enabled = true;
+		berryMeter.value = 1.0f;
+
+		berryTimer = 0.0f;
+		berryUsed = true;
 	}
 }
