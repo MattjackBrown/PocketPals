@@ -15,6 +15,9 @@ public class GameData
 
     public string inventoryID;
 
+	// The number of berries in the inventory
+	int Berries;
+
     public GameData()
     {
         DistanceTravelled = 0.0f;
@@ -23,6 +26,9 @@ public class GameData
         ID = "None";
         Inventory = new PocketPalInventory();
         inventoryID = System.Guid.NewGuid().ToString();
+
+		// Temp
+		Berries = 999;
     }
 
     public string GetJson()
@@ -54,4 +60,16 @@ public class GameData
     {
         return LevelCalculator.GetPercentageToNextLevel(EXP);
     }
+
+	public int NumberOfBerries () {
+		return Berries;
+	}
+
+	public bool UseBerry () {
+		if (Berries > 0) {
+			Berries--;
+			return true;
+		} else
+			return false;
+	}
 }

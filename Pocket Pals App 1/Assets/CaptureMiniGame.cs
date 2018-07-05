@@ -13,6 +13,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	public Image viewFinder;
 	public Slider captureMeter;
 	public Slider berryMeter;
+	public Text berryCount;
 
 	public GameObject miniGameEnvironment;
 	public GameObject miniGamePlayerPositionObject;
@@ -47,10 +48,18 @@ public class CaptureMiniGame : MonoBehaviour {
 	int patrolIndex;
 
 	bool berryUsed;
+	int numberOfBerries;
 	float berryTimer, berryDuration = 5.0f;
 
 	// Speed multiplier if berry used
 	float berrySpeedModifier = 0.3f;
+
+	// Used to see the inventory for number of berries
+	GameData playerProfile;
+
+	// TODO Need to Rotate the ppal between movements
+	bool needToRotate = false;
+	float startingRotationY, targetRotationY;
 
 
 	// Use this for initialization
@@ -112,6 +121,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		captureTimer = 0.0f;
 		captureMeter.value = 0.0f;
 
+		// Tell the PPal it is the subject for a minigame
 		targetPocketPal.InMinigame = true;
 
 		// Set the target pocketPal for this minigame
@@ -128,17 +138,26 @@ public class CaptureMiniGame : MonoBehaviour {
 		miniGameEnvironment.SetActive (true);
 
 		// Set the Positions for the miniGame
-		controls.cameraController.transform.position = miniGamePlayerPosition;
 		targetPocketPal.transform.position = miniGamePPalPosition;
+		controls.cameraController.transform.position = miniGamePlayerPosition;
 		controls.cameraController.transform.LookAt (miniGamePPalPosition);
 
+		// Store the current position as the starting point 'previousPosition'
 		previousPosition = pocketPal.transform.position;
 
+		// Set a randomly chosen endpoint
 		patrolIndex = Random.Range(0, patrolPositions.Count-1);
 		nextPosition = patrolPositions [patrolIndex].transform.position;
 
+		// Used to see the inventory for number of berries
+		playerProfile = LocalDataManager.Instance.GetData ();
+
+		// Set the number of berries text
+		numberOfBerries = playerProfile.NumberOfBerries ();
+		berryCount.text = numberOfBerries.ToString ();
+
 		// Hide the berry meter until used
-		berryMeter.enabled = false;
+		berryMeter.gameObject.SetActive(false);
 	}
 
 	public void UpdateTimer () {
@@ -175,10 +194,10 @@ public class CaptureMiniGame : MonoBehaviour {
 				berryTimer += Time.deltaTime;
 
 				// Convert to 0-1 range and set the slider 
-				berryMeter.value = berryTimer / berryDuration;
+				berryMeter.value = 1.0f - berryTimer / berryDuration;
 
 				if (berryTimer > berryDuration) {
-					berryMeter.enabled = false;
+					berryMeter.gameObject.SetActive(false);
 					berryUsed = false;
 					berryTimer = 0.0f;
 				}
@@ -215,6 +234,9 @@ public class CaptureMiniGame : MonoBehaviour {
 		// If arrived at current target lerp will be >= 1.0f
 		if (patrolLerp >= 1.0f) {
 
+//			needToRotate = true;
+			startingRotationY = pocketPal.transform.rotation.y;
+
 			// Reset the lerp float
 			patrolLerp = 0.0f;
 
@@ -232,18 +254,32 @@ public class CaptureMiniGame : MonoBehaviour {
 
 			// Get the patrol position from the list at that index
 			nextPosition = patrolPositions [patrolIndex].transform.position;
+
+			// Used for the rotation between patrols
+//			targetRotationY = pocketPal.transform.LookAt (nextPosition);
 		}
 
-		// Step the lerp
-		patrolLerp += Time.deltaTime * patrolSpeed;
 
+		// Adjust for berry use
 		if (berryUsed)
-			patrolLerp *= berrySpeedModifier;
+			// Step the lerp
+			patrolLerp += Time.deltaTime * patrolSpeed * berrySpeedModifier;
+		else
+			// Step the lerp
+			patrolLerp += Time.deltaTime * patrolSpeed;
 
-		// Move the PPal
-		pocketPal.transform.position = Vector3.Lerp (previousPosition, nextPosition, patrolLerp);
 
-		pocketPal.transform.LookAt (nextPosition);
+		// Rotate or move the PPal
+		if (needToRotate) {
+
+			pocketPal.transform.Rotate (0.0f, 5.0f, 0.0f);
+
+		} else {
+
+			// Set the PPal transform
+			pocketPal.transform.position = Vector3.Lerp (previousPosition, nextPosition, patrolLerp);
+			pocketPal.transform.LookAt (nextPosition);
+		}
 
 		// Funtion sets the depth of field using the touched on position's distance away
 		AdjustPostProcessing (viewfinderPosition);
@@ -301,7 +337,8 @@ public class CaptureMiniGame : MonoBehaviour {
 		MapUI.gameObject.SetActive(true);
 		MiniGameMenu.gameObject.SetActive(false);
 		MiniGameUI.gameObject.SetActive(false);
-
+		
+		// Place the camera back in the map area
 		controls.cameraController.transform.position = CameraMapPosition;
 
 		// Tell the cameraController to zoom out
@@ -313,19 +350,31 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Deactivate the minigame environment
 		miniGameEnvironment.SetActive(false);
 
-		// Place the camera back in the map area
-		controls.cameraController.transform.position = CameraMapPosition;
-
 		// Because why not
 		controls.Vibrate ();
 	}
 
 	public void UseBerry () {
-		
-		berryMeter.enabled = true;
-		berryMeter.value = 1.0f;
 
-		berryTimer = 0.0f;
-		berryUsed = true;
+		// If not already using a berry and has a berry to use
+		if (!berryUsed && numberOfBerries > 0) {
+		
+			// Set the slider
+			berryMeter.gameObject.SetActive(true);
+			berryMeter.value = 1.0f;
+
+			// Set the timer
+			berryTimer = 0.0f;
+			berryUsed = true;
+
+			// Decrease the local count
+			numberOfBerries--;
+
+			// Adjust UI
+			berryCount.text = numberOfBerries.ToString();
+
+			// Decreases the berry count in the player Profile
+			playerProfile.UseBerry ();
+		}
 	}
 }
