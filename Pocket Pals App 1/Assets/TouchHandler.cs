@@ -188,11 +188,18 @@ public class TouchHandler : MonoBehaviour {
 			{
 				cameraController.CaptureCamInit(hit.transform.gameObject);
 			}
-			else if (IsDebug)
+            else if (hit.transform.gameObject.GetComponent<ResourceSpotParent>())
+            {
+                ResourceSpotParent rsp = hit.transform.gameObject.GetComponent<ResourceSpotParent>();
+                rsp.Clicked();
+            }
+            
+            else if (IsDebug)
 			{
 				player.GetComponent<GPS>().SetIsDebug(true);
 				player.GetComponent<GPS>().SetPlayerMovePoint(hit.transform.position);
 			}
+
 		}
 	}
 
@@ -213,18 +220,23 @@ public class TouchHandler : MonoBehaviour {
 				// if hit
 				if (Physics.Raycast (ray, out hit))
 				{
-					// If the hit gameObject has a component "PocketPalParent" and is within the capture distance from the player
-					if (hit.transform.gameObject.GetComponent ("PocketPalParent") && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance)
-					{
-						// Initialise the capture cam values
-						cameraController.CaptureCamInit (hit.transform.gameObject);
+                    // If the hit gameObject has a component "PocketPalParent" and is within the capture distance from the player
+                    if (hit.transform.gameObject.GetComponent("PocketPalParent") && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance)
+                    {
+                        // Initialise the capture cam values
+                        cameraController.CaptureCamInit(hit.transform.gameObject);
 
-						PocketPalParent hitPocketPal = (PocketPalParent)hit.transform.gameObject.GetComponent ("PocketPalParent");
-						Debug.Log (hitPocketPal.PocketPalID);
+                        PocketPalParent hitPocketPal = (PocketPalParent)hit.transform.gameObject.GetComponent("PocketPalParent");
+                        Debug.Log(hitPocketPal.PocketPalID);
 
-						// Only need to find one, Don't bother checking other touches after this
-						return;
-					}
+                        // Only need to find one, Don't bother checking other touches after this
+                        return;
+                    }
+                    else if (hit.transform.gameObject.GetComponent("ResourceSpotParent"))
+                    {
+                        ResourceSpotParent rsp = hit.transform.gameObject.GetComponent<ResourceSpotParent>();
+                        rsp.Clicked();
+                    }
 				}
 			}
 		}
