@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -8230,6 +8230,7 @@ MonoBehaviour:
   viewFinder: {fileID: 1943813844}
   captureMeter: {fileID: 2093639883}
   berryMeter: {fileID: 133442014}
+  berryCount: {fileID: 1914913153}
   miniGameEnvironment: {fileID: 32817349}
   miniGamePlayerPositionObject: {fileID: 1669850896}
   miniGamePPalPositionObject: {fileID: 772871237}
@@ -15101,7 +15102,7 @@ GameObject:
   - component: {fileID: 1914913154}
   - component: {fileID: 1914913153}
   m_Layer: 5
-  m_Name: Text
+  m_Name: BerryCountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
