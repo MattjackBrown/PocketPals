@@ -22,7 +22,7 @@ public class ResourceSpotManager : MonoBehaviour
 
     public float spread = 1.3f;
 
-    public int number = 20;
+    public int number = 15;
 
     // Use this for initialization
     void Start ()
@@ -43,7 +43,7 @@ public class ResourceSpotManager : MonoBehaviour
             //check to make sure we have refs to the required classes
             if (GPS.Insatance == null || GPS.Insatance.currentMap == null || ContentGenerator.Instance == null) yield return new WaitForSeconds(1);
 
-            List<Vector2> LatLonPositions =  ContentGenerator.Instance.GenerateResourceSpots(GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, number, spread);
+            List<Vector2> LatLonPositions =  ContentGenerator.Instance.GenerateResourceSpots(GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, number);
 
             if (LatLonPositions != null)
             {
@@ -65,9 +65,22 @@ public class ResourceSpotManager : MonoBehaviour
                 ContentGenerator.Instance.WipeResouceSpots();
             }
 
-            yield return new WaitForSeconds(10);
+            yield return new WaitForSeconds(1);
             
         }
+    }
+
+    private void TryDespawnFirstSet()
+    {
+        if (ResourceSpots.Count > number * 4)
+        {
+            for (int i = 0; i < number; i++)
+            {
+                Destroy(ResourceSpots[i]);
+                ResourceSpots.Remove(ResourceSpots[i]);              
+            }
+        }
+        ContentGenerator.Instance.RemoveFirstSeed();
     }
 
     private void DespawnAll()

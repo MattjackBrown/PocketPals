@@ -193,11 +193,10 @@ public class TouchHandler : MonoBehaviour {
                 ResourceSpotParent rsp = hit.transform.gameObject.GetComponent<ResourceSpotParent>();
                 rsp.Clicked();
             }
-            
             else if (IsDebug)
 			{
 				player.GetComponent<GPS>().SetIsDebug(true);
-				player.GetComponent<GPS>().SetPlayerMovePoint(hit.transform.position);
+				player.GetComponent<GPS>().FakeGPSRead(hit.transform.position);
 			}
 
 		}

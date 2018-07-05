@@ -252,6 +252,13 @@ public class GPS : MonoBehaviour
 		}
 	}
 
+    public void FakeGPSRead(Vector3 worldPos)
+    {
+        Vector2d latlon = worldPos.GetGeoPosition(currentMap.CenterMercator, currentMap.WorldRelativeScale);
+        fakeLat = (float)latlon.x;
+        fakeLong = (float)latlon.y;
+    }
+
 	public void SetPlayerMovePoint(Vector3 endPoint)
 	{
 		LastDestination = destination;

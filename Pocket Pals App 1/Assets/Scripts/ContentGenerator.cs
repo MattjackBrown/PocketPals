@@ -14,8 +14,8 @@ public class ContentGenerator : MonoBehaviour
 	//List of all Resource stops currently in the players area
 	private List<Vector2> ResourceStopLocations = new List<Vector2>();
 
-	//Basically the size of the grids to generate, less equals a greater area.
-	public static int DecimalPlacesToRound = 3;
+    //Basically the size of the grids to generate, less equals a greater area.
+    public static int DecimalPlacesToRound = 2;
 
 	//current in to look at for the pocketpal
 	public int currentIndex = 0;
@@ -26,7 +26,7 @@ public class ContentGenerator : MonoBehaviour
 	private int ppCurrentSeed =0;
 	private int ppNewSeed = 0;
 
-    private int rsCurrentSeed = 0;
+    private List<int> rsCurrentSeed = new List<int>();
     private int rsNewSeed = 0;
 
 	void Start()
@@ -34,16 +34,17 @@ public class ContentGenerator : MonoBehaviour
 		Instance = this;
 	}
 
-    public List<Vector2> GenerateResourceSpots(double lat, double lon, int number, float density)
+    public List<Vector2> GenerateResourceSpots(double lat, double lon, int number)
     {
         //Generate the seed that should be the same for everyone in the rough area.
         double roundedLat = System.Math.Round(lat, DecimalPlacesToRound);
         double roundedLon = System.Math.Round(lon, DecimalPlacesToRound);
         string seed = ResourceSpotSeed + roundedLat + roundedLon;
+
         rsNewSeed = seed.GetHashCode();
 
         //If the two seeds are equal (the player has not moved out of this zone) stop generating
-        if (rsNewSeed == rsCurrentSeed)
+        if (rsCurrentSeed.Contains(rsNewSeed))
         {
             Debug.Log("Its the same");
             return null;
@@ -53,21 +54,30 @@ public class ContentGenerator : MonoBehaviour
             Debug.Log("Changed");
         }
 
-        rsCurrentSeed = rsNewSeed;
+        rsCurrentSeed.Add(rsNewSeed);
 
-        System.Random r = new System.Random(rsCurrentSeed);
+        System.Random r = new System.Random(rsNewSeed);
 
-        double maxVariance = Math.Pow(10, -1*(DecimalPlacesToRound-density));
+        double maxVariance = Math.Pow(10, -1*(DecimalPlacesToRound));
 
         for (int i = 0; i < number; i++)
         {
             Vector2 latLon = new Vector2();
-            latLon.x =  (float)GetRandomBetweenRange(r, maxVariance, lat);
-            latLon.y = (float)GetRandomBetweenRange(r, maxVariance, lon);
+            latLon.x =  (float)GetRandomBetweenRange(r, maxVariance, roundedLat);
+            latLon.y = (float)GetRandomBetweenRange(r, maxVariance, roundedLon);
+            Debug.Log(latLon);
             ResourceStopLocations.Add(latLon);
         }
 
         return ResourceStopLocations;
+    }
+
+    public void RemoveFirstSeed()
+    {
+        if (rsCurrentSeed.Count > 1)
+        {
+            rsCurrentSeed.RemoveAt(0);
+        }
     }
 
     private static int GetSeed(string seed, double lat, double lon)

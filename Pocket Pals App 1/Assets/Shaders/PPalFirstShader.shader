@@ -44,6 +44,7 @@
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+
 				UNITY_TRANSFER_FOG(o,o.vertex);
 				return o;
 			}
@@ -55,7 +56,7 @@
 				fixed4 col1 = tex2D(_NoiseTex, i.uv);
 				fixed4 col2 = tex2D(_BlendTex, i.uv)*0.1;
 				
-				col = (col * col1)+col2;
+				col = (col * col1*1.1)+col2;
 
 				// apply fog
 				UNITY_APPLY_FOG(i.fogCoord, col1);
