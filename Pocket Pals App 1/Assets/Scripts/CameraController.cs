@@ -601,7 +601,7 @@ public class CameraController : MonoBehaviour
 		returnCamOffsetAfterCapture = transform.position - playerPosition;
 
 		// Get the target camera position based on player position and target position
-		targetGameObjectPosition = target.transform.position;
+		targetGameObjectPosition = target.transform.position + lookAtPlayerPositionOffset;
 		cameraTargetPosition = targetGameObjectPosition + (playerPosition - targetGameObjectPosition).normalized * captureCamDistance;
 
 		cameraTargetPosition = new Vector3 (cameraTargetPosition.x, lookAtPlayerPositionOffset.y, cameraTargetPosition.z);
