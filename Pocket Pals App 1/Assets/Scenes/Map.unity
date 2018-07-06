@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -9182,6 +9182,11 @@ Prefab:
       propertyPath: _latitudeLongitudeString
       value: 50.172600, -5.126206
       objectReference: {fileID: 0}
+    - target: {fileID: 114699741994887164, guid: cadd1a63b8767fe4aabbc56044ff1932,
+        type: 2}
+      propertyPath: _shouldUpdate
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
   m_ParentPrefab: {fileID: 100100000, guid: cadd1a63b8767fe4aabbc56044ff1932, type: 2}
@@ -10637,6 +10642,8 @@ MonoBehaviour:
   cameraController: {fileID: 1331972350}
   miniGame: {fileID: 1072576559}
   virtualGarden: {fileID: 32817350}
+  ResourceSpotDistance: 12
+  ResourceSpotUpness: 0.5
   IsDebug: 0
   maxCaptureDistance: 16
 --- !u!114 &1331972350
@@ -10654,6 +10661,7 @@ MonoBehaviour:
   compass: {fileID: 1084178749}
   controls: {fileID: 1331972349}
   VGCentre: {fileID: 36652898}
+  cbtp: {fileID: 1514764283}
 --- !u!222 &1331972351
 CanvasRenderer:
   m_ObjectHideFlags: 0

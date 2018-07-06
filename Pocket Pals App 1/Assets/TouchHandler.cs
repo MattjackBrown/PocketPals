@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Mapbox.Unity.Map;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,8 +10,11 @@ public class TouchHandler : MonoBehaviour {
 	public CaptureMiniGame miniGame;
 	public VirtualSceneParent virtualGarden;
 
-	// The state machine for the controls
-	enum ControlScheme {
+    public float ResourceSpotDistance = 30.0f;
+    public float ResourceSpotUpness = 0.5f;
+
+    // The state machine for the controls
+    enum ControlScheme {
 		map,
 		mapCameraTransition,
 		menu,
@@ -56,7 +60,7 @@ public class TouchHandler : MonoBehaviour {
 		case ControlScheme.map:
 			{
                 UseMapControls ();
-			}
+             }
 			break;
 
 		case ControlScheme.mapCameraTransition:
@@ -184,13 +188,20 @@ public class TouchHandler : MonoBehaviour {
 	}
 
 	public bool CameraShouldFollowGPS() {
-		if (controlScheme == ControlScheme.miniGame || 
-			controlScheme == ControlScheme.VirtualGarden ||
-			controlScheme == ControlScheme.VirtualGardenCameraTransition ||
-			controlScheme == ControlScheme.VirtualGardenInfo)
-			return false;
-		else
-			return true;
+        if (controlScheme == ControlScheme.miniGame ||
+            controlScheme == ControlScheme.VirtualGarden ||
+            controlScheme == ControlScheme.VirtualGardenCameraTransition ||
+            controlScheme == ControlScheme.VirtualGardenInfo ||
+            controlScheme == ControlScheme.ResourceSpotControls ||
+            controlScheme == ControlScheme.ResourceSpotTransition)
+        {
+            GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = false;
+            return false;
+        }
+
+        else
+            GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = true;
+            return true;
 	}
 
 	void DebugTouch()
@@ -212,8 +223,7 @@ public class TouchHandler : MonoBehaviour {
 			}
             else if (hit.transform.gameObject.GetComponent<ResourceSpotParent>())
             {
-                ResourceSpotParent rsp = hit.transform.gameObject.GetComponent<ResourceSpotParent>();
-                rsp.Clicked();
+                TryResourceSpotSequence(hit.transform.gameObject);
             }
             else if (IsDebug)
 			{
@@ -223,6 +233,18 @@ public class TouchHandler : MonoBehaviour {
 
 		}
 	}
+
+    private void TryResourceSpotSequence(GameObject gd)
+    {
+        ResourceSpotParent rsp = gd.GetComponent<ResourceSpotParent>();
+        if (rsp.Used) return;
+        
+        //set the sign to be facing the player
+        Quaternion targetRotation = Quaternion.LookRotation(GPS.Insatance.girl.transform.position - gd.transform.position);
+        gd.transform.rotation = targetRotation;
+
+        cameraController.ZoomInCamInit(rsp.gameObject, ResourceSpotUpness, ResourceSpotDistance);
+    }
 
 	public void CheckForMapTap() {
 
@@ -255,8 +277,8 @@ public class TouchHandler : MonoBehaviour {
                     }
 					else if (hit.transform.gameObject.GetComponent("ResourceSpotParent") && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance)
                     {
-                        ResourceSpotParent rsp = hit.transform.gameObject.GetComponent<ResourceSpotParent>();
-						cameraController.ZoomInCamInit(rsp.gameObject);
+                        TryResourceSpotSequence(hit.transform.gameObject);
+
                     }
 				}
 			}

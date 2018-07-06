@@ -59,6 +59,8 @@ public class CameraController : MonoBehaviour
 	public GameObject VGCentre;
 	Vector3 VGZoomedPosition, VGInfoLookAtPoint, VGInfoCamOffset;
 
+    public CameraBoundsTileProvider cbtp;
+
 	// Use this for initialization
 	void Start () {
 
@@ -203,17 +205,17 @@ public class CameraController : MonoBehaviour
 
 	public void MapZoomOutInit() {
 
-		// Does this need a position update?
-
-		isZoomingIn = false;
+        // Does this need a position update?
+        isZoomingIn = false;
 		lerp = 0.0f;
 		controls.MapCameraTransition ();
 	}
 
 	void MoveCaptureCamToCaptureView() {
-		
-		// Check if arrived. Lerp is complete when == 1.0f
-		if (lerp >= 1.0f) {
+
+
+        // Check if arrived. Lerp is complete when == 1.0f
+        if (lerp >= 1.0f) {
 
 			// Init minigame!!!
 			controls.miniGame.InitMiniGame (targetPocketPal.GetComponent<PocketPalParent>());
@@ -587,9 +589,9 @@ public class CameraController : MonoBehaviour
 		VGPinchLerp = 0.0f;
 	}
 
-	public void ZoomInCamInit (GameObject target) {
-
-		playerPosition = player.transform.position;
+	public void ZoomInCamInit (GameObject target, float Upness, float distance)
+    {
+        playerPosition = player.transform.position;
 
 		// Store for later use
 		targetGameObject = target;
@@ -600,11 +602,12 @@ public class CameraController : MonoBehaviour
 		// Store the starting position from the player to return to
 		returnCamOffsetAfterCapture = transform.position - playerPosition;
 
-		// Get the target camera position based on player position and target position
-		targetGameObjectPosition = target.transform.position + lookAtPlayerPositionOffset;
-		cameraTargetPosition = targetGameObjectPosition + (playerPosition - targetGameObjectPosition).normalized * captureCamDistance;
+        // Get the target camera position based on player position and target position
+        targetGameObjectPosition = target.transform.position;
+        targetGameObjectPosition.y += target.transform.lossyScale.y * Upness;
+		cameraTargetPosition = targetGameObjectPosition + (playerPosition - targetGameObjectPosition).normalized * distance;
 
-		cameraTargetPosition = new Vector3 (cameraTargetPosition.x, lookAtPlayerPositionOffset.y, cameraTargetPosition.z);
+		cameraTargetPosition = new Vector3 (cameraTargetPosition.x, targetGameObjectPosition.y, cameraTargetPosition.z);
 
 		// So that Update() knows to zoom in
 		isZoomingIn = true;

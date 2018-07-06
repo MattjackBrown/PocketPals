@@ -28,6 +28,8 @@ namespace Mapbox.Unity.Map
 		float _elapsedTime;
 		bool _shouldUpdate;
 
+        public bool ShouldUpdate = true;
+
 		Vector2d _currentLatitudeLongitude;
 		UnwrappedTileId _cachedTile;
 		UnwrappedTileId _currentTile;
@@ -41,6 +43,7 @@ namespace Mapbox.Unity.Map
 
 		void Update()
 		{
+            if (!ShouldUpdate) return;
 			if (!_shouldUpdate)
 			{
 				return;
@@ -75,6 +78,8 @@ namespace Mapbox.Unity.Map
 
 		void Cleanup(UnwrappedTileId currentTile)
 		{
+
+            Debug.Log("Cleanuop");
 			var keys = _activeTiles.Keys.ToList();
 			for (int i = 0; i < keys.Count; i++)
 			{

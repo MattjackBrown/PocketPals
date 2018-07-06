@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class ResourceSpotParent : MonoBehaviour
 {
-
-    public Vector2 IngameLocation { set; get; }
-    public Vector2 LatLonLocation { set; get; }
-
     private Animator anim;
+
+    public bool Used = false;
 
     private void Start()
     {
@@ -16,8 +14,10 @@ public class ResourceSpotParent : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+
+
 	public void Init() {
-		// Called from the camera controller the moment it has fully zoomed in
+        // Called from the camera controller the moment it has fully zoomed in
 
 		// Temp. Anything else?
 		Clicked();
@@ -25,10 +25,13 @@ public class ResourceSpotParent : MonoBehaviour
 
     public void Clicked()
     {
+        Used = true;
+
+        Debug.Log("Clicked");
+
         anim.SetBool("Clicked", true);
 
-        //To DO: Zoom in to the game object
-
+        LocalDataManager.Instance.AddItem(new ItemData("Berries", 1));
     }
     public void Finished()
     {
