@@ -231,7 +231,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4522965207401352}
   - component: {fileID: 95189755551469842}
-  - component: {fileID: 65627543988697564}
   - component: {fileID: 114732149014039894}
   m_Layer: 0
   m_Name: GoldfinchPrefab
@@ -504,6 +503,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4027291022958456}
+  - component: {fileID: 65406035864819112}
   m_Layer: 0
   m_Name: Chaffinch_Geometry
   m_TagString: Untagged
@@ -1234,12 +1234,12 @@ Transform:
   m_Father: {fileID: 4328445659154696}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65627543988697564
+--- !u!65 &65406035864819112
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1323743547649368}
+  m_GameObject: {fileID: 1725337394607792}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

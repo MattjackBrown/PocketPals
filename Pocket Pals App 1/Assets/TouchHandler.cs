@@ -18,7 +18,9 @@ public class TouchHandler : MonoBehaviour {
 		VirtualGarden,
 		VirtualGardenCameraTransition,
 		VirtualGardenInfo,
-		VirtualGardenInfoTransition
+		VirtualGardenInfoTransition,
+		ResourceSpotControls,
+		ResourceSpotTransition
 	}
 
 	ControlScheme controlScheme;
@@ -110,6 +112,18 @@ public class TouchHandler : MonoBehaviour {
 				cameraController.VGUpdateInfoCam ();
 			}
 			break;
+
+		case ControlScheme.ResourceSpotControls:
+			{
+
+			}
+			break;
+
+		case ControlScheme.ResourceSpotTransition:
+			{
+				cameraController.UpdateZoomCam ();
+			}
+			break;
 		}
 	}
 
@@ -151,6 +165,10 @@ public class TouchHandler : MonoBehaviour {
 
 	public void VirtualGardenInfoTransitionControls () {
 		controlScheme = ControlScheme.VirtualGardenInfoTransition;
+	}
+
+	public void ResourceSpotControls() {
+		controlScheme = ControlScheme.ResourceSpotControls;
 	}
 
 	public void InitVirtualGardenControls() {
@@ -231,10 +249,10 @@ public class TouchHandler : MonoBehaviour {
                         // Only need to find one, Don't bother checking other touches after this
                         return;
                     }
-                    else if (hit.transform.gameObject.GetComponent("ResourceSpotParent"))
+					else if (hit.transform.gameObject.GetComponent("ResourceSpotParent") && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance)
                     {
                         ResourceSpotParent rsp = hit.transform.gameObject.GetComponent<ResourceSpotParent>();
-                        rsp.Clicked();
+						cameraController.ZoomInCamInit(rsp.gameObject);
                     }
 				}
 			}

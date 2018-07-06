@@ -40,9 +40,9 @@ public class CameraController : MonoBehaviour
 	Vector3 returnCamOffsetAfterCapture;
 
 	// The positions used to lerp the camera position from map to minigame view
-	Vector3 cameraTargetPosition, cameraLookAtPoint, cameraStartPosition, cameraLookAtStartPosition, targetPocketPalPosition;
+	Vector3 cameraTargetPosition, cameraLookAtPoint, cameraStartPosition, cameraLookAtStartPosition, targetGameObjectPosition;
 
-	GameObject targetPocketPal;
+	GameObject targetPocketPal, targetGameObject;
 
 	bool isZoomingIn = false;
 	bool isMovingToInspect = false;
@@ -177,8 +177,8 @@ public class CameraController : MonoBehaviour
 		returnCamOffsetAfterCapture = transform.position - playerPosition;
 
 		// Get the target camera position based on player position and pocketPalPosition
-		targetPocketPalPosition = targetPocketPal.transform.position;
-		cameraTargetPosition = targetPocketPalPosition + (playerPosition - targetPocketPalPosition).normalized * captureCamDistance;
+		targetGameObjectPosition = targetPocketPal.transform.position;
+		cameraTargetPosition = targetGameObjectPosition + (playerPosition - targetGameObjectPosition).normalized * captureCamDistance;
 
 		cameraTargetPosition = new Vector3 (cameraTargetPosition.x, lookAtPlayerPositionOffset.y, cameraTargetPosition.z);
 
@@ -227,7 +227,7 @@ public class CameraController : MonoBehaviour
 			transform.position = Vector3.Lerp (cameraStartPosition, cameraTargetPosition, lerp);
 
 			// Lerp the lookAtPoint
-			cameraLookAtPoint = Vector3.Lerp (cameraLookAtStartPosition, targetPocketPalPosition, lerp);
+			cameraLookAtPoint = Vector3.Lerp (cameraLookAtStartPosition, targetGameObjectPosition, lerp);
 
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
@@ -254,7 +254,7 @@ public class CameraController : MonoBehaviour
 			transform.position = Vector3.Lerp (cameraTargetPosition, returnCamOffsetAfterCapture + playerPosition, lerp);
 
 			// Lerp the lookAtPoint
-			cameraLookAtPoint = Vector3.Lerp (targetPocketPalPosition, playerPosition + lookAtPlayerPositionOffset, lerp);
+			cameraLookAtPoint = Vector3.Lerp (targetGameObjectPosition, playerPosition + lookAtPlayerPositionOffset, lerp);
 
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
@@ -349,7 +349,7 @@ public class CameraController : MonoBehaviour
 		cameraLookAtStartPosition = cameraStartPosition + transform.forward;
 
 		// Get the target camera position
-		targetPocketPalPosition = targetPocketPal.transform.position;
+		targetGameObjectPosition = targetPocketPal.transform.position;
 
 		// Better way without hardcoding. Picks a targetPosition based on the direction to the centre and a cam distance
 		cameraTargetPosition = controls.virtualGarden.GetViewPosition();
@@ -359,7 +359,7 @@ public class CameraController : MonoBehaviour
 		VGPinchLerp = 0.0f;
 
 		// Temp. VGZoomedPosition set as halfway between the camera position and the target PPal
-		VGZoomedPosition = cameraTargetPosition + (targetPocketPalPosition - cameraTargetPosition) / 2.0f;
+		VGZoomedPosition = cameraTargetPosition + (targetGameObjectPosition - cameraTargetPosition) / 2.0f;
 
 		// Set the controlScheme
 		controls.VirtualGardenCameraTransitionControls ();
@@ -387,7 +387,7 @@ public class CameraController : MonoBehaviour
 			transform.position = Vector3.Lerp (cameraStartPosition, cameraTargetPosition, lerp);
 
 			// Lerp the lookAtPoint
-			cameraLookAtPoint = Vector3.Lerp (cameraLookAtStartPosition, targetPocketPalPosition, lerp);
+			cameraLookAtPoint = Vector3.Lerp (cameraLookAtStartPosition, targetGameObjectPosition, lerp);
 
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
@@ -416,7 +416,7 @@ public class CameraController : MonoBehaviour
 			lerp += Time.deltaTime * virtualGardenMovementSpeed / 2.0f;
 
 			// Lerp the lookAtPoint
-			cameraLookAtPoint = Vector3.Lerp (cameraLookAtStartPosition, targetPocketPalPosition, lerp);
+			cameraLookAtPoint = Vector3.Lerp (cameraLookAtStartPosition, targetGameObjectPosition, lerp);
 
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
@@ -478,7 +478,7 @@ public class CameraController : MonoBehaviour
 		cameraLookAtStartPosition = cameraStartPosition + transform.forward;
 
 		// Get the target camera position
-		targetPocketPalPosition = targetPocketPal.transform.position;
+		targetGameObjectPosition = targetPocketPal.transform.position;
 
 		VGInfoLookAtPoint = controls.virtualGarden.GetInspectLookAtPosition ();
 
@@ -558,7 +558,7 @@ public class CameraController : MonoBehaviour
 			transform.position = Vector3.Lerp (cameraTargetPosition, cameraStartPosition, lerp);
 
 			// Lerp the lookAtPoint
-			cameraLookAtPoint = Vector3.Lerp (VGInfoLookAtPoint, targetPocketPalPosition, lerp);
+			cameraLookAtPoint = Vector3.Lerp (VGInfoLookAtPoint, targetGameObjectPosition, lerp);
 
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
@@ -582,8 +582,72 @@ public class CameraController : MonoBehaviour
 	public void VGUpdateCameraPositions () {
 		
 		// Temp. VGZoomedPosition set as halfway between the camera position and the target PPal
-		VGZoomedPosition = cameraTargetPosition + (targetPocketPalPosition - cameraTargetPosition) / 2.0f;
+		VGZoomedPosition = cameraTargetPosition + (targetGameObjectPosition - cameraTargetPosition) / 2.0f;
 		cameraTargetPosition = controls.virtualGarden.GetViewPosition();
 		VGPinchLerp = 0.0f;
+	}
+
+	public void ZoomInCamInit (GameObject target) {
+
+		playerPosition = player.transform.position;
+
+		// Store for later use
+		targetGameObject = target;
+
+		cameraStartPosition = transform.position;
+		cameraLookAtStartPosition = playerPosition + lookAtPlayerPositionOffset;
+
+		// Store the starting position from the player to return to
+		returnCamOffsetAfterCapture = transform.position - playerPosition;
+
+		// Get the target camera position based on player position and target position
+		targetGameObjectPosition = target.transform.position;
+		cameraTargetPosition = targetGameObjectPosition + (playerPosition - targetGameObjectPosition).normalized * captureCamDistance;
+
+		cameraTargetPosition = new Vector3 (cameraTargetPosition.x, lookAtPlayerPositionOffset.y, cameraTargetPosition.z);
+
+		// So that Update() knows to zoom in
+		isZoomingIn = true;
+
+		// For the Vector3.lerp function
+		lerp = 0.0f;
+
+		// Disable the controls while the camera zooms in
+		controls.MapCameraTransition();
+	}
+
+	public void UpdateZoomCam() {
+
+		if (isZoomingIn) {
+			MoveZoomCamIn ();
+		} else {
+			MoveCaptureCamToMapView ();
+		}
+	}
+
+	void MoveZoomCamIn() {
+
+		// Check if arrived. Lerp is complete when == 1.0f
+		if (lerp >= 1.0f) {
+
+			// Update the control scheme
+			controls.ResourceSpotControls ();
+
+			targetGameObject.GetComponent<ResourceSpotParent> ().Init ();
+
+		} else {
+
+			// Advance the lerp float
+			lerp += Time.deltaTime * captureZoomInSpeed;
+
+			// Not sure about this bit. It works fine but the lerp may have to be done differently to smooth
+			transform.position = Vector3.Lerp (cameraStartPosition, cameraTargetPosition, lerp);
+
+			// Lerp the lookAtPoint
+			cameraLookAtPoint = Vector3.Lerp (cameraLookAtStartPosition, targetGameObjectPosition, lerp);
+
+			// Set the look at transform for the camera
+			transform.LookAt (cameraLookAtPoint);
+		}
 	}
 }

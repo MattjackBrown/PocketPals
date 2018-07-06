@@ -79,6 +79,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4078562317552810}
+  - component: {fileID: 65172245628041894}
   m_Layer: 0
   m_Name: Chaffinch_Geometry
   m_TagString: Untagged
@@ -398,7 +399,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4846754293846320}
   - component: {fileID: 95346911661490156}
-  - component: {fileID: 65262750505408992}
   - component: {fileID: 114854771797210480}
   m_Layer: 0
   m_Name: ChaffinchPrefab
@@ -1234,12 +1234,12 @@ Transform:
   m_Father: {fileID: 4397770357049942}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65262750505408992
+--- !u!65 &65172245628041894
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1578326694407954}
+  m_GameObject: {fileID: 1190291859532908}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

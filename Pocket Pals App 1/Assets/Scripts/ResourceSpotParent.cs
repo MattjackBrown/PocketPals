@@ -16,6 +16,13 @@ public class ResourceSpotParent : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+	public void Init() {
+		// Called from the camera controller the moment it has fully zoomed in
+
+		// Temp. Anything else?
+		Clicked();
+	}
+
     public void Clicked()
     {
         anim.SetBool("Clicked", true);
@@ -27,6 +34,8 @@ public class ResourceSpotParent : MonoBehaviour
     {
         anim.SetBool("Clicked", false);
         transform.GetChild(0).gameObject.SetActive(false);
+
         //To DO: Zoom back out
+		CameraController.Instance.MapZoomOutInit();
     }
 }

@@ -125,6 +125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4600050452761350}
   - component: {fileID: 137789191682795470}
+  - component: {fileID: 65830974723945494}
   m_Layer: 0
   m_Name: Jackdaw_Model
   m_TagString: Untagged
@@ -231,7 +232,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4090363122167922}
   - component: {fileID: 95877844908717460}
-  - component: {fileID: 65047752195159384}
   - component: {fileID: 114837578196522878}
   m_Layer: 0
   m_Name: CarrionCrowPrefab
@@ -1029,12 +1029,12 @@ Transform:
   m_Father: {fileID: 4296039466365662}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65047752195159384
+--- !u!65 &65830974723945494
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1564998953315422}
+  m_GameObject: {fileID: 1326947071768898}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

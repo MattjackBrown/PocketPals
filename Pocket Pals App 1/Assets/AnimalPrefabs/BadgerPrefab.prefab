@@ -410,6 +410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4125030485156570}
   - component: {fileID: 137162209941517964}
+  - component: {fileID: 65550927491106286}
   m_Layer: 0
   m_Name: Badger_Body
   m_TagString: Untagged
@@ -487,7 +488,6 @@ GameObject:
   - component: {fileID: 4455052254720746}
   - component: {fileID: 95494727559113178}
   - component: {fileID: 114659707230609244}
-  - component: {fileID: 65635306771868060}
   m_Layer: 0
   m_Name: BadgerPrefab
   m_TagString: Untagged
@@ -1029,12 +1029,12 @@ Transform:
   m_Father: {fileID: 4645159263031822}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65635306771868060
+--- !u!65 &65550927491106286
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1794521351321068}
+  m_GameObject: {fileID: 1577046747125438}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

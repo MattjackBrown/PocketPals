@@ -95,6 +95,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4229672650513580}
+  - component: {fileID: 65851025139458742}
   m_Layer: 0
   m_Name: Robin_geometry
   m_TagString: Untagged
@@ -246,7 +247,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4678923490320560}
   - component: {fileID: 95332987027564026}
-  - component: {fileID: 65007290968183374}
   - component: {fileID: 114504641273237518}
   m_Layer: 0
   m_Name: RobinNewPrefab
@@ -1435,12 +1435,12 @@ Transform:
   m_Father: {fileID: 4678923490320560}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65007290968183374
+--- !u!65 &65851025139458742
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1356439492026338}
+  m_GameObject: {fileID: 1147428670811110}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

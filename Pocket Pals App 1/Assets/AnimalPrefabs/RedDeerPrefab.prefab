@@ -200,6 +200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4064196937689204}
   - component: {fileID: 137389024616703732}
+  - component: {fileID: 65262612931112090}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -216,7 +217,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4665487374103634}
   - component: {fileID: 95853198670452922}
-  - component: {fileID: 65644296700053340}
   - component: {fileID: 114814914853100404}
   m_Layer: 0
   m_Name: RedDeerPrefab
@@ -1264,12 +1264,12 @@ Transform:
   m_Father: {fileID: 4164497037982824}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65644296700053340
+--- !u!65 &65262612931112090
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1314469397137532}
+  m_GameObject: {fileID: 1308855707364196}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
