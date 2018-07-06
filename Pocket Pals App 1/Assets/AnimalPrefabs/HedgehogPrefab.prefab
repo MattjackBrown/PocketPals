@@ -177,7 +177,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4054065051361764}
   - component: {fileID: 95446569508635894}
-  - component: {fileID: 65052813835066168}
   - component: {fileID: 114442773761147572}
   m_Layer: 0
   m_Name: HedgehogPrefab
@@ -503,6 +502,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4657124042123742}
+  - component: {fileID: 65265505170071892}
   m_Layer: 0
   m_Name: Hedgehog
   m_TagString: Untagged
@@ -1426,12 +1426,12 @@ Transform:
   m_Father: {fileID: 4413922466198796}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65052813835066168
+--- !u!65 &65265505170071892
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1280526794503946}
+  m_GameObject: {fileID: 1659584146761020}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

@@ -366,7 +366,6 @@ GameObject:
   - component: {fileID: 4123452175827774}
   - component: {fileID: 95058183882964150}
   - component: {fileID: 114635689868791930}
-  - component: {fileID: 65079987182011740}
   m_Layer: 0
   m_Name: OwlPrefab
   m_TagString: Untagged
@@ -458,6 +457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4485440975502278}
   - component: {fileID: 137990545291546280}
+  - component: {fileID: 65109384680162040}
   m_Layer: 0
   m_Name: Owl_In
   m_TagString: Untagged
@@ -1116,12 +1116,12 @@ Transform:
   m_Father: {fileID: 4951090873448148}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65079987182011740
+--- !u!65 &65109384680162040
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1573040015452388}
+  m_GameObject: {fileID: 1730419194335368}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

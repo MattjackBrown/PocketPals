@@ -140,6 +140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4824479343034076}
   - component: {fileID: 137069235830815260}
+  - component: {fileID: 65114319614451716}
   m_Layer: 0
   m_Name: Capercaillie_Model
   m_TagString: Untagged
@@ -276,7 +277,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4508812246968346}
   - component: {fileID: 95976863608759482}
-  - component: {fileID: 65873319485766296}
   - component: {fileID: 114781222017251584}
   m_Layer: 0
   m_Name: CapercailliePrefab
@@ -1058,12 +1058,12 @@ Transform:
   m_Father: {fileID: 4210844456769672}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65873319485766296
+--- !u!65 &65114319614451716
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1541897754408016}
+  m_GameObject: {fileID: 1194686832043414}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

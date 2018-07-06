@@ -60,6 +60,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	// TODO Need to Rotate the ppal between movements
 	bool needToRotate = false;
 	float startingRotationY, targetRotationY;
+	Vector3 PPalTargetDirection;
 
 
 	// Use this for initialization
@@ -234,7 +235,8 @@ public class CaptureMiniGame : MonoBehaviour {
 		// If arrived at current target lerp will be >= 1.0f
 		if (patrolLerp >= 1.0f) {
 
-//			needToRotate = true;
+			needToRotate = true;
+
 			startingRotationY = pocketPal.transform.rotation.y;
 
 			// Reset the lerp float
@@ -257,6 +259,8 @@ public class CaptureMiniGame : MonoBehaviour {
 
 			// Used for the rotation between patrols
 //			targetRotationY = pocketPal.transform.LookAt (nextPosition);
+
+			PPalTargetDirection = nextPosition - previousPosition;
 		}
 
 
@@ -272,7 +276,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Rotate or move the PPal
 		if (needToRotate) {
 
-			pocketPal.transform.Rotate (0.0f, 5.0f, 0.0f);
+			RotatePPal ();
 
 		} else {
 
@@ -283,6 +287,21 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Funtion sets the depth of field using the touched on position's distance away
 		AdjustPostProcessing (viewfinderPosition);
+	}
+
+	void RotatePPal()
+	{
+		// The step size is equal to speed times frame time.
+		float step = 10.0f * patrolSpeed * Time.deltaTime;
+
+		Vector3 newDir = Vector3.RotateTowards(pocketPal.transform.forward, PPalTargetDirection, step, 0.0f);
+
+		// Move our position a step closer to the target.
+		pocketPal.transform.rotation = Quaternion.LookRotation(newDir);
+
+		// Check for completion
+		if (newDir.normalized == PPalTargetDirection.normalized)
+			needToRotate = false;
 	}
 
 	void AdjustPostProcessing(Vector2 touchPosition) {

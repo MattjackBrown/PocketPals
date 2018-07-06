@@ -201,7 +201,6 @@ GameObject:
   - component: {fileID: 4827233342192080}
   - component: {fileID: 95677093077006230}
   - component: {fileID: 114251111557297580}
-  - component: {fileID: 65278562452916322}
   m_Layer: 0
   m_Name: RedFoxPrefab
   m_TagString: Untagged
@@ -368,6 +367,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4597894322580116}
   - component: {fileID: 137854817502652636}
+  - component: {fileID: 65875387696770736}
   m_Layer: 0
   m_Name: Red_Fox
   m_TagString: Untagged
@@ -1319,12 +1319,12 @@ Transform:
   m_Father: {fileID: 4919092921958528}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65278562452916322
+--- !u!65 &65875387696770736
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1238815450974086}
+  m_GameObject: {fileID: 1494033545902358}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

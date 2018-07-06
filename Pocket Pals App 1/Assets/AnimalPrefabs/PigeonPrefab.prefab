@@ -380,6 +380,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4803945056549594}
   - component: {fileID: 137911758369810998}
+  - component: {fileID: 65585147549572424}
   m_Layer: 0
   m_Name: Pigeon
   m_TagString: Untagged
@@ -456,7 +457,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4108137719996192}
   - component: {fileID: 95582797840037776}
-  - component: {fileID: 65189240337552350}
   - component: {fileID: 114128877560972740}
   m_Layer: 0
   m_Name: PigeonPrefab
@@ -1493,12 +1493,12 @@ Transform:
   m_Father: {fileID: 4737840325724920}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65189240337552350
+--- !u!65 &65585147549572424
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1480657924768792}
+  m_GameObject: {fileID: 1362781352460194}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1

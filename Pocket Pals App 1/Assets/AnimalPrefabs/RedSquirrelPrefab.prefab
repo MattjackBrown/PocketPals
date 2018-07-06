@@ -380,7 +380,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4287473429551948}
   - component: {fileID: 95271896419287426}
-  - component: {fileID: 65174425982204406}
   - component: {fileID: 114874317404459630}
   m_Layer: 0
   m_Name: RedSquirrelPrefab
@@ -578,6 +577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4567643632170542}
   - component: {fileID: 137988180757440892}
+  - component: {fileID: 65250017289191624}
   m_Layer: 0
   m_Name: squirrel
   m_TagString: Untagged
@@ -1291,12 +1291,12 @@ Transform:
   m_Father: {fileID: 4154516587563658}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &65174425982204406
+--- !u!65 &65250017289191624
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1676706781926812}
+  m_GameObject: {fileID: 1876925128850706}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
