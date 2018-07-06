@@ -134,7 +134,7 @@ public class TouchHandler : MonoBehaviour {
 	// Setters for all controlSchemes
 	public void MapControls() {
 		controlScheme = ControlScheme.map;
-	}
+    }
 	
 	public void MapCameraTransition() {
 		controlScheme = ControlScheme.mapCameraTransition;
@@ -188,21 +188,18 @@ public class TouchHandler : MonoBehaviour {
 	}
 
 	public bool CameraShouldFollowGPS() {
-        if (controlScheme == ControlScheme.miniGame ||
-            controlScheme == ControlScheme.VirtualGarden ||
-            controlScheme == ControlScheme.VirtualGardenCameraTransition ||
-            controlScheme == ControlScheme.VirtualGardenInfo ||
-            controlScheme == ControlScheme.ResourceSpotControls ||
-            controlScheme == ControlScheme.ResourceSpotTransition)
+        if (controlScheme == ControlScheme.menu || controlScheme == ControlScheme.map)
+        {
+            GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = true;
+            return true;
+
+        }
+        else
         {
             GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = false;
             return false;
         }
-
-        else
-            GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = true;
-            return true;
-	}
+    }
 
 	void DebugTouch()
 	{
@@ -243,6 +240,8 @@ public class TouchHandler : MonoBehaviour {
 
     private void TryResourceSpotSequence(GameObject gd)
     {
+        GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = false;
+
         ResourceSpotParent rsp = gd.GetComponent<ResourceSpotParent>();
         if (rsp.Used) return;
         
