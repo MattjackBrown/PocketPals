@@ -217,13 +217,12 @@ public class TouchHandler : MonoBehaviour {
 		//Check if the ray hits any collider
 		if (Physics.Raycast(ray, out hit))
 		{
-            if (hit.transform.gameObject.GetComponent("PocketPalParent") && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance)
+            if (hit.transform.gameObject.GetComponentInParent<PocketPalParent>() && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance)
             {
                 // Initialise the capture cam values
-                cameraController.CaptureCamInit(hit.transform.gameObject);
+                cameraController.CaptureCamInit(hit.transform.parent.gameObject);
 
-                PocketPalParent hitPocketPal = (PocketPalParent)hit.transform.gameObject.GetComponent("PocketPalParent");
-                Debug.Log(hitPocketPal.PocketPalID);
+                PocketPalParent hitPocketPal = hit.transform.gameObject.GetComponentInParent<PocketPalParent>();
 
                 // Only need to find one, Don't bother checking other touches after this
                 return;
@@ -272,23 +271,21 @@ public class TouchHandler : MonoBehaviour {
 				if (Physics.Raycast (ray, out hit))
 				{
                     // If the hit gameObject has a component "PocketPalParent" and is within the capture distance from the player
-                    if (hit.transform.gameObject.GetComponent("PocketPalParent") && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance)
+                    if (hit.transform.gameObject.GetComponentInParent<PocketPalParent>() && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance)
                     {
                         // Initialise the capture cam values
-                        cameraController.CaptureCamInit(hit.transform.gameObject);
+                        cameraController.CaptureCamInit(hit.transform.parent.gameObject);
 
-                        PocketPalParent hitPocketPal = (PocketPalParent)hit.transform.gameObject.GetComponent("PocketPalParent");
-                        Debug.Log(hitPocketPal.PocketPalID);
+                        PocketPalParent hitPocketPal = hit.transform.gameObject.GetComponentInParent<PocketPalParent>();
 
                         // Only need to find one, Don't bother checking other touches after this
                         return;
                     }
-					else if (hit.transform.gameObject.GetComponent<ResourceSpotParent>() && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance*2)
+                    else if (hit.transform.gameObject.GetComponent<ResourceSpotParent>() && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance * 2)
                     {
                         TryResourceSpotSequence(hit.transform.gameObject);
-
                     }
-				}
+                }
 			}
 		}
 	}
