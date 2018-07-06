@@ -72,6 +72,13 @@ public class LocalDataManager : MonoBehaviour {
         ServerDataManager.Instance.UpdatePlayerExp(localData);
     }
 
+    public void AddItem(ItemData id)
+    {
+        localData.ItemInv.AddItem(id);
+
+        ServerDataManager.Instance.WriteItem(localData, localData.ItemInv.GetItemFromID(id.ID));
+    }
+
     public void ResetLocalData()
     {
         //delete one if already exsists

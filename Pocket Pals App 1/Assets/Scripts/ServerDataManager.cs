@@ -101,8 +101,7 @@ public class ServerDataManager : MonoBehaviour {
         }
     }
 
-
-
+    //-------------- Player Stats stuff -----------\\
     public void WriteNewUser(GameData gd)
     {
         string json = gd.GetJson();
@@ -113,7 +112,7 @@ public class ServerDataManager : MonoBehaviour {
         mDatabaseRef.Child("Users").Child(gd.ID).SetRawJsonValueAsync(json);
 
         //write the user inventory to the databse.
-        WriteInventory(gd);
+
     }
 
     public void WriteExsistingUser(GameData gd)
@@ -125,23 +124,9 @@ public class ServerDataManager : MonoBehaviour {
         mDatabaseRef.Child("Users").Child(gd.ID).SetRawJsonValueAsync(json);
     }
 
-    public void WriteInventory(GameData gd)
-    {
-        foreach (PocketPalData ppd in gd.Inventory.GetMyPocketPals())
-        {
-            WritePocketPal(gd, ppd);
-        }
-    }
-
     public void UpdateDistace(GameData gd)
     {
         mDatabaseRef.Child("Users").Child(gd.ID).Child("DistanceTravelled").SetValueAsync(gd.DistanceTravelled);
-    }
-
-    public void WritePocketPal(GameData gd, PocketPalData ppd)
-    {
-        string json = JsonUtility.ToJson(ppd);
-        mDatabaseRef.Child("Inventories").Child(gd.ID).Child(ppd.ID.ToString()).SetRawJsonValueAsync(json);
     }
 
     public void UpdatePlayerName(GameData gd)
@@ -197,9 +182,6 @@ public class ServerDataManager : MonoBehaviour {
                                 gd.ID = (string)obj.Value;
                                 break;
 
-                            case "inventoryid":
-                                gd.inventoryID = (string)obj.Value;
-                                break;
                         }
                     }
                 }
@@ -220,15 +202,78 @@ public class ServerDataManager : MonoBehaviour {
         });
     }
 
+    //----------- Item Inventory Stuff -------------\\
+
+    public void WriteItemInventory(GameData gd)
+    {
+        foreach (ItemData id in gd.ItemInv.GetItemDatas())
+        {
+            WriteItem(gd, id);
+        }
+    }
+
+    public void GetItemInventory(GameData gd)
+    {
+        //Start a task that will populate the players inventory with their ppals.
+        mDatabaseRef.Child("ItemInventories").Child(gd.ID).GetValueAsync().ContinueWith(task => {
+            if (task.IsFaulted)
+            {
+                Debug.Log("Failed Getting user from databse Writing new user");
+                WriteItemInventory(gd);
+            }
+            else if (task.IsCompleted)
+            {
+                try
+                {
+                    DataSnapshot snapshot = task.Result;
+                    foreach (DataSnapshot obj in snapshot.Children)
+                    {
+                        ItemData id = new ItemData();
+
+                        foreach (DataSnapshot child in obj.Children)
+                        {
+                            switch (child.Key.ToLower())
+                            {
+                                case "numberowned":
+                                    id.numberOwned = Convert.ToInt32(child.Value);
+                                    break;
+                                case "id":
+                                    id.ID = Convert.ToInt32(child.Value);
+                                    break;
+                                case "name":
+                                    id.name = Convert.ToString(child.Value);
+                                    break;
+                            }
+                        }
+                        gd.ItemInv.AddItem(id);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.Log(ex);
+                }
+                WelcomeScreen.SetActive(true);
+                LocalDataManager.Instance.AddItem(new ItemData("Berris", 1));
+            }
+        });
+    }
+
+    public void WriteItem(GameData gd, ItemData id)
+    {
+        string json = JsonUtility.ToJson(id);
+        mDatabaseRef.Child("ItemInventories").Child(gd.ID).Child(id.ID.ToString()).SetRawJsonValueAsync(json);
+    }
+
+    //----------- PocketPalInventoryStuff ---------------\\
+
     public void GetInventory(GameData gd)
     {
-        Debug.Log(gd.inventoryID);
         //Start a task that will populate the players inventory with their ppals.
         mDatabaseRef.Child("Inventories").Child(gd.ID).GetValueAsync().ContinueWith(task => {
             if (task.IsFaulted)
             {
                 Debug.Log("Failed Getting user from databse Writing new user");
-                WriteNewUser(gd);
+                WriteInventory(gd);
             }
             else if (task.IsCompleted)
             {
@@ -277,10 +322,26 @@ public class ServerDataManager : MonoBehaviour {
                 {
                     Debug.Log(ex);
                 }
-                WelcomeScreen.SetActive(true);
+                GetItemInventory(gd);
             }
         });
     }
+
+    public void WriteInventory(GameData gd)
+    {
+        foreach (PocketPalData ppd in gd.Inventory.GetMyPocketPals())
+        {
+            WritePocketPal(gd, ppd);
+        }
+    }
+
+    public void WritePocketPal(GameData gd, PocketPalData ppd)
+    {
+        string json = JsonUtility.ToJson(ppd);
+        mDatabaseRef.Child("Inventories").Child(gd.ID).Child(ppd.ID.ToString()).SetRawJsonValueAsync(json);
+    }
+
+    //---------------- Login Logout Statechanging stuff ------------------\\
 
     public void CreateUser(string email, string password,Text failedText)
     {

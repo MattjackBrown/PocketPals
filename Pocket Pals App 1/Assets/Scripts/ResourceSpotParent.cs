@@ -19,6 +19,7 @@ public class ResourceSpotParent : MonoBehaviour
     public void Clicked()
     {
         anim.SetBool("Clicked", true);
+
         //To DO: Zoom in to the game object
 
     }

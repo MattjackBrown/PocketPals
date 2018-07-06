@@ -11,9 +11,9 @@ public class GameData
 
     public PocketPalInventory Inventory { set; get; }
 
-    public float EXP;
+    public ItemInventory ItemInv { set; get; }
 
-    public string inventoryID;
+    public float EXP;
 
 	// The number of berries in the inventory
 	int Berries;
@@ -25,8 +25,7 @@ public class GameData
         EXP = 0;
         ID = "None";
         Inventory = new PocketPalInventory();
-        inventoryID = System.Guid.NewGuid().ToString();
-
+        ItemInv = new ItemInventory();
 		// Temp
 		Berries = 999;
     }
