@@ -613,7 +613,7 @@ public class CameraController : MonoBehaviour
 		lerp = 0.0f;
 
 		// Disable the controls while the camera zooms in
-		controls.MapCameraTransition();
+		controls.ResourceSpotTransition();
 	}
 
 	public void UpdateZoomCam() {

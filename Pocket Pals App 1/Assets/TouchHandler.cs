@@ -171,6 +171,10 @@ public class TouchHandler : MonoBehaviour {
 		controlScheme = ControlScheme.ResourceSpotControls;
 	}
 
+	public void ResourceSpotTransition() {
+		controlScheme = ControlScheme.ResourceSpotTransition;
+	}
+
 	public void InitVirtualGardenControls() {
 		virtualGardenTouchPlaced = false;
 	}
