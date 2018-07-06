@@ -46,12 +46,10 @@ public class ContentGenerator : MonoBehaviour
         //If the two seeds are equal (the player has not moved out of this zone) stop generating
         if (rsCurrentSeed.Contains(rsNewSeed))
         {
-            Debug.Log("Its the same");
             return null;
         }
         else
         {
-            Debug.Log("Changed");
         }
 
         rsCurrentSeed.Add(rsNewSeed);
@@ -65,7 +63,6 @@ public class ContentGenerator : MonoBehaviour
             Vector2 latLon = new Vector2();
             latLon.x =  (float)GetRandomBetweenRange(r, maxVariance, roundedLat);
             latLon.y = (float)GetRandomBetweenRange(r, maxVariance, roundedLon);
-            Debug.Log(latLon);
             ResourceStopLocations.Add(latLon);
         }
 

@@ -78,8 +78,6 @@ namespace Mapbox.Unity.Map
 
 		void Cleanup(UnwrappedTileId currentTile)
 		{
-
-            Debug.Log("Cleanuop");
 			var keys = _activeTiles.Keys.ToList();
 			for (int i = 0; i < keys.Count; i++)
 			{

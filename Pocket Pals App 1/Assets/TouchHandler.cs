@@ -217,13 +217,21 @@ public class TouchHandler : MonoBehaviour {
 		//Check if the ray hits any collider
 		if (Physics.Raycast(ray, out hit))
 		{
-			if (hit.transform.gameObject.GetComponent<PocketPalParent>())
-			{
-				cameraController.CaptureCamInit(hit.transform.gameObject);
-			}
-            else if (hit.transform.gameObject.GetComponent<ResourceSpotParent>())
+            if (hit.transform.gameObject.GetComponent("PocketPalParent") && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance)
+            {
+                // Initialise the capture cam values
+                cameraController.CaptureCamInit(hit.transform.gameObject);
+
+                PocketPalParent hitPocketPal = (PocketPalParent)hit.transform.gameObject.GetComponent("PocketPalParent");
+                Debug.Log(hitPocketPal.PocketPalID);
+
+                // Only need to find one, Don't bother checking other touches after this
+                return;
+            }
+            else if (hit.transform.gameObject.GetComponent<ResourceSpotParent>() && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance * 2)
             {
                 TryResourceSpotSequence(hit.transform.gameObject);
+
             }
             else if (IsDebug)
 			{
@@ -275,7 +283,7 @@ public class TouchHandler : MonoBehaviour {
                         // Only need to find one, Don't bother checking other touches after this
                         return;
                     }
-					else if (hit.transform.gameObject.GetComponent("ResourceSpotParent") && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance)
+					else if (hit.transform.gameObject.GetComponent<ResourceSpotParent>() && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance*2)
                     {
                         TryResourceSpotSequence(hit.transform.gameObject);
 
