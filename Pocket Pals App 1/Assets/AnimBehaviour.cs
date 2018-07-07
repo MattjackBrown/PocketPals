@@ -16,7 +16,6 @@ public class AnimBehaviour : StateMachineBehaviour {
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Debug.Log("hi");
         animator.gameObject.GetComponent<ResourceSpotParent>().Finished();
 	}
 

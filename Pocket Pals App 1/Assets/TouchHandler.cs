@@ -53,6 +53,8 @@ public class TouchHandler : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+        //Used to stop the map updating when we dont want it to.
+        CameraShouldFollowGPS();
 
 		// Choose how to parse the touch controls based on the current control scheme
 		switch (controlScheme) {
@@ -188,7 +190,7 @@ public class TouchHandler : MonoBehaviour {
 	}
 
 	public bool CameraShouldFollowGPS() {
-        if (controlScheme == ControlScheme.menu || controlScheme == ControlScheme.map)
+        if (controlScheme == ControlScheme.map)
         {
             GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = true;
             return true;
