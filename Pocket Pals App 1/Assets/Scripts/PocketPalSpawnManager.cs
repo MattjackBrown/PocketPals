@@ -88,7 +88,12 @@ public class PocketPalSpawnManager : MonoBehaviour
 
     private GameObject GetSyncedPocketPal()
     {
-        int index = ContentGenerator.Instance.GetSeededAnimal("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, 5, rarityList);
+        if (ContentGenerator.Instance.TryGenerateNewAnimalList("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, NumberOfPPals, rarityList))
+        {
+            DespawnAll();
+        }
+
+        int index = ContentGenerator.Instance.GetNextAnimalID();
 
         return AssetManager.Instance.PocketPals[index];
     }

@@ -47,6 +47,11 @@ public class AssetManager : MonoBehaviour {
         return null;
     }
 
+    public ItemData GetRandomItem()
+    {
+        return Items[Random.Range(0, Items.Length)];
+    }
+
 	// Update is called once per frame
 	void Update () {
 		

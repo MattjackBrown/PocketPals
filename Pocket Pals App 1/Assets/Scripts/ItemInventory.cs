@@ -31,7 +31,6 @@ public class ItemInventory
     {
         foreach (ItemData data in ownedItems)
         {
-            Debug.Log(ID);
             if (data.ID == ID) return data;
         }
         return null;

@@ -23,20 +23,32 @@ public class ResourceSpotParent : MonoBehaviour
 		Clicked();
 	}
 
+    public bool IsUsed()
+    {
+        if (Used)
+        {
+            return true;
+        }
+        else
+        {
+            Used = true;
+            return false;
+        }
+    }
+
     public void Clicked()
     {
-        Used = true;
 
         anim.SetBool("Clicked", true);
-
-        LocalDataManager.Instance.AddItem(new ItemData("Berries", 1));
     }
     public void Finished()
     {
         anim.SetBool("Clicked", false);
         transform.GetChild(0).gameObject.SetActive(false);
 
+        LocalDataManager.Instance.AddItem(AssetManager.Instance.GetRandomItem());
+
         //To DO: Zoom back out
-		CameraController.Instance.MapZoomOutInit();
+        CameraController.Instance.MapZoomOutInit();
     }
 }

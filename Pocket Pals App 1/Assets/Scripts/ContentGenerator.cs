@@ -99,7 +99,7 @@ public class ContentGenerator : MonoBehaviour
 		return seed.GetHashCode();
 	}
 
-	private int GetID()
+	public int GetNextAnimalID()
 	{
 		if (currentIndex >= GeneratedAnimalsIDs.Count)
 		{
@@ -110,7 +110,7 @@ public class ContentGenerator : MonoBehaviour
 		return i;
 	}
 
-	public int GetSeededAnimal(string seed, double lat, double lon, int numberOfAnimals, List<float>samples)
+	public bool TryGenerateNewAnimalList(string seed, double lat, double lon, int numberOfAnimals, List<float>samples)
 	{
 		ppNewSeed = GetSeed(seed, lat, lon);
 
@@ -126,11 +126,11 @@ public class ContentGenerator : MonoBehaviour
 			{
 				GeneratedAnimalsIDs.Add(PocketPalSpawnManager.Sampler(r, samples));
 			}
-			return GetID();     
+            return true;    
 		}
 		else
 		{
-			return GetID();
+            return false;
 		}
 	}
 

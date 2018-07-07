@@ -9,6 +9,7 @@ public class TouchHandler : MonoBehaviour {
 	public CameraController cameraController;
 	public CaptureMiniGame miniGame;
 	public VirtualSceneParent virtualGarden;
+    public GameObject IngameMenu;
 
     public float ResourceSpotDistance = 30.0f;
     public float ResourceSpotUpness = 0.5f;
@@ -54,7 +55,7 @@ public class TouchHandler : MonoBehaviour {
 	void Update ()
     {
         //Used to stop the map updating when we dont want it to.
-        CameraShouldFollowGPS();
+        CheckForMapUpdate();
 
 		// Choose how to parse the touch controls based on the current control scheme
 		switch (controlScheme) {
@@ -189,16 +190,30 @@ public class TouchHandler : MonoBehaviour {
 		startTouchPosition = position;
 	}
 
-	public bool CameraShouldFollowGPS() {
+    public void CheckForMapUpdate()
+    {
         if (controlScheme == ControlScheme.map)
         {
             GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = true;
-            return true;
-
+            if (!IngameMenu.activeSelf)
+            {
+                IngameMenu.SetActive(true);
+            }
         }
         else
         {
             GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = false;
+            if (IngameMenu.activeSelf) IngameMenu.SetActive(false);
+        }
+    }
+
+	public bool CameraShouldFollowGPS() {
+        if (controlScheme == ControlScheme.map || controlScheme == ControlScheme.menu)
+        {
+            return true;
+        }
+        else
+        {
             return false;
         }
     }
@@ -245,7 +260,7 @@ public class TouchHandler : MonoBehaviour {
         GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = false;
 
         ResourceSpotParent rsp = gd.GetComponent<ResourceSpotParent>();
-        if (rsp.Used) return;
+        if (rsp.IsUsed()) return;
         
         //set the sign to be facing the player
         Quaternion targetRotation = Quaternion.LookRotation(GPS.Insatance.girl.transform.position - gd.transform.position);
