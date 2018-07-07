@@ -58,13 +58,13 @@ public class LocalDataManager : MonoBehaviour {
     public void AddPocketPal(GameObject obj)
     {
         //Get the data reference
-        PocketPalData ppd = obj.GetComponent<PocketPalParent>().GetAnimalData();
+        PocketPalData ppd = obj.GetComponentInParent<PocketPalParent>().GetAnimalData();
 
        //Add the pocketPal to the players inventory
-        localData.Inventory.AddPocketPal(obj.GetComponent<PocketPalParent>());
+        localData.Inventory.AddPocketPal(obj.GetComponentInParent<PocketPalParent>());
 
         //increas the players EXP
-        localData.IncreaseExp(obj.GetComponent<PocketPalParent>().GetAnimalData().GetExp());
+        localData.IncreaseExp(obj.GetComponentInParent<PocketPalParent>().GetAnimalData().GetExp());
 
         //update the server
         ServerDataManager.Instance.WritePocketPal(localData, localData.Inventory.GetDataFromID(ppd.ID));
@@ -102,6 +102,8 @@ public class LocalDataManager : MonoBehaviour {
     {
         return localData.Inventory;
     }
+
+    public ItemInventory GetItemInventory() { return localData.ItemInv; }
 
     public FileStream ResetFile()
     {

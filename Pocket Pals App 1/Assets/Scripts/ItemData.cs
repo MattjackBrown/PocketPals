@@ -24,6 +24,7 @@ public class ItemData
         if (numberOwned > 1)
         {
             numberOwned--;
+            ServerDataManager.Instance.WriteItem(LocalDataManager.Instance.GetData(), this);
             return true;
         }
         return false;
@@ -32,6 +33,7 @@ public class ItemData
     public void AnotherOne()
     {
         numberOwned++;
+        Debug.Log(numberOwned);
     }
 
 }

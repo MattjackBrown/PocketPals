@@ -26,8 +26,6 @@ public class GameData
         ID = "None";
         Inventory = new PocketPalInventory();
         ItemInv = new ItemInventory();
-		// Temp
-		Berries = 999;
     }
 
     public string GetJson()
@@ -60,15 +58,13 @@ public class GameData
         return LevelCalculator.GetPercentageToNextLevel(EXP);
     }
 
-	public int NumberOfBerries () {
-		return Berries;
+	public int NumberOfBerries ()
+    {
+        return ItemInv.GetItemFromID(GlobalVariables.BerryID).numberOwned;
 	}
 
-	public bool UseBerry () {
-		if (Berries > 0) {
-			Berries--;
-			return true;
-		} else
-			return false;
-	}
+	public bool UseBerry ()
+    {
+       return ItemInv.GetItemFromID(GlobalVariables.BerryID).UseItem();
+    }
 }

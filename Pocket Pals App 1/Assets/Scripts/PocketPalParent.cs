@@ -47,7 +47,7 @@ public class PocketPalParent : MonoBehaviour
         transform.position += SpawnOffset;
         InMinigame = false;
 		animator = GetComponent<Animator>();
-
+        GenerateAnimalData();
 	}
 
     private void OnCollisionEnter(Collision collision)

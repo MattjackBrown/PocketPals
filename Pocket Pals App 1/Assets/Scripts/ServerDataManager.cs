@@ -214,6 +214,7 @@ public class ServerDataManager : MonoBehaviour {
 
     public void GetItemInventory(GameData gd)
     {
+        gd.ItemInv.Init();
         //Start a task that will populate the players inventory with their ppals.
         mDatabaseRef.Child("ItemInventories").Child(gd.ID).GetValueAsync().ContinueWith(task => {
             if (task.IsFaulted)
@@ -245,6 +246,7 @@ public class ServerDataManager : MonoBehaviour {
                                     break;
                             }
                         }
+                        
                         gd.ItemInv.AddItem(id);
                     }
                 }
@@ -253,7 +255,6 @@ public class ServerDataManager : MonoBehaviour {
                     Debug.Log(ex);
                 }
                 WelcomeScreen.SetActive(true);
-                LocalDataManager.Instance.AddItem(new ItemData("Berris", 1));
             }
         });
     }

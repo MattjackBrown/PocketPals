@@ -9,6 +9,8 @@ public class AssetManager : MonoBehaviour {
     // The Pocket Pal prefabs to be spawned
     public GameObject[] PocketPals;
 
+    public ItemData[] Items;
+
     // Use this for initialization
     void Start ()
     {
@@ -23,6 +25,24 @@ public class AssetManager : MonoBehaviour {
             {
                 return obj;
             }
+        }
+        return null;
+    }
+
+    public ItemData GetItemByName(string name)
+    {
+        foreach (ItemData id in Items)
+        {
+            if (name == id.name) return id;
+        }
+        return null;
+    }
+
+    public ItemData GetItemByID(int ID)
+    {
+        foreach (ItemData id in Items)
+        {
+            if (ID == id.ID) return id;
         }
         return null;
     }

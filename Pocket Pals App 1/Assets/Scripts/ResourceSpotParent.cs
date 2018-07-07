@@ -27,8 +27,6 @@ public class ResourceSpotParent : MonoBehaviour
     {
         Used = true;
 
-        Debug.Log("Clicked");
-
         anim.SetBool("Clicked", true);
 
         LocalDataManager.Instance.AddItem(new ItemData("Berries", 1));
