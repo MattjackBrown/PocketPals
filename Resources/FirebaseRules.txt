@@ -1,0 +1,39 @@
+Firebase Rules
+{
+  "rules": 
+  {
+    "Users": 
+    {
+       "$uid": 
+       {
+         ".read": "$uid === auth.uid",
+         ".write": "$uid === auth.uid"
+       }
+     },
+       "Inventories": 
+       {
+       "$uid": 
+       {
+				 ".read": "$uid === auth.uid",
+         ".write": "$uid === auth.uid"
+       }
+     },
+       "ItemInventories": 
+       {
+       "$uid": 
+       {
+				 ".read": "$uid === auth.uid",
+         ".write": "$uid === auth.uid"
+       }
+     }
+   }
+}
+
+Unlimted Rules
+{
+  "rules": 
+  {
+".read": true,
+         ".write":true
+}
+}
