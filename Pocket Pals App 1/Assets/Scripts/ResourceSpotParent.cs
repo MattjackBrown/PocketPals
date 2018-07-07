@@ -8,6 +8,8 @@ public class ResourceSpotParent : MonoBehaviour
 
     public bool Used = false;
 
+    public int maxItemFind = 2;
+
     private void Start()
     {
         gameObject.transform.Rotate(new Vector3(0,Random.Range(0,360), 0));
@@ -46,7 +48,7 @@ public class ResourceSpotParent : MonoBehaviour
         anim.SetBool("Clicked", false);
         transform.GetChild(0).gameObject.SetActive(false);
 
-        LocalDataManager.Instance.AddItem(AssetManager.Instance.GetRandomItem());
+        LocalDataManager.Instance.AddItem(AssetManager.Instance.GetRandomItem(maxItemFind));
 
         //To DO: Zoom back out
         CameraController.Instance.MapZoomOutInit();

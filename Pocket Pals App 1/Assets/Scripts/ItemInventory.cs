@@ -13,18 +13,20 @@ public class ItemInventory
     {
         foreach (ItemData id in AssetManager.Instance.Items)
         {
-            ownedItems.Add(id);
+            ownedItems.Add(id.CloneWithNumber(0));
         }
     }
 
-    public void AddItem(ItemData data)
+    public ItemData AddItem(ItemData data)
     {
-        if (GetItemFromID(data.ID) != null)
+        ItemData defaultData = GetItemFromID(data.ID);
+        if (defaultData != null)
         {
-            if (GetItemFromID(data.ID).numberOwned >= MaxAmountOfOneItem) return;
-            GetItemFromID(data.ID).numberOwned += data.numberOwned;
+             defaultData.numberOwned += data.numberOwned;
+            if (defaultData.numberOwned > MaxAmountOfOneItem) defaultData.numberOwned = MaxAmountOfOneItem;
+            return defaultData;
         }
-        else { Debug.Log("Something went really wrong adding an item"); }
+        else { Debug.Log("Something went really wrong adding an item"); return null; }
     }
 
     public ItemData GetItemFromID(int ID)

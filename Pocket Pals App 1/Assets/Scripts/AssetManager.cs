@@ -47,9 +47,11 @@ public class AssetManager : MonoBehaviour {
         return null;
     }
 
-    public ItemData GetRandomItem()
+    public ItemData GetRandomItem(int maxFind)
     {
-        return Items[Random.Range(0, Items.Length)];
+        ItemData id = Items[Random.Range(0, Items.Length)];
+
+        return id.CloneWithNumber(Random.Range(1, maxFind));
     }
 
 	// Update is called once per frame

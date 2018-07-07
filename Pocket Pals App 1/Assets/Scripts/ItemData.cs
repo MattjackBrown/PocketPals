@@ -17,6 +17,13 @@ public class ItemData
         ID = id;
     }
 
+    public ItemData CloneWithNumber(int number)
+    {
+        ItemData id = new ItemData(this.name, this.ID);
+        id.numberOwned = number;
+        return id;
+    }
+
     public ItemData(){ }
 
     public virtual bool UseItem()

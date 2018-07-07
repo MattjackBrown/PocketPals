@@ -74,9 +74,7 @@ public class LocalDataManager : MonoBehaviour {
 
     public void AddItem(ItemData id)
     {
-        localData.ItemInv.AddItem(id);
-
-        ServerDataManager.Instance.WriteItem(localData, localData.ItemInv.GetItemFromID(id.ID));
+        ServerDataManager.Instance.WriteItem(localData, localData.ItemInv.AddItem(id));
     }
 
     public void ResetLocalData()
