@@ -59,8 +59,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	// TODO Need to Rotate the ppal between movements
 	bool needToRotate = false;
-	float startingRotationY, targetRotationY;
-	Vector3 PPalTargetDirection;
+	float targetYRotation;
 
 
 	// Use this for initialization
@@ -93,7 +92,6 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		patrolLerp = 0.0f;
 
-		berrySpeedModifier = 1.0f;
 		berryTimer = 0.0f;
 		berryUsed = false;
 
@@ -235,10 +233,6 @@ public class CaptureMiniGame : MonoBehaviour {
 		// If arrived at current target lerp will be >= 1.0f
 		if (patrolLerp >= 1.0f) {
 
-			needToRotate = true;
-
-			startingRotationY = pocketPal.transform.rotation.y;
-
 			// Reset the lerp float
 			patrolLerp = 0.0f;
 
@@ -257,12 +251,22 @@ public class CaptureMiniGame : MonoBehaviour {
 			// Get the patrol position from the list at that index
 			nextPosition = patrolPositions [patrolIndex].transform.position;
 
-			// Used for the rotation between patrols
-//			targetRotationY = pocketPal.transform.LookAt (nextPosition);
+			// Get ready to rotate
+			needToRotate = true;
 
-			PPalTargetDirection = nextPosition - previousPosition;
+			// Set up the rotation values
+			float startingY = pocketPal.transform.rotation.eulerAngles.y;
+
+			// The degrees the ppal needs to turn to be facing the right way
+			float deltaY = Vector3.Angle(pocketPal.transform.forward, previousPosition - nextPosition);
+
+			// The transform.rot.y that we wish to achieve
+			targetYRotation = startingY + deltaY;
+
+			// Adjust for going round the 360deg -> 0 degrees point
+			if (targetYRotation < startingY)
+				targetYRotation += 360.0f;
 		}
-
 
 		// Adjust for berry use
 		if (berryUsed)
@@ -291,17 +295,29 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	void RotatePPal()
 	{
-		// The step size is equal to speed times frame time.
-		float step = 10.0f * patrolSpeed * Time.deltaTime;
+		// The degrees that the rotation will step clockwise in this frame
+		float step;
 
-		Vector3 newDir = Vector3.RotateTowards(pocketPal.transform.forward, PPalTargetDirection, step, 0.0f);
+		if (berryUsed)
+			// arcTan theta = Opp/Adj, take the patrol speed * Tdt, divide by the std prefab transform offset of 0.5f
+			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * berrySpeedModifier / 0.5f);
+		else
+			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime / 0.5f);
 
-		// Move our position a step closer to the target.
-		pocketPal.transform.rotation = Quaternion.LookRotation(newDir);
+		float currentY = pocketPal.transform.rotation.eulerAngles.y;
 
-		// Check for completion
-		if (newDir.normalized == PPalTargetDirection.normalized)
+		// Check if it will overshoot the target in this frame
+		if (currentY + step > targetYRotation) {
+			
+			currentY = targetYRotation;
 			needToRotate = false;
+		} else
+			currentY += step;
+
+		// Use temporary variable method to assign new rotation			
+		Vector3 tempRot = pocketPal.transform.rotation.eulerAngles;
+		tempRot = new Vector3 (tempRot.x, currentY, tempRot.z);
+		pocketPal.transform.rotation = Quaternion.Euler(tempRot);
 	}
 
 	void AdjustPostProcessing(Vector2 touchPosition) {
@@ -316,7 +332,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		if (Physics.Raycast (ray, out hit)) {
 
 			// If the hit gameObject has a component "PocketPalParent"
-			if (hit.transform.gameObject.GetComponent ("PocketPalParent")) {
+			if (hit.transform.gameObject.GetComponentInParent<PocketPalParent>()) {
 
 				// Get the distance from the camera to the pocketPal's gameObject transform position
 				float distance = Vector3.Distance (controls.cameraController.getCamera().transform.position, hit.transform.gameObject.transform.position);
