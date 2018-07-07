@@ -226,7 +226,10 @@ public class PocketPalSpawnManager : MonoBehaviour
     {
         for (int i = 0; i < spawnedPocketPals.Count; i++)
         {
-            DespawnPocketPal(spawnedPocketPals[i]);
+            if (!spawnedPocketPals[i].GetComponent<PocketPalParent>().InMinigame)
+            {
+                DespawnPocketPal(spawnedPocketPals[i]);
+            }  
         }
     }
 
