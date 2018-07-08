@@ -592,7 +592,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1573040015452388}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.31, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4485440975502278}
@@ -834,7 +834,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730419194335368}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4123452175827774}
@@ -1064,8 +1064,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1940420640363144}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.5, y: -0.15078676, z: 0.15254276}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 0}
   m_LocalScale: {x: 0.173, y: 0.173, z: 0.173}
   m_Children:
   - {fileID: 4727003849328212}
@@ -1160,7 +1160,7 @@ MonoBehaviour:
   moveAnimController: {fileID: 9100000, guid: ce30babcf07e4534e9c08a0b58ec0ab0, type: 2}
   restAvatar: {fileID: 9000000, guid: 04a1816021b42c5478a0ef03fa981643, type: 3}
   moveAvatar: {fileID: 9000000, guid: 5761be922596b104997ae2a6da48e5e2, type: 3}
-  PocketPalID: 8
+  PocketPalID: 800
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
   maxSpawnExp: 1000
@@ -1168,7 +1168,7 @@ MonoBehaviour:
   sizeVariance: 0.5
   averageAgro: 5
   agroVariance: 0.5
-  name: Owl
+  name: OwlOld
   Rarity: 7
 --- !u!137 &137990545291546280
 SkinnedMeshRenderer:

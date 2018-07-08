@@ -24,7 +24,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	float minigameTimer, captureTimer;
 
 	// Thee max time allowed by the minigame before timing out
-	float minigameTimeAllowance = 15.0f;
+	float minigameTimeAllowance = 35.0f;
 	float timeToCapture = 4.0f;
 
 	float unfocusedDOFDistance = 30.0f;
@@ -35,6 +35,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	// The targeted pocket pal for this minigame
 	PocketPalParent pocketPal;
+	GameObject pocketPalGO;
 	Vector3 PPalMapPosition, CameraMapPosition;
 
 	bool focussedOnPPal = false;
@@ -59,7 +60,8 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	// TODO Need to Rotate the ppal between movements
 	bool needToRotate = false;
-	float targetYRotation;
+	float targetYRotation, currentYRotation, deltaY;
+	GameObject RotaterHelper = new GameObject ();
 
 
 	// Use this for initialization
@@ -94,6 +96,10 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		berryTimer = 0.0f;
 		berryUsed = false;
+
+		needToRotate = false;
+
+		pocketPalGO = pocketPal.gameObject;
 
 		// Change the animation and avatar to the movement style
 		pocketPal.SetMoveAnimation ();
@@ -147,6 +153,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Set a randomly chosen endpoint
 		patrolIndex = Random.Range(0, patrolPositions.Count-1);
 		nextPosition = patrolPositions [patrolIndex].transform.position;
+		pocketPal.transform.LookAt (nextPosition);
 
 		// Used to see the inventory for number of berries
 		playerProfile = LocalDataManager.Instance.GetData ();
@@ -251,30 +258,37 @@ public class CaptureMiniGame : MonoBehaviour {
 			// Get the patrol position from the list at that index
 			nextPosition = patrolPositions [patrolIndex].transform.position;
 
+
+
 			// Get ready to rotate
 			needToRotate = true;
 
 			// Set up the rotation values
-			float startingY = pocketPal.transform.rotation.eulerAngles.y;
+			currentYRotation = pocketPal.transform.rotation.eulerAngles.y;
 
 			// The degrees the ppal needs to turn to be facing the right way
-			float deltaY = Vector3.Angle(pocketPal.transform.forward, previousPosition - nextPosition);
+			deltaY = Vector3.Angle(pocketPal.GetComponentInChildren<BoxCollider>().transform.forward, nextPosition - previousPosition);
+
+			// if it wants to rotate a negative angle, counter clockwise, convert to clockwise
+			if (deltaY < 0.0f)
+				deltaY += 360.0f;
 
 			// The transform.rot.y that we wish to achieve
-			targetYRotation = startingY + deltaY;
+			targetYRotation = currentYRotation + deltaY;
 
+
+
+			RotaterHelper.transform.position = pocketPalGO.transform.position;
+			RotaterHelper.transform.LookAt (nextPosition);
+			targetYRotation = RotaterHelper.transform.rotation.eulerAngles.y;
+
+
+		
 			// Adjust for going round the 360deg -> 0 degrees point
-			if (targetYRotation < startingY)
+			while (targetYRotation < currentYRotation)
 				targetYRotation += 360.0f;
-		}
 
-		// Adjust for berry use
-		if (berryUsed)
-			// Step the lerp
-			patrolLerp += Time.deltaTime * patrolSpeed * berrySpeedModifier;
-		else
-			// Step the lerp
-			patrolLerp += Time.deltaTime * patrolSpeed;
+		}
 
 
 		// Rotate or move the PPal
@@ -284,9 +298,17 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		} else {
 
+			// Adjust for berry use
+			if (berryUsed)
+				// Step the lerp
+				patrolLerp += Time.deltaTime * patrolSpeed * berrySpeedModifier;
+			else
+				// Step the lerp
+				patrolLerp += Time.deltaTime * patrolSpeed;
+
 			// Set the PPal transform
 			pocketPal.transform.position = Vector3.Lerp (previousPosition, nextPosition, patrolLerp);
-			pocketPal.transform.LookAt (nextPosition);
+//			pocketPal.transform.LookAt (nextPosition);
 		}
 
 		// Funtion sets the depth of field using the touched on position's distance away
@@ -295,6 +317,9 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	void RotatePPal()
 	{
+		
+
+
 		// The degrees that the rotation will step clockwise in this frame
 		float step;
 
@@ -303,24 +328,31 @@ public class CaptureMiniGame : MonoBehaviour {
 			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * berrySpeedModifier / 0.5f);
 		else
 			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime / 0.5f);
-
-		float currentY = pocketPal.transform.rotation.eulerAngles.y;
-
+		
 		// Check if it will overshoot the target in this frame
-		if (currentY + step > targetYRotation) {
-			
-			currentY = targetYRotation;
-			needToRotate = false;
-		} else
-			currentY += step;
+		if (currentYRotation + step > targetYRotation) {
 
-		// Use temporary variable method to assign new rotation			
-		Vector3 tempRot = pocketPal.transform.rotation.eulerAngles;
-		tempRot = new Vector3 (tempRot.x, currentY, tempRot.z);
-		pocketPal.transform.rotation = Quaternion.Euler(tempRot);
+			// Finish up
+	//		pocketPal.transform.LookAt (nextPosition);
+			needToRotate = false;
+
+		} else {
+			
+			currentYRotation += step;
+
+//			Debug.Log ("Step: " + step + ". CurrentY: " + currentYRotation + ". TargetY: " + targetYRotation);
+
+			// Use temporary variable method to assign new rotation			
+			Vector3 tempRot = pocketPalGO.transform.rotation.eulerAngles;
+			tempRot = new Vector3 (tempRot.x, tempRot.y + step/*currentYRotation*/, tempRot.z);
+			pocketPalGO.transform.rotation = Quaternion.Euler (tempRot);
+		}
+
 	}
 
 	void AdjustPostProcessing(Vector2 touchPosition) {
+
+		focussedOnPPal = false;
 
 		// Create a rayCastHit object
 		RaycastHit hit = new RaycastHit ();
