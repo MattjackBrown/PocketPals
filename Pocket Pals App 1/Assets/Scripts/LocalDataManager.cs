@@ -60,6 +60,8 @@ public class LocalDataManager : MonoBehaviour {
         //Get the data reference
         PocketPalData ppd = obj.GetComponentInParent<PocketPalParent>().GetAnimalData();
 
+        NotificationManager.Instance.CongratsNotification("You Have Caught A level " + ppd.GetLevel() + " " + ppd.name);
+
        //Add the pocketPal to the players inventory
         localData.Inventory.AddPocketPal(obj.GetComponentInParent<PocketPalParent>());
 
@@ -74,6 +76,8 @@ public class LocalDataManager : MonoBehaviour {
 
     public void AddItem(ItemData id)
     {
+        NotificationManager.Instance.CongratsNotification("You Have found x" + id.numberOwned + " " + id.name);
+
         ServerDataManager.Instance.WriteItem(localData, localData.ItemInv.AddItem(id));
     }
 

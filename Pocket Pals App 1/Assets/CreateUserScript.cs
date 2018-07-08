@@ -6,11 +6,18 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class CreateUserScript : MonoBehaviour
 {
-    public Text Email;
-    public Text Password;
-    public Text Retype;
+    public InputField Email;
+    public InputField Password;
+    public InputField Retype;
+
+    public GameObject LoginScreen;
 
     public Text Error;
+
+    private void OnDisable()
+    {
+        LoginScreen.SetActive(true);
+    }
 
     public void TryCreateUser()
     {
@@ -19,7 +26,7 @@ public class CreateUserScript : MonoBehaviour
         {
 			SaveDefaults (Email.text, Password.text);
 
-            ServerDataManager.Instance.CreateUser(Email.text, Password.text, Error);
+            ServerDataManager.Instance.CreateUser(Email.text, Password.text, Error, gameObject);
         }
         else
         {

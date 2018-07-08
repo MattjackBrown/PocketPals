@@ -19,8 +19,9 @@ public class DefaultLogin
 	
 public class LoginScreenScript : MonoBehaviour
 {
-	// The UI fields
-    public Text email, password, error;
+    // The UI fields
+    public InputField email, password;
+    public Text error;
 
 	// Default values
 	public string DebugUserName, DebugPassword;
@@ -85,7 +86,7 @@ public class LoginScreenScript : MonoBehaviour
 		DefaultLogin data = (DefaultLogin) bf.Deserialize(file);
 		file.Close();
 
-		email.GetComponentInParent<InputField>().text = data.name;
-		password.GetComponentInParent<InputField>().text = data.password;
+		email.text = data.name;
+		password.text = data.password;
 	}
 }

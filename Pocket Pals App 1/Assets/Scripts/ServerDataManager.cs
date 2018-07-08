@@ -6,7 +6,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public class ServerDataManager : MonoBehaviour {
+public class ServerDataManager : MonoBehaviour
+{
 
     public static ServerDataManager Instance { get; set; }
 
@@ -32,15 +33,17 @@ public class ServerDataManager : MonoBehaviour {
 
     private bool IsLogginIn = false;
 
+    private bool createUser = false;
+
     // Use this for initialization
-    void Start ()
+    void Start()
     {
         Instance = this;
 
-		DontDestroyOnLoad (this.gameObject);
+        DontDestroyOnLoad(this.gameObject);
 
-		// Store this instance reference as a static variable in the Global variables class
-		GlobalVariables.serverDataManager = this;
+        // Store this instance reference as a static variable in the Global variables class
+        GlobalVariables.serverDataManager = this;
 
 
         FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task =>
@@ -73,13 +76,13 @@ public class ServerDataManager : MonoBehaviour {
     }
 
     void Awake()
-	{
-		// Don't destroy on load does not stop new instances from being instantiated on scene load. This will check and delete
-		if (FindObjectsOfType(typeof(LocalDataManager)).Length > 1)
-		{
-			Debug.Log("Dirty Singleton management. Deleting new instance.");
-			DestroyImmediate(gameObject);
-		}
+    {
+        // Don't destroy on load does not stop new instances from being instantiated on scene load. This will check and delete
+        if (FindObjectsOfType(typeof(LocalDataManager)).Length > 1)
+        {
+            Debug.Log("Dirty Singleton management. Deleting new instance.");
+            DestroyImmediate(gameObject);
+        }
 
 
         FirebaseInitialised = true;
@@ -88,10 +91,10 @@ public class ServerDataManager : MonoBehaviour {
         {
             //Check to see if its the App has a reference to the database setup
             if (FirebaseApp.DefaultInstance.Options.DatabaseUrl != null) FirebaseApp.DefaultInstance.SetEditorDatabaseUrl(FirebaseApp.DefaultInstance.Options.DatabaseUrl);
-            
+
             //Assign references.
             mDatabaseRef = FirebaseDatabase.DefaultInstance.RootReference;
-           
+
 
             auth = FirebaseAuth.DefaultInstance;
 
@@ -151,15 +154,15 @@ public class ServerDataManager : MonoBehaviour {
         mDatabaseRef.Child("Users").Child(gd.ID).GetValueAsync().ContinueWith(task => {
             if (task.IsFaulted)
             {
-                    Debug.Log("Failed Getting user from databse Writing new user");
-                    WriteNewUser(LocalDataManager.Instance.GetData());
+                Debug.Log("Failed Getting user from databse Writing new user");
+                WriteNewUser(LocalDataManager.Instance.GetData());
             }
             else if (task.IsCompleted)
             {
                 try
                 {
                     DataSnapshot snapshot = task.Result;
-                    
+
                     //Read the Data received from the server.
                     foreach (DataSnapshot obj in snapshot.Children)
                     {
@@ -185,7 +188,7 @@ public class ServerDataManager : MonoBehaviour {
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Debug.Log(ex);
                 }
@@ -246,7 +249,7 @@ public class ServerDataManager : MonoBehaviour {
                                     break;
                             }
                         }
-                        
+
                         gd.ItemInv.AddItem(id);
                     }
                 }
@@ -344,86 +347,118 @@ public class ServerDataManager : MonoBehaviour {
 
     //---------------- Login Logout Statechanging stuff ------------------\\
 
-    public void CreateUser(string email, string password,Text failedText)
+    public void CreateUser(string email, string password, Text failedText, GameObject CreateUserScreen)
     {
+        //used to stop firebase from auto signing in
+        createUser = true;
 
         //Create a new user with the given user name and password.
         auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(task => {
             if (task.IsCanceled)
             {
-                failedText.text = "Create User Failed";
+                NotificationManager.Instance.CreateUserErrorNotification("Check Internet Connection");
                 return;
             }
             if (task.IsFaulted)
             {
-                failedText.text = "Bad email or password";
+                NotificationManager.Instance.CreateUserErrorNotification("Email Address Is Already Registered Or It Is Invalid");
                 return;
             }
             newUser = task.Result;
-            Debug.LogFormat("User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
-
-			GlobalVariables.hasLoggedIn = true;
+            UserCreated(CreateUserScreen);
         });
+    }
+
+    public void UserCreated(GameObject CreateUserScreen)
+    {
+        NotificationManager.Instance.LoginNotification("You Have Created An Account!");
+        SendEmailVerification();
+        CreateUserScript cus = CreateUserScreen.GetComponent<CreateUserScript>();
+        LoginScreenScript lss = CreateUserScreen.GetComponent<CreateUserScript>().LoginScreen.GetComponent<LoginScreenScript>();
+        lss.email.text = cus.Email.text;
+        lss.password.text = cus.Password.text;
+        CreateUserScreen.SetActive(false);
     }
 
     public void SignIn(string email, string password, Text failedText)
     {
+        //to stop firebase to auto signin
+        createUser = false;
+
         auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(task => {
             if (task.IsCanceled)
             {
-                failedText.text = "Login Failed";
+                NotificationManager.Instance.LoginFailedNotification("Check Internet Connection");
                 return;
             }
             if (task.IsFaulted)
             {
-                failedText.text = "Wrong username or password";
+                NotificationManager.Instance.LoginFailedNotification("Incorrect Username Or Password");
                 return;
             }
-            ErrorText.text = "Logging in....";
+            NotificationManager.Instance.LoginNotification("Welcome!");
             newUser = task.Result;
             Debug.LogFormat("User signed in successfully: {0} ({1})",
-		    newUser.DisplayName, newUser.UserId);
+            newUser.DisplayName, newUser.UserId);
 
-
-			GlobalVariables.hasLoggedIn = true;
+            GlobalVariables.hasLoggedIn = true;
         });
     }
 
     void AuthStateChanged(object sender, System.EventArgs eventArgs)
     {
-
-        if (auth.CurrentUser != newUser)
+        if (createUser) return;
+        newUser = auth.CurrentUser;
+        if (newUser != null)
         {
-            try
+            if (!newUser.IsEmailVerified)
             {
-                bool signedIn = newUser != auth.CurrentUser && auth.CurrentUser != null;
-                if (!signedIn && newUser != null)
-                {
-                    Debug.Log("Signed out " + newUser.UserId);
-                    ErrorText.text = "Signed out";
-                }
-                else
-                {
-                    newUser = auth.CurrentUser;
-                    LocalDataManager.Instance.GetData().ID = newUser.UserId ?? "";
-                    LocalDataManager.Instance.GetData().Username = newUser.DisplayName ?? "";
+                NotificationManager.Instance.LoginFailedNotification("Please Verify Your Email Address Before Playing");
 
-                    GetPlayerData(LocalDataManager.Instance.GetData());
-                }
+                SendEmailVerification();
             }
-            catch (Exception ex)
+            else
             {
-                Debug.Log("Failed sigining in " + ex);
-                auth.SignOut();
-                auth.StateChanged -= AuthStateChanged;
-                auth = null;
+                LocalDataManager.Instance.GetData().ID = newUser.UserId ?? "";
+                LocalDataManager.Instance.GetData().Username = newUser.DisplayName ?? "";
+
+                GetPlayerData(LocalDataManager.Instance.GetData());
             }
         }
+        else
+        {
+            Debug.Log("Signed out ");
+            ErrorText.text = "Signed out";
+        }
+    }
+
+    void SendEmailVerification()
+    {
+        newUser.SendEmailVerificationAsync().ContinueWith(task =>
+        {
+            if (task.IsCanceled)
+            {
+                NotificationManager.Instance.ErrorNotification("Failed to send Verification Email");
+                return;
+            }
+            if (task.IsFaulted)
+            {
+                NotificationManager.Instance.ErrorNotification("Failed to send Verification Email");
+                return;
+            }
+            if (task.IsCompleted)
+            {
+                NotificationManager.Instance.LoginNotification("Verification Email has been sent");
+            }
+        });
+        auth.SignOut();
     }
 
     public void LogOut()
     {
+        NotificationManager.Instance.LogoutNotification("Come Back Soon!!!");
         auth.SignOut();
+        newUser = null;
         LoginScreen.SetActive(true);
     }
 
@@ -433,5 +468,3 @@ public class ServerDataManager : MonoBehaviour {
         auth = null;
     }
 }
-
-
