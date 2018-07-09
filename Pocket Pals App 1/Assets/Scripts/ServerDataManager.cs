@@ -415,8 +415,6 @@ public class ServerDataManager : MonoBehaviour
             if (!newUser.IsEmailVerified)
             {
                 NotificationManager.Instance.LoginFailedNotification("Please Verify Your Email Address Before Playing");
-
-                SendEmailVerification();
             }
             else
             {
