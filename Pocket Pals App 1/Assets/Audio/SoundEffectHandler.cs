@@ -5,8 +5,14 @@ using UnityEngine;
 
 public class SoundEffectHandler : MonoBehaviour {
 
+    public static SoundEffectHandler Instance { set; get; }
     public List<NamedAudio> audioList;
     public AudioSource audioSource;
+
+    private void Start()
+    {
+        Instance = this;
+    }
 
     public void PlaySound(string key)
     {

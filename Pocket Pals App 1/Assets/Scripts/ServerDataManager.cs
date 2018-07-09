@@ -257,7 +257,9 @@ public class ServerDataManager : MonoBehaviour
                 {
                     Debug.Log(ex);
                 }
+
                 WelcomeScreen.SetActive(true);
+                NotificationManager.Instance.LoginNotification("Welcome!!!");
             }
         });
     }
@@ -396,7 +398,6 @@ public class ServerDataManager : MonoBehaviour
                 NotificationManager.Instance.LoginFailedNotification("Incorrect Username Or Password");
                 return;
             }
-            NotificationManager.Instance.LoginNotification("Welcome!");
             newUser = task.Result;
             Debug.LogFormat("User signed in successfully: {0} ({1})",
             newUser.DisplayName, newUser.UserId);
@@ -419,6 +420,7 @@ public class ServerDataManager : MonoBehaviour
             }
             else
             {
+                NotificationManager.Instance.LoginNotification("Logging in! Please Wait!");
                 LocalDataManager.Instance.GetData().ID = newUser.UserId ?? "";
                 LocalDataManager.Instance.GetData().Username = newUser.DisplayName ?? "";
 
@@ -452,6 +454,11 @@ public class ServerDataManager : MonoBehaviour
             }
         });
         auth.SignOut();
+    }
+
+    public void TryLogOut()
+    {
+        NotificationManager.Instance.QuestionNotification("Are you sure you want to log out?", LogOut, null);
     }
 
     public void LogOut()
