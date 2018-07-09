@@ -61,10 +61,16 @@ public class GameData
 	public int NumberOfBerries ()
     {
         return ItemInv.GetItemFromID(GlobalVariables.BerryID).numberOwned;
+
 	}
 
 	public bool UseBerry ()
     {
-       return ItemInv.GetItemFromID(GlobalVariables.BerryID).UseItem();
+        if (ItemInv.UseItemWithID(GlobalVariables.BerryID))
+        {
+            ServerDataManager.Instance.WriteItem(this, ItemInv.GetItemFromID(GlobalVariables.BerryID));
+            return true;
+        }
+        return false;
     }
 }

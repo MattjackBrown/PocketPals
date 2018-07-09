@@ -28,10 +28,9 @@ public class ItemData
 
     public virtual bool UseItem()
     {
-        if (numberOwned > 1)
+        if (numberOwned >= 1)
         {
             numberOwned--;
-            ServerDataManager.Instance.WriteItem(LocalDataManager.Instance.GetData(), this);
             return true;
         }
         return false;

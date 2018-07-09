@@ -51,6 +51,11 @@ public class NotificationManager : MonoBehaviour
         AddNotificationToQueue(new Notification("Signed Out", m));
     }
 
+    public void ItemFailedNotification(string m)
+    {
+        AddNotificationToQueue(new Notification("None Left!!", m));
+    }
+
     public void NotificationDismissed()
     {
         if (Notifications.Count < 1) NotificationMenu.SetActive(false);

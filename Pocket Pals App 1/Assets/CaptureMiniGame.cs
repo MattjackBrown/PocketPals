@@ -495,24 +495,28 @@ public class CaptureMiniGame : MonoBehaviour {
 	public void UseBerry () {
 
 		// If not already using a berry and has a berry to use
-		if (!berryUsed && numberOfBerries > 0) {
-		
-			// Set the slider
-			berryMeter.gameObject.SetActive(true);
-			berryMeter.value = 1.0f;
+		if (!berryUsed)
+        {
+            if (playerProfile.UseBerry())
+            {
+                // Set the slider
+                berryMeter.gameObject.SetActive(true);
+                berryMeter.value = 1.0f;
 
-			// Set the timer
-			berryTimer = 0.0f;
-			berryUsed = true;
+                // Set the timer
+                berryTimer = 0.0f;
+                berryUsed = true;
 
-			// Decrease the local count
-			numberOfBerries--;
+                // Decrease the local count
+                numberOfBerries--;
 
-			// Adjust UI
-			berryCount.text = numberOfBerries.ToString();
-
-			// Decreases the berry count in the player Profile
-			playerProfile.UseBerry ();
+                // Adjust UI
+                berryCount.text = playerProfile.NumberOfBerries().ToString();
+            }
+            else
+            {
+                NotificationManager.Instance.ItemFailedNotification("You have no berries to use! Try buying some from the shop, or finiding them at resource spots");
+            }
 		}
 	}
 }

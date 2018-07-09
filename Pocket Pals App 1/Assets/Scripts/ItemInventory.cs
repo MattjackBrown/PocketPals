@@ -46,4 +46,13 @@ public class ItemInventory
         }
         else return 0;
     }
+
+    public bool UseItemWithID(int ID)
+    {
+        if (GetItemFromID(ID) != null)
+        {
+            return GetItemFromID(ID).UseItem();
+        }
+        else return false;
+    }
 }
