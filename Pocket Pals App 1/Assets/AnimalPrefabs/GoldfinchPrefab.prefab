@@ -655,7 +655,7 @@ Transform:
   m_GameObject: {fileID: 1725337394607792}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 6, z: 6}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 4115142198587076}
   - {fileID: 4953887449948738}
@@ -1073,7 +1073,7 @@ Transform:
   m_GameObject: {fileID: 1966742558874202}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4983230862288962}
   m_Father: {fileID: 4522965207401352}
@@ -1278,6 +1278,7 @@ MonoBehaviour:
   moveAnimController: {fileID: 9100000, guid: d2287f507e320e24bb183098f7fe2ec8, type: 2}
   restAvatar: {fileID: 9000000, guid: b2456491d8c0110499f2c9eab614ec20, type: 3}
   moveAvatar: {fileID: 9000000, guid: 7e4774eddb693ec47a802543aa7dcf38, type: 3}
+  PPal: {fileID: 1725337394607792}
   PocketPalID: 6
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}

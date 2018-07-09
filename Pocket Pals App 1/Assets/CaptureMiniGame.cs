@@ -41,6 +41,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	bool focussedOnPPal = false;
 
 	Vector2 viewfinderPosition;
+	Vector3 viewFinderDefaultScale;
 
 	public List<GameObject> patrolPositions;
 	float patrolSpeed = 0.5f;
@@ -65,6 +66,10 @@ public class CaptureMiniGame : MonoBehaviour {
 	// For the end game
 	bool endGameSequence;
 	Vector3 EGStartPos, EGEndPos, EGStartLookAtPos;
+	float cutSceneLerp, EGCamSpeed = 10.0f, EGTimeScale = 0.05f;
+	CameraController cameraMain;
+
+
 
 
 	// Use this for initialization
@@ -75,6 +80,9 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		miniGamePlayerPosition = miniGamePlayerPositionObject.transform.position;
 		miniGamePPalPosition = miniGamePPalPositionObject.transform.position;
+
+		cameraMain = controls.cameraController;
+		viewFinderDefaultScale = viewFinder.rectTransform.localScale;
 	}
 
 	public void PlayButtonPressed () {
@@ -85,6 +93,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Initially set the viewport image to the centre of the screen
 		viewFinder.rectTransform.anchoredPosition = Camera.main.ViewportToScreenPoint (new Vector3 (0.0f, 0.0f));
+		viewFinder.rectTransform.localScale = viewFinderDefaultScale;
 
 		// Enable the depth of field component
 		controls.cameraController.EnableDepthOfField (true);
@@ -155,7 +164,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		previousPosition = pocketPal.transform.position;
 
 		// Set a randomly chosen endpoint
-		patrolIndex = Random.Range(0, patrolPositions.Count-1);
+		patrolIndex = Random.Range(0, patrolPositions.Count);
 		nextPosition = patrolPositions [patrolIndex].transform.position;
 		pocketPal.transform.LookAt (nextPosition);
 
@@ -172,7 +181,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	public void UpdateTimer () {
 
-		if (endGameSequence) {
+		if (!endGameSequence) {
 
 			// If has not timed out yet
 			if (minigameTimer < minigameTimeAllowance) {
@@ -232,6 +241,39 @@ public class CaptureMiniGame : MonoBehaviour {
 
 			// Keep the ppal moving
 			MovePPal();
+
+			if (cutSceneLerp < 1.0f) {
+				
+				cutSceneLerp += Time.deltaTime * EGCamSpeed;
+
+				cameraMain.transform.position = Vector3.Lerp (EGStartPos, EGEndPos, cutSceneLerp);
+				cameraMain.transform.LookAt (Vector3.Lerp (
+					EGStartLookAtPos,
+					new Vector3 (
+						pocketPal.GetPPalPosition().x,
+						pocketPal.GetPPalPosition().y+1.0f,
+			//			miniGamePPalPosition.y,
+						pocketPal.GetPPalPosition().z),
+					cutSceneLerp));
+
+				viewFinder.rectTransform.anchoredPosition = Vector2.Lerp (viewFinder.rectTransform.anchoredPosition, new Vector2 (0.0f, 0.0f), cutSceneLerp);
+				viewFinder.rectTransform.localScale = Vector3.Lerp (viewFinder.rectTransform.localScale, new Vector3 (20.0f, 11.0f, 1.0f), cutSceneLerp);
+
+				// TODO Animate away UI, Animate in the take photo button.
+
+			} else {
+
+				// Follow the PPal still
+				cameraMain.transform.LookAt (new Vector3 (
+					pocketPal.GetPPalPosition().x,
+					pocketPal.GetPPalPosition().y + 1.0f,
+			//		miniGamePPalPosition.y,
+					pocketPal.GetPPalPosition().z));
+			}
+
+			// Lock the DOF to the PPal
+			float distance = Vector3.Distance (cameraMain.transform.position, pocketPal.GetPPalPosition());
+			cameraMain.SetDepthOfFieldAndFocalLength (distance, pocketPalAperture);
 		}
 	}
 
@@ -264,7 +306,7 @@ public class CaptureMiniGame : MonoBehaviour {
 			// Pick a random next patrol position that is not the last one. Do by repeatedly picking a random index until it does not match the current index
 			int tempIndex;
 			do {
-				tempIndex = Random.Range(0, patrolPositions.Count-1);
+				tempIndex = Random.Range(0, patrolPositions.Count);
 			} while (tempIndex == patrolIndex);
 
 			// When found, update the stored current index
@@ -400,10 +442,15 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	void MinigameSuccess () {
 		
-		Time.timeScale = 0.1f;
+		Time.timeScale = EGTimeScale;
+
+		EGStartPos = cameraMain.transform.position;
+		EGStartLookAtPos = EGStartPos + cameraMain.transform.forward;
+		EGEndPos = EGStartPos + (pocketPal.transform.position - EGStartPos) / 2.0f;
+		cutSceneLerp = 0.0f;
 
 		// Tell the update to call the cut scene
-//		endGameSequence = true;
+		endGameSequence = true;
 
 		StartCoroutine(SlowMo());
 	}
