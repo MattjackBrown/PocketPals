@@ -179,6 +179,8 @@ public class PocketPalSpawnManager : MonoBehaviour
 
                     spawnedPocketPals.Add (clone);
                     clone.GetComponent<PocketPalParent>().GenerateAnimalData();
+
+					TouchHandler.Instance.Vibrate ();
 				}
 
                 yield return new WaitForSeconds(GetSpawnDelay());

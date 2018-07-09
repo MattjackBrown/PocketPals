@@ -16,6 +16,7 @@ public class PocketPalParent : MonoBehaviour
 	public Avatar restAvatar;
 	public Avatar moveAvatar;
 	public GameObject PPal;
+	public float lookAtPointYOffset = 0.0f;
 
     //this will be the ID for each pocketpal this should be unique to each pocketpal and used to identify it for the inventory system. 
     public int PocketPalID = 0;
@@ -98,8 +99,8 @@ public class PocketPalParent : MonoBehaviour
 		animator.runtimeAnimatorController = moveAnimController;
 	}
 
-	public Vector3 GetPPalPosition () {
-		return PPal.transform.position;
+	public Vector3 GetLookAtPosition () {
+		return new Vector3 (PPal.transform.position.x, PPal.transform.position.y + lookAtPointYOffset, PPal.transform.position.z);
 	}
 
 }

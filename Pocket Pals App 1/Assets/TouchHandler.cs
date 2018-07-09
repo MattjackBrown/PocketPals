@@ -42,10 +42,14 @@ public class TouchHandler : MonoBehaviour {
 	// Portion of screen width needed to swipe to look at next inventory in virtual garden
 	float swipeLengthToLookAtNext = 0.2f;
 
+	public static TouchHandler Instance { get; set; }
+
 
 
 	// Use this for initialization
 	void Start () {
+
+		Instance = this;
 		
 		// Initialise as the map controls
 		controlScheme = ControlScheme.map;

@@ -247,14 +247,7 @@ public class CaptureMiniGame : MonoBehaviour {
 				cutSceneLerp += Time.deltaTime * EGCamSpeed;
 
 				cameraMain.transform.position = Vector3.Lerp (EGStartPos, EGEndPos, cutSceneLerp);
-				cameraMain.transform.LookAt (Vector3.Lerp (
-					EGStartLookAtPos,
-					new Vector3 (
-						pocketPal.GetPPalPosition().x,
-						pocketPal.GetPPalPosition().y+1.0f,
-			//			miniGamePPalPosition.y,
-						pocketPal.GetPPalPosition().z),
-					cutSceneLerp));
+				cameraMain.transform.LookAt (Vector3.Lerp (EGStartLookAtPos, pocketPal.GetLookAtPosition(), cutSceneLerp));
 
 				viewFinder.rectTransform.anchoredPosition = Vector2.Lerp (viewFinder.rectTransform.anchoredPosition, new Vector2 (0.0f, 0.0f), cutSceneLerp);
 				viewFinder.rectTransform.localScale = Vector3.Lerp (viewFinder.rectTransform.localScale, new Vector3 (20.0f, 11.0f, 1.0f), cutSceneLerp);
@@ -264,15 +257,11 @@ public class CaptureMiniGame : MonoBehaviour {
 			} else {
 
 				// Follow the PPal still
-				cameraMain.transform.LookAt (new Vector3 (
-					pocketPal.GetPPalPosition().x,
-					pocketPal.GetPPalPosition().y + 1.0f,
-			//		miniGamePPalPosition.y,
-					pocketPal.GetPPalPosition().z));
+				cameraMain.transform.LookAt (pocketPal.GetLookAtPosition());
 			}
 
 			// Lock the DOF to the PPal
-			float distance = Vector3.Distance (cameraMain.transform.position, pocketPal.GetPPalPosition());
+			float distance = Vector3.Distance (cameraMain.transform.position, pocketPal.GetLookAtPosition());
 			cameraMain.SetDepthOfFieldAndFocalLength (distance, pocketPalAperture);
 		}
 	}

@@ -223,7 +223,7 @@ public class CameraController : MonoBehaviour
 		} else {
 
 			// Recalculate the target position as the PPal is circling
-			targetGameObjectPosition = targetPocketPal.GetComponentInChildren<BoxCollider>().transform.position;
+			targetGameObjectPosition = targetPocketPal.GetComponent<PocketPalParent>().GetLookAtPosition();
 			cameraTargetPosition = targetGameObjectPosition + (playerPosition - targetGameObjectPosition).normalized * captureCamDistance;
 
 			cameraTargetPosition = new Vector3 (cameraTargetPosition.x, lookAtPlayerPositionOffset.y, cameraTargetPosition.z);
