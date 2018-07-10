@@ -29,7 +29,7 @@ public class IngameMenuScript : MonoBehaviour {
         }
         touchHandler.MapControls();
 
-		animManager.OpenUI (anim);
+		//animManager.OpenUI (anim);
     }
 
 	public void CloseAnimation () {
