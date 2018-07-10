@@ -98,6 +98,8 @@ public class ServerDataManager : MonoBehaviour
 
             auth = FirebaseAuth.DefaultInstance;
 
+            if (auth.CurrentUser != null)auth.SignOut();
+
             //Assign a listner to check for a state change to the authentication
             auth.StateChanged += AuthStateChanged;
 
