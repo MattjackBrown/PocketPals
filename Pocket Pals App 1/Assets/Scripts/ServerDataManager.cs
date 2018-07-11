@@ -26,10 +26,13 @@ public class ServerDataManager : MonoBehaviour
     public Text ErrorText;
 
     //This will be the first screen to come up after a successful log in.
-    public GameObject WelcomeScreen;
+//    public GameObject WelcomeScreen;
 
     //Login screen ref
     public GameObject LoginScreen;
+
+	public UIAnimationManager canvasParent;
+	public GameObject initialGameUI;
 
     private bool IsLogginIn = false;
 
@@ -260,7 +263,9 @@ public class ServerDataManager : MonoBehaviour
                     Debug.Log(ex);
                 }
 
-                WelcomeScreen.SetActive(true);
+       //         WelcomeScreen.SetActive(true);
+				canvasParent.OpenUI (initialGameUI);
+
                 NotificationManager.Instance.LoginNotification("Welcome!!!");
             }
         });
@@ -466,7 +471,8 @@ public class ServerDataManager : MonoBehaviour
         NotificationManager.Instance.LogoutNotification("Come Back Soon!!!");
         auth.SignOut();
         newUser = null;
-        LoginScreen.SetActive(true);
+        //LoginScreen.SetActive(true);
+		canvasParent.OpenUI (LoginScreen);
     }
 
     void OnDestroy()

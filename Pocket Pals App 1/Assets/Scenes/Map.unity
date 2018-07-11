@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3461,6 +3461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63353a80c0fbd40adad3a466952594fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingUI: {fileID: 2039017364}
 --- !u!1 &438227159
 GameObject:
   m_ObjectHideFlags: 0
@@ -6392,6 +6393,7 @@ GameObject:
   - component: {fileID: 759308567}
   - component: {fileID: 759308566}
   - component: {fileID: 759308568}
+  - component: {fileID: 759308569}
   m_Layer: 5
   m_Name: VirtualGardenMenu
   m_TagString: Untagged
@@ -6479,6 +6481,23 @@ MonoBehaviour:
   expText: {fileID: 1742963522}
   expToNextLevelText: {fileID: 1191497420}
   progressBar: {fileID: 664572019}
+--- !u!95 &759308569
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 759308564}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dd36485d4ed344a6a9cf7df52153fdf2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &767524974
 GameObject:
   m_ObjectHideFlags: 0
@@ -9175,23 +9194,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2026635372}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 421776396}
+        m_MethodName: OpenUI
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 759308564}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 759308564}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -12235,7 +12243,6 @@ MonoBehaviour:
   cameraController: {fileID: 1331972350}
   miniGame: {fileID: 1072576559}
   virtualGarden: {fileID: 32817350}
-  IngameMenu: {fileID: 1375386368}
   ResourceSpotDistance: 12
   ResourceSpotUpness: 0.5
   IsDebug: 0
@@ -13221,17 +13228,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1728885058}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 2128177417}
         m_MethodName: PlaySound
         m_Mode: 5
@@ -13241,6 +13237,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: clop
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 421776396}
+        m_MethodName: OpenUI
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1728885058}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -15434,7 +15441,7 @@ RectTransform:
   m_GameObject: {fileID: 1728885058}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 1375386369}
   - {fileID: 956007494}
@@ -15496,7 +15503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20c3e5d138641f947a75289af83b2bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anim: {fileID: 1728885063}
   SubMenus:
   - {fileID: 759308564}
   - {fileID: 2026635372}
@@ -15848,8 +15854,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ErrorText: {fileID: 1200489145}
-  WelcomeScreen: {fileID: 1728885058}
   LoginScreen: {fileID: 2039017364}
+  canvasParent: {fileID: 421776396}
+  initialGameUI: {fileID: 1728885058}
 --- !u!114 &1761681926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16613,17 +16620,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1728885058}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
       - m_Target: {fileID: 2128177417}
         m_MethodName: PlaySound
         m_Mode: 5
@@ -16647,11 +16643,22 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1331972349}
-        m_MethodName: MapControls
+        m_MethodName: MenuControls
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 421776396}
+        m_MethodName: OpenUI
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2026635372}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -18625,8 +18632,8 @@ RectTransform:
   m_Father: {fileID: 421776395}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: -1}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -18694,6 +18701,7 @@ GameObject:
   - component: {fileID: 2039017367}
   - component: {fileID: 2039017366}
   - component: {fileID: 2039017371}
+  - component: {fileID: 2039017372}
   m_Layer: 5
   m_Name: LoginScreenMenu
   m_TagString: Untagged
@@ -18715,8 +18723,8 @@ RectTransform:
   m_Father: {fileID: 421776395}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: -1}
+  m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -18825,6 +18833,23 @@ MonoBehaviour:
   error: {fileID: 1200489145}
   DebugUserName: r@r.com
   DebugPassword: richard1
+--- !u!95 &2039017372
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2039017364}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0ab0bcb08b8174c51aafbdb1050abe97, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &2040990044
 GameObject:
   m_ObjectHideFlags: 0
@@ -19654,23 +19679,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2026635372}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 421776396}
+        m_MethodName: OpenUI
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1728885062}
-        m_MethodName: CloseAnimation
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2026635372}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 

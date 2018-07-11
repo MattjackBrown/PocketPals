@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class UIAnimationManager : MonoBehaviour {
 
-	public void OpenUI (Animator anim) {
+	public GameObject startingUI;
 
-		anim.SetBool ("isDisplayed", true);
+	GameObject currentUI;
+
+	void Start () {
+
+		currentUI = startingUI;
 
 	}
 
-	public void CloseUI (Animator anim) {
+	public void OpenUI (GameObject nextUI) {
 
-		anim.SetBool ("isDisplayed", false);
+		nextUI.SetActive (true);
 
+		currentUI.GetComponent<Animator> ().SetBool ("isDisplayed", false);
+		nextUI.GetComponent<Animator> ().SetBool ("isDisplayed", true);
+
+		currentUI = nextUI;
 	}
 }

@@ -9,7 +9,6 @@ public class TouchHandler : MonoBehaviour {
 	public CameraController cameraController;
 	public CaptureMiniGame miniGame;
 	public VirtualSceneParent virtualGarden;
-    public GameObject IngameMenu;
 
     public float ResourceSpotDistance = 30.0f;
     public float ResourceSpotUpness = 0.5f;
@@ -199,15 +198,10 @@ public class TouchHandler : MonoBehaviour {
         if (controlScheme == ControlScheme.map)
         {
             GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = true;
-            if (!IngameMenu.activeSelf)
-            {
-                IngameMenu.SetActive(true);
-            }
         }
         else
         {
             GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = false;
-            if (IngameMenu.activeSelf) IngameMenu.SetActive(false);
         }
     }
 
