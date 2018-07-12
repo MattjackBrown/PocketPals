@@ -17,7 +17,6 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	public GameObject miniGameEnvironment;
 	public GameObject miniGamePlayerPositionObject;
-	public GameObject miniGamePPalPositionObject;
 
 	Vector3 miniGamePlayerPosition, miniGamePPalPosition;
 
@@ -79,7 +78,10 @@ public class CaptureMiniGame : MonoBehaviour {
 		screenHeight = Screen.height;
 
 		miniGamePlayerPosition = miniGamePlayerPositionObject.transform.position;
-		miniGamePPalPosition = miniGamePPalPositionObject.transform.position;
+
+		// Choose a random patrol point as the starting PPal location
+		patrolIndex = Random.Range(0, patrolPositions.Count);
+		miniGamePPalPosition = patrolPositions [patrolIndex].transform.position;
 
 		cameraMain = controls.cameraController;
 		viewFinderDefaultScale = viewFinder.rectTransform.localScale;
