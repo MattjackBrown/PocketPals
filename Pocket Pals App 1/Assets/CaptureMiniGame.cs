@@ -24,7 +24,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	// Thee max time allowed by the minigame before timing out
 	float minigameTimeAllowance = 20.0f;
-	float timeToCapture = 4.0f;
+	float timeToCapture = 1.5f;
 
 	float unfocusedDOFDistance = 30.0f;
 	float defaultAperture = 0.03f;
