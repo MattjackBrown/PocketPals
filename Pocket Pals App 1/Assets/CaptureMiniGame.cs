@@ -16,7 +16,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	public Text berryCount;
 
 	public GameObject miniGameEnvironment;
-	public GameObject miniGamePlayerPositionObject;
+	public List<GameObject> miniGamePlayerPositions;
 
 	Vector3 miniGamePlayerPosition, miniGamePPalPosition;
 
@@ -77,7 +77,8 @@ public class CaptureMiniGame : MonoBehaviour {
 		screenWidth = Screen.width;
 		screenHeight = Screen.height;
 
-		miniGamePlayerPosition = miniGamePlayerPositionObject.transform.position;
+		// Choose a random position for the player
+		miniGamePlayerPosition = miniGamePlayerPositions [Random.Range(0, miniGamePlayerPositions.Count)].transform.position;
 
 		// Choose a random patrol point as the starting PPal location
 		patrolIndex = Random.Range(0, patrolPositions.Count);
