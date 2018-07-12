@@ -161,7 +161,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Set the Positions for the miniGame
 		targetPocketPal.transform.position = miniGamePPalPosition;
 		controls.cameraController.transform.position = miniGamePlayerPosition;
-		controls.cameraController.transform.LookAt (miniGamePPalPosition);
+		controls.cameraController.transform.LookAt (new Vector3(0.0f, miniGamePPalPosition.y, 0.0f));
 
 		// Store the current position as the starting point 'previousPosition'
 		previousPosition = pocketPal.transform.position;
