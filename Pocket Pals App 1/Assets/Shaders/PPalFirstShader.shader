@@ -5,6 +5,7 @@
 		_MainTex ("Texture", 2D) = "white" {}
 		_NoiseTex("NoiseTexture", 2D) = "white" {}
 		_BlendTex("BlendTexture", 2D) = "white" {}
+		_Tint("NightMultiplier", Color) = (1,1,1,1)
 	}
 	SubShader
 	{
@@ -38,6 +39,7 @@
 			sampler2D _NoiseTex;
 			sampler2D _BlendTex;
 			float4 _MainTex_ST;
+			fixed4 _Tint;
 			
 			v2f vert (appdata v)
 			{
@@ -58,8 +60,10 @@
 				
 				col = (col * col1*1.1)+col2;
 
+				col = col * _Tint;
+
 				// apply fog
-				UNITY_APPLY_FOG(i.fogCoord, col1);
+				UNITY_APPLY_FOG(i.fogCoord, col);
 				return col;
 			}
 			ENDCG

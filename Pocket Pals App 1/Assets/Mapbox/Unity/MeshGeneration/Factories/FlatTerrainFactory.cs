@@ -8,7 +8,7 @@
 	public class FlatTerrainFactory : AbstractTileFactory
 	{
 		[SerializeField]
-		private Material _baseMaterial;
+		public Material _baseMaterial;
 
 		[SerializeField]
 		private bool _addCollider = false;
@@ -18,6 +18,8 @@
 
 		[SerializeField]
 		private int _layerId = 0;
+
+        public MeshRenderer rend;
 
 		Mesh _cachedQuad;
 
@@ -36,6 +38,7 @@
 			if (tile.MeshRenderer == null)
 			{
 				var renderer = tile.gameObject.AddComponent<MeshRenderer>();
+                rend = renderer;
 				renderer.material = _baseMaterial;
 			}
 

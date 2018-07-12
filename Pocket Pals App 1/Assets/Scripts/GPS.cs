@@ -5,6 +5,8 @@ using Mapbox.Unity.Map;
 using Mapbox.Utils;
 using UnityEngine.UI;
 using Mapbox.Unity.Utilities;
+using Mapbox.Unity.MeshGeneration.Factories;
+using System;
 
 public class GPS : MonoBehaviour
 {
@@ -63,8 +65,14 @@ public class GPS : MonoBehaviour
 
 	Vector3 LastDestination = new Vector3(0, 0, 0);
 
-	// Use this for initialization
-	void Start ()
+
+    public Material MapMaterial;
+    public Color NightTint;
+    public int Sunset;
+    public int SunRise;
+
+    // Use this for initialization
+    void Start ()
 	{
 		Insatance = this;
 		loadingScreen.SetActive(true);
@@ -109,9 +117,12 @@ public class GPS : MonoBehaviour
 			PocketPalSpawnManager.Instance.DespawnAll();
 		}
 
-		//Delete the map if there is already one
-		if (currentMap != null) Destroy(mapGameObject);
-
+        //Delete the map if there is already one
+        if (currentMap != null)
+        {
+            Destroy(mapGameObject);
+            StopCoroutine(ResourceSpotManager.Instance.Spawn());
+        }
 		//Check to see if the loading screen is still active
 		if (loadingScreen.activeSelf == true) loadingScreen.SetActive(false);
 
@@ -125,8 +136,18 @@ public class GPS : MonoBehaviour
 			Debug.Log("GPS Initialised");
 		}
 
-		//Spawn a new map
-		mapGameObject = Instantiate(originalMap);
+        //Check time and set material
+        if(System.DateTime.Now.Hour >= Sunset || System.DateTime.Now.Hour <= SunRise)
+        {
+            MakeNight();
+        }
+        else
+        {
+            MakeDay();
+        }
+
+        //Spawn a new map
+        mapGameObject = Instantiate(originalMap);
 		mapGameObject.SetActive(true);
 
 		//get the instance of the map and initialise it
@@ -219,6 +240,7 @@ public class GPS : MonoBehaviour
 	{
 		if (!isInitialised) return;
 
+
 		if (HasGps)
 		{
 			//Set the current position used for seeding
@@ -237,8 +259,9 @@ public class GPS : MonoBehaviour
 		}
 		else if (IsDebug)
 		{
-			//used when debuging in editor to simulate player movements
-			CurrentLat = fakeLat;
+
+            //used when debuging in editor to simulate player movements
+            CurrentLat = fakeLat;
 			CurrentLong = fakeLong;
 
 			UpdateDebugText();
@@ -251,6 +274,21 @@ public class GPS : MonoBehaviour
 			MovePlayer();
 		}
 	}
+
+    public void ToggleDayNight()
+    {
+        UpdateMap();
+    }
+
+    public void MakeDay()
+    {
+        MapMaterial.SetColor("_Tint", new Color(1, 1, 1, 1));
+    }
+
+    public void MakeNight()
+    {
+        MapMaterial.SetColor("_Tint", NightTint);
+    }
 
     public void FakeGPSRead(Vector3 worldPos)
     {
@@ -307,5 +345,8 @@ public class GPS : MonoBehaviour
 
 	public bool GetMapInit() { return isInitialised; }
 
-	public void SetIsDebug(bool b) { IsDebug = b; }
+	public void SetIsDebug(bool b)
+    {
+        IsDebug = b;
+    }
 }
