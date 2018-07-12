@@ -10,11 +10,11 @@ using UnityEngine.UI;
 
 public class PocketPalParent : MonoBehaviour
 {
-	Animator animator;
-	public RuntimeAnimatorController restAnimController;
-	public RuntimeAnimatorController moveAnimController;
-	public Avatar restAvatar;
-	public Avatar moveAvatar;
+//	Animator animator;
+//	public RuntimeAnimatorController restAnimController;
+//	public RuntimeAnimatorController moveAnimController;
+//	public Avatar restAvatar;
+//	public Avatar moveAvatar;
 	public GameObject PPal;
 	public float lookAtPointYOffset = 0.0f;
 
@@ -48,7 +48,7 @@ public class PocketPalParent : MonoBehaviour
     {
         transform.position += SpawnOffset;
         InMinigame = false;
-		animator = GetComponent<Animator>();
+//		animator = GetComponent<Animator>();
         GenerateAnimalData();
 	}
 
@@ -90,13 +90,13 @@ public class PocketPalParent : MonoBehaviour
     public PocketPalData GetAnimalData(){ return pocketPalData; }
 
 	public void SetRestAnimation() {
-		animator.avatar = restAvatar;
-		animator.runtimeAnimatorController = restAnimController;
+//		animator.avatar = restAvatar;
+//		animator.runtimeAnimatorController = restAnimController;
 	}
 
 	public void SetMoveAnimation() {
-		animator.avatar = moveAvatar;
-		animator.runtimeAnimatorController = moveAnimController;
+//		animator.avatar = moveAvatar;
+//		animator.runtimeAnimatorController = moveAnimController;
 	}
 
 	public Vector3 GetLookAtPosition () {

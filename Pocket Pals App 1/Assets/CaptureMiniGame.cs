@@ -16,8 +16,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	public Text berryCount;
 
 	public GameObject miniGameEnvironment;
-	public GameObject miniGamePlayerPositionObject;
-	public GameObject miniGamePPalPositionObject;
+	public List<GameObject> miniGamePlayerPositions;
 
 	Vector3 miniGamePlayerPosition, miniGamePPalPosition;
 
@@ -25,7 +24,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	// Thee max time allowed by the minigame before timing out
 	float minigameTimeAllowance = 20.0f;
-	float timeToCapture = 4.0f;
+	float timeToCapture = 1.5f;
 
 	float unfocusedDOFDistance = 30.0f;
 	float defaultAperture = 0.03f;
@@ -78,8 +77,12 @@ public class CaptureMiniGame : MonoBehaviour {
 		screenWidth = Screen.width;
 		screenHeight = Screen.height;
 
-		miniGamePlayerPosition = miniGamePlayerPositionObject.transform.position;
-		miniGamePPalPosition = miniGamePPalPositionObject.transform.position;
+		// Choose a random position for the player
+		miniGamePlayerPosition = miniGamePlayerPositions [Random.Range(0, miniGamePlayerPositions.Count)].transform.position;
+
+		// Choose a random patrol point as the starting PPal location
+		patrolIndex = Random.Range(0, patrolPositions.Count);
+		miniGamePPalPosition = patrolPositions [patrolIndex].transform.position;
 
 		cameraMain = controls.cameraController;
 		viewFinderDefaultScale = viewFinder.rectTransform.localScale;
@@ -158,7 +161,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Set the Positions for the miniGame
 		targetPocketPal.transform.position = miniGamePPalPosition;
 		controls.cameraController.transform.position = miniGamePlayerPosition;
-		controls.cameraController.transform.LookAt (miniGamePPalPosition);
+		controls.cameraController.transform.LookAt (new Vector3(0.0f, miniGamePPalPosition.y, 0.0f));
 
 		// Store the current position as the starting point 'previousPosition'
 		previousPosition = pocketPal.transform.position;
