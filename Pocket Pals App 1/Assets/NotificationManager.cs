@@ -60,6 +60,14 @@ public class NotificationManager : MonoBehaviour
         AddNotificationToQueue(new Notification("None Left!!", m));
     }
 
+    public void ResourceSpotUsed(float timeLeft)
+    {
+        int mintues = Mathf.RoundToInt(timeLeft / 60);
+
+        int seconds = Mathf.RoundToInt(timeLeft % 60); 
+        AddNotificationToQueue(new Notification("Resource Is Not Ready!", "You have: " + mintues +  " minutes and: " + seconds +  " Seconds Until it can be used again"));
+    }
+
     //--------- Question Functions -------\\
 
     public void QuestionNotification(string q, Notification.del yesFunc, Notification.del noFunc )

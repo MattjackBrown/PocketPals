@@ -258,8 +258,11 @@ public class TouchHandler : MonoBehaviour {
         GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = false;
 
         ResourceSpotParent rsp = gd.GetComponent<ResourceSpotParent>();
-        if (rsp.IsUsed()) return;
-        
+        if (rsp.IsUsed())
+        {
+            NotificationManager.Instance.ResourceSpotUsed(ResourceSpotManager.Instance.GetTimeOfCoolDown(rsp));
+            return;
+        }
         //set the sign to be facing the player
         Quaternion targetRotation = Quaternion.LookRotation(GPS.Insatance.girl.transform.position - gd.transform.position);
         gd.transform.rotation = targetRotation;

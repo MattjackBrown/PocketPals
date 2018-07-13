@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1405,7 +1405,7 @@ MonoBehaviour:
   lonText: {fileID: 1713641259}
   MapMaterial: {fileID: 2100000, guid: b9f23e9bce724fa4daac57ecded470b8, type: 2}
   NightTint: {r: 0.23973857, g: 0.22361593, b: 0.6911765, a: 0}
-  Sunset: 23
+  Sunset: 18
   SunRise: 7
 --- !u!1 &208799965
 GameObject:
@@ -10292,6 +10292,9 @@ MonoBehaviour:
     type: 2}
   spread: 1.3
   number: 20
+  CoolDownTimeSeconds: 300
+  checkThreshold: 0.000000001
+  destination: /data.dat
 --- !u!4 &1127646402
 Transform:
   m_ObjectHideFlags: 0
@@ -10345,7 +10348,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e946f5af7bd244b9ba9b0c888ef19532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avgSpawnTime: 15
+  avgSpawnTime: 60
   spawnTimeVariance: 50
   spawnPoints:
   - {fileID: 1267739198}
@@ -12289,7 +12292,7 @@ MonoBehaviour:
   cameraController: {fileID: 1331972350}
   miniGame: {fileID: 1072576559}
   virtualGarden: {fileID: 32817350}
-  ResourceSpotDistance: 12
+  ResourceSpotDistance: 6
   ResourceSpotUpness: 0.5
   IsDebug: 0
   maxCaptureDistance: 16

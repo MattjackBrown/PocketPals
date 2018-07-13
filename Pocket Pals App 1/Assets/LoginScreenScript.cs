@@ -74,14 +74,13 @@ public class LoginScreenScript : MonoBehaviour
 	{
 		string destination = Application.persistentDataPath + "/save.dat";
 		FileStream file;
-
 		if (File.Exists(destination))
 			file = File.OpenRead(destination);
 		else {
 			Debug.Log("File not found");
 			return;
 		}
-
+        
 		BinaryFormatter bf = new BinaryFormatter();
 		DefaultLogin data = (DefaultLogin) bf.Deserialize(file);
 		file.Close();
