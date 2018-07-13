@@ -43,7 +43,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	Vector3 viewFinderDefaultScale;
 
 	public List<GameObject> patrolPositions;
-	float patrolSpeed = 0.5f;
+	float patrolSpeed = 0.25f;
 	float patrolLerp;
 	Vector3 previousPosition, nextPosition;
 	int patrolIndex;
