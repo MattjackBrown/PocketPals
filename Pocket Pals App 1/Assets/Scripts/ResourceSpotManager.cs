@@ -137,7 +137,7 @@ public class ResourceSpotManager : MonoBehaviour
         {
             if (rss.IsMatch(rsp.spawnLoc, checkThreshold))
             {
-                rsp.Used = false;
+                rsp.ActiveAgain();
             }
         }
     }

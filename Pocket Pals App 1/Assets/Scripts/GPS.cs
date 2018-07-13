@@ -11,6 +11,7 @@ using System;
 public class GPS : MonoBehaviour
 {
 	public static GPS Insatance { set; get; }
+
 	public BasicMap currentMap;
 	public GameObject mapGameObject;
 
@@ -133,7 +134,7 @@ public class GPS : MonoBehaviour
 			StartLat = Input.location.lastData.latitude;
 			StartLong = Input.location.lastData.longitude;
 
-			Debug.Log("GPS Initialised");
+			Debug.Log("GPS Initialised at:" + StartLat.ToString()+ ":" + StartLong.ToString());
 		}
 
         //Check time and set material
@@ -238,7 +239,7 @@ public class GPS : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-		if (!isInitialised) return;
+		//if (!isInitialised) return;
 
 
 		if (HasGps)

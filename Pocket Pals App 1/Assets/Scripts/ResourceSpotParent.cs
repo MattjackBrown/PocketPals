@@ -67,6 +67,12 @@ public class ResourceSpotParent : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
+    public void ActiveAgain()
+    {
+        Used = false;
+        transform.GetChild(0).gameObject.SetActive(true);
+    }
+
     public void Finished()
     {
         anim.SetBool("Clicked", false);
