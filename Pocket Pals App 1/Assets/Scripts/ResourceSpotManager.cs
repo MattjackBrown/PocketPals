@@ -83,14 +83,13 @@ public class ResourceSpotManager : MonoBehaviour
         {
             SaveData();
             //check to make sure we have refs to the required classes
-            if (GPS.Insatance == null || GPS.Insatance.currentMap == null || ContentGenerator.Instance == null) yield return new WaitForSeconds(1);
+            if (GPS.Insatance == null || GPS.Insatance.currentMap == null || ContentGenerator.Instance == null) yield return new WaitForSeconds(4);
 
             List<Vector2> LatLonPositions = ContentGenerator.Instance.GenerateResourceSpots(GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, number);
 
             if (LatLonPositions != null)
             {
                 DespawnAll();
-
                 foreach (Vector2 v2 in LatLonPositions)
                 {
                     if (hiddenResourceSpots.Count < 1) break;

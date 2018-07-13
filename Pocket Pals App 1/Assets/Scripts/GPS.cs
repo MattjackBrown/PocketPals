@@ -83,14 +83,10 @@ public class GPS : MonoBehaviour
 
 	private IEnumerator StartLocationService()
 	{
-        if (Input.location.status == LocationServiceStatus.Running)
-        {
-            Debug.Log("Status already running");
-            HasGps = true;
-            yield break;
-        }
+        Debug.Log("Getting locational Services");
 		if (!Input.location.isEnabledByUser)
 		{
+            Debug.Log("Not enabled");
 			yield break;
 		}
 
@@ -119,7 +115,6 @@ public class GPS : MonoBehaviour
 	//Destroys and creates a new map at the location of the player. 
 	public void UpdateMap()
 	{
-        Debug.Log("Map Started");
 		//Check to see if this is a midgame update. if so kill all animals
 		if (PocketPalSpawnManager.Instance)
 		{
@@ -163,8 +158,7 @@ public class GPS : MonoBehaviour
 		currentMap = mapGameObject.GetComponent<BasicMap>();
 		currentMap.Initialize(new Vector2d(StartLat, StartLong),zoom);
 
-		//Start the resourcespot manager co routine
-
+        //Start the resourcespot manager co routine
 
 		isInitialised = true;
 	}
@@ -249,7 +243,6 @@ public class GPS : MonoBehaviour
 	{
         if (!isInitialised)
         {
-            
             return;
         }
 
