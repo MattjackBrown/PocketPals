@@ -61,6 +61,7 @@ public class GPS : MonoBehaviour
 
 	private bool HasGps = false;
 	private bool IsDebug =false;
+    private bool hasStartedCoroutines = false;
 
 	Vector3 destination = new Vector3(0,0,0);
 
@@ -82,13 +83,19 @@ public class GPS : MonoBehaviour
 
 	private IEnumerator StartLocationService()
 	{
+        if (Input.location.status == LocationServiceStatus.Running)
+        {
+            Debug.Log("Status already running");
+            HasGps = true;
+            yield break;
+        }
 		if (!Input.location.isEnabledByUser)
 		{
-			UpdateMap();
 			yield break;
 		}
 
 		Input.location.Start(5, 2);
+        Input.compass.enabled = true;
 		int maxWait = 20;
 		while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
 		{
@@ -105,13 +112,14 @@ public class GPS : MonoBehaviour
 			Debug.Log("unable to find location");
 			yield break;
 		}
+        Debug.Log("Found location services");
 		HasGps = true;
-		UpdateMap();
 	}
 
 	//Destroys and creates a new map at the location of the player. 
 	public void UpdateMap()
 	{
+        Debug.Log("Map Started");
 		//Check to see if this is a midgame update. if so kill all animals
 		if (PocketPalSpawnManager.Instance)
 		{
@@ -122,7 +130,7 @@ public class GPS : MonoBehaviour
         if (currentMap != null)
         {
             Destroy(mapGameObject);
-            StopCoroutine(ResourceSpotManager.Instance.Spawn());
+            StopCoroutines();
         }
 		//Check to see if the loading screen is still active
 		if (loadingScreen.activeSelf == true) loadingScreen.SetActive(false);
@@ -156,7 +164,7 @@ public class GPS : MonoBehaviour
 		currentMap.Initialize(new Vector2d(StartLat, StartLong),zoom);
 
 		//Start the resourcespot manager co routine
-		StartCoroutine(ResourceSpotManager.Instance.Spawn());
+
 
 		isInitialised = true;
 	}
@@ -237,10 +245,15 @@ public class GPS : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update ()
+	void FixedUpdate ()
 	{
-		//if (!isInitialised) return;
+        if (!isInitialised)
+        {
+            
+            return;
+        }
 
+        if (!hasStartedCoroutines && currentMap != null) StartCoroutines();
 
 		if (HasGps)
 		{
@@ -349,5 +362,27 @@ public class GPS : MonoBehaviour
 	public void SetIsDebug(bool b)
     {
         IsDebug = b;
+    }
+
+    public void StartCoroutines()
+    {
+        if (ResourceSpotManager.Instance != null && PocketPalSpawnManager.Instance != null)
+        {
+            Debug.Log("Coroutines started");
+            StartCoroutine(ResourceSpotManager.Instance.Spawn());
+            StartCoroutine(PocketPalSpawnManager.Instance.Spawn());
+            hasStartedCoroutines = true;
+        }
+    }
+
+    public void StopCoroutines()
+    {
+        if (ResourceSpotManager.Instance != null && PocketPalSpawnManager.Instance != null)
+        {
+            Debug.Log("Coroutines stoped");
+            StopCoroutine(ResourceSpotManager.Instance.Spawn());
+            StopCoroutine(PocketPalSpawnManager.Instance.Spawn());
+            hasStartedCoroutines = false;
+        }
     }
 }

@@ -71,7 +71,7 @@ public class PocketPalSpawnManager : MonoBehaviour
         normalisedVariance = spawnTimeVariance / 100;
 
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time
-        StartCoroutine(Spawn());
+
 	}
 
     public void PocketpalCollected(GameObject obj)
@@ -108,7 +108,7 @@ public class PocketPalSpawnManager : MonoBehaviour
         return rarityList;
     }
 
-    private IEnumerator Spawn()
+    public IEnumerator Spawn()
     {
         bool StartDelay = true;
 

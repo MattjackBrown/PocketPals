@@ -66,7 +66,7 @@ public class ServerDataManager : MonoBehaviour
             else
             {
 
-                FirebaseInitialised = true;
+                FirebaseInitialised = false;
 
                 UnityEngine.Debug.Log(System.String.Format(
                   "Could not resolve all Firebase dependencies: {0}", dependencyStatus));
@@ -97,7 +97,6 @@ public class ServerDataManager : MonoBehaviour
 
             //Assign references.
             mDatabaseRef = FirebaseDatabase.DefaultInstance.RootReference;
-
 
             auth = FirebaseAuth.DefaultInstance;
 
@@ -134,7 +133,7 @@ public class ServerDataManager : MonoBehaviour
 
     public void UpdateDistace(GameData gd)
     {
-        mDatabaseRef.Child("Users").Child(gd.ID).Child("DistanceTravelled").SetValueAsync(gd.DistanceTravelled);
+        if(auth.CurrentUser != null)mDatabaseRef.Child("Users").Child(gd.ID).Child("DistanceTravelled").SetValueAsync(gd.DistanceTravelled);
     }
 
     public void UpdatePlayerName(GameData gd)
@@ -265,7 +264,7 @@ public class ServerDataManager : MonoBehaviour
 
        //         WelcomeScreen.SetActive(true);
 				canvasParent.OpenUI (initialGameUI);
-
+                NotificationManager.Instance.NotificationDismissed(false);
                 NotificationManager.Instance.LoginNotification("Welcome!!!");
             }
         });
@@ -425,11 +424,12 @@ public class ServerDataManager : MonoBehaviour
             }
             else
             {
-                NotificationManager.Instance.LoginNotification("Logging in! Please Wait!");
+                NotificationManager.Instance.UndissmissableNotification("Logging in! Please Wait!");
                 LocalDataManager.Instance.GetData().ID = newUser.UserId ?? "";
                 LocalDataManager.Instance.GetData().Username = newUser.DisplayName ?? "";
 
                 GetPlayerData(LocalDataManager.Instance.GetData());
+                GPS.Insatance.UpdateMap();
             }
         }
         else
@@ -477,6 +477,7 @@ public class ServerDataManager : MonoBehaviour
 
     void OnDestroy()
     {
+        auth.SignOut();
         auth.StateChanged -= AuthStateChanged;
         auth = null;
     }

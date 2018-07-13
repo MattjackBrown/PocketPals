@@ -195,6 +195,8 @@ public class TouchHandler : MonoBehaviour {
 
     public void CheckForMapUpdate()
     {
+        if (GPS.Insatance.mapGameObject == null) return;
+        if (GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>() == null) return;
         if (controlScheme == ControlScheme.map)
         {
             GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = true;

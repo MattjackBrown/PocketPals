@@ -13,6 +13,8 @@ public class NotificationManager : MonoBehaviour
 
     private Notification LastNotification;
 
+    public List<GameObject> Layers;
+
     //---- Message Objects-----------\\
     private const int mID = 0;
     public Text mHeader;
@@ -23,6 +25,11 @@ public class NotificationManager : MonoBehaviour
     private const int qID = 1;
     public Text qQuestion;
     public GameObject qLayer;
+
+    //---unRemovable Layer----\\
+    private const int uID = 2;
+    public GameObject uLayer;
+    public Text uMessage;
 
     //------ Message Functions--------\\\
     public void ErrorNotification(string m)
@@ -75,17 +82,21 @@ public class NotificationManager : MonoBehaviour
         AddNotificationToQueue(new Notification(1, q, yesFunc, noFunc));
     }
 
+
+    //--------- Unremovable Notification -----\\\\\
+    public void UndissmissableNotification(string m)
+    {
+        AddNotificationToQueue(new Notification(uID, m));
+    }
     //--------- Internal stuff--------\\
 
-    private void EnableQLayer()
+    public void ToggleLayer(int activeLayer)
     {
-        if(!qLayer.activeSelf)qLayer.SetActive(true);
-        if(mLayer.activeSelf)mLayer.SetActive(false);
-    }
-    private void EnableMLayer()
-    {
-        if (qLayer.activeSelf) qLayer.SetActive(false);
-        if (!mLayer.activeSelf) mLayer.SetActive(true);
+        for (int i = 0; i < Layers.Count; i++)
+        {
+            if (i == activeLayer) Layers[i].SetActive(true);
+            else Layers[i].SetActive(false);
+        }
     }
 
     public void NotificationDismissed(bool b)
@@ -106,15 +117,21 @@ public class NotificationManager : MonoBehaviour
         {
             case mID:
                 {
-                    EnableMLayer();
+                    ToggleLayer(mID);
                     mHeader.text = n.header;
                     mMessage.text = n.message;
                     break;
                 }
             case qID:
                 {
-                    EnableQLayer();
+                    ToggleLayer(qID);
                     qQuestion.text = n.message;
+                    break;
+                }
+            case uID:
+                {
+                    ToggleLayer(uID);
+                    uMessage.text = n.message;
                     break;
                 }
         }
@@ -153,6 +170,12 @@ public class Notification
     public Notification(string h, string m)
     {
         header = h;
+        message = m;
+    }
+
+    public Notification(int t, string m)
+    {
+        type = t;
         message = m;
     }
 
