@@ -53,4 +53,9 @@ public class UIAnimationManager : MonoBehaviour {
 		inventoryUI.SetActive (true);
 		coreCanvasAnimator.SetBool ("showInventory", show);
 	}
+
+	public void ShowMinigameCaptureButton (bool show) {
+
+		coreCanvasAnimator.SetBool ("showMinigameCapture", show);
+	}
 }

@@ -14,6 +14,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	public Slider captureMeter;
 	public Slider berryMeter;
 	public Text berryCount;
+	public RawImage captureImage;
 
 	public GameObject miniGameEnvironment;
 	public List<GameObject> miniGamePlayerPositions;
@@ -24,7 +25,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	// Thee max time allowed by the minigame before timing out
 	float minigameTimeAllowance = 20.0f;
-	float timeToCapture = 1.5f;
+	float timeToCapture = 1.0f;
 
 	float unfocusedDOFDistance = 30.0f;
 	float defaultAperture = 0.03f;
@@ -180,6 +181,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Hide the berry meter until used
 		berryMeter.gameObject.SetActive(false);
+		captureImage.gameObject.SetActive (false);
 	}
 
 	public void UpdateTimer () {
@@ -204,7 +206,7 @@ public class CaptureMiniGame : MonoBehaviour {
 				} else {
 
 					// Deplete the minigame timer
-					captureTimer -= Time.deltaTime / timeToCapture * 0.25f;
+					captureTimer -= (Time.deltaTime / timeToCapture) * 0.1f;
 
 					if (captureTimer < 0.0f)
 						captureTimer = 0.0f;
@@ -436,6 +438,9 @@ public class CaptureMiniGame : MonoBehaviour {
 		
 		Time.timeScale = EGTimeScale;
 
+		// Animate the UI swap out
+		MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showMinigameCapture", true);
+
 		EGStartPos = cameraMain.transform.position;
 		EGStartLookAtPos = EGStartPos + cameraMain.transform.forward;
 		EGEndPos = EGStartPos + (pocketPal.transform.position - EGStartPos) / 2.0f;
@@ -444,13 +449,13 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Tell the update to call the cut scene
 		endGameSequence = true;
 
-		StartCoroutine(SlowMo());
+		//StartCoroutine(SlowMo());
 	}
 
 	// Fuck yeah that's the good stuff
 	IEnumerator SlowMo ()
 	{
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(0.3f);
 
 		Time.timeScale = 1.0f;
 
@@ -465,6 +470,11 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Swap the UI
 		MapUI.gameObject.SetActive(true);
+
+		// Reset the anim state machine
+		MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showPhoto", false);
+//		MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showMinigameCapture", false);
+
 		MiniGameMenu.gameObject.SetActive(false);
 		MiniGameUI.gameObject.SetActive(false);
 		
@@ -510,5 +520,27 @@ public class CaptureMiniGame : MonoBehaviour {
                 NotificationManager.Instance.ItemFailedNotification("You have no berries to use! Try buying some from the shop, or finiding them at resource spots");
             }
 		}
+	}
+
+	public void TakePhotoButtonPressed () {
+
+		ScreenCapture.CaptureScreenshot("screenshot.png");
+
+		#if !UNITY_EDITOR
+
+		byte[] bytes = System.IO.File.ReadAllBytes (Application.persistentDataPath + "/screenshot.png");
+
+		Texture2D texture = new Texture2D (100, 100);
+
+		texture.LoadImage (bytes);
+
+		captureImage.texture = texture;
+
+		MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showPhoto", true);
+
+		StartCoroutine(SlowMo());
+
+		#endif
+
 	}
 }
