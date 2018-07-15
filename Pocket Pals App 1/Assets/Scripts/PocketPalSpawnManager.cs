@@ -77,7 +77,7 @@ public class PocketPalSpawnManager : MonoBehaviour
     public void PocketpalCollected(GameObject obj)
     {
         LocalDataManager.Instance.AddPocketPal(obj);
-        DespawnPocketPal(obj);
+        DespawnPocketPal(obj.GetComponentInParent<PocketPalParent>().gameObject);
     }
 
     private GameObject GetWeightedPocketPal()
