@@ -8,7 +8,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	public TouchHandler controls;
 
 	public Canvas MapUI;
-	public Canvas MiniGameMenu;
+//	public Canvas MiniGameMenu;
 	public Canvas MiniGameUI;
 	public Image viewFinder;
 	public Slider captureMeter;
@@ -69,7 +69,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	float cutSceneLerp, EGCamSpeed = 10.0f, EGTimeScale = 0.05f;
 	CameraController cameraMain;
 
-
+	public UIAnimationManager animManager;
 
 
 	// Use this for initialization
@@ -91,9 +91,45 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	public void PlayButtonPressed () {
 
+		// Tell the PPal it is the subject for a minigame
+		pocketPal.InMinigame = true;
+
+		// Store the map position if the minigame fails and the PPal should reappear back in the pmap
+		PPalMapPosition = pocketPal.transform.position;
+		CameraMapPosition = controls.cameraController.transform.position;
+
+		// Set the virtual garden environment to be active
+		miniGameEnvironment.SetActive (true);
+
+		// Set the Positions for the miniGame
+		pocketPal.transform.position = miniGamePPalPosition;
+		controls.cameraController.transform.position = miniGamePlayerPosition;
+		controls.cameraController.transform.LookAt (new Vector3(0.0f, miniGamePPalPosition.y, 0.0f));
+
+		// Store the current position as the starting point 'previousPosition'
+		previousPosition = pocketPal.transform.position;
+
+		// Set a randomly chosen endpoint
+		patrolIndex = Random.Range(0, patrolPositions.Count);
+		nextPosition = patrolPositions [patrolIndex].transform.position;
+		pocketPal.transform.LookAt (nextPosition);
+
+		// Used to see the inventory for number of berries
+		playerProfile = LocalDataManager.Instance.GetData ();
+
+		// Set the number of berries text
+		numberOfBerries = playerProfile.NumberOfBerries ();
+		berryCount.text = numberOfBerries.ToString ();
+
+		// Hide the berry meter until used
+		berryMeter.gameObject.SetActive(false);
+//		captureImage.gameObject.SetActive (false);
+
 		// Adjust the UI
-		MiniGameMenu.gameObject.SetActive(false);
+//		MiniGameMenu.gameObject.SetActive(false);
 		MiniGameUI.gameObject.SetActive(true);
+
+		viewFinder.gameObject.SetActive (true);
 
 		// Initially set the viewport image to the centre of the screen
 		viewFinder.rectTransform.anchoredPosition = Camera.main.ViewportToScreenPoint (new Vector3 (0.0f, 0.0f));
@@ -107,6 +143,11 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Set the controlScheme in the touchHandler
 		controls.MiniGameControls ();
+
+		// Reset the timers
+		minigameTimer = 0.0f;
+		captureTimer = 0.0f;
+		captureMeter.value = 0.0f;
 
 		patrolLerp = 0.0f;
 
@@ -133,55 +174,18 @@ public class CaptureMiniGame : MonoBehaviour {
 	}
 
 	public void InitMiniGame (PocketPalParent targetPocketPal) {
-
+/*
 		// Swap the UI over just with enabled will do
 		MapUI.gameObject.SetActive(false);
 		MiniGameMenu.gameObject.SetActive (true);
-
-		// Reset the timers
-		minigameTimer = 0.0f;
-		captureTimer = 0.0f;
-		captureMeter.value = 0.0f;
-
-		// Tell the PPal it is the subject for a minigame
-		targetPocketPal.InMinigame = true;
+*/
+		animManager.OpenMinigame (true);
 
 		// Set the target pocketPal for this minigame
 		pocketPal = targetPocketPal;
 
 		// A passive control scheme waiting for a button press
 		controls.MenuControls ();
-
-		// Store the map position if the minigame fails and the PPal should reappear back in the pmap
-		PPalMapPosition = targetPocketPal.transform.position;
-		CameraMapPosition = controls.cameraController.transform.position;
-
-		// Set the virtual garden environment to be active
-		miniGameEnvironment.SetActive (true);
-
-		// Set the Positions for the miniGame
-		targetPocketPal.transform.position = miniGamePPalPosition;
-		controls.cameraController.transform.position = miniGamePlayerPosition;
-		controls.cameraController.transform.LookAt (new Vector3(0.0f, miniGamePPalPosition.y, 0.0f));
-
-		// Store the current position as the starting point 'previousPosition'
-		previousPosition = pocketPal.transform.position;
-
-		// Set a randomly chosen endpoint
-		patrolIndex = Random.Range(0, patrolPositions.Count);
-		nextPosition = patrolPositions [patrolIndex].transform.position;
-		pocketPal.transform.LookAt (nextPosition);
-
-		// Used to see the inventory for number of berries
-		playerProfile = LocalDataManager.Instance.GetData ();
-
-		// Set the number of berries text
-		numberOfBerries = playerProfile.NumberOfBerries ();
-		berryCount.text = numberOfBerries.ToString ();
-
-		// Hide the berry meter until used
-		berryMeter.gameObject.SetActive(false);
-		captureImage.gameObject.SetActive (false);
 	}
 
 	public void UpdateTimer () {
@@ -230,6 +234,9 @@ public class CaptureMiniGame : MonoBehaviour {
 				}
 
 			} else {
+				
+			//	MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showMinigameCapture", false);
+				animManager.MinigameFail ();
 			
 				// Minigame failed
 				MinigameExit ();
@@ -256,8 +263,6 @@ public class CaptureMiniGame : MonoBehaviour {
 
 				viewFinder.rectTransform.anchoredPosition = Vector2.Lerp (viewFinder.rectTransform.anchoredPosition, new Vector2 (0.0f, 0.0f), cutSceneLerp);
 				viewFinder.rectTransform.localScale = Vector3.Lerp (viewFinder.rectTransform.localScale, new Vector3 (20.0f, 11.0f, 1.0f), cutSceneLerp);
-
-				// TODO Animate away UI, Animate in the take photo button.
 
 			} else {
 
@@ -439,7 +444,8 @@ public class CaptureMiniGame : MonoBehaviour {
 		Time.timeScale = EGTimeScale;
 
 		// Animate the UI swap out
-		MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showMinigameCapture", true);
+//		MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showMinigameCapture", true);
+		animManager.MinigameSuccess ();
 
 		EGStartPos = cameraMain.transform.position;
 		EGStartLookAtPos = EGStartPos + cameraMain.transform.forward;
@@ -453,11 +459,13 @@ public class CaptureMiniGame : MonoBehaviour {
 	}
 
 	// Fuck yeah that's the good stuff
-	IEnumerator SlowMo ()
+	IEnumerator Wait ()
 	{
-		yield return new WaitForSeconds(0.3f);
+		yield return new WaitForSeconds(3.0f);
 
-		Time.timeScale = 1.0f;
+		// Reset the anim state machine
+	//	MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showPhoto", false);
+		animManager.MinigameToMap ();
 
 		// Exit the minigame
 		MinigameExit ();
@@ -471,12 +479,9 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Swap the UI
 		MapUI.gameObject.SetActive(true);
 
-		// Reset the anim state machine
-		MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showPhoto", false);
-//		MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showMinigameCapture", false);
-
-		MiniGameMenu.gameObject.SetActive(false);
-		MiniGameUI.gameObject.SetActive(false);
+//		MiniGameMenu.gameObject.SetActive(false);
+//		MiniGameUI.gameObject.SetActive(false);
+		viewFinder.gameObject.SetActive (false);
 		
 		// Place the camera back in the map area
 		controls.cameraController.transform.position = CameraMapPosition;
@@ -517,7 +522,7 @@ public class CaptureMiniGame : MonoBehaviour {
             }
             else
             {
-                NotificationManager.Instance.ItemFailedNotification("You have no berries to use! Try buying some from the shop, or finiding them at resource spots");
+                NotificationManager.Instance.ItemFailedNotification("You have no berries to use! Try buying some from the shop, or finding them at resource spots");
             }
 		}
 	}
@@ -526,21 +531,25 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		ScreenCapture.CaptureScreenshot("screenshot.png");
 
-		#if !UNITY_EDITOR
+//		#if !UNITY_EDITOR
 
 		byte[] bytes = System.IO.File.ReadAllBytes (Application.persistentDataPath + "/screenshot.png");
 
-		Texture2D texture = new Texture2D (100, 100);
+		Texture2D texture = new Texture2D (200, 200);
 
 		texture.LoadImage (bytes);
 
 		captureImage.texture = texture;
 
-		MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showPhoto", true);
+		animManager.ShowPhoto (true);
 
-		StartCoroutine(SlowMo());
+		//MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showPhoto", true);
 
-		#endif
+		Time.timeScale = 1.0f;
+
+		StartCoroutine(Wait());
+
+//		#endif
 
 	}
 }

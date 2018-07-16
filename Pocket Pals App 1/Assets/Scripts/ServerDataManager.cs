@@ -29,11 +29,11 @@ public class ServerDataManager : MonoBehaviour
 //    public GameObject WelcomeScreen;
 
     //Login screen ref
-    public GameObject LoginScreen;
-
-	public UIAnimationManager canvasParent;
+/*    
+ 	public GameObject LoginScreen;
 	public GameObject initialGameUI;
-
+*/
+	public UIAnimationManager canvasParent;
     private bool IsLogginIn = false;
 
     private bool createUser = false;
@@ -263,8 +263,7 @@ public class ServerDataManager : MonoBehaviour
                 }
 
        //         WelcomeScreen.SetActive(true);
-				canvasParent.OpenUI (initialGameUI);
-                NotificationManager.Instance.NotificationDismissed(false);
+				NotificationManager.Instance.NotificationDismissed(false);
                 NotificationManager.Instance.LoginNotification("Welcome!!!");
             }
         });
@@ -409,6 +408,8 @@ public class ServerDataManager : MonoBehaviour
             newUser.DisplayName, newUser.UserId);
 
             GlobalVariables.hasLoggedIn = true;
+
+			canvasParent.CloseLogin(true);
         });
     }
 
@@ -472,7 +473,7 @@ public class ServerDataManager : MonoBehaviour
         auth.SignOut();
         newUser = null;
         //LoginScreen.SetActive(true);
-		canvasParent.OpenUI (LoginScreen);
+		canvasParent.GetComponent<Animator>().SetBool("logOut", true);
     }
 
     void OnDestroy()
