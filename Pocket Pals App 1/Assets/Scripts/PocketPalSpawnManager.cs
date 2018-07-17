@@ -68,7 +68,7 @@ public class PocketPalSpawnManager : MonoBehaviour
         AverageRarity = TotalRarity / NumberOfPPals;
 
         //making it percentage based seem easier too understand, but harder to work with.
-        normalisedVariance = spawnTimeVariance / 100;
+        normalisedVariance = spawnTimeVariance*avgSpawnTime;
 
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time
 
@@ -100,7 +100,8 @@ public class PocketPalSpawnManager : MonoBehaviour
 
     private float GetSpawnDelay()
     {
-        return Random.Range(avgSpawnTime - normalisedVariance, avgSpawnTime + normalisedVariance);
+        float f  =Random.Range(avgSpawnTime - normalisedVariance, avgSpawnTime + normalisedVariance);
+        return f;
     }
 
     public List<float> GetSpawnSamples()
