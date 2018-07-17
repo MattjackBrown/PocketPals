@@ -8,6 +8,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[System.Serializable]
+public enum SpawnType
+{
+    none, 
+    a_Woodland,
+    d_Woodland,
+    n_Woodland,
+    a_Wetland,
+    d_Wetland,
+    n_Wetland
+}
+
 public class PocketPalParent : MonoBehaviour
 {
 //	Animator animator;
@@ -33,6 +45,8 @@ public class PocketPalParent : MonoBehaviour
 
     public float averageAgro = 5.0f;
     public float agroVariance = 0.5f;
+
+    public SpawnType type = SpawnType.none;
 
     public string name = "none";
 

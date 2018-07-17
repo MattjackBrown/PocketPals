@@ -38,7 +38,7 @@ public class GPS : MonoBehaviour
 	public float fakeLong = -5.126206f;
 
 	//zoom of the map
-	private int zoom = 18;
+	private int zoom = 17;
 
 	//movement variables
 	public float movementSpeed = 1f;
@@ -140,10 +140,12 @@ public class GPS : MonoBehaviour
         if(System.DateTime.Now.Hour >= Sunset || System.DateTime.Now.Hour <= SunRise)
         {
             MakeNight();
+            PocketPalSpawnManager.Instance.SetSpawnList(SpawnType.n_Woodland);
         }
         else
         {
             MakeDay();
+            PocketPalSpawnManager.Instance.SetSpawnList(SpawnType.d_Woodland);
         }
 
         //Spawn a new map

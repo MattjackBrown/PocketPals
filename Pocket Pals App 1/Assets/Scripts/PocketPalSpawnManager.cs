@@ -23,9 +23,6 @@ public class PocketPalSpawnManager : MonoBehaviour
     // An array of spawn locations Pocket Pals can spawn from.
     public List<Transform> spawnPoints;
 
-    //List of the rarities of the index
-    private static List<float> rarityList = new List<float>();
-
     bool shouldSpawn = true;
 
     //Used for girl distance and To get the gps map
@@ -47,6 +44,9 @@ public class PocketPalSpawnManager : MonoBehaviour
 	// The minimum distance allowed between spawning pocket pals to avoid overlaps
 	float minimumDistanceBetweenSpawns = 4.0f;
 
+    private List<GameObject> activeSpawnList = new List<GameObject>();
+    private List<float> activeRarities = new List<float>();
+
     //List of all the spawned pocketpals
     private List<GameObject> spawnedPocketPals = new List<GameObject>();
 
@@ -58,15 +58,6 @@ public class PocketPalSpawnManager : MonoBehaviour
 
         gpsMap = girl.GetComponent<GPS>();
 
-        //Iter throught the PocketPalscripts and set their IDs
-        foreach (GameObject o in AssetManager.Instance.PocketPals)
-        {
-            TotalRarity += o.GetComponent<PocketPalParent>().Rarity;
-            NumberOfPPals++;
-            rarityList.Add(o.GetComponent<PocketPalParent>().Rarity);
-        }
-        AverageRarity = TotalRarity / NumberOfPPals;
-
         //making it percentage based seem easier too understand, but harder to work with.
         normalisedVariance = spawnTimeVariance*avgSpawnTime;
 
@@ -74,21 +65,33 @@ public class PocketPalSpawnManager : MonoBehaviour
 
 	}
 
+    public void SetSpawnList(SpawnType type)
+    {
+        DespawnAll();
+        activeSpawnList.Clear();
+        activeRarities.Clear();
+
+        activeSpawnList = AssetManager.Instance.GetPocketPalsOfType(type);
+        //Iter throught the PocketPalscripts and set their IDs
+        foreach (GameObject o in activeSpawnList)
+        {
+            TotalRarity += o.GetComponent<PocketPalParent>().Rarity;
+            NumberOfPPals++;
+            activeRarities.Add(o.GetComponent<PocketPalParent>().Rarity);
+        }
+        AverageRarity = TotalRarity / NumberOfPPals;
+        ContentGenerator.Instance.TryGenerateNewAnimalList("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, NumberOfPPals, activeRarities, true);
+    }
+
     public void PocketpalCollected(GameObject obj)
     {
         LocalDataManager.Instance.AddPocketPal(obj);
         DespawnPocketPal(obj.GetComponentInParent<PocketPalParent>().gameObject);
     }
 
-    private GameObject GetWeightedPocketPal()
-    {
-        int index = Sampler(new System.Random(), rarityList);
-        return AssetManager.Instance.PocketPals[index];
-    }
-
     private GameObject GetSyncedPocketPal()
     {
-        if (ContentGenerator.Instance.TryGenerateNewAnimalList("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, NumberOfPPals, rarityList))
+        if (ContentGenerator.Instance.TryGenerateNewAnimalList("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, NumberOfPPals, activeRarities, false))
         {
             DespawnAll();
         }
@@ -106,7 +109,7 @@ public class PocketPalSpawnManager : MonoBehaviour
 
     public List<float> GetSpawnSamples()
     {
-        return rarityList;
+        return activeRarities;
     }
 
     public IEnumerator Spawn()
@@ -170,8 +173,7 @@ public class PocketPalSpawnManager : MonoBehaviour
 					Quaternion rot = spawnPoints [spawnPointIndex].rotation;
 
                     //Try and get a synced animals spawn
-                    if (TrySyncedSpawns) ppal = GetSyncedPocketPal();
-                    else ppal = GetWeightedPocketPal();
+                    ppal = GetSyncedPocketPal();
 
 					// Create an instance of the prefab at select pocketpal via rarity 
 					GameObject clone = Instantiate (ppal, spawnPosition, rot);

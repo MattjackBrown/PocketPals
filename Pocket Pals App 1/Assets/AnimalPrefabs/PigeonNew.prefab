@@ -1649,11 +1649,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db39247a5b7fa2e4faf352d933422d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restAnimController: {fileID: 9100000, guid: 33961ceacaab78e41aa2ba47918ac0c6, type: 2}
-  moveAnimController: {fileID: 9100000, guid: 8be77e85ab537414f88421884b2fe9e1, type: 2}
-  restAvatar: {fileID: 9000000, guid: 379929b69c87f024eb776dfc1f5b1f4e, type: 3}
-  moveAvatar: {fileID: 9000000, guid: 61ec26df986136f4d9f794192a531526, type: 3}
   PPal: {fileID: 1840800573925188}
+  lookAtPointYOffset: 0
   PocketPalID: 9
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
@@ -1662,6 +1659,7 @@ MonoBehaviour:
   sizeVariance: 0.5
   averageAgro: 1
   agroVariance: 0.5
+  type: 1
   name: Pigeon
   Rarity: 1
 --- !u!137 &137621607088011618

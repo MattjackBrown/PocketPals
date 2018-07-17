@@ -58,7 +58,7 @@
 				fixed4 col1 = tex2D(_NoiseTex, i.uv);
 				fixed4 col2 = tex2D(_BlendTex, i.uv);
 				
-				col = (col * col1*0.9)+ (col2*0.1);
+				col = (col * col1*0.9)+ (col2*0.05);
 
 				col = col * _Tint;
 

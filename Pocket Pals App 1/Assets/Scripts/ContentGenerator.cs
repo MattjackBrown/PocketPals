@@ -110,12 +110,12 @@ public class ContentGenerator : MonoBehaviour
 		return i;
 	}
 
-	public bool TryGenerateNewAnimalList(string seed, double lat, double lon, int numberOfAnimals, List<float>samples)
+	public bool TryGenerateNewAnimalList(string seed, double lat, double lon, int numberOfAnimals, List<float>samples, bool newList)
 	{
 		ppNewSeed = GetSeed(seed, lat, lon);
 
 		//check to see if the seed has changed since the last time we spawned an animal
-		if (ppNewSeed != ppCurrentSeed)
+		if (ppNewSeed != ppCurrentSeed || newList)
 		{
 			ppCurrentSeed = ppNewSeed;
 			//create the random using a seed which is shared by all in the same rough area.

@@ -54,6 +54,41 @@ public class AssetManager : MonoBehaviour {
         return id.CloneWithNumber(Random.Range(1, maxFind));
     }
 
+    public List<GameObject> GetPocketPalsOfType(SpawnType type)
+    {
+        List<GameObject> pList = new List<GameObject>();
+        foreach (GameObject obj in PocketPals)
+        {
+            if (obj.GetComponent<PocketPalParent>().type == type)
+            {
+                pList.Add(obj);
+            }
+            else
+            {
+                switch (obj.GetComponent<PocketPalParent>().type)
+                {
+                    case SpawnType.a_Woodland:
+                        {
+                            if (type == SpawnType.d_Woodland || type == SpawnType.n_Woodland)
+                            {
+                                pList.Add(obj);
+                            }
+                            break;
+                        }
+                    case SpawnType.a_Wetland:
+                        {
+                            if (type == SpawnType.d_Wetland || type == SpawnType.n_Wetland)
+                            {
+                                pList.Add(obj);
+                            }
+                            break;
+                        }
+                }
+            }
+        }
+        return pList;
+    }
+
 	// Update is called once per frame
 	void Update () {
 		

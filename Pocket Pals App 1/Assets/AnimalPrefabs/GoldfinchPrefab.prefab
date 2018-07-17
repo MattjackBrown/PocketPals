@@ -1274,11 +1274,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db39247a5b7fa2e4faf352d933422d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restAnimController: {fileID: 9100000, guid: 5bf28104aeaa82b4c88c5b6a3423082e, type: 2}
-  moveAnimController: {fileID: 9100000, guid: d2287f507e320e24bb183098f7fe2ec8, type: 2}
-  restAvatar: {fileID: 9000000, guid: b2456491d8c0110499f2c9eab614ec20, type: 3}
-  moveAvatar: {fileID: 9000000, guid: 7e4774eddb693ec47a802543aa7dcf38, type: 3}
   PPal: {fileID: 1725337394607792}
+  lookAtPointYOffset: 0
   PocketPalID: 6
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
@@ -1287,8 +1284,9 @@ MonoBehaviour:
   sizeVariance: 0.5
   averageAgro: 5
   agroVariance: 0.5
+  type: 1
   name: GoldFinch
-  Rarity: 8
+  Rarity: 3
 --- !u!137 &137020986973152786
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -1214,11 +1214,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db39247a5b7fa2e4faf352d933422d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restAnimController: {fileID: 9100000, guid: 7435fbd82ba3aa04babc9c50e5656974, type: 2}
-  moveAnimController: {fileID: 9100000, guid: ce30babcf07e4534e9c08a0b58ec0ab0, type: 2}
-  restAvatar: {fileID: 9000000, guid: 04a1816021b42c5478a0ef03fa981643, type: 3}
-  moveAvatar: {fileID: 9000000, guid: 5761be922596b104997ae2a6da48e5e2, type: 3}
   PPal: {fileID: 1096544620655134}
+  lookAtPointYOffset: 0
   PocketPalID: 8
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
@@ -1227,8 +1224,9 @@ MonoBehaviour:
   sizeVariance: 0.5
   averageAgro: 5
   agroVariance: 0.5
+  type: 2
   name: Owl
-  Rarity: 7
+  Rarity: 5
 --- !u!137 &137721218716270662
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -1359,11 +1359,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db39247a5b7fa2e4faf352d933422d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restAnimController: {fileID: 9100000, guid: b45a69531ee03d84b9dbda476fa6392a, type: 2}
-  moveAnimController: {fileID: 9100000, guid: 6bc16fdeaae38c7458b77cf43b726e06, type: 2}
-  restAvatar: {fileID: 9000000, guid: cb525cf32ed95e449b3539a6322d3f44, type: 3}
-  moveAvatar: {fileID: 9000000, guid: 4156f3d546e4d914a9fb41b3b8db6972, type: 3}
   PPal: {fileID: 1494033545902358}
+  lookAtPointYOffset: 0
   PocketPalID: 13
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
@@ -1372,8 +1369,9 @@ MonoBehaviour:
   sizeVariance: 0.5
   averageAgro: 5
   agroVariance: 0.5
+  type: 1
   name: RedFox
-  Rarity: 10
+  Rarity: 3
 --- !u!137 &137854817502652636
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -1475,11 +1475,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db39247a5b7fa2e4faf352d933422d79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restAnimController: {fileID: 9100000, guid: 4057d3da66593a940a82676c7a89f475, type: 2}
-  moveAnimController: {fileID: 9100000, guid: b20ba5ab5a1a85e45af30d287aa55f8a, type: 2}
-  restAvatar: {fileID: 9000000, guid: e078baee72c4997409fded27ddfef421, type: 3}
-  moveAvatar: {fileID: 9000000, guid: c36a3acf021fb534a9354bc61166ee56, type: 3}
   PPal: {fileID: 1147428670811110}
+  lookAtPointYOffset: 0
   PocketPalID: 15
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
@@ -1488,6 +1485,7 @@ MonoBehaviour:
   sizeVariance: 0.5
   averageAgro: 5
   agroVariance: 0.5
+  type: 2
   name: Robin
   Rarity: 2
 --- !u!137 &137115598960964986

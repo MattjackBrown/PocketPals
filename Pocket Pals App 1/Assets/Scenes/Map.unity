@@ -514,7 +514,7 @@ GameObject:
   - component: {fileID: 51119580}
   - component: {fileID: 51119579}
   m_Layer: 5
-  m_Name: invCam1Layer
+  m_Name: invCamProLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8328,7 +8328,7 @@ GameObject:
   - component: {fileID: 865963954}
   - component: {fileID: 865963953}
   m_Layer: 5
-  m_Name: invCam2Layer
+  m_Name: invCamStandardLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11555,7 +11555,7 @@ Prefab:
     - target: {fileID: 114110380612210384, guid: cadd1a63b8767fe4aabbc56044ff1932,
         type: 2}
       propertyPath: _zoom
-      value: 17
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cadd1a63b8767fe4aabbc56044ff1932, type: 2}
@@ -11571,7 +11571,7 @@ GameObject:
   - component: {fileID: 1183379062}
   - component: {fileID: 1183379061}
   m_Layer: 5
-  m_Name: invCam1Text
+  m_Name: invCamProText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11981,8 +11981,8 @@ RectTransform:
   m_Father: {fileID: 701837059}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.8003053}
-  m_AnchorMax: {x: 0.20289509, y: 1}
+  m_AnchorMin: {x: 0, y: 0.8003113}
+  m_AnchorMax: {x: 0.15400001, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -12371,7 +12371,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1259626980
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12805,7 +12805,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.35000002, y: 1}
+  m_AnchorMax: {x: 0.24511576, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13537,7 +13537,7 @@ GameObject:
   - component: {fileID: 1350016940}
   - component: {fileID: 1350016939}
   m_Layer: 5
-  m_Name: invCam2Text
+  m_Name: invCamStandardText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
