@@ -116,5 +116,13 @@ public class UIAnimationManager : MonoBehaviour {
 		canvasAnimator.SetBool ("showVG", show);
 	}
 
+	public void IntroFinished () {
 
+		canvasAnimator.SetBool ("introFinished", true);
+	}
+
+	public void LoadingBarFinished () {
+
+		canvasAnimator.SetBool ("loadingBarFinished", true);
+	}
 }
