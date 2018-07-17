@@ -17,7 +17,7 @@ public class LevelCalculator
         int lvl = 1;
         while (EXP > temp)
         {
-            temp = temp * LevelCoefficent;
+            temp += temp * LevelCoefficent;
             lvl++;
         }
         return lvl;
@@ -29,7 +29,7 @@ public class LevelCalculator
         int lvl = 1;
         while (EXP > temp)
         {
-            temp = temp * LevelCoefficent;
+            temp += temp * LevelCoefficent;
             lvl++;
         }
         return temp - EXP;

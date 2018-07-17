@@ -9,7 +9,13 @@ public class UIAnimationManager : MonoBehaviour {
 	// There is a central animator within this parent that controls specific pairs of UIs
 	Animator canvasAnimator;
 
-	void Start () {
+    private void Awake()
+    {
+        canvasAnimator = GetComponent<Animator>();
+
+    }
+
+    void Start () {
 
 		canvasAnimator = GetComponent<Animator> ();
 
@@ -20,8 +26,9 @@ public class UIAnimationManager : MonoBehaviour {
 		canvasAnimator.SetBool ("showSettings", show);
 	}
 
-	public void ShowInventory (bool show) {
-
+	public void ShowInventory (bool show)
+    {
+        if(show)InventoryHandler.Instance.Enabled();
 		canvasAnimator.SetBool ("showInventory", show);
 	}
 
@@ -101,9 +108,10 @@ public class UIAnimationManager : MonoBehaviour {
 		canvasAnimator.SetBool ("minigameFail", false);
 	}
 
-	public void OpenJournal (bool show) {
-
+	public void OpenJournal (bool show)
+    {
 		canvasAnimator.SetBool ("openJournal", show);
+        PlayerProfileHandler.Instance.RefreshStats();
 	}
 
 	public void OpenTracks (bool show) {

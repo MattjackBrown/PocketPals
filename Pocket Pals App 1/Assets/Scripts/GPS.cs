@@ -66,6 +66,7 @@ public class GPS : MonoBehaviour
 
 
     public Material MapMaterial;
+    public Color DayFog;
     public Color NightTint;
     public int Sunset;
     public int SunRise;
@@ -74,6 +75,7 @@ public class GPS : MonoBehaviour
     void Start ()
 	{
 		Insatance = this;
+
 		StartCoroutine(StartLocationService());
 	}
 
@@ -284,11 +286,13 @@ public class GPS : MonoBehaviour
     public void MakeDay()
     {
         MapMaterial.SetColor("_Tint", new Color(1, 1, 1, 1));
+        RenderSettings.fogColor = DayFog;
     }
 
     public void MakeNight()
     {
         MapMaterial.SetColor("_Tint", NightTint);
+        RenderSettings.fogColor = NightTint;
     }
 
     public void FakeGPSRead(Vector3 worldPos)

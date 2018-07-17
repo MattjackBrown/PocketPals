@@ -10,11 +10,6 @@ public class TrackAndTrailsHandle : MonoBehaviour
 
     public Text distanceTravelledText;
 
-    // Use this for initialization
-    private void OnEnable()
-    {
-        UpdateText();
-    }
 
     public void UpdateText()
     {     

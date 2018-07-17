@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class PlayerProfileHandler : MonoBehaviour
 {
 
+    public static PlayerProfileHandler Instance { set; get; }
+
     public Image progressBar;
     public Text playerLevel;
 
@@ -17,11 +19,6 @@ public class PlayerProfileHandler : MonoBehaviour
     void Start () {
 		
 	}
-
-    private void OnEnable()
-    {
-        RefreshStats();
-    }
 
     public void RefreshStats()
     {
