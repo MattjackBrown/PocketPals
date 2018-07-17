@@ -10,10 +10,9 @@ public class LoadingScreenController : MonoBehaviour {
 	public UIAnimationManager animManager;
 
 	Image image;
-	bool loadingStarted;
-	float loadingBarValue = -0.5f;
-	float timeToLoad = 4.0f;
-
+	bool loadingStarted, isLoggedIn = false;
+	float loadingBarValue = 0.0f;
+	float timeToLoad = 32.0f;
 
 	void Start () {
 
@@ -27,19 +26,20 @@ public class LoadingScreenController : MonoBehaviour {
 
 		if (loadingStarted) {
 
-			if (loadingBarValue > 1.2f) {
+			if (isLoggedIn || (!isLoggedIn && loadingBarValue < 0.8f)) {
 
-				animManager.LoadingBarFinished ();
+				if (loadingBarValue > 1.2f) {
 
-				this.gameObject.SetActive (false);
-				//loadingStarted = false;
+					animManager.LoadingBarFinished ();
+					BackgroundMusic.Instance.StartBackgroundMusic ();
+					this.gameObject.SetActive (false);
 
-			} else {
+				} else {
 
-				loadingBarValue += Time.deltaTime / timeToLoad;
-				loadingBar.value = loadingBarValue;
+					loadingBarValue += Time.deltaTime / timeToLoad;
+					loadingBar.value = loadingBarValue;
+				}
 			}
-
 		}
 	}
 
@@ -49,5 +49,11 @@ public class LoadingScreenController : MonoBehaviour {
 		loadingBar.gameObject.SetActive (true);
 		loadingStarted = true;
 
+	}
+
+	public void AllowToComplete () {
+
+		timeToLoad = 4.0f;
+		isLoggedIn = true;
 	}
 }

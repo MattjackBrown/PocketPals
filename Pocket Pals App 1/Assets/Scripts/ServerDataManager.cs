@@ -34,6 +34,7 @@ public class ServerDataManager : MonoBehaviour
 	public GameObject initialGameUI;
 */
 	public UIAnimationManager canvasParent;
+	public LoadingScreenController loadingScreen;
     private bool IsLogginIn = false;
 
     private bool createUser = false;
@@ -261,6 +262,8 @@ public class ServerDataManager : MonoBehaviour
                 {
                     Debug.Log(ex);
                 }
+
+				loadingScreen.AllowToComplete();
             }
         });
     }

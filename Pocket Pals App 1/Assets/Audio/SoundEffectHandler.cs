@@ -12,7 +12,7 @@ public class SoundEffectHandler : MonoBehaviour {
     private void Start()
     {
         Instance = this;
-    }
+	}
 
     public void PlaySound(string key)
     {
