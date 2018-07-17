@@ -17,7 +17,7 @@ public class PlayerProfileHandler : MonoBehaviour
 
     // Use this for initialization
     void Start () {
-		
+        Instance = this;
 	}
 
     public void RefreshStats()

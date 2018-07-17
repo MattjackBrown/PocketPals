@@ -11,6 +11,8 @@ public class InventoryHandler : MonoBehaviour
     public Text MagnifyingGlassText;
     public Text BerriesText;
     public Text StrawberriesText;
+    public Text GoodCamera;
+    public Text StandardCamera;
 
     private void Start()
     {
@@ -23,6 +25,8 @@ public class InventoryHandler : MonoBehaviour
         UpdateTextValue(ii.GetNumberOfItem(GlobalVariables.BerryID), BerriesText);
         UpdateTextValue(ii.GetNumberOfItem(GlobalVariables.StrawBerriesID), StrawberriesText);
         UpdateTextValue(ii.GetNumberOfItem(GlobalVariables.MagnifyingGlassID), MagnifyingGlassText);
+        UpdateTextValue(ii.GetNumberOfItem(4), GoodCamera);
+        UpdateTextValue(ii.GetNumberOfItem(5), StandardCamera);
     }
 
 

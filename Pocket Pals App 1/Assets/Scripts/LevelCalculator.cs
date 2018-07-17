@@ -1,7 +1,7 @@
 ﻿
 public class LevelCalculator
 {
-    public const float LevelCoefficent = 1.5f;
+    public const float LevelCoefficent = 3.0f;
     public const float ExpForFirstLevel = 100;
 
     public static float GetPercentageToNextLevel(float EXP)
