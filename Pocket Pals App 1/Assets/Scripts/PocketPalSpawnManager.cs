@@ -98,7 +98,7 @@ public class PocketPalSpawnManager : MonoBehaviour
 
         int index = ContentGenerator.Instance.GetNextAnimalID();
 
-        return AssetManager.Instance.PocketPals[index];
+        return activeSpawnList[index];
     }
 
     private float GetSpawnDelay()
