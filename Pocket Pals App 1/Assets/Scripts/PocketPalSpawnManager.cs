@@ -77,6 +77,7 @@ public class PocketPalSpawnManager : MonoBehaviour
         {
             TotalRarity += o.GetComponent<PocketPalParent>().Rarity;
             NumberOfPPals++;
+            Debug.Log(o.GetComponent<PocketPalParent>());
             activeRarities.Add(o.GetComponent<PocketPalParent>().Rarity);
         }
         AverageRarity = TotalRarity / NumberOfPPals;

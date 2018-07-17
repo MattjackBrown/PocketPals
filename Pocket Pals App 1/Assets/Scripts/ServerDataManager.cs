@@ -261,10 +261,6 @@ public class ServerDataManager : MonoBehaviour
                 {
                     Debug.Log(ex);
                 }
-
-       //         WelcomeScreen.SetActive(true);
-				NotificationManager.Instance.NotificationDismissed(false);
-                NotificationManager.Instance.LoginNotification("Welcome!!!");
             }
         });
     }
@@ -425,7 +421,6 @@ public class ServerDataManager : MonoBehaviour
             }
             else
             {
-                NotificationManager.Instance.UndissmissableNotification("Logging in! Please Wait!");
                 LocalDataManager.Instance.GetData().ID = newUser.UserId ?? "";
                 LocalDataManager.Instance.GetData().Username = newUser.DisplayName ?? "";
 
