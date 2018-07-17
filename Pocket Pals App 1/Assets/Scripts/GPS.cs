@@ -24,9 +24,6 @@ public class GPS : MonoBehaviour
 
 	public bool Moving = false;
 
-	//Screen to cover the map re-intialising.
-	public GameObject loadingScreen;
-
 	//50.172600, -5.126206
 	//Hardcoded start lat long, should be up penryn campus50.171115, -5.507848
 	private float StartLat = 50.171115f;
@@ -77,7 +74,6 @@ public class GPS : MonoBehaviour
     void Start ()
 	{
 		Insatance = this;
-		loadingScreen.SetActive(true);
 		StartCoroutine(StartLocationService());
 	}
 
@@ -127,8 +123,6 @@ public class GPS : MonoBehaviour
             Destroy(mapGameObject);
             StopCoroutines();
         }
-		//Check to see if the loading screen is still active
-		if (loadingScreen.activeSelf == true) loadingScreen.SetActive(false);
 
 		//check to see if we have gps, if we do set it to the last gps location rather
 		//than the default
