@@ -6,56 +6,115 @@ public class UIAnimationManager : MonoBehaviour {
 
 	public GameObject startingUI;
 
-	// Used just to enable/disable
-	public GameObject settingsUI;
-	public GameObject inventoryUI;
-
-	// This is all a bit messy, but the different animator components need to be enabled/disabled else they try and overwrite each other
-	public Animator mainMenuAnimator;
-
-	GameObject currentUI;
-
 	// There is a central animator within this parent that controls specific pairs of UIs
-	Animator coreCanvasAnimator;
+	Animator canvasAnimator;
 
 	void Start () {
 
-		currentUI = startingUI;
+		canvasAnimator = GetComponent<Animator> ();
 
-		coreCanvasAnimator = GetComponent<Animator> ();
-
-	}
-
-	public void OpenUI (GameObject nextUI) {
-
-		mainMenuAnimator.enabled = true;
-
-		nextUI.SetActive (true);
-
-		currentUI.GetComponent<Animator> ().SetBool ("isDisplayed", false);
-		nextUI.GetComponent<Animator> ().SetBool ("isDisplayed", true);
-
-		currentUI = nextUI;
 	}
 
 	public void ShowSettings (bool show) {
 
-		mainMenuAnimator.enabled = false;
-
-		settingsUI.SetActive (true);
-		coreCanvasAnimator.SetBool ("showSettings", show);
+		canvasAnimator.SetBool ("showSettings", show);
 	}
 
 	public void ShowInventory (bool show) {
 
-		mainMenuAnimator.enabled = false;
-
-		inventoryUI.SetActive (true);
-		coreCanvasAnimator.SetBool ("showInventory", show);
+		canvasAnimator.SetBool ("showInventory", show);
 	}
 
 	public void ShowMinigameCaptureButton (bool show) {
 
-		coreCanvasAnimator.SetBool ("showMinigameCapture", show);
+		canvasAnimator.SetBool ("showMinigameCapture", show);
 	}
+
+	public void ShowPhoto (bool show) {
+
+		canvasAnimator.SetBool ("showPhoto", show);
+	}
+
+	public void CloseLogin (bool show) {
+
+		canvasAnimator.SetBool ("closeLogin", show);
+	}
+
+	public void OpenCreate (bool show) {
+
+		canvasAnimator.SetBool ("openCreate", show);
+	}
+
+	public void OpenMainMenu (bool show) {
+
+		canvasAnimator.SetBool ("openMainMenu", show);
+	}
+
+	public void OpenMinigame (bool show) {
+
+		canvasAnimator.SetBool ("openMinigame", show);
+		canvasAnimator.SetBool ("minigameAccepted", false);
+		canvasAnimator.SetBool ("minigameDeclined", false);
+		canvasAnimator.SetBool ("minigameSuccess", false);
+		canvasAnimator.SetBool ("minigameFail", false);
+		canvasAnimator.SetBool ("minigameToMap", false);
+	}
+
+	public void MinigameAccepted () {
+
+		canvasAnimator.SetBool ("minigameAccepted", true);
+		canvasAnimator.SetBool ("openMinigame", false);
+	}
+
+	public void MinigameDeclined () {
+
+		canvasAnimator.SetBool ("minigameDeclined", true);
+		canvasAnimator.SetBool ("openMinigame", false);
+	}
+
+	public void MinigameSuccess () {
+
+		canvasAnimator.SetBool ("minigameSuccess", true);
+		canvasAnimator.SetBool ("minigameAccepted", false);
+		canvasAnimator.SetBool ("minigameDeclined", false);
+	}
+
+	public void MinigameFail () {
+
+		canvasAnimator.SetBool ("minigameFail", true);
+		canvasAnimator.SetBool ("minigameAccepted", false);
+		canvasAnimator.SetBool ("minigameDeclined", false);
+	}
+
+	public void MinigameToMap () {
+
+		canvasAnimator.SetBool ("minigameToMap", true);
+		ResetMinigame ();
+	}
+
+	public void ResetMinigame () {
+		
+		canvasAnimator.SetBool ("openMinigame", false);
+		canvasAnimator.SetBool ("minigameAccepted", false);
+		canvasAnimator.SetBool ("minigameDeclined", false);
+		canvasAnimator.SetBool ("minigameSuccess", false);
+		canvasAnimator.SetBool ("minigameFail", false);
+	}
+
+	public void OpenJournal (bool show) {
+
+		canvasAnimator.SetBool ("openJournal", show);
+	}
+
+	public void OpenTracks (bool show) {
+
+		canvasAnimator.SetBool ("openTracks", show);
+	}
+
+	public void ShowVG (bool show) {
+
+		canvasAnimator.SetBool ("showVG", show);
+	}
+
+
 }

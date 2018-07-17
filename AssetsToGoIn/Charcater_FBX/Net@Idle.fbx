@@ -1,0 +1,647 @@
+; FBX 7.5.0 project file
+; ----------------------------------------------------
+
+FBXHeaderExtension:  {
+	FBXHeaderVersion: 1003
+	FBXVersion: 7500
+	CreationTimeStamp:  {
+		Version: 1000
+		Year: 2018
+		Month: 7
+		Day: 12
+		Hour: 15
+		Minute: 59
+		Second: 34
+		Millisecond: 0
+	}
+	Creator: "FBX SDK/FBX Plugins version 2018.1.1"
+	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
+		Type: "UserData"
+		Version: 100
+		MetaData:  {
+			Version: 100
+			Title: ""
+			Subject: ""
+			Author: ""
+			Keywords: ""
+			Revision: ""
+			Comment: ""
+		}
+		Properties70:  {
+			P: "DocumentUrl", "KString", "Url", "", "/Users/matthewbrown/Documents/Animation/3rdYear/Character_Final/scenes/Charcater_FBX/Net@Idle.fbx"
+			P: "SrcDocumentUrl", "KString", "Url", "", "/Users/matthewbrown/Documents/Animation/3rdYear/Character_Final/scenes/Charcater_FBX/Net@Idle.fbx"
+			P: "Original", "Compound", "", ""
+			P: "Original|ApplicationVendor", "KString", "", "", "Autodesk"
+			P: "Original|ApplicationName", "KString", "", "", "Maya"
+			P: "Original|ApplicationVersion", "KString", "", "", "201800"
+			P: "Original|DateTime_GMT", "DateTime", "", "", "12/07/2018 15:59:34.000"
+			P: "Original|FileName", "KString", "", "", "/Users/matthewbrown/Documents/Animation/3rdYear/Character_Final/scenes/Charcater_FBX/Net@Idle.fbx"
+			P: "LastSaved", "Compound", "", ""
+			P: "LastSaved|ApplicationVendor", "KString", "", "", "Autodesk"
+			P: "LastSaved|ApplicationName", "KString", "", "", "Maya"
+			P: "LastSaved|ApplicationVersion", "KString", "", "", "201800"
+			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "12/07/2018 15:59:34.000"
+			P: "Original|ApplicationActiveProject", "KString", "", "", "/Users/matthewbrown/Documents/Animation/3rdYear/Character_Final/scenes/Charcater_FBX"
+			P: "Original|ApplicationNativeFile", "KString", "", "", "/Users/matthewbrown/Documents/Animation/3rdYear/Character_Final/scenes/Character_Rig_Net.ma"
+		}
+	}
+}
+GlobalSettings:  {
+	Version: 1000
+	Properties70:  {
+		P: "UpAxis", "int", "Integer", "",1
+		P: "UpAxisSign", "int", "Integer", "",1
+		P: "FrontAxis", "int", "Integer", "",2
+		P: "FrontAxisSign", "int", "Integer", "",1
+		P: "CoordAxis", "int", "Integer", "",0
+		P: "CoordAxisSign", "int", "Integer", "",1
+		P: "OriginalUpAxis", "int", "Integer", "",1
+		P: "OriginalUpAxisSign", "int", "Integer", "",1
+		P: "UnitScaleFactor", "double", "Number", "",1
+		P: "OriginalUnitScaleFactor", "double", "Number", "",1
+		P: "AmbientColor", "ColorRGB", "Color", "",0,0,0
+		P: "DefaultCamera", "KString", "", "", "Producer Perspective"
+		P: "TimeMode", "enum", "", "",11
+		P: "TimeProtocol", "enum", "", "",2
+		P: "SnapOnFrameMode", "enum", "", "",0
+		P: "TimeSpanStart", "KTime", "Time", "",1924423250
+		P: "TimeSpanStop", "KTime", "Time", "",182820208750
+		P: "CustomFrameRate", "double", "Number", "",-1
+		P: "TimeMarker", "Compound", "", ""
+		P: "CurrentTimeMarker", "int", "Integer", "",-1
+	}
+}
+
+; Documents Description
+;------------------------------------------------------------------
+
+Documents:  {
+	Count: 1
+	Document: 105828025559040, "", "Scene" {
+		Properties70:  {
+			P: "SourceObject", "object", "", ""
+			P: "ActiveAnimStackName", "KString", "", "", "Take 001"
+		}
+		RootNode: 0
+	}
+}
+
+; Document References
+;------------------------------------------------------------------
+
+References:  {
+}
+
+; Object definitions
+;------------------------------------------------------------------
+
+Definitions:  {
+	Version: 100
+	Count: 22
+	ObjectType: "GlobalSettings" {
+		Count: 1
+	}
+	ObjectType: "AnimationStack" {
+		Count: 1
+		PropertyTemplate: "FbxAnimStack" {
+			Properties70:  {
+				P: "Description", "KString", "", "", ""
+				P: "LocalStart", "KTime", "Time", "",0
+				P: "LocalStop", "KTime", "Time", "",0
+				P: "ReferenceStart", "KTime", "Time", "",0
+				P: "ReferenceStop", "KTime", "Time", "",0
+			}
+		}
+	}
+	ObjectType: "AnimationLayer" {
+		Count: 1
+		PropertyTemplate: "FbxAnimLayer" {
+			Properties70:  {
+				P: "Weight", "Number", "", "A",100
+				P: "Mute", "bool", "", "",0
+				P: "Solo", "bool", "", "",0
+				P: "Lock", "bool", "", "",0
+				P: "Color", "ColorRGB", "Color", "",0.8,0.8,0.8
+				P: "BlendMode", "enum", "", "",0
+				P: "RotationAccumulationMode", "enum", "", "",0
+				P: "ScaleAccumulationMode", "enum", "", "",0
+				P: "BlendModeBypass", "ULongLong", "", "",0
+			}
+		}
+	}
+	ObjectType: "NodeAttribute" {
+		Count: 2
+		PropertyTemplate: "FbxNull" {
+			Properties70:  {
+				P: "Color", "ColorRGB", "Color", "",0.8,0.8,0.8
+				P: "Size", "double", "Number", "",100
+				P: "Look", "enum", "", "",1
+			}
+		}
+	}
+	ObjectType: "Model" {
+		Count: 2
+		PropertyTemplate: "FbxNode" {
+			Properties70:  {
+				P: "QuaternionInterpolate", "enum", "", "",0
+				P: "RotationOffset", "Vector3D", "Vector", "",0,0,0
+				P: "RotationPivot", "Vector3D", "Vector", "",0,0,0
+				P: "ScalingOffset", "Vector3D", "Vector", "",0,0,0
+				P: "ScalingPivot", "Vector3D", "Vector", "",0,0,0
+				P: "TranslationActive", "bool", "", "",0
+				P: "TranslationMin", "Vector3D", "Vector", "",0,0,0
+				P: "TranslationMax", "Vector3D", "Vector", "",0,0,0
+				P: "TranslationMinX", "bool", "", "",0
+				P: "TranslationMinY", "bool", "", "",0
+				P: "TranslationMinZ", "bool", "", "",0
+				P: "TranslationMaxX", "bool", "", "",0
+				P: "TranslationMaxY", "bool", "", "",0
+				P: "TranslationMaxZ", "bool", "", "",0
+				P: "RotationOrder", "enum", "", "",0
+				P: "RotationSpaceForLimitOnly", "bool", "", "",0
+				P: "RotationStiffnessX", "double", "Number", "",0
+				P: "RotationStiffnessY", "double", "Number", "",0
+				P: "RotationStiffnessZ", "double", "Number", "",0
+				P: "AxisLen", "double", "Number", "",10
+				P: "PreRotation", "Vector3D", "Vector", "",0,0,0
+				P: "PostRotation", "Vector3D", "Vector", "",0,0,0
+				P: "RotationActive", "bool", "", "",0
+				P: "RotationMin", "Vector3D", "Vector", "",0,0,0
+				P: "RotationMax", "Vector3D", "Vector", "",0,0,0
+				P: "RotationMinX", "bool", "", "",0
+				P: "RotationMinY", "bool", "", "",0
+				P: "RotationMinZ", "bool", "", "",0
+				P: "RotationMaxX", "bool", "", "",0
+				P: "RotationMaxY", "bool", "", "",0
+				P: "RotationMaxZ", "bool", "", "",0
+				P: "InheritType", "enum", "", "",0
+				P: "ScalingActive", "bool", "", "",0
+				P: "ScalingMin", "Vector3D", "Vector", "",0,0,0
+				P: "ScalingMax", "Vector3D", "Vector", "",1,1,1
+				P: "ScalingMinX", "bool", "", "",0
+				P: "ScalingMinY", "bool", "", "",0
+				P: "ScalingMinZ", "bool", "", "",0
+				P: "ScalingMaxX", "bool", "", "",0
+				P: "ScalingMaxY", "bool", "", "",0
+				P: "ScalingMaxZ", "bool", "", "",0
+				P: "GeometricTranslation", "Vector3D", "Vector", "",0,0,0
+				P: "GeometricRotation", "Vector3D", "Vector", "",0,0,0
+				P: "GeometricScaling", "Vector3D", "Vector", "",1,1,1
+				P: "MinDampRangeX", "double", "Number", "",0
+				P: "MinDampRangeY", "double", "Number", "",0
+				P: "MinDampRangeZ", "double", "Number", "",0
+				P: "MaxDampRangeX", "double", "Number", "",0
+				P: "MaxDampRangeY", "double", "Number", "",0
+				P: "MaxDampRangeZ", "double", "Number", "",0
+				P: "MinDampStrengthX", "double", "Number", "",0
+				P: "MinDampStrengthY", "double", "Number", "",0
+				P: "MinDampStrengthZ", "double", "Number", "",0
+				P: "MaxDampStrengthX", "double", "Number", "",0
+				P: "MaxDampStrengthY", "double", "Number", "",0
+				P: "MaxDampStrengthZ", "double", "Number", "",0
+				P: "PreferedAngleX", "double", "Number", "",0
+				P: "PreferedAngleY", "double", "Number", "",0
+				P: "PreferedAngleZ", "double", "Number", "",0
+				P: "LookAtProperty", "object", "", ""
+				P: "UpVectorProperty", "object", "", ""
+				P: "Show", "bool", "", "",1
+				P: "NegativePercentShapeSupport", "bool", "", "",1
+				P: "DefaultAttributeIndex", "int", "Integer", "",-1
+				P: "Freeze", "bool", "", "",0
+				P: "LODBox", "bool", "", "",0
+				P: "Lcl Translation", "Lcl Translation", "", "A",0,0,0
+				P: "Lcl Rotation", "Lcl Rotation", "", "A",0,0,0
+				P: "Lcl Scaling", "Lcl Scaling", "", "A",1,1,1
+				P: "Visibility", "Visibility", "", "A",1
+				P: "Visibility Inheritance", "Visibility Inheritance", "", "",1
+			}
+		}
+	}
+	ObjectType: "AnimationCurveNode" {
+		Count: 5
+		PropertyTemplate: "FbxAnimCurveNode" {
+			Properties70:  {
+				P: "d", "Compound", "", ""
+			}
+		}
+	}
+	ObjectType: "AnimationCurve" {
+		Count: 10
+	}
+}
+
+; Object properties
+;------------------------------------------------------------------
+
+Objects:  {
+	NodeAttribute: 105828008086960, "NodeAttribute::", "Null" {
+		Properties70:  {
+			P: "Look", "enum", "", "",0
+		}
+		TypeFlags: "Null"
+	}
+	NodeAttribute: 105828008099104, "NodeAttribute::", "LimbNode" {
+		Properties70:  {
+			P: "Size", "double", "Number", "",16.6666666666667
+		}
+		TypeFlags: "Skeleton"
+	}
+	Model: 140288124683264, "Model::Group", "Null" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	Model: 140288126965248, "Model::Net_Joint", "LimbNode" {
+		Version: 232
+		Properties70:  {
+			P: "RotationActive", "bool", "", "",1
+			P: "InheritType", "enum", "", "",1
+			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
+			P: "DefaultAttributeIndex", "int", "Integer", "",0
+			P: "Lcl Translation", "Lcl Translation", "", "A+",-0.959264731486369,6.29501882220981,4.59038795455494
+			P: "Lcl Rotation", "Lcl Rotation", "", "A+",5.02062767048483,73.0252010178037,53.3997382885874
+			P: "lockInfluenceWeights", "Bool", "", "A+U",0
+		}
+		Shading: Y
+		Culling: "CullingOff"
+	}
+	AnimationStack: 105828016780016, "AnimStack::Take 001", "" {
+		Properties70:  {
+			P: "LocalStart", "KTime", "Time", "",1924423250
+			P: "LocalStop", "KTime", "Time", "",182820208750
+			P: "ReferenceStart", "KTime", "Time", "",1924423250
+			P: "ReferenceStop", "KTime", "Time", "",182820208750
+		}
+	}
+	AnimationCurve: 105553136357632, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *95 {
+			a: 1924423250,3848846500,5773269750,7697693000,9622116250,11546539500,13470962750,15395386000,17319809250,19244232500,21168655750,23093079000,25017502250,26941925500,28866348750,30790772000,32715195250,34639618500,36564041750,38488465000,40412888250,42337311500,44261734750,46186158000,48110581250,50035004500,51959427750,53883851000,55808274250,57732697500,59657120750,61581544000,63505967250,65430390500,67354813750,69279237000,71203660250,73128083500,75052506750,76976930000,78901353250,80825776500,82750199750,84674623000,86599046250,88523469500,90447892750,92372316000,94296739250,96221162500,98145585750,100070009000,101994432250,103918855500,105843278750,107767702000,109692125250,111616548500,113540971750,115465395000,117389818250,119314241500,121238664750,123163088000,125087511250,127011934500,128936357750,130860781000,132785204250,134709627500,136634050750,138558474000,140482897250,142407320500,144331743750,146256167000,148180590250,150105013500,152029436750,153953860000,155878283250,157802706500,159727129750,161651553000,163575976250,165500399500,167424822750,169349246000,171273669250,173198092500,175122515750,177046939000,178971362250,180895785500,182820208750
+		} 
+		KeyValueFloat: *95 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		} 
+		;KeyAttrFlags: Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive
+		KeyAttrFlags: *1 {
+			a: 24840
+		} 
+		;KeyAttrDataFloat: RightAuto:0, NextLeftAuto:0
+		KeyAttrDataFloat: *4 {
+			a: 0,0,218434821,0
+		} 
+		KeyAttrRefCount: *1 {
+			a: 95
+		} 
+	}
+	AnimationCurve: 105553134240960, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *95 {
+			a: 1924423250,3848846500,5773269750,7697693000,9622116250,11546539500,13470962750,15395386000,17319809250,19244232500,21168655750,23093079000,25017502250,26941925500,28866348750,30790772000,32715195250,34639618500,36564041750,38488465000,40412888250,42337311500,44261734750,46186158000,48110581250,50035004500,51959427750,53883851000,55808274250,57732697500,59657120750,61581544000,63505967250,65430390500,67354813750,69279237000,71203660250,73128083500,75052506750,76976930000,78901353250,80825776500,82750199750,84674623000,86599046250,88523469500,90447892750,92372316000,94296739250,96221162500,98145585750,100070009000,101994432250,103918855500,105843278750,107767702000,109692125250,111616548500,113540971750,115465395000,117389818250,119314241500,121238664750,123163088000,125087511250,127011934500,128936357750,130860781000,132785204250,134709627500,136634050750,138558474000,140482897250,142407320500,144331743750,146256167000,148180590250,150105013500,152029436750,153953860000,155878283250,157802706500,159727129750,161651553000,163575976250,165500399500,167424822750,169349246000,171273669250,173198092500,175122515750,177046939000,178971362250,180895785500,182820208750
+		} 
+		KeyValueFloat: *95 {
+			a: -0.9592648,-0.9597881,-0.9613289,-0.9638431,-0.9672864,-0.9716148,-0.9767842,-0.9827504,-0.9894693,-0.9968968,-1.004989,-1.013701,-1.02299,-1.032812,-1.043122,-1.053876,-1.065031,-1.076542,-1.088366,-1.100458,-1.112776,-1.125274,-1.137909,-1.150638,-1.163413,-1.176188,-1.188913,-1.20154,-1.21402,-1.226307,-1.238351,-1.250104,-1.261518,-1.272545,-1.283136,-1.293243,-1.302818,-1.311813,-1.320179,-1.327869,-1.334835,-1.341028,-1.3464,-1.350903,-1.354489,-1.35711,-1.358718,-1.359265,-1.358739,-1.357192,-1.35467,-1.351218,-1.346881,-1.341705,-1.335735,-1.329018,-1.321598,-1.313522,-1.304834,-1.29558,-1.285806,-1.275558,-1.264881,-1.253821,-1.242423,-1.230734,-1.218799,-1.206663,-1.194373,-1.181975,-1.169513,-1.157031,-1.144572,-1.132176,-1.119884,-1.107739,-1.09578,-1.084051,-1.072591,-1.061443,-1.050648,-1.040247,-1.030281,-1.020793,-1.011823,-1.003413,-0.9956051,-0.9884399,-0.9819593,-0.9762048,-0.971218,-0.9670404,-0.9637136,-0.961279,-0.9597783
+		} 
+		;KeyAttrFlags: Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive
+		KeyAttrFlags: *94 {
+			a: 24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840
+		} 
+		;KeyAttrDataFloat: RightAuto:0, NextLeftAuto:-0.0247706; RightAuto:0, NextLeftAuto:-0.0486594; RightAuto:0, NextLeftAuto:-0.0714896; RightAuto:0, NextLeftAuto:-0.0932609; RightAuto:0, NextLeftAuto:-0.113973; RightAuto:0, NextLeftAuto:-0.133627; RightAuto:0, NextLeftAuto:-0.152221; RightAuto:0, NextLeftAuto:-0.169757; RightAuto:0, NextLeftAuto:-0.186235; RightAuto:0, NextLeftAuto:-0.201655; RightAuto:0, NextLeftAuto:-0.216018; RightAuto:0, NextLeftAuto:-0.229324; RightAuto:0, NextLeftAuto:-0.241574; RightAuto:0, NextLeftAuto:-0.252769; RightAuto:0, NextLeftAuto:-0.262908; RightAuto:0, NextLeftAuto:-0.271992; RightAuto:0, NextLeftAuto:-0.280023; RightAuto:0, NextLeftAuto:-0.286999; RightAuto:0, NextLeftAuto:-0.292921; RightAuto:0, NextLeftAuto:-0.297789; RightAuto:0, NextLeftAuto:-0.301603; RightAuto:0, NextLeftAuto:-0.304363; RightAuto:0, NextLeftAuto:-0.306047; RightAuto:0, NextLeftAuto:-0.306599; RightAuto:0, NextLeftAuto:-0.30599; RightAuto:0, NextLeftAuto:-0.304222; RightAuto:0, NextLeftAuto:-0.301295; RightAuto:0, NextLeftAuto:-0.29721; RightAuto:0, NextLeftAuto:-0.291967; RightAuto:0, NextLeftAuto:-0.285565; RightAuto:0, NextLeftAuto:-0.278004; RightAuto:0, NextLeftAuto:-0.269286; RightAuto:0, NextLeftAuto:-0.25941; RightAuto:0, NextLeftAuto:-0.248377; RightAuto:0, NextLeftAuto:-0.236187; RightAuto:0, NextLeftAuto:-0.22284; RightAuto:0, NextLeftAuto:-0.208338; RightAuto:0, NextLeftAuto:-0.19268; RightAuto:0, NextLeftAuto:-0.175868; RightAuto:0, NextLeftAuto:-0.1579; RightAuto:0, NextLeftAuto:-0.138778; RightAuto:0, NextLeftAuto:-0.118502; RightAuto:0, NextLeftAuto:-0.0970716; RightAuto:0, NextLeftAuto:-0.0744872; RightAuto:0, NextLeftAuto:-0.0507486; RightAuto:0, NextLeftAuto:-0.0258554; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:0.0248703; RightAuto:0, NextLeftAuto:0.0488299; RightAuto:0, NextLeftAuto:0.0716967; RightAuto:0, NextLeftAuto:0.0934712; RightAuto:0, NextLeftAuto:0.114153; RightAuto:0, NextLeftAuto:0.133743; RightAuto:0, NextLeftAuto:0.152241; RightAuto:0, NextLeftAuto:0.169646; RightAuto:0, NextLeftAuto:0.185957; 
+		;RightAuto:0, NextLeftAuto:0.201175; RightAuto:0, NextLeftAuto:0.2153; RightAuto:0, NextLeftAuto:0.228329; RightAuto:0, NextLeftAuto:0.240264; RightAuto:0, NextLeftAuto:0.251103; RightAuto:0, NextLeftAuto:0.260845; RightAuto:0, NextLeftAuto:0.269492; RightAuto:0, NextLeftAuto:0.277041; RightAuto:0, NextLeftAuto:0.283493; RightAuto:0, NextLeftAuto:0.288848; RightAuto:0, NextLeftAuto:0.293106; RightAuto:0, NextLeftAuto:0.296266; RightAuto:0, NextLeftAuto:0.29833; RightAuto:0, NextLeftAuto:0.299318; RightAuto:0, NextLeftAuto:0.299286; RightAuto:0, NextLeftAuto:0.298266; RightAuto:0, NextLeftAuto:0.296252; RightAuto:0, NextLeftAuto:0.293245; RightAuto:0, NextLeftAuto:0.289246; RightAuto:0, NextLeftAuto:0.284254; RightAuto:0, NextLeftAuto:0.27827; RightAuto:0, NextLeftAuto:0.271292; RightAuto:0, NextLeftAuto:0.263322; RightAuto:0, NextLeftAuto:0.254357; RightAuto:0, NextLeftAuto:0.244399; RightAuto:0, NextLeftAuto:0.233446; RightAuto:0, NextLeftAuto:0.221498; RightAuto:0, NextLeftAuto:0.208555; RightAuto:0, NextLeftAuto:0.194616; RightAuto:0, NextLeftAuto:0.179681; RightAuto:0, NextLeftAuto:0.163749; RightAuto:0, NextLeftAuto:0.146821; RightAuto:0, NextLeftAuto:0.128896; RightAuto:0, NextLeftAuto:0.109973; RightAuto:0, NextLeftAuto:0.0900533; RightAuto:0, NextLeftAuto:0.0691365; RightAuto:0, NextLeftAuto:0.047223; RightAuto:0, NextLeftAuto:0
+		KeyAttrDataFloat: *376 {
+			a: 0,-1127552055,218434821,0,0,-1119400170,218434821,0,0,-1114478301,218434821,0,0,-1111556205,218434821,0,0,-1108776245,218434821,0,0,-1106717336,218434821,0,0,-1105469476,218434821,0,0,-1104292653,218434821,0,0,-1103186842,218434821,0,0,-1102152013,218434821,0,0,-1101188134,218434821,0,0,-1100295169,218434821,0,0,-1099473084,218434821,0,0,-1098814746,218434821,0,0,-1098474531,218434821,0,0,-1098169706,218434821,0,0,-1097900260,218434821,0,0,-1097666184,218434821,0,0,-1097467470,218434821,0,0,-1097304118,218434821,0,0,-1097176133,218434821,0,0,-1097083523,218434821,0,0,-1097027016,218434821,0,0,-1097008484,218434821,0,0,-1097028943,218434821,0,0,-1097088265,218434821,0,0,-1097186460,218434821,0,0,-1097323531,218434821,0,0,-1097499479,218434821,0,0,-1097714298,218434821,0,0,-1097967983,218434821,0,0,-1098260522,218434821,0,0,-1098591906,218434821,0,0,-1099016590,218434821,0,0,-1099834647,218434821,0,0,-1100730305,218434821,0,0,-1101703535,218434821,0,0,-1102754307,218434821,0,0,-1103882594,218434821,0,0,-1105088374,218434821,0,0,-1106371626,218434821,0,0,-1108168418,218434821,0,0,-1111044743,218434821,0,0,-1114075970,218434821,0,0,-1118839366,218434821,0,0,-1126969651,218434821,0,0,0,218434821,0,0,1019985127,218434821,0,0,1028129232,218434821,0,0,1033033143,218434821,0,0,1035955663,218434821,0,0,1038731583,218434821,0,0,1040774145,218434821,0,0,1042015491,218434821,0,0,1043183504,218434821,0,0,1044278162,218434821,0,0,1045299434,218434821,0,0,1046247289,218434821,0,0,1047121690,218434821,0,0,1047922603,218434821,0,0,1048612996,218434821,0,0,1048939912,218434821,0,0,1049230035,218434821,0,0,1049483353,218434821,0,0,1049699855,218434821,0,0,1049879537,218434821,0,0,1050022398,218434821,0,0,1050128440,218434821,0,0,1050197674,218434821,0,0,1050230828,218434821,0,0,1050229772,218434821,0,0,1050195523,218434821,0,0,1050127954,218434821,0,0,1050027073,218434821,0,0,1049892885,218434821,0,0,1049725389,218434821,0,0,1049524582,218434821,0,0,1049290455,218434821,0,0,1049023001,218434821,0,0,1048722205,218434821,
+0,0,1048200111,218434821,0,0,1047465076,218434821,0,0,1046663274,218434821,0,0,1045794675,218434821,0,0,1044859250,218434821,0,0,1043856973,218434821,0,0,1042787821,218434821,0,0,1041651774,218434821,0,0,1040448818,218434821,0,0,1038170499,218434821,0,0,1035496920,218434821,0,0,1032689524,218434821,0,0,1027697905,218434821,0,0,0,218434821,0
+		} 
+		KeyAttrRefCount: *94 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2
+		} 
+	}
+	AnimationCurve: 105553134353600, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *95 {
+			a: 1924423250,3848846500,5773269750,7697693000,9622116250,11546539500,13470962750,15395386000,17319809250,19244232500,21168655750,23093079000,25017502250,26941925500,28866348750,30790772000,32715195250,34639618500,36564041750,38488465000,40412888250,42337311500,44261734750,46186158000,48110581250,50035004500,51959427750,53883851000,55808274250,57732697500,59657120750,61581544000,63505967250,65430390500,67354813750,69279237000,71203660250,73128083500,75052506750,76976930000,78901353250,80825776500,82750199750,84674623000,86599046250,88523469500,90447892750,92372316000,94296739250,96221162500,98145585750,100070009000,101994432250,103918855500,105843278750,107767702000,109692125250,111616548500,113540971750,115465395000,117389818250,119314241500,121238664750,123163088000,125087511250,127011934500,128936357750,130860781000,132785204250,134709627500,136634050750,138558474000,140482897250,142407320500,144331743750,146256167000,148180590250,150105013500,152029436750,153953860000,155878283250,157802706500,159727129750,161651553000,163575976250,165500399500,167424822750,169349246000,171273669250,173198092500,175122515750,177046939000,178971362250,180895785500,182820208750
+		} 
+		KeyValueFloat: *95 {
+			a: 6.295019,6.294759,6.29401,6.29282,6.291234,6.289299,6.287064,6.284573,6.281873,6.279013,6.276037,6.272993,6.269927,6.266885,6.263914,6.26106,6.258369,6.255888,6.253663,6.251738,6.250161,6.248978,6.248234,6.247976,6.248213,6.248899,6.249991,6.25145,6.253235,6.255306,6.257622,6.260143,6.262828,6.265636,6.268527,6.27146,6.274394,6.277287,6.280101,6.282794,6.285323,6.287648,6.289729,6.291524,6.292991,6.29409,6.29478,6.295019,6.294759,6.29401,6.29282,6.291234,6.289299,6.287064,6.284573,6.281873,6.279013,6.276037,6.272993,6.269927,6.266885,6.263914,6.26106,6.258369,6.255888,6.253663,6.251738,6.250161,6.248978,6.248234,6.247976,6.248213,6.248899,6.249991,6.25145,6.253235,6.255306,6.257622,6.260143,6.262828,6.265636,6.268527,6.27146,6.274394,6.277287,6.280101,6.282794,6.285323,6.287648,6.289729,6.291524,6.292991,6.29409,6.29478,6.295019
+		} 
+		;KeyAttrFlags: Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive
+		KeyAttrFlags: *94 {
+			a: 24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840
+		} 
+		;KeyAttrDataFloat: RightAuto:0, NextLeftAuto:-0.0121015; RightAuto:0, NextLeftAuto:-0.0232698; RightAuto:0, NextLeftAuto:-0.033317; RightAuto:0, NextLeftAuto:-0.0422421; RightAuto:0, NextLeftAuto:-0.0500447; RightAuto:0, NextLeftAuto:-0.0567248; RightAuto:0, NextLeftAuto:-0.0622832; RightAuto:0, NextLeftAuto:-0.0667208; RightAuto:0, NextLeftAuto:-0.0700388; RightAuto:0, NextLeftAuto:-0.072239; RightAuto:0, NextLeftAuto:-0.0733228; RightAuto:0, NextLeftAuto:-0.0732923; RightAuto:0, NextLeftAuto:-0.0721492; RightAuto:0, NextLeftAuto:-0.0698954; RightAuto:0, NextLeftAuto:-0.0665325; RightAuto:0, NextLeftAuto:-0.0620621; RightAuto:0, NextLeftAuto:-0.0564853; RightAuto:0, NextLeftAuto:-0.0498032; RightAuto:0, NextLeftAuto:-0.0420164; RightAuto:0, NextLeftAuto:-0.0331249; RightAuto:0, NextLeftAuto:-0.0231282; RightAuto:0, NextLeftAuto:-0.0120255; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:0.0110725; RightAuto:0, NextLeftAuto:0.0213328; RightAuto:0, NextLeftAuto:0.0306195; RightAuto:0, NextLeftAuto:0.0389335; RightAuto:0, NextLeftAuto:0.0462751; RightAuto:0, NextLeftAuto:0.0526445; RightAuto:0, NextLeftAuto:0.0580412; RightAuto:0, NextLeftAuto:0.0624645; RightAuto:0, NextLeftAuto:0.0659135; RightAuto:0, NextLeftAuto:0.0683868; RightAuto:0, NextLeftAuto:0.0698831; RightAuto:0, NextLeftAuto:0.070401; RightAuto:0, NextLeftAuto:0.0699389; RightAuto:0, NextLeftAuto:0.0684951; RightAuto:0, NextLeftAuto:0.0660683; RightAuto:0, NextLeftAuto:0.0626571; RightAuto:0, NextLeftAuto:0.05826; RightAuto:0, NextLeftAuto:0.0528763; RightAuto:0, NextLeftAuto:0.046505; RightAuto:0, NextLeftAuto:0.0391458; RightAuto:0, NextLeftAuto:0.0307986; RightAuto:0, NextLeftAuto:0.0214639; RightAuto:0, NextLeftAuto:0.0111426; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:-0.0121015; RightAuto:0, NextLeftAuto:-0.0232698; RightAuto:0, NextLeftAuto:-0.033317; RightAuto:0, NextLeftAuto:-0.0422421; RightAuto:0, NextLeftAuto:-0.0500447; RightAuto:0, NextLeftAuto:-0.0567248; RightAuto:0, NextLeftAuto:-0.0622832; RightAuto:0, NextLeftAuto:-0.0667208; 
+		;RightAuto:0, NextLeftAuto:-0.0700388; RightAuto:0, NextLeftAuto:-0.072239; RightAuto:0, NextLeftAuto:-0.0733228; RightAuto:0, NextLeftAuto:-0.0732923; RightAuto:0, NextLeftAuto:-0.0721492; RightAuto:0, NextLeftAuto:-0.0698954; RightAuto:0, NextLeftAuto:-0.0665325; RightAuto:0, NextLeftAuto:-0.0620621; RightAuto:0, NextLeftAuto:-0.0564853; RightAuto:0, NextLeftAuto:-0.0498032; RightAuto:0, NextLeftAuto:-0.0420164; RightAuto:0, NextLeftAuto:-0.0331249; RightAuto:0, NextLeftAuto:-0.0231282; RightAuto:0, NextLeftAuto:-0.0120255; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:0.0110725; RightAuto:0, NextLeftAuto:0.0213328; RightAuto:0, NextLeftAuto:0.0306195; RightAuto:0, NextLeftAuto:0.0389335; RightAuto:0, NextLeftAuto:0.0462751; RightAuto:0, NextLeftAuto:0.0526445; RightAuto:0, NextLeftAuto:0.0580412; RightAuto:0, NextLeftAuto:0.0624645; RightAuto:0, NextLeftAuto:0.0659135; RightAuto:0, NextLeftAuto:0.0683868; RightAuto:0, NextLeftAuto:0.0698831; RightAuto:0, NextLeftAuto:0.070401; RightAuto:0, NextLeftAuto:0.0699389; RightAuto:0, NextLeftAuto:0.0684951; RightAuto:0, NextLeftAuto:0.0660683; RightAuto:0, NextLeftAuto:0.0626571; RightAuto:0, NextLeftAuto:0.05826; RightAuto:0, NextLeftAuto:0.0528763; RightAuto:0, NextLeftAuto:0.046505; RightAuto:0, NextLeftAuto:0.0391458; RightAuto:0, NextLeftAuto:0.0307986; RightAuto:0, NextLeftAuto:0.0214639; RightAuto:0, NextLeftAuto:0.0111426; RightAuto:0, NextLeftAuto:0
+		KeyAttrDataFloat: *376 {
+			a: 0,-1136245405,218434821,0,0,-1128357809,218434821,0,0,-1123518615,218434821,0,0,-1121122805,218434821,0,0,-1119028320,218434821,0,0,-1117235124,218434821,0,0,-1115743058,218434821,0,0,-1115118360,218434821,0,0,-1114673017,218434821,0,0,-1114377722,218434821,0,0,-1114232246,218434821,0,0,-1114236343,218434821,0,0,-1114389765,218434821,0,0,-1114692271,218434821,0,0,-1115143631,218434821,0,0,-1115802425,218434821,0,0,-1117299417,218434821,0,0,-1119093122,218434821,0,0,-1121183390,218434821,0,0,-1123570192,218434821,0,0,-1128433811,218434821,0,0,-1136327011,218434821,0,0,0,218434821,0,0,1010133373,218434821,0,0,1018085921,218434821,0,0,1023071669,218434821,0,0,1025472688,218434821,0,0,1027443457,218434821,0,0,1029153228,218434821,0,0,1030601895,218434821,0,0,1031789267,218434821,0,0,1032256931,218434821,0,0,1032588894,218434821,0,0,1032789730,218434821,0,0,1032859238,218434821,0,0,1032797211,218434821,0,0,1032603439,218434821,0,0,1032277719,218434821,0,0,1031819864,218434821,0,0,1030660630,218434821,0,0,1029215435,218434821,0,0,1027505159,218434821,0,0,1025529688,218434821,0,0,1023167855,218434821,0,0,1018156325,218434821,0,0,1010208642,218434821,0,0,0,218434821,0,0,-1136245405,218434821,0,0,-1128357809,218434821,0,0,-1123518615,218434821,0,0,-1121122805,218434821,0,0,-1119028320,218434821,0,0,-1117235124,218434821,0,0,-1115743058,218434821,0,0,-1115118360,218434821,0,0,-1114673017,218434821,0,0,-1114377722,218434821,0,0,-1114232246,218434821,0,0,-1114236343,218434821,0,0,-1114389765,218434821,0,0,-1114692271,218434821,0,0,-1115143631,218434821,0,0,-1115802425,218434821,0,0,-1117299417,218434821,0,0,-1119093122,218434821,0,0,-1121183390,218434821,0,0,-1123570192,218434821,0,0,-1128433811,218434821,0,0,-1136327011,218434821,0,0,0,218434821,0,0,1010133373,218434821,0,0,1018085921,218434821,0,0,1023071669,218434821,0,0,1025472688,218434821,0,0,1027443457,218434821,0,0,1029153228,218434821,0,0,1030601895,218434821,0,0,1031789267,218434821,0,0,1032256931,218434821,0,0,1032588894,218434821,0,0,1032789730,218434821,
+0,0,1032859238,218434821,0,0,1032797211,218434821,0,0,1032603439,218434821,0,0,1032277719,218434821,0,0,1031819864,218434821,0,0,1030660630,218434821,0,0,1029215435,218434821,0,0,1027505159,218434821,0,0,1025529688,218434821,0,0,1023167855,218434821,0,0,1018156325,218434821,0,0,1010208642,218434821,0,0,0,218434821,0
+		} 
+		KeyAttrRefCount: *94 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2
+		} 
+	}
+	AnimationCurve: 105553136326112, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *95 {
+			a: 1924423250,3848846500,5773269750,7697693000,9622116250,11546539500,13470962750,15395386000,17319809250,19244232500,21168655750,23093079000,25017502250,26941925500,28866348750,30790772000,32715195250,34639618500,36564041750,38488465000,40412888250,42337311500,44261734750,46186158000,48110581250,50035004500,51959427750,53883851000,55808274250,57732697500,59657120750,61581544000,63505967250,65430390500,67354813750,69279237000,71203660250,73128083500,75052506750,76976930000,78901353250,80825776500,82750199750,84674623000,86599046250,88523469500,90447892750,92372316000,94296739250,96221162500,98145585750,100070009000,101994432250,103918855500,105843278750,107767702000,109692125250,111616548500,113540971750,115465395000,117389818250,119314241500,121238664750,123163088000,125087511250,127011934500,128936357750,130860781000,132785204250,134709627500,136634050750,138558474000,140482897250,142407320500,144331743750,146256167000,148180590250,150105013500,152029436750,153953860000,155878283250,157802706500,159727129750,161651553000,163575976250,165500399500,167424822750,169349246000,171273669250,173198092500,175122515750,177046939000,178971362250,180895785500,182820208750
+		} 
+		KeyValueFloat: *95 {
+			a: 4.590388,4.590338,4.590195,4.589966,4.589662,4.589289,4.588858,4.588376,4.587852,4.587296,4.586715,4.586119,4.585516,4.584917,4.584329,4.583763,4.583227,4.582732,4.582286,4.581901,4.581583,4.581346,4.581196,4.581144,4.581192,4.581329,4.581549,4.581842,4.582201,4.582615,4.583078,4.58358,4.584114,4.58467,4.58524,4.585817,4.586393,4.586959,4.587508,4.588031,4.588521,4.588971,4.589372,4.589717,4.589999,4.59021,4.590342,4.590388,4.590338,4.590195,4.589966,4.589662,4.589289,4.588858,4.588376,4.587852,4.587296,4.586715,4.586119,4.585516,4.584917,4.584329,4.583763,4.583227,4.582732,4.582286,4.581901,4.581583,4.581346,4.581196,4.581144,4.581192,4.581329,4.581549,4.581842,4.582201,4.582615,4.583078,4.58358,4.584114,4.58467,4.58524,4.585817,4.586393,4.586959,4.587508,4.588031,4.588521,4.588971,4.589372,4.589717,4.589999,4.59021,4.590342,4.590388
+		} 
+		;KeyAttrFlags: Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive
+		KeyAttrFlags: *94 {
+			a: 24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840
+		} 
+		;KeyAttrDataFloat: RightAuto:0, NextLeftAuto:-0.00231866; RightAuto:0, NextLeftAuto:-0.00446208; RightAuto:0, NextLeftAuto:-0.0063969; RightAuto:0, NextLeftAuto:-0.00812451; RightAuto:0, NextLeftAuto:-0.00964546; RightAuto:0, NextLeftAuto:-0.0109596; RightAuto:0, NextLeftAuto:-0.0120662; RightAuto:0, NextLeftAuto:-0.0129638; RightAuto:0, NextLeftAuto:-0.0136509; RightAuto:0, NextLeftAuto:-0.0141252; RightAuto:0, NextLeftAuto:-0.0143844; RightAuto:0, NextLeftAuto:-0.0144261; RightAuto:0, NextLeftAuto:-0.0142478; RightAuto:0, NextLeftAuto:-0.0138469; RightAuto:0, NextLeftAuto:-0.0132212; RightAuto:0, NextLeftAuto:-0.0123685; RightAuto:0, NextLeftAuto:-0.011287; RightAuto:0, NextLeftAuto:-0.00997542; RightAuto:0, NextLeftAuto:-0.008433; RightAuto:0, NextLeftAuto:-0.00665953; RightAuto:0, NextLeftAuto:-0.00465558; RightAuto:0, NextLeftAuto:-0.00242254; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:0.00223065; RightAuto:0, NextLeftAuto:0.00429461; RightAuto:0, NextLeftAuto:0.00615705; RightAuto:0, NextLeftAuto:0.00781674; RightAuto:0, NextLeftAuto:0.0092731; RightAuto:0, NextLeftAuto:0.0105262; RightAuto:0, NextLeftAuto:0.0115765; RightAuto:0, NextLeftAuto:0.0124251; RightAuto:0, NextLeftAuto:0.0130734; RightAuto:0, NextLeftAuto:0.013523; RightAuto:0, NextLeftAuto:0.0137759; RightAuto:0, NextLeftAuto:0.0138341; RightAuto:0, NextLeftAuto:0.0136997; RightAuto:0, NextLeftAuto:0.0133749; RightAuto:0, NextLeftAuto:0.0128617; RightAuto:0, NextLeftAuto:0.012162; RightAuto:0, NextLeftAuto:0.0112774; RightAuto:0, NextLeftAuto:0.0102094; RightAuto:0, NextLeftAuto:0.00895892; RightAuto:0, NextLeftAuto:0.0075265; RightAuto:0, NextLeftAuto:0.00591217; RightAuto:0, NextLeftAuto:0.00411536; RightAuto:0, NextLeftAuto:0.00213484; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:-0.00231866; RightAuto:0, NextLeftAuto:-0.00446208; RightAuto:0, NextLeftAuto:-0.0063969; RightAuto:0, NextLeftAuto:-0.00812451; RightAuto:0, NextLeftAuto:-0.00964546; RightAuto:0, NextLeftAuto:-0.0109596; RightAuto:0, NextLeftAuto:-0.0120662; RightAuto:0, NextLeftAuto:-0.0129638; 
+		;RightAuto:0, NextLeftAuto:-0.0136509; RightAuto:0, NextLeftAuto:-0.0141252; RightAuto:0, NextLeftAuto:-0.0143844; RightAuto:0, NextLeftAuto:-0.0144261; RightAuto:0, NextLeftAuto:-0.0142478; RightAuto:0, NextLeftAuto:-0.0138469; RightAuto:0, NextLeftAuto:-0.0132212; RightAuto:0, NextLeftAuto:-0.0123685; RightAuto:0, NextLeftAuto:-0.011287; RightAuto:0, NextLeftAuto:-0.00997542; RightAuto:0, NextLeftAuto:-0.008433; RightAuto:0, NextLeftAuto:-0.00665953; RightAuto:0, NextLeftAuto:-0.00465558; RightAuto:0, NextLeftAuto:-0.00242254; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:0.00223065; RightAuto:0, NextLeftAuto:0.00429461; RightAuto:0, NextLeftAuto:0.00615705; RightAuto:0, NextLeftAuto:0.00781674; RightAuto:0, NextLeftAuto:0.0092731; RightAuto:0, NextLeftAuto:0.0105262; RightAuto:0, NextLeftAuto:0.0115765; RightAuto:0, NextLeftAuto:0.0124251; RightAuto:0, NextLeftAuto:0.0130734; RightAuto:0, NextLeftAuto:0.013523; RightAuto:0, NextLeftAuto:0.0137759; RightAuto:0, NextLeftAuto:0.0138341; RightAuto:0, NextLeftAuto:0.0136997; RightAuto:0, NextLeftAuto:0.0133749; RightAuto:0, NextLeftAuto:0.0128617; RightAuto:0, NextLeftAuto:0.012162; RightAuto:0, NextLeftAuto:0.0112774; RightAuto:0, NextLeftAuto:0.0102094; RightAuto:0, NextLeftAuto:0.00895892; RightAuto:0, NextLeftAuto:0.0075265; RightAuto:0, NextLeftAuto:0.00591217; RightAuto:0, NextLeftAuto:0.00411536; RightAuto:0, NextLeftAuto:0.00213484; RightAuto:0, NextLeftAuto:0
+		KeyAttrDataFloat: *376 {
+			a: 0,-1156057960,218434821,0,0,-1148045662,218434821,0,0,-1143890664,218434821,0,0,-1140515675,218434821,0,0,-1138882563,218434821,0,0,-1137471508,218434821,0,0,-1136283345,218434821,0,0,-1135319481,218434821,0,0,-1134581790,218434821,0,0,-1134072511,218434821,0,0,-1133794141,218434821,0,0,-1133749341,218434821,0,0,-1133940824,218434821,0,0,-1134371256,218434821,0,0,-1135043151,218434821,0,0,-1135958765,218434821,0,0,-1137119994,218434821,0,0,-1138528265,218434821,0,0,-1140184436,218434821,0,0,-1143326681,218434821,0,0,-1147630128,218434821,0,0,-1155611788,218434821,0,0,0,218434821,0,0,991047722,218434821,0,0,999078345,218434821,0,0,1003077915,218434821,0,0,1006637514,218434821,0,0,1008201272,218434821,0,0,1009546747,218434821,0,0,1010674541,218434821,0,0,1011585738,218434821,0,0,1012281827,218434821,0,0,1012764614,218434821,0,0,1013036146,218434821,0,0,1013098629,218434821,0,0,1012954346,218434821,0,0,1012605576,218434821,0,0,1012054515,218434821,0,0,1011303198,218434821,0,0,1010353415,218434821,0,0,1009206635,218434821,0,0,1007863924,218434821,0,0,1006018776,218434821,0,0,1002552028,218434821,0,0,998693415,218434821,0,0,990636195,218434821,0,0,0,218434821,0,0,-1156057960,218434821,0,0,-1148045662,218434821,0,0,-1143890664,218434821,0,0,-1140515675,218434821,0,0,-1138882563,218434821,0,0,-1137471508,218434821,0,0,-1136283345,218434821,0,0,-1135319481,218434821,0,0,-1134581790,218434821,0,0,-1134072511,218434821,0,0,-1133794141,218434821,0,0,-1133749341,218434821,0,0,-1133940824,218434821,0,0,-1134371256,218434821,0,0,-1135043151,218434821,0,0,-1135958765,218434821,0,0,-1137119994,218434821,0,0,-1138528265,218434821,0,0,-1140184436,218434821,0,0,-1143326681,218434821,0,0,-1147630128,218434821,0,0,-1155611788,218434821,0,0,0,218434821,0,0,991047722,218434821,0,0,999078345,218434821,0,0,1003077915,218434821,0,0,1006637514,218434821,0,0,1008201272,218434821,0,0,1009546747,218434821,0,0,1010674541,218434821,0,0,1011585738,218434821,0,0,1012281827,218434821,0,0,1012764614,218434821,0,0,1013036146,218434821,
+0,0,1013098629,218434821,0,0,1012954346,218434821,0,0,1012605576,218434821,0,0,1012054515,218434821,0,0,1011303198,218434821,0,0,1010353415,218434821,0,0,1009206635,218434821,0,0,1007863924,218434821,0,0,1006018776,218434821,0,0,1002552028,218434821,0,0,998693415,218434821,0,0,990636195,218434821,0,0,0,218434821,0
+		} 
+		KeyAttrRefCount: *94 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2
+		} 
+	}
+	AnimationCurve: 105553136327072, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *95 {
+			a: 1924423250,3848846500,5773269750,7697693000,9622116250,11546539500,13470962750,15395386000,17319809250,19244232500,21168655750,23093079000,25017502250,26941925500,28866348750,30790772000,32715195250,34639618500,36564041750,38488465000,40412888250,42337311500,44261734750,46186158000,48110581250,50035004500,51959427750,53883851000,55808274250,57732697500,59657120750,61581544000,63505967250,65430390500,67354813750,69279237000,71203660250,73128083500,75052506750,76976930000,78901353250,80825776500,82750199750,84674623000,86599046250,88523469500,90447892750,92372316000,94296739250,96221162500,98145585750,100070009000,101994432250,103918855500,105843278750,107767702000,109692125250,111616548500,113540971750,115465395000,117389818250,119314241500,121238664750,123163088000,125087511250,127011934500,128936357750,130860781000,132785204250,134709627500,136634050750,138558474000,140482897250,142407320500,144331743750,146256167000,148180590250,150105013500,152029436750,153953860000,155878283250,157802706500,159727129750,161651553000,163575976250,165500399500,167424822750,169349246000,171273669250,173198092500,175122515750,177046939000,178971362250,180895785500,182820208750
+		} 
+		KeyValueFloat: *95 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		} 
+		;KeyAttrFlags: Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive
+		KeyAttrFlags: *1 {
+			a: 24840
+		} 
+		;KeyAttrDataFloat: RightAuto:0, NextLeftAuto:0
+		KeyAttrDataFloat: *4 {
+			a: 0,0,218434821,0
+		} 
+		KeyAttrRefCount: *1 {
+			a: 95
+		} 
+	}
+	AnimationCurve: 105553136329472, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *95 {
+			a: 1924423250,3848846500,5773269750,7697693000,9622116250,11546539500,13470962750,15395386000,17319809250,19244232500,21168655750,23093079000,25017502250,26941925500,28866348750,30790772000,32715195250,34639618500,36564041750,38488465000,40412888250,42337311500,44261734750,46186158000,48110581250,50035004500,51959427750,53883851000,55808274250,57732697500,59657120750,61581544000,63505967250,65430390500,67354813750,69279237000,71203660250,73128083500,75052506750,76976930000,78901353250,80825776500,82750199750,84674623000,86599046250,88523469500,90447892750,92372316000,94296739250,96221162500,98145585750,100070009000,101994432250,103918855500,105843278750,107767702000,109692125250,111616548500,113540971750,115465395000,117389818250,119314241500,121238664750,123163088000,125087511250,127011934500,128936357750,130860781000,132785204250,134709627500,136634050750,138558474000,140482897250,142407320500,144331743750,146256167000,148180590250,150105013500,152029436750,153953860000,155878283250,157802706500,159727129750,161651553000,163575976250,165500399500,167424822750,169349246000,171273669250,173198092500,175122515750,177046939000,178971362250,180895785500,182820208750
+		} 
+		KeyValueFloat: *95 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		} 
+		;KeyAttrFlags: Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive
+		KeyAttrFlags: *1 {
+			a: 24840
+		} 
+		;KeyAttrDataFloat: RightAuto:0, NextLeftAuto:0
+		KeyAttrDataFloat: *4 {
+			a: 0,0,218434821,0
+		} 
+		KeyAttrRefCount: *1 {
+			a: 95
+		} 
+	}
+	AnimationCurve: 105553134311040, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *95 {
+			a: 1924423250,3848846500,5773269750,7697693000,9622116250,11546539500,13470962750,15395386000,17319809250,19244232500,21168655750,23093079000,25017502250,26941925500,28866348750,30790772000,32715195250,34639618500,36564041750,38488465000,40412888250,42337311500,44261734750,46186158000,48110581250,50035004500,51959427750,53883851000,55808274250,57732697500,59657120750,61581544000,63505967250,65430390500,67354813750,69279237000,71203660250,73128083500,75052506750,76976930000,78901353250,80825776500,82750199750,84674623000,86599046250,88523469500,90447892750,92372316000,94296739250,96221162500,98145585750,100070009000,101994432250,103918855500,105843278750,107767702000,109692125250,111616548500,113540971750,115465395000,117389818250,119314241500,121238664750,123163088000,125087511250,127011934500,128936357750,130860781000,132785204250,134709627500,136634050750,138558474000,140482897250,142407320500,144331743750,146256167000,148180590250,150105013500,152029436750,153953860000,155878283250,157802706500,159727129750,161651553000,163575976250,165500399500,167424822750,169349246000,171273669250,173198092500,175122515750,177046939000,178971362250,180895785500,182820208750
+		} 
+		KeyValueFloat: *95 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+		} 
+		;KeyAttrFlags: Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive
+		KeyAttrFlags: *1 {
+			a: 24840
+		} 
+		;KeyAttrDataFloat: RightAuto:0, NextLeftAuto:0
+		KeyAttrDataFloat: *4 {
+			a: 0,0,218434821,0
+		} 
+		KeyAttrRefCount: *1 {
+			a: 95
+		} 
+	}
+	AnimationCurve: 105553136332672, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *95 {
+			a: 1924423250,3848846500,5773269750,7697693000,9622116250,11546539500,13470962750,15395386000,17319809250,19244232500,21168655750,23093079000,25017502250,26941925500,28866348750,30790772000,32715195250,34639618500,36564041750,38488465000,40412888250,42337311500,44261734750,46186158000,48110581250,50035004500,51959427750,53883851000,55808274250,57732697500,59657120750,61581544000,63505967250,65430390500,67354813750,69279237000,71203660250,73128083500,75052506750,76976930000,78901353250,80825776500,82750199750,84674623000,86599046250,88523469500,90447892750,92372316000,94296739250,96221162500,98145585750,100070009000,101994432250,103918855500,105843278750,107767702000,109692125250,111616548500,113540971750,115465395000,117389818250,119314241500,121238664750,123163088000,125087511250,127011934500,128936357750,130860781000,132785204250,134709627500,136634050750,138558474000,140482897250,142407320500,144331743750,146256167000,148180590250,150105013500,152029436750,153953860000,155878283250,157802706500,159727129750,161651553000,163575976250,165500399500,167424822750,169349246000,171273669250,173198092500,175122515750,177046939000,178971362250,180895785500,182820208750
+		} 
+		KeyValueFloat: *95 {
+			a: 5.020627,5.026987,5.045294,5.074383,5.113072,5.160178,5.214513,5.274896,5.340151,5.409113,5.48063,5.553563,5.62679,5.699203,5.769711,5.837239,5.900723,5.959113,6.011364,6.056444,6.093317,6.12095,6.138303,6.144323,6.138787,6.122803,6.097298,6.063187,6.021382,5.972791,5.918326,5.858902,5.795441,5.728875,5.660146,5.590209,5.520031,5.450594,5.382892,5.317931,5.256729,5.200316,5.149728,5.106008,5.070197,5.043341,5.026475,5.020627,5.026987,5.045294,5.074383,5.113072,5.160178,5.214513,5.274896,5.340151,5.409113,5.48063,5.553563,5.62679,5.699203,5.769711,5.837239,5.900723,5.959113,6.011364,6.056444,6.093317,6.12095,6.138303,6.144323,6.138787,6.122803,6.097298,6.063187,6.021382,5.972791,5.918326,5.858902,5.795441,5.728875,5.660146,5.590209,5.520031,5.450594,5.382892,5.317931,5.256729,5.200316,5.149728,5.106008,5.070197,5.043341,5.026475,5.020627
+		} 
+		;KeyAttrFlags: Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive
+		KeyAttrFlags: *94 {
+			a: 24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840
+		} 
+		;KeyAttrDataFloat: RightAuto:0, NextLeftAuto:0.296001; RightAuto:0, NextLeftAuto:0.568749; RightAuto:0, NextLeftAuto:0.813332; RightAuto:0, NextLeftAuto:1.02954; RightAuto:0, NextLeftAuto:1.21729; RightAuto:0, NextLeftAuto:1.37662; RightAuto:0, NextLeftAuto:1.50766; RightAuto:0, NextLeftAuto:1.61061; RightAuto:0, NextLeftAuto:1.68574; RightAuto:0, NextLeftAuto:1.73339; RightAuto:0, NextLeftAuto:1.75391; RightAuto:0, NextLeftAuto:1.74768; RightAuto:0, NextLeftAuto:1.71506; RightAuto:0, NextLeftAuto:1.65644; RightAuto:0, NextLeftAuto:1.57214; RightAuto:0, NextLeftAuto:1.46248; RightAuto:0, NextLeftAuto:1.32769; RightAuto:0, NextLeftAuto:1.16798; RightAuto:0, NextLeftAuto:0.983431; RightAuto:0, NextLeftAuto:0.774077; RightAuto:0, NextLeftAuto:0.539826; RightAuto:0, NextLeftAuto:0.280474; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:-0.258236; RightAuto:0, NextLeftAuto:-0.49787; RightAuto:0, NextLeftAuto:-0.715395; RightAuto:0, NextLeftAuto:-0.910992; RightAuto:0, NextLeftAuto:-1.08475; RightAuto:0, NextLeftAuto:-1.23667; RightAuto:0, NextLeftAuto:-1.36667; RightAuto:0, NextLeftAuto:-1.47462; RightAuto:0, NextLeftAuto:-1.56033; RightAuto:0, NextLeftAuto:-1.62354; RightAuto:0, NextLeftAuto:-1.66399; RightAuto:0, NextLeftAuto:-1.68137; RightAuto:0, NextLeftAuto:-1.67538; RightAuto:0, NextLeftAuto:-1.64568; RightAuto:0, NextLeftAuto:-1.59197; RightAuto:0, NextLeftAuto:-1.51395; RightAuto:0, NextLeftAuto:-1.41137; RightAuto:0, NextLeftAuto:-1.28401; RightAuto:0, NextLeftAuto:-1.13171; RightAuto:0, NextLeftAuto:-0.954374; RightAuto:0, NextLeftAuto:-0.751998; RightAuto:0, NextLeftAuto:-0.524663; RightAuto:0, NextLeftAuto:-0.272558; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:0.296001; RightAuto:0, NextLeftAuto:0.568749; RightAuto:0, NextLeftAuto:0.813332; RightAuto:0, NextLeftAuto:1.02954; RightAuto:0, NextLeftAuto:1.21729; RightAuto:0, NextLeftAuto:1.37662; RightAuto:0, NextLeftAuto:1.50766; RightAuto:0, NextLeftAuto:1.61061; RightAuto:0, NextLeftAuto:1.68574; RightAuto:0, NextLeftAuto:1.73339; RightAuto:0, NextLeftAuto:1.75391; 
+		;RightAuto:0, NextLeftAuto:1.74768; RightAuto:0, NextLeftAuto:1.71506; RightAuto:0, NextLeftAuto:1.65644; RightAuto:0, NextLeftAuto:1.57214; RightAuto:0, NextLeftAuto:1.46248; RightAuto:0, NextLeftAuto:1.32769; RightAuto:0, NextLeftAuto:1.16798; RightAuto:0, NextLeftAuto:0.983431; RightAuto:0, NextLeftAuto:0.774077; RightAuto:0, NextLeftAuto:0.539826; RightAuto:0, NextLeftAuto:0.280474; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:-0.258236; RightAuto:0, NextLeftAuto:-0.49787; RightAuto:0, NextLeftAuto:-0.715395; RightAuto:0, NextLeftAuto:-0.910992; RightAuto:0, NextLeftAuto:-1.08475; RightAuto:0, NextLeftAuto:-1.23667; RightAuto:0, NextLeftAuto:-1.36667; RightAuto:0, NextLeftAuto:-1.47462; RightAuto:0, NextLeftAuto:-1.56033; RightAuto:0, NextLeftAuto:-1.62354; RightAuto:0, NextLeftAuto:-1.66399; RightAuto:0, NextLeftAuto:-1.68137; RightAuto:0, NextLeftAuto:-1.67538; RightAuto:0, NextLeftAuto:-1.64568; RightAuto:0, NextLeftAuto:-1.59197; RightAuto:0, NextLeftAuto:-1.51395; RightAuto:0, NextLeftAuto:-1.41137; RightAuto:0, NextLeftAuto:-1.28401; RightAuto:0, NextLeftAuto:-1.13171; RightAuto:0, NextLeftAuto:-0.954374; RightAuto:0, NextLeftAuto:-0.751998; RightAuto:0, NextLeftAuto:-0.524663; RightAuto:0, NextLeftAuto:-0.272558; RightAuto:0, NextLeftAuto:0
+		KeyAttrDataFloat: *376 {
+			a: 0,1050119553,218434821,0,0,1058118020,218434821,0,0,1062221449,218434821,0,0,1065601025,218434821,0,0,1067176013,218434821,0,0,1068512562,218434821,0,0,1069611753,218434821,0,0,1070475347,218434821,0,0,1071105648,218434821,0,0,1071505369,218434821,0,0,1071677504,218434821,0,0,1071625196,218434821,0,0,1071351611,218434821,0,0,1070859823,218434821,0,0,1070152693,218434821,0,0,1069232755,218434821,0,0,1068102105,218434821,0,0,1066762297,218434821,0,0,1065075239,218434821,0,0,1061562858,218434821,0,0,1057632774,218434821,0,0,1049598525,218434821,0,0,0,218434821,0,0,-1098631284,218434821,0,0,-1090590498,218434821,0,0,-1086905317,218434821,0,0,-1083623742,218434821,0,0,-1081419511,218434821,0,0,-1080145134,218434821,0,0,-1079054578,218434821,0,0,-1078149014,218434821,0,0,-1077430079,218434821,0,0,-1076899792,218434821,0,0,-1076560472,218434821,0,0,-1076414645,218434821,0,0,-1076464961,218434821,0,0,-1076714097,218434821,0,0,-1077164663,218434821,0,0,-1077819107,218434821,0,0,-1078679610,218434821,0,0,-1079747989,218434821,0,0,-1081025585,218434821,0,0,-1082895904,218434821,0,0,-1086291211,218434821,0,0,-1090105261,218434821,0,0,-1098150713,218434821,0,0,0,218434821,0,0,1050119553,218434821,0,0,1058118020,218434821,0,0,1062221449,218434821,0,0,1065601025,218434821,0,0,1067176013,218434821,0,0,1068512562,218434821,0,0,1069611753,218434821,0,0,1070475347,218434821,0,0,1071105648,218434821,0,0,1071505369,218434821,0,0,1071677504,218434821,0,0,1071625196,218434821,0,0,1071351611,218434821,0,0,1070859823,218434821,0,0,1070152693,218434821,0,0,1069232755,218434821,0,0,1068102105,218434821,0,0,1066762297,218434821,0,0,1065075239,218434821,0,0,1061562858,218434821,0,0,1057632774,218434821,0,0,1049598525,218434821,0,0,0,218434821,0,0,-1098631284,218434821,0,0,-1090590498,218434821,0,0,-1086905317,218434821,0,0,-1083623742,218434821,0,0,-1081419511,218434821,0,0,-1080145134,218434821,0,0,-1079054578,218434821,0,0,-1078149014,218434821,0,0,-1077430079,218434821,0,0,-1076899792,218434821,0,0,-1076560472,218434821,0,
+0,-1076414645,218434821,0,0,-1076464961,218434821,0,0,-1076714097,218434821,0,0,-1077164663,218434821,0,0,-1077819107,218434821,0,0,-1078679610,218434821,0,0,-1079747989,218434821,0,0,-1081025585,218434821,0,0,-1082895904,218434821,0,0,-1086291211,218434821,0,0,-1090105261,218434821,0,0,-1098150713,218434821,0,0,0,218434821,0
+		} 
+		KeyAttrRefCount: *94 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2
+		} 
+	}
+	AnimationCurve: 105553136329792, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *95 {
+			a: 1924423250,3848846500,5773269750,7697693000,9622116250,11546539500,13470962750,15395386000,17319809250,19244232500,21168655750,23093079000,25017502250,26941925500,28866348750,30790772000,32715195250,34639618500,36564041750,38488465000,40412888250,42337311500,44261734750,46186158000,48110581250,50035004500,51959427750,53883851000,55808274250,57732697500,59657120750,61581544000,63505967250,65430390500,67354813750,69279237000,71203660250,73128083500,75052506750,76976930000,78901353250,80825776500,82750199750,84674623000,86599046250,88523469500,90447892750,92372316000,94296739250,96221162500,98145585750,100070009000,101994432250,103918855500,105843278750,107767702000,109692125250,111616548500,113540971750,115465395000,117389818250,119314241500,121238664750,123163088000,125087511250,127011934500,128936357750,130860781000,132785204250,134709627500,136634050750,138558474000,140482897250,142407320500,144331743750,146256167000,148180590250,150105013500,152029436750,153953860000,155878283250,157802706500,159727129750,161651553000,163575976250,165500399500,167424822750,169349246000,171273669250,173198092500,175122515750,177046939000,178971362250,180895785500,182820208750
+		} 
+		KeyValueFloat: *95 {
+			a: 73.0252,73.02273,73.01562,73.0043,72.98921,72.97079,72.94949,72.92572,72.89994,72.87258,72.84409,72.8149,72.78546,72.75623,72.72763,72.70013,72.67416,72.65019,72.62867,72.61005,72.59477,72.58331,72.57609,72.57359,72.57589,72.58253,72.59312,72.60725,72.62453,72.64457,72.66695,72.69128,72.71716,72.74421,72.77201,72.80019,72.82834,72.85607,72.883,72.90873,72.93288,72.95506,72.97488,72.99197,73.00593,73.01638,73.02293,73.0252,73.02273,73.01562,73.0043,72.98921,72.97079,72.94949,72.92572,72.89994,72.87258,72.84409,72.8149,72.78546,72.75623,72.72763,72.70013,72.67416,72.65019,72.62867,72.61005,72.59477,72.58331,72.57609,72.57359,72.57589,72.58253,72.59312,72.60725,72.62453,72.64457,72.66695,72.69128,72.71716,72.74421,72.77201,72.80019,72.82834,72.85607,72.883,72.90873,72.93288,72.95506,72.97488,72.99197,73.00593,73.01638,73.02293,73.0252
+		} 
+		;KeyAttrFlags: Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive
+		KeyAttrFlags: *94 {
+			a: 24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840
+		} 
+		;KeyAttrDataFloat: RightAuto:0, NextLeftAuto:-0.115004; RightAuto:0, NextLeftAuto:-0.22121; RightAuto:0, NextLeftAuto:-0.316888; RightAuto:0, NextLeftAuto:-0.402057; RightAuto:0, NextLeftAuto:-0.476727; RightAuto:0, NextLeftAuto:-0.540894; RightAuto:0, NextLeftAuto:-0.594545; RightAuto:0, NextLeftAuto:-0.637658; RightAuto:0, NextLeftAuto:-0.670205; RightAuto:0, NextLeftAuto:-0.692153; RightAuto:0, NextLeftAuto:-0.703465; RightAuto:0, NextLeftAuto:-0.704104; RightAuto:0, NextLeftAuto:-0.69403; RightAuto:0, NextLeftAuto:-0.673205; RightAuto:0, NextLeftAuto:-0.641596; RightAuto:0, NextLeftAuto:-0.599171; RightAuto:0, NextLeftAuto:-0.545904; RightAuto:0, NextLeftAuto:-0.481777; RightAuto:0, NextLeftAuto:-0.406779; RightAuto:0, NextLeftAuto:-0.320908; RightAuto:0, NextLeftAuto:-0.224172; RightAuto:0, NextLeftAuto:-0.116594; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:0.107356; RightAuto:0, NextLeftAuto:0.206778; RightAuto:0, NextLeftAuto:0.296659; RightAuto:0, NextLeftAuto:0.37698; RightAuto:0, NextLeftAuto:0.447731; RightAuto:0, NextLeftAuto:0.508912; RightAuto:0, NextLeftAuto:0.560532; RightAuto:0, NextLeftAuto:0.602605; RightAuto:0, NextLeftAuto:0.635149; RightAuto:0, NextLeftAuto:0.658191; RightAuto:0, NextLeftAuto:0.671758; RightAuto:0, NextLeftAuto:0.675881; RightAuto:0, NextLeftAuto:0.670592; RightAuto:0, NextLeftAuto:0.655924; RightAuto:0, NextLeftAuto:0.63191; RightAuto:0, NextLeftAuto:0.598578; RightAuto:0, NextLeftAuto:0.555955; RightAuto:0, NextLeftAuto:0.504065; RightAuto:0, NextLeftAuto:0.442922; RightAuto:0, NextLeftAuto:0.372537; RightAuto:0, NextLeftAuto:0.292911; RightAuto:0, NextLeftAuto:0.204035; RightAuto:0, NextLeftAuto:0.105889; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:-0.115004; RightAuto:0, NextLeftAuto:-0.22121; RightAuto:0, NextLeftAuto:-0.316888; RightAuto:0, NextLeftAuto:-0.402057; RightAuto:0, NextLeftAuto:-0.476727; RightAuto:0, NextLeftAuto:-0.540894; RightAuto:0, NextLeftAuto:-0.594545; RightAuto:0, NextLeftAuto:-0.637658; RightAuto:0, NextLeftAuto:-0.670205; RightAuto:0, NextLeftAuto:-0.692153; 
+		;RightAuto:0, NextLeftAuto:-0.703465; RightAuto:0, NextLeftAuto:-0.704104; RightAuto:0, NextLeftAuto:-0.69403; RightAuto:0, NextLeftAuto:-0.673205; RightAuto:0, NextLeftAuto:-0.641596; RightAuto:0, NextLeftAuto:-0.599171; RightAuto:0, NextLeftAuto:-0.545904; RightAuto:0, NextLeftAuto:-0.481777; RightAuto:0, NextLeftAuto:-0.406779; RightAuto:0, NextLeftAuto:-0.320908; RightAuto:0, NextLeftAuto:-0.224172; RightAuto:0, NextLeftAuto:-0.116594; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:0.107356; RightAuto:0, NextLeftAuto:0.206778; RightAuto:0, NextLeftAuto:0.296659; RightAuto:0, NextLeftAuto:0.37698; RightAuto:0, NextLeftAuto:0.447731; RightAuto:0, NextLeftAuto:0.508912; RightAuto:0, NextLeftAuto:0.560532; RightAuto:0, NextLeftAuto:0.602605; RightAuto:0, NextLeftAuto:0.635149; RightAuto:0, NextLeftAuto:0.658191; RightAuto:0, NextLeftAuto:0.671758; RightAuto:0, NextLeftAuto:0.675881; RightAuto:0, NextLeftAuto:0.670592; RightAuto:0, NextLeftAuto:0.655924; RightAuto:0, NextLeftAuto:0.63191; RightAuto:0, NextLeftAuto:0.598578; RightAuto:0, NextLeftAuto:0.555955; RightAuto:0, NextLeftAuto:0.504065; RightAuto:0, NextLeftAuto:0.442922; RightAuto:0, NextLeftAuto:0.372537; RightAuto:0, NextLeftAuto:0.292911; RightAuto:0, NextLeftAuto:0.204035; RightAuto:0, NextLeftAuto:0.105889; RightAuto:0, NextLeftAuto:0
+		KeyAttrDataFloat: *376 {
+			a: 0,-1108637953,218434821,0,0,-1100839681,218434821,0,0,-1096663265,218434821,0,0,-1093805452,218434821,0,0,-1091299949,218434821,0,0,-1089832952,218434821,0,0,-1088932842,218434821,0,0,-1088209525,218434821,0,0,-1087663475,218434821,0,0,-1087295248,218434821,0,0,-1087105456,218434821,0,0,-1087094745,218434821,0,0,-1087263762,218434821,0,0,-1087613136,218434821,0,0,-1088143452,218434821,0,0,-1088855229,218434821,0,0,-1089748895,218434821,0,0,-1091130494,218434821,0,0,-1093647020,218434821,0,0,-1096528382,218434821,0,0,-1100640916,218434821,0,0,-1108424529,218434821,0,0,0,218434821,0,0,1037819224,218434821,0,0,1045675439,218434821,0,0,1050141619,218434821,0,0,1052836725,218434821,0,0,1055210739,218434821,0,0,1057114133,218434821,0,0,1057980170,218434821,0,0,1058686026,218434821,0,0,1059232035,218434821,0,0,1059618610,218434821,0,0,1059846224,218434821,0,0,1059915396,218434821,0,0,1059826666,218434821,0,0,1059580584,218434821,0,0,1059177684,218434821,0,0,1058618467,218434821,0,0,1057903382,218434821,0,0,1057032801,218434821,0,0,1055049390,218434821,0,0,1052687663,218434821,0,0,1050015847,218434821,0,0,1045491313,218434821,0,0,1037622372,218434821,0,0,0,218434821,0,0,-1108637953,218434821,0,0,-1100839681,218434821,0,0,-1096663265,218434821,0,0,-1093805452,218434821,0,0,-1091299949,218434821,0,0,-1089832952,218434821,0,0,-1088932842,218434821,0,0,-1088209525,218434821,0,0,-1087663475,218434821,0,0,-1087295248,218434821,0,0,-1087105456,218434821,0,0,-1087094745,218434821,0,0,-1087263762,218434821,0,0,-1087613136,218434821,0,0,-1088143452,218434821,0,0,-1088855229,218434821,0,0,-1089748895,218434821,0,0,-1091130494,218434821,0,0,-1093647020,218434821,0,0,-1096528382,218434821,0,0,-1100640916,218434821,0,0,-1108424529,218434821,0,0,0,218434821,0,0,1037819224,218434821,0,0,1045675439,218434821,0,0,1050141619,218434821,0,0,1052836725,218434821,0,0,1055210739,218434821,0,0,1057114133,218434821,0,0,1057980170,218434821,0,0,1058686026,218434821,0,0,1059232035,218434821,0,0,1059618610,218434821,0,0,1059846224,218434821,
+0,0,1059915396,218434821,0,0,1059826666,218434821,0,0,1059580584,218434821,0,0,1059177684,218434821,0,0,1058618467,218434821,0,0,1057903382,218434821,0,0,1057032801,218434821,0,0,1055049390,218434821,0,0,1052687663,218434821,0,0,1050015847,218434821,0,0,1045491313,218434821,0,0,1037622372,218434821,0,0,0,218434821,0
+		} 
+		KeyAttrRefCount: *94 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2
+		} 
+	}
+	AnimationCurve: 105553136334272, "AnimCurve::", "" {
+		Default: 0
+		KeyVer: 4009
+		KeyTime: *95 {
+			a: 1924423250,3848846500,5773269750,7697693000,9622116250,11546539500,13470962750,15395386000,17319809250,19244232500,21168655750,23093079000,25017502250,26941925500,28866348750,30790772000,32715195250,34639618500,36564041750,38488465000,40412888250,42337311500,44261734750,46186158000,48110581250,50035004500,51959427750,53883851000,55808274250,57732697500,59657120750,61581544000,63505967250,65430390500,67354813750,69279237000,71203660250,73128083500,75052506750,76976930000,78901353250,80825776500,82750199750,84674623000,86599046250,88523469500,90447892750,92372316000,94296739250,96221162500,98145585750,100070009000,101994432250,103918855500,105843278750,107767702000,109692125250,111616548500,113540971750,115465395000,117389818250,119314241500,121238664750,123163088000,125087511250,127011934500,128936357750,130860781000,132785204250,134709627500,136634050750,138558474000,140482897250,142407320500,144331743750,146256167000,148180590250,150105013500,152029436750,153953860000,155878283250,157802706500,159727129750,161651553000,163575976250,165500399500,167424822750,169349246000,171273669250,173198092500,175122515750,177046939000,178971362250,180895785500,182820208750
+		} 
+		KeyValueFloat: *95 {
+			a: 53.39974,53.40648,53.42588,53.45671,53.49772,53.54765,53.60526,53.66929,53.7385,53.81165,53.88753,53.96493,54.04265,54.11953,54.1944,54.26612,54.33356,54.3956,54.45113,54.49903,54.53823,54.5676,54.58605,54.59245,54.58657,54.56958,54.54246,54.5062,54.46177,54.41013,54.35226,54.28913,54.22173,54.15104,54.07806,54.00382,53.92934,53.85566,53.78384,53.71493,53.65002,53.59021,53.53658,53.49023,53.45227,53.42381,53.40594,53.39974,53.40648,53.42588,53.45671,53.49772,53.54765,53.60526,53.66929,53.7385,53.81165,53.88753,53.96493,54.04265,54.11953,54.1944,54.26612,54.33356,54.3956,54.45113,54.49903,54.53823,54.5676,54.58605,54.59245,54.58657,54.56958,54.54246,54.5062,54.46177,54.41013,54.35226,54.28913,54.22173,54.15104,54.07806,54.00382,53.92934,53.85566,53.78384,53.71493,53.65002,53.59021,53.53658,53.49023,53.45227,53.42381,53.40594,53.39974
+		} 
+		;KeyAttrFlags: Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive, 
+		;Cubic|TangeantAuto|GenericTimeIndependent|GenericClampProgressive
+		KeyAttrFlags: *94 {
+			a: 24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840,24840
+		} 
+		;KeyAttrDataFloat: RightAuto:0, NextLeftAuto:0.313695; RightAuto:0, NextLeftAuto:0.602775; RightAuto:0, NextLeftAuto:0.862058; RightAuto:0, NextLeftAuto:1.09133; RightAuto:0, NextLeftAuto:1.29052; RightAuto:0, NextLeftAuto:1.45965; RightAuto:0, NextLeftAuto:1.59886; RightAuto:0, NextLeftAuto:1.70834; RightAuto:0, NextLeftAuto:1.78839; RightAuto:0, NextLeftAuto:1.83931; RightAuto:0, NextLeftAuto:1.86147; RightAuto:0, NextLeftAuto:1.85523; RightAuto:0, NextLeftAuto:1.82099; RightAuto:0, NextLeftAuto:1.7591; RightAuto:0, NextLeftAuto:1.66991; RightAuto:0, NextLeftAuto:1.55371; RightAuto:0, NextLeftAuto:1.41076; RightAuto:0, NextLeftAuto:1.24124; RightAuto:0, NextLeftAuto:1.04526; RightAuto:0, NextLeftAuto:0.822833; RightAuto:0, NextLeftAuto:0.573874; RightAuto:0, NextLeftAuto:0.298179; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:-0.274538; RightAuto:0, NextLeftAuto:-0.529276; RightAuto:0, NextLeftAuto:-0.760464; RightAuto:0, NextLeftAuto:-0.968286; RightAuto:0, NextLeftAuto:-1.15283; RightAuto:0, NextLeftAuto:-1.31409; RightAuto:0, NextLeftAuto:-1.452; RightAuto:0, NextLeftAuto:-1.56642; RightAuto:0, NextLeftAuto:-1.65716; RightAuto:0, NextLeftAuto:-1.72396; RightAuto:0, NextLeftAuto:-1.76657; RightAuto:0, NextLeftAuto:-1.78466; RightAuto:0, NextLeftAuto:-1.77794; RightAuto:0, NextLeftAuto:-1.74608; RightAuto:0, NextLeftAuto:-1.68877; RightAuto:0, NextLeftAuto:-1.60572; RightAuto:0, NextLeftAuto:-1.49667; RightAuto:0, NextLeftAuto:-1.3614; RightAuto:0, NextLeftAuto:-1.19975; RightAuto:0, NextLeftAuto:-1.01164; RightAuto:0, NextLeftAuto:-0.79704; RightAuto:0, NextLeftAuto:-0.556048; RightAuto:0, NextLeftAuto:-0.28885; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:0.313695; RightAuto:0, NextLeftAuto:0.602775; RightAuto:0, NextLeftAuto:0.862058; RightAuto:0, NextLeftAuto:1.09133; RightAuto:0, NextLeftAuto:1.29052; RightAuto:0, NextLeftAuto:1.45965; RightAuto:0, NextLeftAuto:1.59886; RightAuto:0, NextLeftAuto:1.70834; RightAuto:0, NextLeftAuto:1.78839; RightAuto:0, NextLeftAuto:1.83931; RightAuto:0, NextLeftAuto:1.86147; 
+		;RightAuto:0, NextLeftAuto:1.85523; RightAuto:0, NextLeftAuto:1.82099; RightAuto:0, NextLeftAuto:1.7591; RightAuto:0, NextLeftAuto:1.66991; RightAuto:0, NextLeftAuto:1.55371; RightAuto:0, NextLeftAuto:1.41076; RightAuto:0, NextLeftAuto:1.24124; RightAuto:0, NextLeftAuto:1.04526; RightAuto:0, NextLeftAuto:0.822833; RightAuto:0, NextLeftAuto:0.573874; RightAuto:0, NextLeftAuto:0.298179; RightAuto:0, NextLeftAuto:0; RightAuto:0, NextLeftAuto:-0.274538; RightAuto:0, NextLeftAuto:-0.529276; RightAuto:0, NextLeftAuto:-0.760464; RightAuto:0, NextLeftAuto:-0.968286; RightAuto:0, NextLeftAuto:-1.15283; RightAuto:0, NextLeftAuto:-1.31409; RightAuto:0, NextLeftAuto:-1.452; RightAuto:0, NextLeftAuto:-1.56642; RightAuto:0, NextLeftAuto:-1.65716; RightAuto:0, NextLeftAuto:-1.72396; RightAuto:0, NextLeftAuto:-1.76657; RightAuto:0, NextLeftAuto:-1.78466; RightAuto:0, NextLeftAuto:-1.77794; RightAuto:0, NextLeftAuto:-1.74608; RightAuto:0, NextLeftAuto:-1.68877; RightAuto:0, NextLeftAuto:-1.60572; RightAuto:0, NextLeftAuto:-1.49667; RightAuto:0, NextLeftAuto:-1.3614; RightAuto:0, NextLeftAuto:-1.19975; RightAuto:0, NextLeftAuto:-1.01164; RightAuto:0, NextLeftAuto:-0.79704; RightAuto:0, NextLeftAuto:-0.556048; RightAuto:0, NextLeftAuto:-0.28885; RightAuto:0, NextLeftAuto:0
+		KeyAttrDataFloat: *376 {
+			a: 0,1050713249,218434821,0,0,1058688886,218434821,0,0,1063038939,218434821,0,0,1066119388,218434821,0,0,1067790298,218434821,0,0,1069209074,218434821,0,0,1070376798,218434821,0,0,1071295229,218434821,0,0,1071966670,218434821,0,0,1072393833,218434821,0,0,1072579710,218434821,0,0,1072527440,218434821,0,0,1072240189,218434821,0,0,1071721029,218434821,0,0,1070972816,218434821,0,0,1069998082,218434821,0,0,1068798924,218434821,0,0,1067376890,218434821,0,0,1065732879,218434821,0,0,1062380840,218434821,0,0,1058204002,218434821,0,0,1050192610,218434821,0,0,0,218434821,0,0,-1098084276,218434821,0,0,-1090027878,218434821,0,0,-1086149181,218434821,0,0,-1082662508,218434821,0,0,-1080848418,218434821,0,0,-1079495638,218434821,0,0,-1078338752,218434821,0,0,-1077378928,218434821,0,0,-1076617802,218434821,0,0,-1076057393,218434821,0,0,-1075700014,218434821,0,0,-1075548193,218434821,0,0,-1075604575,218434821,0,0,-1075871836,218434821,0,0,-1076352585,218434821,0,0,-1077049267,218434821,0,0,-1077964064,218434821,0,0,-1079098789,218434821,0,0,-1080454786,218434821,0,0,-1082032822,218434821,0,0,-1085535534,218434821,0,0,-1089578705,218434821,0,0,-1097604063,218434821,0,0,0,218434821,0,0,1050713249,218434821,0,0,1058688886,218434821,0,0,1063038939,218434821,0,0,1066119388,218434821,0,0,1067790298,218434821,0,0,1069209074,218434821,0,0,1070376798,218434821,0,0,1071295229,218434821,0,0,1071966670,218434821,0,0,1072393833,218434821,0,0,1072579710,218434821,0,0,1072527440,218434821,0,0,1072240189,218434821,0,0,1071721029,218434821,0,0,1070972816,218434821,0,0,1069998082,218434821,0,0,1068798924,218434821,0,0,1067376890,218434821,0,0,1065732879,218434821,0,0,1062380840,218434821,0,0,1058204002,218434821,0,0,1050192610,218434821,0,0,0,218434821,0,0,-1098084276,218434821,0,0,-1090027878,218434821,0,0,-1086149181,218434821,0,0,-1082662508,218434821,0,0,-1080848418,218434821,0,0,-1079495638,218434821,0,0,-1078338752,218434821,0,0,-1077378928,218434821,0,0,-1076617802,218434821,0,0,-1076057393,218434821,0,0,-1075700014,218434821,0,
+0,-1075548193,218434821,0,0,-1075604575,218434821,0,0,-1075871836,218434821,0,0,-1076352585,218434821,0,0,-1077049267,218434821,0,0,-1077964064,218434821,0,0,-1079098789,218434821,0,0,-1080454786,218434821,0,0,-1082032822,218434821,0,0,-1085535534,218434821,0,0,-1089578705,218434821,0,0,-1097604063,218434821,0,0,0,218434821,0
+		} 
+		KeyAttrRefCount: *94 {
+			a: 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2
+		} 
+	}
+	AnimationCurveNode: 105553128278144, "AnimCurveNode::lockInfluenceWeights", "" {
+		Properties70:  {
+			P: "d|lockInfluenceWeights", "Bool", "", "A",0
+		}
+	}
+	AnimationCurveNode: 105553128225536, "AnimCurveNode::Visibility", "" {
+		Properties70:  {
+			P: "d|Visibility", "Visibility", "", "A",1
+		}
+	}
+	AnimationCurveNode: 105553128229568, "AnimCurveNode::T", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",-0.959264731486369
+			P: "d|Y", "Number", "", "A",6.29501882220981
+			P: "d|Z", "Number", "", "A",4.59038795455494
+		}
+	}
+	AnimationCurveNode: 105553124104960, "AnimCurveNode::S", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",1
+			P: "d|Y", "Number", "", "A",1
+			P: "d|Z", "Number", "", "A",1
+		}
+	}
+	AnimationCurveNode: 105553124070208, "AnimCurveNode::R", "" {
+		Properties70:  {
+			P: "d|X", "Number", "", "A",5.02062767048483
+			P: "d|Y", "Number", "", "A",73.0252010178037
+			P: "d|Z", "Number", "", "A",53.3997382885874
+		}
+	}
+	AnimationLayer: 140288131573408, "AnimLayer::BaseLayer", "" {
+	}
+}
+
+; Object connections
+;------------------------------------------------------------------
+
+Connections:  {
+	
+	;Model::Group, Model::RootNode
+	C: "OO",140288124683264,0
+	
+	;AnimLayer::BaseLayer, AnimStack::Take 001
+	C: "OO",140288131573408,105828016780016
+	
+	;AnimCurveNode::lockInfluenceWeights, AnimLayer::BaseLayer
+	C: "OO",105553128278144,140288131573408
+	
+	;AnimCurveNode::Visibility, AnimLayer::BaseLayer
+	C: "OO",105553128225536,140288131573408
+	
+	;AnimCurveNode::T, AnimLayer::BaseLayer
+	C: "OO",105553128229568,140288131573408
+	
+	;AnimCurveNode::S, AnimLayer::BaseLayer
+	C: "OO",105553124104960,140288131573408
+	
+	;AnimCurveNode::R, AnimLayer::BaseLayer
+	C: "OO",105553124070208,140288131573408
+	
+	;NodeAttribute::, Model::Group
+	C: "OO",105828008086960,140288124683264
+	
+	;Model::Net_Joint, Model::Group
+	C: "OO",140288126965248,140288124683264
+	
+	;NodeAttribute::, Model::Net_Joint
+	C: "OO",105828008099104,140288126965248
+	
+	;AnimCurveNode::T, Model::Net_Joint
+	C: "OP",105553128229568,140288126965248, "Lcl Translation"
+	
+	;AnimCurveNode::R, Model::Net_Joint
+	C: "OP",105553124070208,140288126965248, "Lcl Rotation"
+	
+	;AnimCurveNode::S, Model::Net_Joint
+	C: "OP",105553124104960,140288126965248, "Lcl Scaling"
+	
+	;AnimCurveNode::Visibility, Model::Net_Joint
+	C: "OP",105553128225536,140288126965248, "Visibility"
+	
+	;AnimCurveNode::lockInfluenceWeights, Model::Net_Joint
+	C: "OP",105553128278144,140288126965248, "lockInfluenceWeights"
+	
+	;AnimCurve::, AnimCurveNode::Visibility
+	C: "OP",105553136357632,105553128225536, "d|Visibility"
+	
+	;AnimCurve::, AnimCurveNode::T
+	C: "OP",105553134240960,105553128229568, "d|X"
+	
+	;AnimCurve::, AnimCurveNode::T
+	C: "OP",105553134353600,105553128229568, "d|Y"
+	
+	;AnimCurve::, AnimCurveNode::T
+	C: "OP",105553136326112,105553128229568, "d|Z"
+	
+	;AnimCurve::, AnimCurveNode::S
+	C: "OP",105553136327072,105553124104960, "d|X"
+	
+	;AnimCurve::, AnimCurveNode::S
+	C: "OP",105553136329472,105553124104960, "d|Y"
+	
+	;AnimCurve::, AnimCurveNode::S
+	C: "OP",105553134311040,105553124104960, "d|Z"
+	
+	;AnimCurve::, AnimCurveNode::R
+	C: "OP",105553136332672,105553124070208, "d|X"
+	
+	;AnimCurve::, AnimCurveNode::R
+	C: "OP",105553136329792,105553124070208, "d|Y"
+	
+	;AnimCurve::, AnimCurveNode::R
+	C: "OP",105553136334272,105553124070208, "d|Z"
+}
+;Takes section
+;----------------------------------------------------
+
+Takes:  {
+	Current: "Take 001"
+	Take: "Take 001" {
+		FileName: "Take_001.tak"
+		LocalTime: 1924423250,182820208750
+		ReferenceTime: 1924423250,182820208750
+	}
+}

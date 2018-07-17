@@ -140,6 +140,7 @@ public class TouchHandler : MonoBehaviour {
 	// Setters for all controlSchemes
 	public void MapControls() {
 		controlScheme = ControlScheme.map;
+		miniGame.animManager.ResetMinigame ();
     }
 	
 	public void MapCameraTransition() {

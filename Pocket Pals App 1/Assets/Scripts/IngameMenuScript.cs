@@ -15,10 +15,12 @@ public class IngameMenuScript : MonoBehaviour {
 
     void OnEnable()
     {
+/*		
         foreach (GameObject obj in SubMenus)
         {
             obj.SetActive(false);
         }
-        touchHandler.MapControls();
+*/
+		touchHandler.MapControls();
     }
 }

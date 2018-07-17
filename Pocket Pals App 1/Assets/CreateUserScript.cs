@@ -16,7 +16,7 @@ public class CreateUserScript : MonoBehaviour
 
     private void OnDisable()
     {
-        LoginScreen.SetActive(true);
+//        LoginScreen.SetActive(true);
     }
 
     public void TryCreateUser()
