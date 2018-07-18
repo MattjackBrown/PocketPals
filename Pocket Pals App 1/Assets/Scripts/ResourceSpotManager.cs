@@ -215,10 +215,6 @@ public class ResourceSpotManager : MonoBehaviour
                 usedSpots = new List<ResourceSpotSave>();
                 Debug.Log("resource spot list null ref");
             }
-            foreach (ResourceSpotSave rss in usedSpots)
-            {
-                Debug.Log("Time left: " + rss.cooldown);
-            }
         }
         catch
         {
