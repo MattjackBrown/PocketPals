@@ -19,23 +19,28 @@ public class StreamVideo : MonoBehaviour {
 	}
 
 	IEnumerator PlayVideo () {
+        if (!TouchHandler.Instance.IsDebug)
+        {
 
-		videoPlayer.Prepare ();
+            videoPlayer.Prepare();
 
-		WaitForSeconds wait = new WaitForSeconds (0.5f);
+            WaitForSeconds wait = new WaitForSeconds(0.5f);
 
-		while (!videoPlayer.isPrepared) {
+            while (!videoPlayer.isPrepared)
+            {
 
-			yield return wait;
-			break;
-		}
+                yield return wait;
+                break;
+            }
 
-		rawImage.texture = videoPlayer.texture;
+            rawImage.texture = videoPlayer.texture;
 
-		videoPlayer.Play ();
-		audioSource.Play ();
+            videoPlayer.Play();
+            audioSource.Play();
 
-		videoPlayer.loopPointReached += OnVideoFinished;
+            videoPlayer.loopPointReached += OnVideoFinished;
+        }
+        else { animManager.IntroFinished(); }
 	}
 
 	void OnVideoFinished(VideoPlayer player)

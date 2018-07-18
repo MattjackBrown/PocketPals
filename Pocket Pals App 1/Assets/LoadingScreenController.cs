@@ -22,9 +22,10 @@ public class LoadingScreenController : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
-		if (loadingStarted) {
+	void Update ()
+    {
+        if(TouchHandler.Instance.IsDebug) this.gameObject.SetActive(false);
+        if (loadingStarted) {
 
 			if (isLoggedIn || (!isLoggedIn && loadingBarValue < 0.8f)) {
 
@@ -55,5 +56,6 @@ public class LoadingScreenController : MonoBehaviour {
 
 		timeToLoad = 4.0f;
 		isLoggedIn = true;
-	}
+        this.gameObject.SetActive(false);
+    }
 }

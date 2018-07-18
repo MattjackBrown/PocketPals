@@ -76,7 +76,10 @@ public class LocalDataManager : MonoBehaviour {
 
     public void AddItem(ItemData id)
     {
-        NotificationManager.Instance.CongratsNotification("You Have found x" + id.numberOwned + " " + id.name);
+        for (int i = 0; i < id.numberOwned; i++)
+        {
+            PopupHandler.Instance.AddPopup(id.spr);
+        }
 
         ServerDataManager.Instance.WriteItem(localData, localData.ItemInv.AddItem(id));
     }

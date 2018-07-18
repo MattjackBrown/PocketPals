@@ -8,7 +8,7 @@ public class ItemData
 {
     public string name = "none";
     public int ID = 0;
-
+    public Sprite spr;
     public int numberOwned = 1;
 
     public ItemData(string str, int id)
@@ -21,6 +21,7 @@ public class ItemData
     {
         ItemData id = new ItemData(this.name, this.ID);
         id.numberOwned = number;
+        id.spr = this.spr;
         return id;
     }
 
