@@ -119,6 +119,11 @@ public class UIAnimationManager : MonoBehaviour {
 		canvasAnimator.SetBool ("openTracks", show);
 	}
 
+	public void OpenShop (bool show) {
+
+		canvasAnimator.SetBool ("openShop", show);
+	}
+
 	public void ShowVG (bool show) {
 
 		canvasAnimator.SetBool ("showVG", show);
