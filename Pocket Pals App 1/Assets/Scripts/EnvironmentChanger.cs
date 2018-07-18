@@ -73,6 +73,17 @@ public class EnvironmentChanger : MonoBehaviour
 
     }
 
+	public void ResetSceneInHalfASecond () {
+		
+		StartCoroutine (WaitHalfSecond ());
+	}
+
+	IEnumerator WaitHalfSecond()
+	{
+		yield return new WaitForSeconds(0.5f);
+		ResetScene ();
+	}
+
     public void ResetScene()
     {
         //activate map stuff
