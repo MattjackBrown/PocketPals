@@ -11,7 +11,7 @@ public class EnvironmentChanger : MonoBehaviour
 
     public GameObject[] scenes;
 
-	public GameObject StartLoginUI, VGUI;
+	public GameObject StartLoginUI, VGUI, LoadingScreen;
 	public VirtualSceneParent VGInfo;
 	public UIAnimationManager animManager;
 
@@ -37,10 +37,9 @@ public class EnvironmentChanger : MonoBehaviour
 
 	// Use this for initialization
 	void Start ()
-    {
-        Instance = this;
+	{
+		Instance = this;
         gps = player.GetComponent<GPS>();
-
     }
 
 	// Wait for all references to populate
@@ -166,6 +165,8 @@ public class EnvironmentChanger : MonoBehaviour
 	}
 
 	public void StartSceneInVirtualGarden () {
+
+		LoadingScreen.SetActive (false);
 
 		// Returning from the AR scene so deactivate the static PPal gameObject
 		GlobalVariables.ARPocketPAl.SetActive (false);
