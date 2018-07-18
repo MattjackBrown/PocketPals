@@ -13,6 +13,7 @@ public class EnvironmentChanger : MonoBehaviour
 
 	public GameObject StartLoginUI, VGUI;
 	public VirtualSceneParent VGInfo;
+	public UIAnimationManager animManager;
 
     //Used to reset the camera back in posisition.
     public GameObject player;
@@ -177,8 +178,9 @@ public class EnvironmentChanger : MonoBehaviour
 		SceneInit (0);
 
 		// Set the virtual garden ui
-		StartLoginUI.SetActive (false);
-		VGUI.SetActive (true);
+//		StartLoginUI.SetActive (false);
+//		VGUI.SetActive (true);
+		animManager.ReturnToVirtualGarden ();
 	}
 
 }

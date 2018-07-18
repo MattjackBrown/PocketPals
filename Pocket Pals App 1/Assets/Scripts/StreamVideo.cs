@@ -13,6 +13,8 @@ public class StreamVideo : MonoBehaviour {
 	public UIAnimationManager animManager;
 	public LoadingScreenController loadingScreen;
 
+	public GameObject skipButton;
+
 	// Use this for initialization
 	void Start () {
 		StartCoroutine (PlayVideo ());
@@ -38,6 +40,8 @@ public class StreamVideo : MonoBehaviour {
             videoPlayer.Play();
             audioSource.Play();
 
+			skipButton.SetActive (true);
+
             videoPlayer.loopPointReached += OnVideoFinished;
         }
         else { animManager.IntroFinished(); }
@@ -46,8 +50,14 @@ public class StreamVideo : MonoBehaviour {
 	void OnVideoFinished(VideoPlayer player)
 	{
 		player.Stop ();
-	
 		animManager.IntroFinished ();
+	}
+
+	public void SkipVideo (VideoPlayer player) {
+
+		player.Stop ();
+		animManager.IntroFinished ();
+		player.gameObject.GetComponent<AudioSource> ().Stop ();
 	}
 
 	public void RemoveVideoImageObject () {

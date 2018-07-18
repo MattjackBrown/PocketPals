@@ -133,4 +133,11 @@ public class UIAnimationManager : MonoBehaviour {
 
 		canvasAnimator.SetBool ("loadingBarFinished", true);
 	}
+
+	public void ReturnToVirtualGarden () {
+
+		canvasAnimator.SetBool ("startInVG", true);
+		canvasAnimator.SetBool ("showVG", true);
+		canvasAnimator.SetBool ("openMainMenu", true);
+	}
 }
