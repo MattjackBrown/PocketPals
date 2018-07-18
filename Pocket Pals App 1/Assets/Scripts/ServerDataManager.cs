@@ -263,8 +263,10 @@ public class ServerDataManager : MonoBehaviour
                     Debug.Log(ex);
                 }
 
-				loadingScreen.AllowToComplete();
+
+                loadingScreen.AllowToComplete();
             }
+
         });
     }
 

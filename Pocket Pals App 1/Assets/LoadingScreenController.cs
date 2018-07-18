@@ -56,6 +56,5 @@ public class LoadingScreenController : MonoBehaviour {
 
 		timeToLoad = 4.0f;
 		isLoggedIn = true;
-        this.gameObject.SetActive(false);
     }
 }
