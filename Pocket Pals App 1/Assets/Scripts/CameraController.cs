@@ -61,6 +61,14 @@ public class CameraController : MonoBehaviour
 
     public CameraBoundsTileProvider cbtp;
 
+
+	float initialTargetCamZoomDistance = 6.0f;
+	bool initialZoomInComplete = true;
+	public void StartZoomIn () {
+		initialZoomInComplete = false;
+	}
+
+
 	// Use this for initialization
 	void Start () {
 
@@ -81,12 +89,14 @@ public class CameraController : MonoBehaviour
 
 		postProcessing.depthOfField.enabled = false;
 	}
-/*	
+
 	// Update is called once per frame
 	void Update () {
-		
+		if (!initialZoomInComplete) {
+			InitialZoom ();
+		}
 	}
-*/
+
 	public void MapPinchZoom(Touch touchZero, Touch touchOne) {
 
 		// Get the position of the player
@@ -116,6 +126,32 @@ public class CameraController : MonoBehaviour
 
 		// Clamp between min and max allowed values
 		currentCameraDistance = Mathf.Clamp (currentCameraDistance, minimumCameraDistance, maximumCameraDistance);
+
+		// Calculate the new position of the camera
+		// Get the current camera vector
+		Vector3 currentCameraVector = (transform.position - playerPosition).normalized;
+
+		// Set the new camera position from the player position + the camera vector * the new distance
+		transform.position = playerPosition + currentCameraVector * currentCameraDistance;
+
+		// Set the transform rotation to look at the player + the look at position offset
+		transform.LookAt (playerPosition + lookAtPlayerPositionOffset);
+	}
+
+	public void InitialZoom() {
+
+		// Get the position of the player
+		playerPosition = player.transform.position;
+
+		// Get the distance of the camera from the player at the start of this frame
+		currentCameraDistance = (transform.position - playerPosition).magnitude;
+
+		currentCameraDistance = Mathf.Lerp (currentCameraDistance, initialTargetCamZoomDistance, Time.deltaTime);
+
+		if (currentCameraDistance - initialTargetCamZoomDistance < 0.02f) {
+			currentCameraDistance = initialTargetCamZoomDistance;
+			initialZoomInComplete = true;
+		}
 
 		// Calculate the new position of the camera
 		// Get the current camera vector

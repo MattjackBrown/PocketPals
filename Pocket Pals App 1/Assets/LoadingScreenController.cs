@@ -33,6 +33,7 @@ public class LoadingScreenController : MonoBehaviour {
 
 					animManager.LoadingBarFinished ();
 					BackgroundMusic.Instance.StartBackgroundMusic ();
+					CameraController.Instance.StartZoomIn ();
 					this.gameObject.SetActive (false);
 
 				} else {
