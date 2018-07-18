@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 33b6c9fc69b514825acfa8cd87d3b74a, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657868, g: 0.49641263, b: 0.57481706, a: 1}
+  m_IndirectSpecularColor: {r: 0.5219974, g: 0.74003786, b: 0.90433884, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -6011,6 +6011,71 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 561770514}
+--- !u!1 &572681734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 572681735}
+  - component: {fileID: 572681736}
+  m_Layer: 0
+  m_Name: Area Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &572681735
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 572681734}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.0338, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 793443216}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!108 &572681736
+Light:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 572681734}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 3
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 10
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 2
+  m_AreaSize: {x: 25, y: 25}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1001 &585376118
 Prefab:
   m_ObjectHideFlags: 0
@@ -8134,6 +8199,10 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 775272872}
+--- !u!4 &793443216 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400006, guid: 580a81e5213ce419d8a6e384f86f9734, type: 3}
+  m_PrefabInternal: {fileID: 174401718}
 --- !u!1 &800971969
 GameObject:
   m_ObjectHideFlags: 0
@@ -8607,7 +8676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camDistanceModifier: 0.65
+  camDistanceModifier: 0.4
 --- !u!1 &839676559
 GameObject:
   m_ObjectHideFlags: 0
@@ -13514,7 +13583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camDistanceModifier: 0.65
+  camDistanceModifier: 0.4
 --- !u!1 &1294023371
 GameObject:
   m_ObjectHideFlags: 0
@@ -20497,7 +20566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camDistanceModifier: 0.65
+  camDistanceModifier: 0.4
 --- !u!1 &1934744141
 GameObject:
   m_ObjectHideFlags: 0
@@ -21053,7 +21122,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camDistanceModifier: 0.6
+  camDistanceModifier: 0.35
 --- !u!1 &1990872683
 GameObject:
   m_ObjectHideFlags: 0
@@ -22747,7 +22816,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7dcb26a3eb35a4f059e5de213a29df0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camDistanceModifier: 0.65
+  camDistanceModifier: 0.4
 --- !u!1 &2121213428
 GameObject:
   m_ObjectHideFlags: 0
