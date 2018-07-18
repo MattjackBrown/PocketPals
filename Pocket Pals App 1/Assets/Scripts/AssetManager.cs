@@ -11,6 +11,8 @@ public class AssetManager : MonoBehaviour {
 
     public ItemData[] Items;
 
+    public TracksAndTrailsPreset[] TracksAndTrails;
+
     // Use this for initialization
     void Start ()
     {
@@ -89,6 +91,19 @@ public class AssetManager : MonoBehaviour {
         return pList;
     }
 
+    public TracksAndTrailsPreset GetTrackByID(int ID)
+    {
+        foreach (TracksAndTrailsPreset tatp in TracksAndTrails)
+        {
+            if (ID == tatp.ID) return tatp;
+        }
+        return TracksAndTrails[0];
+    }
+
+    public TracksAndTrailsPreset GetRandoTandT()
+    {
+        return TracksAndTrails[Random.Range(0, TracksAndTrails.Length)];
+    }
 	// Update is called once per frame
 	void Update () {
 		

@@ -13,6 +13,8 @@ public class PlayerProfileHandler : MonoBehaviour
 
     public Text mostCaughtText;
 
+    public Text EXP; 
+
     public Text highestLevelText;
 
     // Use this for initialization
@@ -50,6 +52,7 @@ public class PlayerProfileHandler : MonoBehaviour
         //Set the exp part of the canvas.
         playerLevel.text ="Level: " + gd.GetLevel().ToString();
         progressBar.fillAmount = gd.GetPercentageExp();
+        EXP.text = "EXP: " + gd.EXP.ToString();
     }
 
 	// Update is called once per frame

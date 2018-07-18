@@ -7,7 +7,7 @@ public class ItemInventory
     private List<ItemData> ownedItems = new List<ItemData>();
     public List<ItemData> GetItemDatas() { return ownedItems; }
 
-    public int MaxAmountOfOneItem = 10;
+    public int MaxAmountOfOneItem = 99;
 
     public void Init()
     {

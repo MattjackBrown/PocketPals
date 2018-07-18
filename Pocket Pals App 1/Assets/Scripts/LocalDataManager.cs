@@ -65,8 +65,12 @@ public class LocalDataManager : MonoBehaviour {
        //Add the pocketPal to the players inventory
         localData.Inventory.AddPocketPal(obj.GetComponentInParent<PocketPalParent>());
 
+        float exp = obj.GetComponentInParent<PocketPalParent>().GetAnimalData().GetExp();
+
         //increas the players EXP
-        localData.IncreaseExp(obj.GetComponentInParent<PocketPalParent>().GetAnimalData().GetExp());
+        localData.IncreaseExp(exp);
+
+        PopupHandler.Instance.AddPopup(Mathf.RoundToInt(exp) + "exp");
 
         //update the server
         ServerDataManager.Instance.WritePocketPal(localData, localData.Inventory.GetDataFromID(ppd.ID));
