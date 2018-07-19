@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class AssetManager : MonoBehaviour {
     public GameObject[] PocketPals;
 
     public ItemData[] Items;
+    public List<float> itemRarities = new List<float>();
 
     public TracksAndTrailsPreset[] TracksAndTrails;
 
@@ -17,6 +19,10 @@ public class AssetManager : MonoBehaviour {
     void Start ()
     {
         Instance = this;
+        foreach (ItemData id in Items)
+        {
+            itemRarities.Add(id.rarity);
+        }
 	}
 
     public GameObject GetPocketPalFromID(int ID)
@@ -51,9 +57,14 @@ public class AssetManager : MonoBehaviour {
 
     public ItemData GetRandomItem(int maxFind)
     {
-        ItemData id = Items[Random.Range(0, Items.Length)];
+        ItemData id = Items[UnityEngine.Random.Range(0, Items.Length)];
 
-        return id.CloneWithNumber(Random.Range(1, maxFind));
+        return id.CloneWithNumber(UnityEngine.Random.Range(1, maxFind));
+    }
+
+    public ItemData GetWeightRandomItem()
+    {
+        return Items[PocketPalSpawnManager.Sampler(new System.Random(Guid.NewGuid().GetHashCode()), itemRarities)];
     }
 
     public List<GameObject> GetPocketPalsOfType(SpawnType type)
@@ -102,7 +113,7 @@ public class AssetManager : MonoBehaviour {
 
     public TracksAndTrailsPreset GetRandoTandT()
     {
-        return TracksAndTrails[Random.Range(0, TracksAndTrails.Length)];
+        return TracksAndTrails[UnityEngine.Random.Range(0, TracksAndTrails.Length)];
     }
 	// Update is called once per frame
 	void Update () {

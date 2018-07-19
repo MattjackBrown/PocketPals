@@ -144,6 +144,7 @@ public class ServerDataManager : MonoBehaviour
 
     public void UpdatePlayerExp(GameData gd)
     {
+
         mDatabaseRef.Child("Users").Child(gd.ID).Child("EXP").SetValueAsync(gd.EXP);
     }
 

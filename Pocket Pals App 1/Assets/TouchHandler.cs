@@ -242,7 +242,7 @@ public class TouchHandler : MonoBehaviour {
                 // Only need to find one, Don't bother checking other touches after this
                 return;
             }
-            else if (hit.transform.gameObject.GetComponent<ResourceSpotParent>() && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance * 2)
+            else if (hit.transform.gameObject.GetComponent<ResourceSpotParent>() && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance)
             {
                 TryResourceSpotSequence(hit.transform.gameObject);
 

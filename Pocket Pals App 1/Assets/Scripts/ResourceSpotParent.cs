@@ -78,8 +78,13 @@ public class ResourceSpotParent : MonoBehaviour
         anim.SetBool("Clicked", false);
         transform.GetChild(0).gameObject.SetActive(false);
 
-        LocalDataManager.Instance.AddItem(AssetManager.Instance.GetRandomItem(maxItemFind));
-
+        for (int i = 0; i < maxItemFind; i++)
+        {
+            ItemData id = AssetManager.Instance.GetWeightRandomItem();
+            id.numberOwned = 1;
+            Debug.Log(id.name);
+            LocalDataManager.Instance.AddItem(id);
+        }
         CameraController.Instance.MapZoomOutInit();
 
         ResourceSpotManager.Instance.AddNewSaveData(this);

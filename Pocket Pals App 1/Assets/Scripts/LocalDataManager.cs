@@ -70,8 +70,6 @@ public class LocalDataManager : MonoBehaviour {
         //increas the players EXP
         localData.IncreaseExp(exp);
 
-        PopupHandler.Instance.AddPopup(Mathf.RoundToInt(exp) + "exp");
-
         //update the server
         ServerDataManager.Instance.WritePocketPal(localData, localData.Inventory.GetDataFromID(ppd.ID));
 

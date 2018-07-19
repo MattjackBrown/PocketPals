@@ -10,6 +10,7 @@ public class ItemData
     public int ID = 0;
     public Sprite spr;
     public int numberOwned = 1;
+    public int rarity = 0;
 
     public ItemData(string str, int id)
     {

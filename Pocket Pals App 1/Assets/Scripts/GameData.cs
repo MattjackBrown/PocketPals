@@ -42,6 +42,7 @@ public class GameData
 
     public void IncreaseExp(float delta)
     {
+        PopupHandler.Instance.AddPopup(Mathf.RoundToInt(delta) + "exp");
         EXP += delta;
     }
 

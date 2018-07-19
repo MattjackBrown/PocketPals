@@ -1,8 +1,10 @@
 ﻿
+using UnityEngine;
+
 public class LevelCalculator
 {
-    public const float LevelCoefficent = 3.0f;
-    public const float ExpForFirstLevel = 100;
+    public const float LevelCoefficent = 1.3f;
+    public const float ExpForFirstLevel = 1000;
 
     public static float GetPercentageToNextLevel(float EXP)
     {
@@ -11,19 +13,19 @@ public class LevelCalculator
         return EXP / ExpNeeded;
     }
 
-    public static int CalculateLevel(float EXP)
+    public static int CalculateLevel(float EXP, float modifier = 1.0f)
     {
         float temp = ExpForFirstLevel;
         int lvl = 1;
         while (EXP > temp)
         {
-            temp += temp * LevelCoefficent;
+            temp = temp * (LevelCoefficent * modifier);
             lvl++;
         }
         return lvl;
     }
 
-    public static float GetExpNeeded(float EXP)
+    public static float GetExpNeeded(float EXP, float modifier = 1.0f)
     {
         float temp = ExpForFirstLevel;
         int lvl = 1;
@@ -33,5 +35,17 @@ public class LevelCalculator
             lvl++;
         }
         return temp - EXP;
+    }
+
+    public static void SimulateLevels(float maxEXP, float modifier = 1.0f)
+    {
+        float temp = ExpForFirstLevel;
+        int lvl = 1;
+        while (maxEXP > temp)
+        {
+            temp = temp * (LevelCoefficent * modifier);
+            lvl++;
+            Debug.Log("Level: " + lvl + " ExpNeeded: " + temp);
+        }
     }
 }
