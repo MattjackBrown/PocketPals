@@ -78,9 +78,14 @@ public class ResourceSpotParent : MonoBehaviour
         anim.SetBool("Clicked", false);
         transform.GetChild(0).gameObject.SetActive(false);
 
-        for (int i = 0; i < maxItemFind; i++)
+        ItemData id = AssetManager.Instance.GetWeightRandomItem();
+        LocalDataManager.Instance.AddItem(id);
+
+        for (int i = 0; i < maxItemFind-1; i++)
         {
-            ItemData id = AssetManager.Instance.GetWeightRandomItem();
+            if (Random.Range(0, 100) < 50) break;
+
+            id = AssetManager.Instance.GetWeightRandomItem();
             id.numberOwned = 1;
             Debug.Log(id.name);
             LocalDataManager.Instance.AddItem(id);
