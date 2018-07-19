@@ -150,6 +150,7 @@ public class CameraController : MonoBehaviour
 
 		if (currentCameraDistance - initialTargetCamZoomDistance < 0.02f) {
 			currentCameraDistance = initialTargetCamZoomDistance;
+			controls.MapControls ();
 			initialZoomInComplete = true;
 		}
 

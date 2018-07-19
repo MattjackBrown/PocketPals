@@ -509,9 +509,6 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Deactivate the minigame environment
 		miniGameEnvironment.SetActive(false);
-
-		// Because why not
-		controls.Vibrate ();
 	}
 
 	public void UseBerry () {
@@ -540,6 +537,14 @@ public class CaptureMiniGame : MonoBehaviour {
                 NotificationManager.Instance.ItemFailedNotification("You have no berries to use! Try buying some from the shop, or finding them at resource spots");
             }
 		}
+	}
+
+	public void UseStrawberry () {
+
+		if (!berryUsed) {
+
+		}
+
 	}
 
 	public void TakePhotoButtonPressed () {

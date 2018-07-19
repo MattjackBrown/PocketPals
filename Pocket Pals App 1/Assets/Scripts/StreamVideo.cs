@@ -13,7 +13,7 @@ public class StreamVideo : MonoBehaviour {
 	public UIAnimationManager animManager;
 	public LoadingScreenController loadingScreen;
 
-	public GameObject skipButton;
+	public Animator skipButtonAnimator;
 
 	// Use this for initialization
 	void Start () {
@@ -40,11 +40,18 @@ public class StreamVideo : MonoBehaviour {
             videoPlayer.Play();
             audioSource.Play();
 
-			skipButton.SetActive (true);
+			StartCoroutine (DelayShowSkipButton ());
 
             videoPlayer.loopPointReached += OnVideoFinished;
         }
         else { animManager.IntroFinished(); }
+	}
+
+	IEnumerator DelayShowSkipButton()
+	{
+		yield return new WaitForSeconds(2.0f);
+
+		skipButtonAnimator.SetBool ("showButton", true);
 	}
 
 	void OnVideoFinished(VideoPlayer player)
