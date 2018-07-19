@@ -72,8 +72,9 @@ public class CaptureMiniGame : MonoBehaviour {
 	public UIAnimationManager animManager;
 
 	float camMovementSpeed = 1.0f;
-	float mediumCamMovementSpeed = 2.0f;
-	float goodCamMovementSpeed = 3.0f;
+	float mediumCamMovementSpeed = 20.0f;
+	float goodCamMovementSpeed = 100.0f;
+	bool specCameraUsed;
 
 
 	// Use this for initialization
@@ -167,6 +168,8 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Change the animation and avatar to the movement style
 		pocketPal.SetMoveAnimation ();
+
+		specCameraUsed = false;
 	}
 
 	public void BackButtonPressed () {
@@ -545,18 +548,18 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		Time.timeScale = 1.0f;
 
-		LoadPhotoInHalfASecond ();
+		LoadPhotoInOneASecond ();
 
 	}
 
-	public void LoadPhotoInHalfASecond () {
+	public void LoadPhotoInOneASecond () {
 
-		StartCoroutine (WaitHalfSecond ());
+		StartCoroutine (WaitOneSecond ());
 	}
 
-	IEnumerator WaitHalfSecond()
+	IEnumerator WaitOneSecond()
 	{
-		yield return new WaitForSeconds(0.5f);
+		yield return new WaitForSeconds(1.0f);
 
 
 		#if !UNITY_EDITOR
@@ -580,11 +583,17 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	public void UseMediumCamera () {
 
-		camMovementSpeed = mediumCamMovementSpeed;
+		if (!specCameraUsed) {
+			camMovementSpeed = mediumCamMovementSpeed;
+			specCameraUsed = true;
+		}
 	}
 
 	public void UseGoodCamera () {
-		
-		camMovementSpeed = goodCamMovementSpeed;
+
+		if (!specCameraUsed) {
+			camMovementSpeed = goodCamMovementSpeed;
+			specCameraUsed = true;
+		}
 	}
 }

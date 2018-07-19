@@ -166,8 +166,20 @@ public class VirtualSceneParent : MonoBehaviour
 	public GameObject GetCurrentPPal () {
 
 		if (hasAPocketPal) {
-			return AnimalObjects [currentLookedAtPPalIndex].animalObj;
+
+			// Next check whether it is in the inventory
+			if (AnimalObjects [currentLookedAtPPalIndex].Used) {
+
+				//Set the inspect data in the virtual garden UI manager
+				gUIManager.SetInspectData (AnimalObjects [currentLookedAtPPalIndex].GetAnimalData ());
+
+				// Update the global variable
+				GlobalVariables.VGCurrentIndex = currentLookedAtPPalIndex;
+
+				return AnimalObjects [currentLookedAtPPalIndex].animalObj;
+			}
 		}
+
 		return null;
 	}
 
