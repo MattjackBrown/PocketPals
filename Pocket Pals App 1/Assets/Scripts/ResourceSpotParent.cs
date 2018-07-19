@@ -86,8 +86,6 @@ public class ResourceSpotParent : MonoBehaviour
             if (Random.Range(0, 100) < 50) break;
 
             id = AssetManager.Instance.GetWeightRandomItem();
-            id.numberOwned = 1;
-            Debug.Log(id.name);
             LocalDataManager.Instance.AddItem(id);
         }
         CameraController.Instance.MapZoomOutInit();
