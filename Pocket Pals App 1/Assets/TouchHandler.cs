@@ -49,9 +49,9 @@ public class TouchHandler : MonoBehaviour {
 	void Start () {
 
 		Instance = this;
-		
-		// Initialise as the map controls
-		controlScheme = ControlScheme.map;
+
+		// Initialise as the menu controls
+		controlScheme = ControlScheme.menu;
 	}
 	
 	// Update is called once per frame
@@ -198,7 +198,7 @@ public class TouchHandler : MonoBehaviour {
     {
         if (GPS.Insatance.mapGameObject == null) return;
         if (GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>() == null) return;
-        if (controlScheme == ControlScheme.map)
+		if (controlScheme == ControlScheme.map || controlScheme == ControlScheme.menu)
         {
             GPS.Insatance.mapGameObject.GetComponent<CameraBoundsTileProvider>().ShouldUpdate = true;
         }

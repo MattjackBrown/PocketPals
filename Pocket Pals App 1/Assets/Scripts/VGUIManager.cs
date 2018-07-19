@@ -13,7 +13,7 @@ public class VGUIManager : MonoBehaviour
 
     public Text nameText;
     public Text sizeText;
-    public Text agressionText;
+//    public Text agressionText;
     public Text caughtText;
     public Text rarityText;
     public Text levelText;
@@ -25,6 +25,8 @@ public class VGUIManager : MonoBehaviour
     private PocketPalData currentDisplayData;
 
     private bool isInspecting = false;
+
+	public Image mainMenu;
 
     // Use this for initialization
     void Start ()
@@ -72,7 +74,7 @@ public class VGUIManager : MonoBehaviour
         {
             nameText.text = currentDisplayData.name;
             sizeText.text = currentDisplayData.GetSize().ToString();
-            agressionText.text = currentDisplayData.GetAgression().ToString();
+//            agressionText.text = currentDisplayData.GetAgression().ToString();
             caughtText.text = currentDisplayData.numberCaught.ToString();
             rarityText.text = currentDisplayData.GetRarity().ToString();
             expText.text = currentDisplayData.GetExp().ToString();
@@ -84,4 +86,11 @@ public class VGUIManager : MonoBehaviour
         }
     }
 
+	public void SwitchUIToMainMenu () {
+
+		mainMenu.rectTransform.anchorMin = new Vector2 (0.0f, 0.0f);
+		mainMenu.rectTransform.anchorMax = new Vector2 (1.0f, 1.0f);
+		mainMenu.gameObject.SetActive (true);
+		this.gameObject.SetActive (false);
+	}
 }

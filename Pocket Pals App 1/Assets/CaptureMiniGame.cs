@@ -71,6 +71,11 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	public UIAnimationManager animManager;
 
+	float camMovementSpeed = 1.0f;
+	float mediumCamMovementSpeed = 20.0f;
+	float goodCamMovementSpeed = 100.0f;
+	bool specCameraUsed;
+
 
 	// Use this for initialization
 	void Start () {
@@ -154,6 +159,8 @@ public class CaptureMiniGame : MonoBehaviour {
 		berryTimer = 0.0f;
 		berryUsed = false;
 
+		camMovementSpeed = 1.0f;
+
 		needToRotate = false;
 		endGameSequence = false;
 
@@ -161,6 +168,8 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Change the animation and avatar to the movement style
 		pocketPal.SetMoveAnimation ();
+
+		specCameraUsed = false;
 	}
 
 	public void BackButtonPressed () {
@@ -287,7 +296,13 @@ public class CaptureMiniGame : MonoBehaviour {
 			float touchY = viewfinderPosition.y / screenHeight - 0.5f;
 
 			// Set the position of the viewFinder image in the viewport to the adjusted touch position
-			viewFinder.rectTransform.anchoredPosition = Camera.main.ViewportToScreenPoint (new Vector3 (touchX, touchY));
+			var touchScreenSpace = Camera.main.ViewportToScreenPoint (new Vector3 (touchX, touchY));
+
+			// Lerp the viewfinder position towards thetouch location at camMovementSpeed
+			viewFinder.rectTransform.anchoredPosition = 
+				new Vector2(
+					Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.x, touchScreenSpace.x, Time.deltaTime * camMovementSpeed),
+					Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.y, touchScreenSpace.y, Time.deltaTime * camMovementSpeed));
 		}
 	}
 
@@ -494,9 +509,6 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Deactivate the minigame environment
 		miniGameEnvironment.SetActive(false);
-
-		// Because why not
-		controls.Vibrate ();
 	}
 
 	public void UseBerry () {
@@ -527,11 +539,35 @@ public class CaptureMiniGame : MonoBehaviour {
 		}
 	}
 
+	public void UseStrawberry () {
+
+		if (!berryUsed) {
+
+		}
+
+	}
+
 	public void TakePhotoButtonPressed () {
 
 		ScreenCapture.CaptureScreenshot("screenshot.png");
 
-//		#if !UNITY_EDITOR
+		Time.timeScale = 1.0f;
+
+		LoadPhotoInOneASecond ();
+
+	}
+
+	public void LoadPhotoInOneASecond () {
+
+		StartCoroutine (WaitOneSecond ());
+	}
+
+	IEnumerator WaitOneSecond()
+	{
+		yield return new WaitForSeconds(1.0f);
+
+
+		#if !UNITY_EDITOR
 
 		byte[] bytes = System.IO.File.ReadAllBytes (Application.persistentDataPath + "/screenshot.png");
 
@@ -545,11 +581,24 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		//MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showPhoto", true);
 
-		Time.timeScale = 1.0f;
-
 		StartCoroutine(Wait());
 
-//		#endif
+		#endif
+	}
 
+	public void UseMediumCamera () {
+
+		if (!specCameraUsed) {
+			camMovementSpeed = mediumCamMovementSpeed;
+			specCameraUsed = true;
+		}
+	}
+
+	public void UseGoodCamera () {
+
+		if (!specCameraUsed) {
+			camMovementSpeed = goodCamMovementSpeed;
+			specCameraUsed = true;
+		}
 	}
 }
