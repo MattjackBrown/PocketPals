@@ -64,7 +64,9 @@ public class AssetManager : MonoBehaviour {
 
     public ItemData GetWeightRandomItem()
     {
-        return Items[PocketPalSpawnManager.Sampler(new System.Random(Guid.NewGuid().GetHashCode()), itemRarities)];
+        ItemData id = Items[PocketPalSpawnManager.Sampler(new System.Random(Guid.NewGuid().GetHashCode()), itemRarities)];
+        id.numberOwned = 1;
+        return id;
     }
 
     public List<GameObject> GetPocketPalsOfType(SpawnType type)
