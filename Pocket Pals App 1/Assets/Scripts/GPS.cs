@@ -137,7 +137,7 @@ public class GPS : MonoBehaviour
 		}
 
         //Check time and set material
-        if(System.DateTime.Now.Hour >= Sunset || System.DateTime.Now.Hour <= SunRise)
+        if(System.DateTime.Now.Hour >= Sunset || System.DateTime.Now.Hour < SunRise)
         {
             MakeNight();
             PocketPalSpawnManager.Instance.SetSpawnList(SpawnType.n_Woodland);
