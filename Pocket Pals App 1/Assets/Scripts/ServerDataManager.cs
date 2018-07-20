@@ -238,6 +238,11 @@ public class ServerDataManager : MonoBehaviour
                     DataSnapshot snapshot = task.Result;
                     foreach (DataSnapshot obj in snapshot.Children)
                     {
+                        if(obj.Key.ToLower() == "tracksandtrails")
+                        {
+                            //TO DO: GET TRACKS AND TRAILS
+                        }
+
                         ItemData id = new ItemData();
 
                         foreach (DataSnapshot child in obj.Children)
@@ -277,6 +282,14 @@ public class ServerDataManager : MonoBehaviour
         mDatabaseRef.Child("ItemInventories").Child(gd.ID).Child(id.ID.ToString()).SetRawJsonValueAsync(json);
     }
 
+
+    public void WriteTrack(GameData gd, TrackData td)
+    {
+        string json = JsonUtility.ToJson(td);
+        mDatabaseRef.Child("ItemInventories").Child(gd.ID).Child("TracksAndTrails").Child(td.ID.ToString()).SetRawJsonValueAsync(json);
+    }
+
+
     //----------- PocketPalInventoryStuff ---------------\\
 
     public void GetInventory(GameData gd)
@@ -307,9 +320,6 @@ public class ServerDataManager : MonoBehaviour
                                 case "id":
                                     ppd.ID = Convert.ToInt32(child.Value);
                                     break;
-                                case "agressiveness":
-                                    ppd.agressiveness = Convert.ToSingle(child.Value);
-                                    break;
                                 case "weight":
                                     ppd.weight = Convert.ToSingle(child.Value);
                                     break;
@@ -324,6 +334,12 @@ public class ServerDataManager : MonoBehaviour
                                     break;
                                 case "baserarity":
                                     ppd.baseRarity = Convert.ToInt32(child.Value);
+                                    break;
+                                case "hasrare":
+                                    ppd.HasRare = Convert.ToInt32(child.Value);
+                                    break;
+                                case "haschampion":
+                                    ppd.HasChampion = Convert.ToInt32(child.Value);
                                     break;
                             }
 

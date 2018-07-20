@@ -15,6 +15,8 @@ public class GameData
 
     public ItemInventory ItemInv { set; get; }
 
+    public TracksInventory TrackInv { set; get; }
+
     public float EXP;
 
 	// The number of berries in the inventory
@@ -28,6 +30,7 @@ public class GameData
         ID = "None";
         Inventory = new PocketPalInventory();
         ItemInv = new ItemInventory();
+        TrackInv = new TracksInventory();
     }
 
     public string GetJson()
@@ -76,4 +79,5 @@ public class GameData
         }
         return false;
     }
+
 }

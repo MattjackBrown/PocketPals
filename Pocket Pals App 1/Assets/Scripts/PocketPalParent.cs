@@ -86,10 +86,18 @@ public class PocketPalParent : MonoBehaviour
     }
 
     //called on the pocketPalSpawnManager after a new clone is made of the original asset.
-    public void GenerateAnimalData()
+    public void GenerateAnimalData(float expMin = -1, float expMax = -1)
     {
         //get spawn exp
-        float exp = Random.Range(0,maxSpawnExp);
+        float exp;
+        if (expMin != -1 && expMax != -1)
+        {
+            exp = Random.Range(expMin, expMax);
+        }
+        else
+        {
+            exp = Random.Range(0, maxSpawnExp);
+        }
 
         //get random size inbetween points using size variance.
         float tSizeVar = averageSpawnSize * sizeVariance;
@@ -98,7 +106,7 @@ public class PocketPalParent : MonoBehaviour
         float tAgroVar = averageAgro * agroVariance;
         float agro = Random.Range(averageAgro - tAgroVar, averageAgro + tAgroVar);
 
-        pocketPalData = new PocketPalData(name, PocketPalID,exp, size, agro, Rarity);
+        pocketPalData = new PocketPalData(name, PocketPalID,exp, size, Rarity);
     }
 
     public PocketPalData GetAnimalData(){ return pocketPalData; }

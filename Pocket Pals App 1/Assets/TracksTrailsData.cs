@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class TracksTrailsData
-{
-    public float t =0;
-}
-
-[System.Serializable]
 public class TrackData
 {
     public float distTarget = 1000.0f;
     public float distCurrent = 0.0f;
     public int ID = 0;
+
+    public float GetFloatDone()
+    {
+        return distCurrent / distTarget;
+    }
 }
 [System.Serializable]
 public class TracksAndTrailsPreset
@@ -37,4 +36,27 @@ public class TracksAndTrailsPreset
     {
         return Random.Range(distMin, distMax);
     }
+}
+[System.Serializable]
+public class TracksInventory
+{
+    private List<TrackData> tracks = new List<TrackData>();
+
+    public List<TrackData> GetTracks()
+    {
+        return tracks;
+    }
+    public bool TryAddTrack(TrackData td)
+    {
+        if (tracks.Count < 6)
+        {
+            tracks.Add(td);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }
