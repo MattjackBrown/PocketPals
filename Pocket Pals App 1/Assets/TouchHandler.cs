@@ -85,8 +85,24 @@ public class TouchHandler : MonoBehaviour {
 				// Use the input to update the controls and timer
 				if (IsDebug && Input.GetMouseButtonDown (0)) {
 					miniGame.UpdateControls (Input.mousePosition);
+
 				} else if (Input.touches.Length > 0) {
-					miniGame.UpdateControls (Input.GetTouch (0).position);
+
+					// Look at each touch
+					for (int i = 0; i < Input.touchCount; i++) {
+						
+						// If touch has just begun
+						if (Input.GetTouch (i).phase.Equals (TouchPhase.Began)) {
+
+							miniGame.SetTouchStartPosition (Input.GetTouch (0).position);
+							break;
+
+						} else if (Input.GetTouch (i).phase.Equals (TouchPhase.Moved)) {
+
+							miniGame.UpdateControls (Input.GetTouch (0).position);
+							break;
+						}
+					}
 				}
 			}
 			break;

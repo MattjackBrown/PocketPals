@@ -75,6 +75,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	float mediumCamMovementSpeed = 20.0f;
 	float goodCamMovementSpeed = 100.0f;
 	bool specCameraUsed;
+	Vector3 touchScreenSpace, touchStartScreenSpace, targetScreenSpace;
 
 
 	// Use this for initialization
@@ -170,6 +171,10 @@ public class CaptureMiniGame : MonoBehaviour {
 		pocketPal.SetMoveAnimation ();
 
 		specCameraUsed = false;
+
+		targetScreenSpace = new Vector3 (0.5f, 0.5f);
+		touchScreenSpace = targetScreenSpace;
+		touchStartScreenSpace = targetScreenSpace;
 	}
 
 	public void BackButtonPressed () {
@@ -242,6 +247,14 @@ public class CaptureMiniGame : MonoBehaviour {
 					}
 				}
 
+
+
+				// Lerp the viewfinder position towards thetouch location at camMovementSpeed
+				viewFinder.rectTransform.anchoredPosition =
+					new Vector2(
+						Mathf.Clamp (Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.x, targetScreenSpace.x, Time.deltaTime * camMovementSpeed), -screenWidth/2.0f, screenWidth/2.0f),
+						Mathf.Clamp (Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.y, targetScreenSpace.y, Time.deltaTime * camMovementSpeed), -screenHeight/2.0f, screenHeight/2.0f));
+
 			} else {
 				
 			//	MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showMinigameCapture", false);
@@ -285,6 +298,14 @@ public class CaptureMiniGame : MonoBehaviour {
 		}
 	}
 
+	public void SetTouchStartPosition (Vector2 touchPosition) {
+
+		float touchX = touchPosition.x / screenWidth - 0.5f;
+		float touchY = touchPosition.y / screenHeight - 0.5f;
+
+		touchStartScreenSpace = Camera.main.ViewportToScreenPoint (new Vector3 (touchX, touchY));
+	}
+
 	public void UpdateControls (Vector2 touchPosition) {
 
 		if (!endGameSequence) {
@@ -296,13 +317,15 @@ public class CaptureMiniGame : MonoBehaviour {
 			float touchY = viewfinderPosition.y / screenHeight - 0.5f;
 
 			// Set the position of the viewFinder image in the viewport to the adjusted touch position
-			var touchScreenSpace = Camera.main.ViewportToScreenPoint (new Vector3 (touchX, touchY));
+			var newTouchScreenSpace = Camera.main.ViewportToScreenPoint (new Vector3 (touchX, touchY));
 
-			// Lerp the viewfinder position towards thetouch location at camMovementSpeed
-			viewFinder.rectTransform.anchoredPosition = 
-				new Vector2(
-					Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.x, touchScreenSpace.x, Time.deltaTime * camMovementSpeed),
-					Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.y, touchScreenSpace.y, Time.deltaTime * camMovementSpeed));
+			// Find the delta touchScreenSpace
+			var deltatouchScreenSpace = newTouchScreenSpace - touchStartScreenSpace;
+
+			// Apply that delta to the targetScreenSpace
+			targetScreenSpace += deltatouchScreenSpace;//Vector3.Lerp (targetScreenSpace, deltatouchScreenSpace, Time.deltaTime * camMovementSpeed);
+
+			touchStartScreenSpace = newTouchScreenSpace;
 		}
 	}
 
@@ -376,6 +399,8 @@ public class CaptureMiniGame : MonoBehaviour {
 			pocketPal.transform.position = Vector3.Lerp (previousPosition, nextPosition, patrolLerp);
 		}
 
+		viewfinderPosition = viewFinder.rectTransform.anchoredPosition;
+
 		// Funtion sets the depth of field using the touched on position's distance away
 		AdjustPostProcessing (viewfinderPosition);
 	}
@@ -386,7 +411,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		float step;
 
 		if (berryUsed)
-			// arcTan theta = Opp/Adj, take the patrol speed * Tdt, divide by the std prefab transform offset of 0.5f
+			// arcTan theta = Opp/Adj, take the patrol speed * Tdt * by the std prefab transform offset of 2.0f
 			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * berrySpeedModifier * 2.0f);
 		else
 			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * 2.0f);
@@ -414,7 +439,13 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	}
 
-	void AdjustPostProcessing(Vector2 touchPosition) {
+	void AdjustPostProcessing(Vector2 position) {
+
+		// Don't question this... It works 
+		float touchX = position.x / screenWidth + 0.5f;
+		float touchY = position.y / screenHeight + 0.5f;
+
+		var pos = new Vector2 (touchX, touchY);
 
 		// Set as false unless ray cast returns true
 		focussedOnPPal = false;
@@ -423,7 +454,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		RaycastHit hit = new RaycastHit ();
 
 		// Raycast from the touch position
-		Ray ray = Camera.main.ScreenPointToRay (touchPosition);
+		Ray ray = Camera.main.ViewportPointToRay (pos);
 
 		// if hit
 		if (Physics.Raycast (ray, out hit)) {

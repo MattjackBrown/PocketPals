@@ -55,7 +55,7 @@ public class LoadingScreenController : MonoBehaviour {
 
 	public void AllowToComplete () {
 
-		timeToLoad = 3.0f;
+		timeToLoad = 2.0f;
 		isLoggedIn = true;
     }
 }
