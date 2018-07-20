@@ -284,13 +284,14 @@ public class TouchHandler : MonoBehaviour {
 			// If touch has just begun
 			if (Input.GetTouch (i).phase.Equals (TouchPhase.Began))
 			{
-                bool tooFar = (hit.transform.position - player.transform.position).magnitude > maxCaptureDistance;
+
                 // Raycast from the touch position
                 Ray ray = Camera.main.ScreenPointToRay (Input.GetTouch (i).position);
 
 				// if hit
 				if (Physics.Raycast (ray, out hit))
 				{
+                    bool tooFar = (hit.transform.position - player.transform.position).magnitude > maxCaptureDistance;
                     // If the hit gameObject has a component "PocketPalParent" and is within the capture distance from the player
                     if (hit.transform.gameObject.GetComponentInParent<PocketPalParent>())
                     {
