@@ -284,15 +284,22 @@ public class TouchHandler : MonoBehaviour {
 			// If touch has just begun
 			if (Input.GetTouch (i).phase.Equals (TouchPhase.Began))
 			{
-				// Raycast from the touch position
-				Ray ray = Camera.main.ScreenPointToRay (Input.GetTouch (i).position);
+                bool tooFar = (hit.transform.position - player.transform.position).magnitude > maxCaptureDistance;
+                // Raycast from the touch position
+                Ray ray = Camera.main.ScreenPointToRay (Input.GetTouch (i).position);
 
 				// if hit
 				if (Physics.Raycast (ray, out hit))
 				{
                     // If the hit gameObject has a component "PocketPalParent" and is within the capture distance from the player
-                    if (hit.transform.gameObject.GetComponentInParent<PocketPalParent>() && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance)
+                    if (hit.transform.gameObject.GetComponentInParent<PocketPalParent>())
                     {
+                        if (tooFar)
+                        {
+                            NotificationManager.Instance.InteractError("Pocket Pal too far away! Get closer for a chance to observe it!");
+                            return;
+                        }
+
                         // Initialise the capture cam values
                         cameraController.CaptureCamInit(hit.transform.parent.gameObject);
 
@@ -301,8 +308,13 @@ public class TouchHandler : MonoBehaviour {
                         // Only need to find one, Don't bother checking other touches after this
                         return;
                     }
-                    else if (hit.transform.gameObject.GetComponent<ResourceSpotParent>() && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance * 2)
+                    else if (hit.transform.gameObject.GetComponent<ResourceSpotParent>())
                     {
+                        if (tooFar)
+                        {
+                            NotificationManager.Instance.InteractError("Resource spot too far away! Get closer to recieve Items!");
+                            return;
+                        }
                         TryResourceSpotSequence(hit.transform.gameObject);
                     }
                 }

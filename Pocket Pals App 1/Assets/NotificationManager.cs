@@ -75,6 +75,11 @@ public class NotificationManager : MonoBehaviour
         AddNotificationToQueue(new Notification("Resource Is Not Ready!", "You have: " + mintues +  " minutes and: " + seconds +  " Seconds Until it can be used again"));
     }
 
+    public void InteractError(string m)
+    {
+        AddNotificationToQueue(new Notification("Failed To Interact!", m));
+    }
+
     //--------- Question Functions -------\\
 
     public void QuestionNotification(string q, Notification.del yesFunc, Notification.del noFunc )
