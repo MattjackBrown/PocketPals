@@ -19,9 +19,6 @@ public class GameData
 
     public float EXP;
 
-	// The number of berries in the inventory
-	int Berries;
-
     public GameData()
     {
         DistanceTravelled = 0.0f;

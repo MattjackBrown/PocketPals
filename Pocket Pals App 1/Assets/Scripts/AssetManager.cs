@@ -11,9 +11,11 @@ public class AssetManager : MonoBehaviour {
     public GameObject[] PocketPals;
 
     public ItemData[] Items;
-    public List<float> itemRarities = new List<float>();
+    private List<float> itemRarities = new List<float>();
+
 
     public TracksAndTrailsPreset[] TracksAndTrails;
+    private List<float> tntRarities = new List<float>();
 
     // Use this for initialization
     void Start ()
@@ -22,6 +24,10 @@ public class AssetManager : MonoBehaviour {
         foreach (ItemData id in Items)
         {
             itemRarities.Add(id.rarity);
+        }
+        foreach (TracksAndTrailsPreset ttp in TracksAndTrails)
+        {
+            tntRarities.Add(ttp.rarity);
         }
 	}
 
@@ -111,6 +117,13 @@ public class AssetManager : MonoBehaviour {
             if (ID == tatp.ID) return tatp;
         }
         return TracksAndTrails[0];
+    }
+
+    public TrackData GetNewTrack()
+    {
+        TracksAndTrailsPreset ttp = TracksAndTrails[PocketPalSpawnManager.Sampler(new System.Random(Guid.NewGuid().GetHashCode()), tntRarities)];
+        TrackData td = new TrackData(ttp.ID, LocalDataManager.Instance.GetData().DistanceTravelled, UnityEngine.Random.Range(ttp.distMin, ttp.distMax));
+        return td;
     }
 
     public TracksAndTrailsPreset GetRandoTandT()

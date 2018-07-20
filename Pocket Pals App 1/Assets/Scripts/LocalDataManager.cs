@@ -54,7 +54,6 @@ public class LocalDataManager : MonoBehaviour {
         }
     }
 
-
     public void AddPocketPal(GameObject obj)
     {
         //Get the data reference
@@ -84,6 +83,21 @@ public class LocalDataManager : MonoBehaviour {
         }
 
         ServerDataManager.Instance.WriteItem(localData, localData.ItemInv.AddItem(id));
+    }
+
+    public bool TryAddTracks()
+    {
+        TrackData td = AssetManager.Instance.GetNewTrack();
+        if (localData.TrackInv.TryAddTrack(td))
+        {
+            NotificationManager.Instance.CongratsNotification("You have found a new Trail!");
+            return true;
+        }
+        else
+        {
+            NotificationManager.Instance.InteractError("You already have six tracks and trails!");
+            return false;
+        }
     }
 
     public void ResetLocalData()

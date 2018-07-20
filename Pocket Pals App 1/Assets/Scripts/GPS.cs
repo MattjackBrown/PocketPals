@@ -64,6 +64,7 @@ public class GPS : MonoBehaviour
 
 	Vector3 LastDestination = new Vector3(0, 0, 0);
 
+    private float oldDist = 0.0f;
 
     public Material MapMaterial;
     public Color DayFog;
@@ -308,7 +309,12 @@ public class GPS : MonoBehaviour
 	{
 		LastDestination = destination;
 		destination = endPoint;
-		LocalDataManager.Instance.UpdateDistance(Vector3.Magnitude(destination - LastDestination) / 1000);
+
+        //Get rough distance
+        float nDistance = GetDistanceMeters(StartLat, StartLong, CurrentLat, CurrentLong);
+        float delta = Math.Abs(nDistance - oldDist)/1000;
+        oldDist = nDistance;
+        LocalDataManager.Instance.UpdateDistance(delta);
 
 		Moving = true;
 	}

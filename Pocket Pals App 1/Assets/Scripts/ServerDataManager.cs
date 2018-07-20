@@ -134,7 +134,7 @@ public class ServerDataManager : MonoBehaviour
 
     public void UpdateDistace(GameData gd)
     {
-        if(auth.CurrentUser != null)mDatabaseRef.Child("Users").Child(gd.ID).Child("DistanceTravelled").SetValueAsync(gd.DistanceTravelled);
+        mDatabaseRef.Child("Users").Child(gd.ID).Child("DistanceTravelled").SetValueAsync(gd.DistanceTravelled);
     }
 
     public void UpdatePlayerName(GameData gd)
@@ -283,10 +283,13 @@ public class ServerDataManager : MonoBehaviour
     }
 
 
+    //------- Track Inventory stuff -----------\\
+
+
     public void WriteTrack(GameData gd, TrackData td)
     {
         string json = JsonUtility.ToJson(td);
-        mDatabaseRef.Child("ItemInventories").Child(gd.ID).Child("TracksAndTrails").Child(td.ID.ToString()).SetRawJsonValueAsync(json);
+        mDatabaseRef.Child("TracksAndTrails").Child(gd.ID).Child(td.ID.ToString()).SetRawJsonValueAsync(json);
     }
 
 

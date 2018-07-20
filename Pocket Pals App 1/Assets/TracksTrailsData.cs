@@ -6,12 +6,20 @@ using UnityEngine;
 public class TrackData
 {
     public float distTarget = 1000.0f;
-    public float distCurrent = 0.0f;
+    public float startDistance = 0.0f;
     public int ID = 0;
 
-    public float GetFloatDone()
+    public TrackData(int i, float sd,float targ)
     {
-        return distCurrent / distTarget;
+        ID = i;
+        startDistance = sd;
+        distTarget = targ;
+    }
+
+    public float GetFloatDone(float currentDistance)
+    {
+        float delta = currentDistance - startDistance;
+        return delta/distTarget;
     }
 }
 [System.Serializable]
@@ -26,6 +34,8 @@ public class TracksAndTrailsPreset
 
     public float expMin = 4000.0f;
     public float expMax = 6000.0f;
+
+    public float rarity = 1.0f;
 
     public float GetCompletedExp()
     {

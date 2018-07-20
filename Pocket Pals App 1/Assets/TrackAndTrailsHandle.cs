@@ -38,9 +38,11 @@ public class TrackAndTrailsHandle : MonoBehaviour
 
         InspectImage.sprite = AssetManager.Instance.GetTrackByID(activeTrack.ID).identifier;
 
-        InspectBar.fillAmount = activeTrack.GetFloatDone();
+        float cDist = LocalDataManager.Instance.GetData().DistanceTravelled;
+
+        InspectBar.fillAmount = activeTrack.GetFloatDone(cDist);
         
-        InspectImage.sprite = PixelateTexture(InspectImage,(int)((1- activeTrack.GetFloatDone()) * basePixelate));
+        InspectImage.sprite = PixelateTexture(InspectImage,(int)((1- activeTrack.GetFloatDone(cDist)) * basePixelate));
     }
 
     public void ChangeActiveTrack(int index)
