@@ -37,6 +37,11 @@ public class NotificationManager : MonoBehaviour
         AddNotificationToQueue(new Notification("Uh oh Error", m));
     }
 
+    public void CustomHeaderNotification(string h, string m)
+    {
+        AddNotificationToQueue(new Notification(h, m));
+    }
+
     public void CongratsNotification(string m)
     {
         AddNotificationToQueue(new Notification("Congrats!", m));

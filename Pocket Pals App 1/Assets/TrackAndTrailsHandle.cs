@@ -225,7 +225,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
         }
         else
         {
-            NotificationManager.Instance.InteractError("I am sorry, But you guessed wrong! You have lost the animals track!");
+            NotificationManager.Instance.CustomHeaderNotification("You Failed!","I am sorry, But you guessed wrong! You have lost the animals track!");
         }
         LocalDataManager.Instance.RemoveTracks(activeTrack);
         Back();
