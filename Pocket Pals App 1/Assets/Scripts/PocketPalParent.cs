@@ -20,6 +20,9 @@ public enum SpawnType
     n_Wetland
 }
 
+// Including this script will create a RawImage component
+[RequireComponent(typeof(RawImage))]
+
 public class PocketPalParent : MonoBehaviour
 {
 //	Animator animator;
@@ -56,6 +59,11 @@ public class PocketPalParent : MonoBehaviour
 
     [Tooltip("The rarity of the spawn")]
     public float Rarity = 10.0f;
+
+//	public MovieTexture movieTexture;
+//	public Texture leafTexture;
+	RawImage leafFlutterRawImage;
+
     
 	// Use this for initialization
 	void Start ()
@@ -64,6 +72,10 @@ public class PocketPalParent : MonoBehaviour
         InMinigame = false;
 //		animator = GetComponent<Animator>();
         GenerateAnimalData();
+
+//		leafFlutterRawImage = GetComponent<RawImage> ();
+
+
 	}
 
     private void OnCollisionEnter(Collision collision)

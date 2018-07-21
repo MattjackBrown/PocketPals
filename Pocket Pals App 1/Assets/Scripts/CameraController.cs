@@ -60,7 +60,8 @@ public class CameraController : MonoBehaviour
 	Vector3 VGZoomedPosition, VGInfoLookAtPoint, VGInfoCamOffset;
 
     public CameraBoundsTileProvider cbtp;
-
+	public UIAnimationManager animManager;
+	bool mapMenuLoaded = false;
 
 	float initialTargetCamZoomDistance = 6.0f;
 	bool initialZoomInComplete = true;
@@ -147,6 +148,12 @@ public class CameraController : MonoBehaviour
 		currentCameraDistance = (transform.position - playerPosition).magnitude;
 
 		currentCameraDistance = Mathf.Lerp (currentCameraDistance, initialTargetCamZoomDistance, Time.deltaTime);
+
+		// Time the ingame map menu to animate in at a certain point in the initial camera pan in animation
+		if (!mapMenuLoaded && currentCameraDistance - initialTargetCamZoomDistance < 0.4f) {
+			animManager.OpenMapMenu ();
+			mapMenuLoaded = true;
+		}
 
 		if (currentCameraDistance - initialTargetCamZoomDistance < 0.02f) {
 			currentCameraDistance = initialTargetCamZoomDistance;

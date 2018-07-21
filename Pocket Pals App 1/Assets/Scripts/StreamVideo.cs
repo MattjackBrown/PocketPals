@@ -49,7 +49,7 @@ public class StreamVideo : MonoBehaviour {
 
 	IEnumerator DelayShowSkipButton()
 	{
-		yield return new WaitForSeconds(2.5f);
+		yield return new WaitForSeconds(3.1f);
 
 		skipButtonAnimator.SetBool ("showButton", true);
 	}
