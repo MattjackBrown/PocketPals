@@ -25,9 +25,16 @@ Firebase Rules
 				 ".read": "$uid === auth.uid",
          ".write": "$uid === auth.uid"
        }
-     }
+     },
+	"TracksAndTrails": 
+       {
+       "$uid": 
+       {
+				 ".read": "$uid === auth.uid",
+         ".write": "$uid === auth.uid"
+       }
    }
-}
+  }}
 
 Unlimted Rules
 {
