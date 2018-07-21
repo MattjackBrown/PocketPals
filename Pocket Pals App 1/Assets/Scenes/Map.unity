@@ -14589,6 +14589,9 @@ MonoBehaviour:
   - {fileID: 1364173348}
   - {fileID: 772871237}
   - {fileID: 211449325}
+  goodCamNumText: {fileID: 462058743}
+  medCamNumText: {fileID: 1412112031}
+  strawNumText: {fileID: 137051227}
   animManager: {fileID: 421776396}
 --- !u!4 &1072576560
 Transform:
@@ -15587,7 +15590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e946f5af7bd244b9ba9b0c888ef19532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avgSpawnTime: 60
+  avgSpawnTime: 1
   spawnTimeVariance: 0.5
   spawnPoints:
   - {fileID: 1267739198}
@@ -18264,7 +18267,7 @@ MonoBehaviour:
   virtualGarden: {fileID: 32817350}
   ResourceSpotDistance: 6
   ResourceSpotUpness: 0.5
-  IsDebug: 0
+  IsDebug: 1
   maxCaptureDistance: 12
 --- !u!114 &1331972350
 MonoBehaviour:

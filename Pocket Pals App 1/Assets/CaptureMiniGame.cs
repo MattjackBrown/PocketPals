@@ -49,6 +49,13 @@ public class CaptureMiniGame : MonoBehaviour {
 	Vector3 previousPosition, nextPosition;
 	int patrolIndex;
 
+    int numGoodCamera;
+    public Text goodCamNumText;
+    int numMedCamera;
+    public Text medCamNumText;
+    int numStraw;
+    public Text strawNumText;
+
 	bool berryUsed;
 	int numberOfBerries;
 	float berryTimer, berryDuration = 5.0f;
@@ -127,8 +134,18 @@ public class CaptureMiniGame : MonoBehaviour {
 		numberOfBerries = playerProfile.NumberOfBerries ();
 		berryCount.text = numberOfBerries.ToString ();
 
-		// Hide the berry meter until used
-		berryMeter.gameObject.SetActive(false);
+        //set number of strawberries
+        numStraw = playerProfile.ItemInv.GetItemFromID(GlobalVariables.StrawBerriesID).numberOwned;
+        strawNumText.text = numStraw.ToString();
+
+        numGoodCamera = playerProfile.ItemInv.GetItemFromID(GlobalVariables.ProCameraID).numberOwned;
+        goodCamNumText.text = numGoodCamera.ToString();
+
+        numMedCamera = playerProfile.ItemInv.GetItemFromID(GlobalVariables.medCameraID).numberOwned;
+        medCamNumText.text = numMedCamera.ToString();
+
+        // Hide the berry meter until used
+        berryMeter.gameObject.SetActive(false);
 //		captureImage.gameObject.SetActive (false);
 
 		// Adjust the UI
@@ -572,9 +589,29 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	public void UseStrawberry () {
 
-		if (!berryUsed) {
+		if (!berryUsed)
+        {
+            if (playerProfile.ItemInv.UseItemWithID(GlobalVariables.StrawBerriesID))
+            {
+                // Set the slider
+                berryMeter.gameObject.SetActive(true);
+                berryMeter.value = 1.0f;
 
-		}
+                // Set the timer
+                berryTimer = 0.0f;
+                berryUsed = true;
+
+                // Decrease the local count
+                numStraw--;
+
+                // Adjust UI
+                strawNumText.text = numStraw.ToString();
+            }
+            else
+            {
+                NotificationManager.Instance.ItemFailedNotification("You have no strawberries to use! Try buying some from the shop, or finding them at resource spots");
+            }
+        }
 
 	}
 
@@ -619,17 +656,29 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	public void UseMediumCamera () {
 
-		if (!specCameraUsed) {
-			camMovementSpeed = mediumCamMovementSpeed;
-			specCameraUsed = true;
+		if (!specCameraUsed)
+        {
+            if (playerProfile.ItemInv.UseItemWithID(GlobalVariables.medCameraID))
+            {
+                camMovementSpeed = mediumCamMovementSpeed;
+                specCameraUsed = true;
+                numMedCamera--;
+                medCamNumText.text = numMedCamera.ToString();
+            }
 		}
 	}
 
 	public void UseGoodCamera () {
 
-		if (!specCameraUsed) {
-			camMovementSpeed = goodCamMovementSpeed;
-			specCameraUsed = true;
-		}
+		if (!specCameraUsed)
+        {
+            if (playerProfile.ItemInv.UseItemWithID(GlobalVariables.ProCameraID))
+            {
+                camMovementSpeed = goodCamMovementSpeed;
+                specCameraUsed = true;
+                numGoodCamera--;
+                goodCamNumText.text = numGoodCamera.ToString();
+            }
+        }
 	}
 }

@@ -45,12 +45,9 @@ public class TrackAndTrailsHandle : MonoBehaviour
 
     public void SetInspectlayer()
     {
-        GuessLayer.SetActive(false);
-        InspectLayer.SetActive(true);
+        NotificationManager.Instance.CustomHeaderNotification("One moment..", "Loading Image, Please wait!!!");
 
         InspectImage.sprite = AssetManager.Instance.GetTrackByID(activeTrack.ID).identifier;
-
-
 
         float cDist = LocalDataManager.Instance.GetData().DistanceTravelled;
 
@@ -64,6 +61,9 @@ public class TrackAndTrailsHandle : MonoBehaviour
         InspectBar.fillAmount = complete;
         
         InspectImage.sprite = PixelateTexture(InspectImage,(int)((1- activeTrack.GetFloatDone(cDist)) * basePixelate));
+
+        InspectLayer.SetActive(true);
+
     }
 
     public void Back()
@@ -114,7 +114,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
         GuessLayer.SetActive(true);
         int correctPPalID = AssetManager.Instance.GetTrackByID(activeTrack.ID).PocketPalID;
         correctPPal = AssetManager.Instance.GetPocketPalFromID(correctPPalID).GetComponent<PocketPalParent>();
-        guessPalIDs = AssetManager.Instance.GetRandomPocketpals(GuessBoxes.Length -1);
+        guessPalIDs = AssetManager.Instance.GetRandomPocketpals(GuessBoxes.Length -1, correctPPalID);
         guessPalIDs.Add(correctPPal);
         guessPalIDs = guessPalIDs.OrderBy(x => UnityEngine.Random.Range(0,100)).ToList();
         for(int i =0; i < GuessBoxes.Length; i++)
@@ -166,6 +166,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
         Texture2D tex2D = new Texture2D(img.sprite.texture.width, img.sprite.texture.height, TextureFormat.ARGB32, false);
         tex2D.SetPixels32(img.sprite.texture.GetPixels32());
         tex2D.Apply();
+
         int xSquares = tex2D.width / pixelateWidth;
         int ySquares = tex2D.height / pixelateWidth;
 

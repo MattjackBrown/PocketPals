@@ -250,8 +250,11 @@ public class TouchHandler : MonoBehaviour {
 		{
             if (hit.transform.gameObject.GetComponentInParent<PocketPalParent>() && (hit.transform.position - player.transform.position).magnitude < maxCaptureDistance)
             {
+
                 // Initialise the capture cam values
-                PocketPalSpawnManager.Instance.PocketpalCollected(hit.transform.parent.gameObject);
+                cameraController.CaptureCamInit(hit.transform.parent.gameObject);
+                // Initialise the capture cam values
+                //PocketPalSpawnManager.Instance.PocketpalCollected(hit.transform.parent.gameObject);
 
                 PocketPalParent hitPocketPal = hit.transform.gameObject.GetComponentInParent<PocketPalParent>();
 
