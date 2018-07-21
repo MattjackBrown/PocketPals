@@ -95,6 +95,7 @@ public class PopupHandler : MonoBehaviour
                     pd.img.transform.position = startPos;
                     pd.img.gameObject.SetActive(true);
                     activePopups.Add(pd);
+                    SoundEffectHandler.Instance.PlaySound("pop");
                 }
                 else if (pd.ID == 1 && poolText.Count >=1)
                 {
@@ -104,6 +105,7 @@ public class PopupHandler : MonoBehaviour
                     pd.text.transform.position = startPos;
                     pd.text.gameObject.SetActive(true);
                     activePopups.Add(pd);
+                    SoundEffectHandler.Instance.PlaySound("pop");
                 }
                
             }
