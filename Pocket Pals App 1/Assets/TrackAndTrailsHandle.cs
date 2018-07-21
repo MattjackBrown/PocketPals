@@ -45,8 +45,6 @@ public class TrackAndTrailsHandle : MonoBehaviour
 
     public void SetInspectlayer()
     {
-        NotificationManager.Instance.CustomHeaderNotification("One moment..", "Loading Image, Please wait!!!");
-
         InspectImage.sprite = AssetManager.Instance.GetTrackByID(activeTrack.ID).identifier;
 
         float cDist = LocalDataManager.Instance.GetData().DistanceTravelled;
