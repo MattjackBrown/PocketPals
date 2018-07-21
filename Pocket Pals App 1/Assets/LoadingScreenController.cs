@@ -24,7 +24,12 @@ public class LoadingScreenController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if(TouchHandler.Instance.IsDebug) this.gameObject.SetActive(false);
+        if (TouchHandler.Instance.IsDebug)
+        {
+            BackgroundMusic.Instance.StartBackgroundMusic();
+            CameraController.Instance.StartZoomIn();
+            this.gameObject.SetActive(false);
+        }
         if (loadingStarted) {
 
 			if (isLoggedIn || (!isLoggedIn && loadingBarValue < 0.8f)) {

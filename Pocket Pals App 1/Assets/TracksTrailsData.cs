@@ -8,18 +8,24 @@ public class TrackData
     public float distTarget = 1000.0f;
     public float startDistance = 0.0f;
     public int ID = 0;
+    public string uID = "";
+
+    public TrackData() { }
 
     public TrackData(int i, float sd,float targ)
     {
         ID = i;
         startDistance = sd;
         distTarget = targ;
+        uID = System.Guid.NewGuid().ToString();
     }
 
     public float GetFloatDone(float currentDistance)
     {
-        float delta = currentDistance - startDistance;
-        return delta/distTarget;
+        Debug.Log("Start: " + startDistance);
+        Debug.Log("Current: " + currentDistance);
+        float delta = (currentDistance - startDistance)*1000;
+        return delta / distTarget;
     }
 }
 [System.Serializable]
@@ -29,7 +35,7 @@ public class TracksAndTrailsPreset
     public float distMin = 1000.0f;
     public float distMax = 1000.0f;
     public string PocketPalName = "None";
-    public float PocketPalID = 0;
+    public int PocketPalID = 0;
     public Sprite identifier;
 
     public float expMin = 4000.0f;

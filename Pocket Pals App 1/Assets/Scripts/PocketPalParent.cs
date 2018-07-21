@@ -98,7 +98,7 @@ public class PocketPalParent : MonoBehaviour
     }
 
     //called on the pocketPalSpawnManager after a new clone is made of the original asset.
-    public void GenerateAnimalData(float expMin = -1, float expMax = -1)
+    public PocketPalData GenerateAnimalData(float expMin = -1, float expMax = -1)
     {
         //get spawn exp
         float exp;
@@ -119,6 +119,7 @@ public class PocketPalParent : MonoBehaviour
         float agro = Random.Range(averageAgro - tAgroVar, averageAgro + tAgroVar);
 
         pocketPalData = new PocketPalData(name, PocketPalID,exp, size, Rarity);
+        return pocketPalData;
     }
 
     public PocketPalData GetAnimalData(){ return pocketPalData; }

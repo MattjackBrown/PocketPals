@@ -285,13 +285,73 @@ public class ServerDataManager : MonoBehaviour
 
     //------- Track Inventory stuff -----------\\
 
+    public void WriteTracks(GameData gd)
+    {
+        foreach (TrackData td in gd.TrackInv.GetTracks())
+        {
+            WriteTrack(gd, td);
+        }
+    }
 
     public void WriteTrack(GameData gd, TrackData td)
     {
         string json = JsonUtility.ToJson(td);
-        mDatabaseRef.Child("TracksAndTrails").Child(gd.ID).Child(td.ID.ToString()).SetRawJsonValueAsync(json);
+        mDatabaseRef.Child("TracksAndTrails").Child(gd.ID).Child(td.uID.ToString()).SetRawJsonValueAsync(json);
     }
 
+    public void GetTrackData(GameData gd)
+    {
+        mDatabaseRef.Child("TracksAndTrails").Child(gd.ID).GetValueAsync().ContinueWith(task => {
+            if (task.IsFaulted)
+            {
+                Debug.Log("Failed Getting Tracks And Trails data from server");
+                WriteTracks(gd);
+            }
+            else if (task.IsCompleted)
+            {
+                try
+                {
+                    DataSnapshot snapshot = task.Result;
+                    foreach (DataSnapshot obj in snapshot.Children)
+                    { 
+                        TrackData td = new TrackData();
+
+                        foreach (DataSnapshot child in obj.Children)
+                        {
+                            switch (child.Key.ToLower())
+                            {
+                                case "disttarget":
+                                    td.distTarget = Convert.ToSingle(child.Value);
+                                    break;
+                                case "startdistance":
+                                    td.startDistance = Convert.ToSingle(child.Value);
+                                    break;
+                                case "id":
+                                    td.ID = Convert.ToInt32(child.Value);
+                                    break;
+                                case "uid":
+                                    td.uID = (string)child.Value;
+                                    break;
+                            }
+                        }
+
+                        gd.TrackInv.TryAddTrack(td);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.Log(ex);
+                }
+                GetItemInventory(gd);
+            }
+
+        });
+    }
+
+    public void RemoveTrack(GameData gd, TrackData td)
+    {
+        mDatabaseRef.Child("TracksAndTrails").Child(gd.ID).Child(td.uID.ToString()).RemoveValueAsync();
+    }
 
     //----------- PocketPalInventoryStuff ---------------\\
 
@@ -354,7 +414,7 @@ public class ServerDataManager : MonoBehaviour
                 {
                     Debug.Log(ex);
                 }
-                GetItemInventory(gd);
+                GetTrackData(gd);
             }
         });
     }

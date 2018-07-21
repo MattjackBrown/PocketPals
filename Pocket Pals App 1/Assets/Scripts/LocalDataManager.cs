@@ -58,13 +58,18 @@ public class LocalDataManager : MonoBehaviour {
     {
         //Get the data reference
         PocketPalData ppd = obj.GetComponentInParent<PocketPalParent>().GetAnimalData();
+        SyncPPal(ppd, obj.GetComponentInParent<PocketPalParent>());
 
-        NotificationManager.Instance.CongratsNotification("You Have Caught A level " + ppd.GetLevel() + " " + ppd.name);
+    }
 
-       //Add the pocketPal to the players inventory
-        localData.Inventory.AddPocketPal(obj.GetComponentInParent<PocketPalParent>());
+    private void SyncPPal(PocketPalData ppd, PocketPalParent pp)
+    {
+        NotificationManager.Instance.CongratsNotification("You Have Observed A level " + ppd.GetLevel() + " " + ppd.name);
 
-        float exp = obj.GetComponentInParent<PocketPalParent>().GetAnimalData().GetExp();
+        //Add the pocketPal to the players inventory
+        localData.Inventory.AddPocketPal(pp);
+
+        float exp = pp.GetAnimalData().GetExp();
 
         //increas the players EXP
         localData.IncreaseExp(exp);
@@ -73,6 +78,13 @@ public class LocalDataManager : MonoBehaviour {
         ServerDataManager.Instance.WritePocketPal(localData, localData.Inventory.GetDataFromID(ppd.ID));
 
         ServerDataManager.Instance.UpdatePlayerExp(localData);
+    }
+
+    public void SuccessfulTrack(PocketPalParent pp, TracksAndTrailsPreset ttp, float modifier)
+    {
+        PocketPalData ppd = pp.GenerateAnimalData(ttp.expMin, ttp.expMax);
+        ppd.EXP *= modifier;
+        SyncPPal(ppd, pp);
     }
 
     public void AddItem(ItemData id)
@@ -91,6 +103,7 @@ public class LocalDataManager : MonoBehaviour {
         if (localData.TrackInv.TryAddTrack(td))
         {
             NotificationManager.Instance.CongratsNotification("You have found a new Trail!");
+            ServerDataManager.Instance.WriteTrack(localData, td);
             return true;
         }
         else
@@ -98,6 +111,12 @@ public class LocalDataManager : MonoBehaviour {
             NotificationManager.Instance.InteractError("You already have six tracks and trails!");
             return false;
         }
+    }
+
+    public void RemoveTracks(TrackData td)
+    {
+        localData.TrackInv.GetTracks().Remove(td);
+        ServerDataManager.Instance.RemoveTrack(localData, td);
     }
 
     public void ResetLocalData()

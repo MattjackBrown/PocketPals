@@ -71,7 +71,6 @@ public class GameData
     {
         if (ItemInv.UseItemWithID(GlobalVariables.BerryID))
         {
-            ServerDataManager.Instance.WriteItem(this, ItemInv.GetItemFromID(GlobalVariables.BerryID));
             return true;
         }
         return false;

@@ -14,6 +14,8 @@ public static class GlobalVariables {
     public static int NoneID = 0;
     public static int MagnifyingGlassID = 3;
     public static int StrawBerriesID = 2;
+    public static int ProCameraID = 4;
+    public static int GoodCameraID = 5;
 
     // Used for scene initialisation to determine an entry point. i.e. whether to start the scene in the virtual garden if coming from the AR scene
     public static SceneName currentScene = SceneName.Map;

@@ -6,6 +6,8 @@ public class UIAnimationManager : MonoBehaviour {
 
 	public GameObject startingUI;
 
+    public static UIAnimationManager Instance { set; get; }
+
 	// There is a central animator within this parent that controls specific pairs of UIs
 	Animator canvasAnimator;
 
@@ -18,7 +20,7 @@ public class UIAnimationManager : MonoBehaviour {
     void Start () {
 
 		canvasAnimator = GetComponent<Animator> ();
-
+        Instance = this;
 	}
 
 	public void ShowSettings (bool show) {
@@ -116,6 +118,7 @@ public class UIAnimationManager : MonoBehaviour {
 
 	public void OpenTracks (bool show) {
 
+        if (show) TrackAndTrailsHandle.Instance.RefreshCollection();
 		canvasAnimator.SetBool ("openTracks", show);
 	}
 
