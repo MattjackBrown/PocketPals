@@ -15590,7 +15590,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e946f5af7bd244b9ba9b0c888ef19532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  avgSpawnTime: 1
+  avgSpawnTime: 60
   spawnTimeVariance: 0.5
   spawnPoints:
   - {fileID: 1267739198}
@@ -18267,7 +18267,7 @@ MonoBehaviour:
   virtualGarden: {fileID: 32817350}
   ResourceSpotDistance: 6
   ResourceSpotUpness: 0.5
-  IsDebug: 1
+  IsDebug: 0
   maxCaptureDistance: 12
 --- !u!114 &1331972350
 MonoBehaviour:
