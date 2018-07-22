@@ -46,10 +46,10 @@ public class AssetManager : MonoBehaviour {
     public List<PocketPalParent> GetRandomPocketpals(int num, int ppalID)
     {
         List<PocketPalParent> ppals = new List<PocketPalParent>();
-
+        System.Random r = new System.Random(ppalID);
         while (ppals.Count < num)
         {
-           PocketPalParent ppp = PocketPals[UnityEngine.Random.Range(0, PocketPals.Length)].GetComponent<PocketPalParent>();
+           PocketPalParent ppp = PocketPals[r.Next(0, PocketPals.Length)].GetComponent<PocketPalParent>();
             if (!ppals.Contains(ppp) && ppp.PocketPalID != ppalID) ppals.Add(ppp);
         }
         return ppals;
