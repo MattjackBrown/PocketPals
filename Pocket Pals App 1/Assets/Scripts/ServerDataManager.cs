@@ -450,6 +450,14 @@ public class ServerDataManager : MonoBehaviour
                                 case "haschampion":
                                     ppd.HasChampion = Convert.ToInt32(child.Value);
                                     break;
+                                case "firstseen":
+                                    ppd.FirstSeen = (string)child.Value;
+                                    break;
+                                case "lastseen":
+                                    ppd.LastSeen = (string)child.Value;
+                                    break;
+
+
                             }
 
                         }

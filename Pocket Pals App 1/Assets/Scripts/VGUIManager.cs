@@ -12,13 +12,14 @@ public class VGUIManager : MonoBehaviour
     public Canvas RoamCanvas;
 
     public Text nameText;
-    public Text sizeText;
 //    public Text agressionText;
     public Text caughtText;
     public Text rarityText;
     public Text levelText;
     public Text expText;
     public Text expToNextLevelText;
+    public Text lastSeen;
+    public Text firstSeen;
 
     public Image progressBar;
 
@@ -73,14 +74,14 @@ public class VGUIManager : MonoBehaviour
         if (currentDisplayData != null)
         {
             nameText.text = currentDisplayData.name;
-            sizeText.text = currentDisplayData.GetSize().ToString();
 //            agressionText.text = currentDisplayData.GetAgression().ToString();
             caughtText.text = currentDisplayData.numberCaught.ToString();
             rarityText.text = currentDisplayData.GetRarity().ToString();
             expText.text = currentDisplayData.GetExp().ToString();
             levelText.text = currentDisplayData.GetLevel().ToString();
             expToNextLevelText.text = currentDisplayData.GetExpToNextLevel().ToString();
-
+            firstSeen.text = currentDisplayData.GetFirstSeen();
+            lastSeen.text = currentDisplayData.GetLastSeen();
             progressBar.fillAmount = currentDisplayData.GetPercentageToNextLevel();
 
         }

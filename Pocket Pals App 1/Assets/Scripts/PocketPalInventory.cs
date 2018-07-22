@@ -14,12 +14,17 @@ public class PocketPalInventory
         PocketPalData ppd = GetDataFromID(obj.PocketPalID);
         if (ppd == null)
         {
-            myPPals.Add(obj.GetAnimalData());
+            PocketPalData pd = obj.GetAnimalData();
+            pd.FirstSeen = DateTime.Now.ToString("dd/MM/yyyy");
+            pd.LastSeen = DateTime.Now.ToString("dd/MM/yyyy");
+            myPPals.Add(pd);
         }
         //merge it if its a repeat animal
         else
         {
             Debug.Log("Repeat");
+
+            obj.GetAnimalData().LastSeen = DateTime.Now.ToString("dd/MM/yyyy");
             ppd.MergePocketPal(obj.GetAnimalData(), multiplier);
         }
     }

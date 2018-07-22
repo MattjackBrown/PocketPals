@@ -19,6 +19,9 @@ public class PocketPalData
     public int HasChampion = 0;
     public int HasRare = 0;
 
+    public string FirstSeen= "";
+    public string LastSeen = "";
+
     public PocketPalData(string str, int id, float exp, float siz, float rare)
     {
         name = str;
@@ -33,6 +36,24 @@ public class PocketPalData
     public float GetSize()
     {
         return (float)Math.Round(size, 1);
+    }
+
+    public string GetLastSeen()
+    {
+        if (LastSeen == "")
+        {
+            LastSeen = DateTime.Now.ToString("dd/MM/yyyy");
+        }
+        return LastSeen;
+    }
+
+    public string GetFirstSeen()
+    {
+        if (FirstSeen == "")
+        {
+            FirstSeen = DateTime.Now.ToString("dd/MM/yyyy");
+        }
+        return FirstSeen;
     }
 
     public int GetLevel()
@@ -61,6 +82,8 @@ public class PocketPalData
         if (size > ppd.size) size = ppd.size;
         if (name != ppd.name) name = ppd.name;
         if (baseRarity != ppd.baseRarity) baseRarity = ppd.baseRarity;
+        if(FirstSeen == "") FirstSeen = DateTime.Now.ToString("dd/MM/yyyy");
+        if(LastSeen == "") LastSeen = DateTime.Now.ToString("dd/MM/yyyy");
         numberCaught++;
         EXP += ppd.EXP*expMultiplier;
     }
