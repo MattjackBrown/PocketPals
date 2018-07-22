@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.51978916, g: 0.7386145, b: 0.90408564, a: 1}
+  m_IndirectSpecularColor: {r: 0.5219974, g: 0.74003786, b: 0.90433884, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -151,6 +151,7 @@ MonoBehaviour:
   VGInfo: {fileID: 32817350}
   animManager: {fileID: 421776396}
   player: {fileID: 206820439}
+  controls: {fileID: 0}
 --- !u!4 &10660633
 Transform:
   m_ObjectHideFlags: 0
@@ -5810,6 +5811,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingUI: {fileID: 2039017364}
+  controls: {fileID: 1331972349}
 --- !u!95 &421776397
 Animator:
   serializedVersion: 3
@@ -15419,7 +15421,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1331972349}
-        m_MethodName: MenuControls
+        m_MethodName: MapControls
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

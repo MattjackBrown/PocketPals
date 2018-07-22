@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIAnimationManager : MonoBehaviour {
 
 	public GameObject startingUI;
+	public TouchHandler controls;
 
     public static UIAnimationManager Instance { set; get; }
 
@@ -56,7 +57,19 @@ public class UIAnimationManager : MonoBehaviour {
 
 	public void OpenMainMenu (bool show) {
 
-		canvasAnimator.SetBool ("openMainMenu", show);
+		// If opening the mainMenu
+		if (show) {
+			// Check that the camera is not in a transition state, just the resting map controls allow
+			if (controls.IsInMapControls ()) {
+
+				// Stop being able to select map items
+				controls.MenuControls ();
+				canvasAnimator.SetBool ("openMainMenu", show);
+			}
+		} else {
+			// Removing the mainMenu
+			canvasAnimator.SetBool ("openMainMenu", show);
+		}
 	}
 
 	public void OpenMinigame (bool show) {
@@ -111,15 +124,39 @@ public class UIAnimationManager : MonoBehaviour {
 	}
 
 	public void OpenJournal (bool show)
-    {
-		canvasAnimator.SetBool ("openJournal", show);
-        PlayerProfileHandler.Instance.RefreshStats();
+	{
+		// If opening the UI
+		if (show) {
+			// Check that the camera is not in a transition state, just the resting map controls allow
+			if (controls.IsInMapControls ()) {
+				
+				PlayerProfileHandler.Instance.RefreshStats();
+				canvasAnimator.SetBool ("openJournal", show);
+				controls.MenuControls ();
+			}
+		} else {
+			// Removing the UI
+			canvasAnimator.SetBool ("openJournal", show);
+			controls.MapControls ();
+		}
 	}
 
 	public void OpenTracks (bool show) {
 
-        if (show) TrackAndTrailsHandle.Instance.RefreshCollection();
-		canvasAnimator.SetBool ("openTracks", show);
+		// If opening the UI
+		if (show) {
+			// Check that the camera is not in a transition state, just the resting map controls allow
+			if (controls.IsInMapControls ()) {
+
+				TrackAndTrailsHandle.Instance.RefreshCollection();
+				canvasAnimator.SetBool ("openTracks", show);
+				controls.MenuControls ();
+			}
+		} else {
+			// Removing the UI
+			canvasAnimator.SetBool ("openTracks", show);
+			controls.MapControls ();
+		}
 	}
 
 	public void OpenShop (bool show) {

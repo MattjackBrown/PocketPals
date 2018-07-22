@@ -210,6 +210,11 @@ public class TouchHandler : MonoBehaviour {
 		startTouchPosition = position;
 	}
 
+	public bool IsInMapControls () {
+		if (controlScheme == ControlScheme.map) return true;
+		return false;
+	}
+
     public void CheckForMapUpdate()
     {
         if (GPS.Insatance.mapGameObject == null) return;
