@@ -43,6 +43,7 @@ public class PocketPalData
         if (LastSeen == "")
         {
             LastSeen = DateTime.Now.ToString("dd/MM/yyyy");
+            ServerDataManager.Instance.WritePocketPal(LocalDataManager.Instance.GetData(),this);
         }
         return LastSeen;
     }
@@ -52,6 +53,7 @@ public class PocketPalData
         if (FirstSeen == "")
         {
             FirstSeen = DateTime.Now.ToString("dd/MM/yyyy");
+            ServerDataManager.Instance.WritePocketPal(LocalDataManager.Instance.GetData(), this);
         }
         return FirstSeen;
     }
