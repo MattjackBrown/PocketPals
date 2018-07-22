@@ -35,7 +35,7 @@ public class ServerDataManager : MonoBehaviour
 */
 	public UIAnimationManager canvasParent;
 	public LoadingScreenController loadingScreen;
-    private bool IsLogginIn = false;
+    private bool ShouldUpdatePlayer = false;
 
     private bool createUser = false;
 
@@ -134,23 +134,25 @@ public class ServerDataManager : MonoBehaviour
 
     public void UpdateDistace(GameData gd)
     {
+        if (!ShouldUpdatePlayer) return;
         mDatabaseRef.Child("Users").Child(gd.ID).Child("DistanceTravelled").SetValueAsync(gd.DistanceTravelled);
     }
 
     public void UpdatePlayerName(GameData gd)
     {
+        if (!ShouldUpdatePlayer) return;
         mDatabaseRef.Child("Users").Child(gd.ID).Child("Username").SetValueAsync(gd.Username);
     }
 
     public void UpdatePlayerExp(GameData gd)
     {
-
+        if (!ShouldUpdatePlayer) return;
         mDatabaseRef.Child("Users").Child(gd.ID).Child("EXP").SetValueAsync(gd.EXP);
     }
 
     public void RefreshCoins(GameData gd)
     {
-
+        if (!ShouldUpdatePlayer) return;
         mDatabaseRef.Child("Users").Child(gd.ID).Child("PocketCoins").GetValueAsync().ContinueWith(task => {
             if (task.IsFaulted)
             {
@@ -182,6 +184,7 @@ public class ServerDataManager : MonoBehaviour
 
     public void WriteCoins(GameData gd)
     {
+        if (!ShouldUpdatePlayer) return;
         ShopHandler.Instance.RefreshCoins();
         mDatabaseRef.Child("Users").Child(gd.ID).Child("PocketCoins").SetValueAsync(gd.PocketCoins);
     }
@@ -199,7 +202,7 @@ public class ServerDataManager : MonoBehaviour
             if (task.IsFaulted)
             {
                 Debug.Log("Failed Getting user from databse Writing new user");
-                WriteNewUser(LocalDataManager.Instance.GetData());
+
             }
             else if (task.IsCompleted)
             {
@@ -250,7 +253,7 @@ public class ServerDataManager : MonoBehaviour
             }
             GetInventory(gd);
                             
-            IsLogginIn = false;
+            ShouldUpdatePlayer = true;
         });
     }
 
@@ -312,7 +315,7 @@ public class ServerDataManager : MonoBehaviour
                     Debug.Log(ex);
                 }
 
-
+                GlobalVariables.hasLoggedIn = true;
                 loadingScreen.AllowToComplete();
             }
 
@@ -515,6 +518,7 @@ public class ServerDataManager : MonoBehaviour
     {
         //to stop firebase to auto signin
         createUser = false;
+        GlobalVariables.hasLoggedIn = false;
 
         auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(task => {
             if (task.IsCanceled)
@@ -530,8 +534,6 @@ public class ServerDataManager : MonoBehaviour
             newUser = task.Result;
             Debug.LogFormat("User signed in successfully: {0} ({1})",
             newUser.DisplayName, newUser.UserId);
-
-            GlobalVariables.hasLoggedIn = true;
 
 			canvasParent.CloseLogin(true);
         });
