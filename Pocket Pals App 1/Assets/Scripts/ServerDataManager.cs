@@ -148,9 +148,42 @@ public class ServerDataManager : MonoBehaviour
         mDatabaseRef.Child("Users").Child(gd.ID).Child("EXP").SetValueAsync(gd.EXP);
     }
 
-    public void AddPocketCoins(int delta)
+    public void RefreshCoins(GameData gd)
     {
 
+        mDatabaseRef.Child("Users").Child(gd.ID).Child("PocketCoins").GetValueAsync().ContinueWith(task => {
+            if (task.IsFaulted)
+            {
+                // Handle the error...
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                try
+                {
+                    gd.PocketCoins = Convert.ToInt32(snapshot.Value);
+                }
+                catch (Exception ex)
+                {
+                    Debug.Log("Could not read PocketPal Coins writing now.");
+                    WriteCoins(gd);
+                }
+                ShopHandler.Instance.RefreshCoins();
+            }
+        }); 
+    }
+
+    public void AddPocketCoins(GameData gd, int delta)
+    {
+        RefreshCoins(gd);
+        gd.PocketCoins += delta;
+        WriteCoins(gd);
+    }
+
+    public void WriteCoins(GameData gd)
+    {
+        ShopHandler.Instance.RefreshCoins();
+        mDatabaseRef.Child("Users").Child(gd.ID).Child("PocketCoins").SetValueAsync(gd.PocketCoins);
     }
 
     public void GetPlayerData(GameData gd)
@@ -197,12 +230,13 @@ public class ServerDataManager : MonoBehaviour
                                 break;
 
                             case "pocketcoins":
-                                gd.PocketCoins = (int)obj.Value;
+                                gd.PocketCoins = Convert.ToInt32(obj.Value);
                                 break;
 
                         }
                     }
                 }
+
                 catch (Exception ex)
                 {
                     Debug.Log(ex);
@@ -210,12 +244,12 @@ public class ServerDataManager : MonoBehaviour
             }
             //If iter a new user Write it to the server... This is a bad fix but the only one 
             //that seems to work consistently
-            if (iter < 2)
+            if (iter < 5)
             {
                 WriteNewUser(gd);
             }
             GetInventory(gd);
-
+                            
             IsLogginIn = false;
         });
     }

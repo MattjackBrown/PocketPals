@@ -17,6 +17,12 @@ public class ItemInventory
         }
     }
 
+    public bool CanBuyMore(int ID)
+    {
+        if (GetItemFromID(ID).numberOwned >= MaxAmountOfOneItem) return false;
+        return true;
+    }
+
     public ItemData AddItem(ItemData data)
     {
         ItemData defaultData = GetItemFromID(data.ID);

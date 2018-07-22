@@ -161,6 +161,8 @@ public class UIAnimationManager : MonoBehaviour {
 
 	public void OpenShop (bool show) {
 
+        ServerDataManager.Instance.RefreshCoins(LocalDataManager.Instance.GetData());
+        ShopHandler.Instance.RefreshCoins();
 		canvasAnimator.SetBool ("openShop", show);
 	}
 

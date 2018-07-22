@@ -69,6 +69,17 @@ public class GameData
 
 	}
 
+    public bool TryUseCoins(int Quantity)
+    {
+        if (PocketCoins >= Quantity)
+        {
+            PocketCoins -= Quantity;
+            ServerDataManager.Instance.WriteCoins(this);
+            return true;
+        }
+        return false;
+    }
+
 	public bool UseBerry ()
     {
         if (ItemInv.UseItemWithID(GlobalVariables.BerryID))

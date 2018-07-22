@@ -128,6 +128,11 @@ public class LocalDataManager : MonoBehaviour {
         localData = new GameData();
     }
 
+    public bool TryBuySomething(int cost)
+    {
+        return localData.TryUseCoins(cost);
+    }
+
     //try and get a players pocketpal. If player does not own Pocket pal with ID returns null
     public PocketPalData TryGetPocketPal(int ID)
     {
