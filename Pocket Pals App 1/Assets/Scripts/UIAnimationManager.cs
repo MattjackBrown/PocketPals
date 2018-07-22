@@ -80,6 +80,7 @@ public class UIAnimationManager : MonoBehaviour {
 		canvasAnimator.SetBool ("minigameSuccess", false);
 		canvasAnimator.SetBool ("minigameFail", false);
 		canvasAnimator.SetBool ("minigameToMap", false);
+		canvasAnimator.SetBool ("cameraChosen", false);
 	}
 
 	public void MinigameAccepted () {
@@ -121,6 +122,7 @@ public class UIAnimationManager : MonoBehaviour {
 		canvasAnimator.SetBool ("minigameDeclined", false);
 		canvasAnimator.SetBool ("minigameSuccess", false);
 		canvasAnimator.SetBool ("minigameFail", false);
+		canvasAnimator.SetBool ("cameraChosen", false);
 	}
 
 	public void OpenJournal (bool show)
@@ -177,6 +179,11 @@ public class UIAnimationManager : MonoBehaviour {
 	public void LoadingBarFinished () {
 
 		canvasAnimator.SetBool ("loadingBarFinished", true);
+	}
+
+	public void CameraChosen () {
+
+		canvasAnimator.SetBool ("cameraChosen", true);
 	}
 
 	public void OpenMapMenu () {
