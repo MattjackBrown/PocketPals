@@ -160,7 +160,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		controls.cameraController.EnableDepthOfField (true);
 
 		// Set initial post processing to centre of screen
-		AdjustPostProcessing (new Vector2 (screenWidth, screenHeight) / 2.0f);
+//		AdjustPostProcessing (new Vector2 (screenWidth, screenHeight) / 2.0f);
 
 		// Set the controlScheme in the touchHandler
 		controls.MiniGameControls ();
@@ -223,101 +223,105 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	public void UpdateTimer () {
 
-		if (!endGameSequence) {
+		if (cameraChosen) {
 
-			// If has not timed out yet
-			if (minigameTimer < minigameTimeAllowance) {
+			if (!endGameSequence) {
 
-				// Step the timer
-				minigameTimer += Time.deltaTime;
+				// If has not timed out yet
+				if (minigameTimer < minigameTimeAllowance) {
 
-				if (focussedOnPPal) {
+					// Step the timer
+					minigameTimer += Time.deltaTime;
+
+					if (focussedOnPPal) {
 				
-					// Step the capture timer
-					captureTimer += Time.deltaTime / timeToCapture * 0.5f;
+						// Step the capture timer
+						captureTimer += Time.deltaTime / timeToCapture * 0.5f;
 
-					// Check for winstate
-					if (captureMeter.value >= 1.0f)
-						MinigameSuccess ();
+						// Check for winstate
+						if (captureMeter.value >= 1.0f)
+							MinigameSuccess ();
 				
-				} else {
+					} else {
 
-					// Deplete the minigame timer
-					captureTimer -= (Time.deltaTime / timeToCapture) * 0.1f;
+						// Deplete the minigame timer
+						captureTimer -= (Time.deltaTime / timeToCapture) * 0.1f;
 
-					if (captureTimer < 0.0f)
-						captureTimer = 0.0f;
-				}
-
-				// Change the slider value
-				captureMeter.value = captureTimer;
-
-				// Berry timer
-				if (berryUsed) {
-					berryTimer += Time.deltaTime;
-
-					// Convert to 0-1 range and set the slider 
-					berryMeter.value = 1.0f - berryTimer / berryDuration;
-
-					if (berryTimer > berryDuration) {
-						berryMeter.gameObject.SetActive (false);
-						berryUsed = false;
-						berryTimer = 0.0f;
+						if (captureTimer < 0.0f)
+							captureTimer = 0.0f;
 					}
-				}
+
+					// Change the slider value
+					captureMeter.value = captureTimer;
+
+					// Berry timer
+					if (berryUsed) {
+						berryTimer += Time.deltaTime;
+
+						// Convert to 0-1 range and set the slider 
+						berryMeter.value = 1.0f - berryTimer / berryDuration;
+
+						if (berryTimer > berryDuration) {
+							berryMeter.gameObject.SetActive (false);
+							berryUsed = false;
+							berryTimer = 0.0f;
+						}
+					}
 
 
 
-				// Lerp the viewfinder position towards thetouch location at camMovementSpeed
-				viewFinder.rectTransform.anchoredPosition =
+					// Lerp the viewfinder position towards thetouch location at camMovementSpeed
+					viewFinder.rectTransform.anchoredPosition =
 					new Vector2 (
 //						Mathf.Clamp (Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.x, targetScreenSpace.x, Time.deltaTime * camMovementSpeed), -screenWidth/2.0f, screenWidth/2.0f),
 //						Mathf.Clamp (Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.y, targetScreenSpace.y, Time.deltaTime * camMovementSpeed), -screenHeight/2.0f, screenHeight/2.0f));
-					Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.x, targetScreenSpace.x, Time.deltaTime * camMovementSpeed),
-					Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.y, targetScreenSpace.y, Time.deltaTime * camMovementSpeed));
+						Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.x, targetScreenSpace.x, Time.deltaTime * camMovementSpeed),
+						Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.y, targetScreenSpace.y, Time.deltaTime * camMovementSpeed));
 
-			} else {
+				} else {
 				
-			//	MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showMinigameCapture", false);
-				animManager.MinigameFail ();
+					//	MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showMinigameCapture", false);
+					animManager.MinigameFail ();
 			
-				// Minigame failed
-				MinigameExit ();
+					// Minigame failed
+					MinigameExit ();
 
-				// Place the uncaptured PPal back in the map
-				pocketPal.transform.position = PPalMapPosition;
-				pocketPal.InMinigame = false;
+					// Place the uncaptured PPal back in the map
+					pocketPal.transform.position = PPalMapPosition;
+					pocketPal.InMinigame = false;
 
-				// Change the animation and avatar to the rest style
-				pocketPal.SetMoveAnimation ();
-			}
-		} else {
-			// End game Sequence
-
-			// Keep the ppal moving
-			MovePPal();
-
-			if (cutSceneLerp < 1.0f) {
-				
-				cutSceneLerp += Time.deltaTime * EGCamSpeed;
-
-				cameraMain.transform.position = Vector3.Lerp (EGStartPos, EGEndPos, cutSceneLerp);
-				cameraMain.transform.LookAt (Vector3.Lerp (EGStartLookAtPos, pocketPal.GetLookAtPosition(), cutSceneLerp));
-
-				viewFinder.rectTransform.anchoredPosition = Vector2.Lerp (viewFinder.rectTransform.anchoredPosition, new Vector2 (0.0f, 0.0f), cutSceneLerp);
-				viewFinder.rectTransform.localScale = Vector3.Lerp (viewFinder.rectTransform.localScale, new Vector3 (60.0f, 60.0f, 1.0f), cutSceneLerp);
-
+					// Change the animation and avatar to the rest style
+					pocketPal.SetMoveAnimation ();
+				}
 			} else {
+				// End game Sequence
 
-				// Follow the PPal still
-				cameraMain.transform.LookAt (pocketPal.GetLookAtPosition());
+				// Keep the ppal moving
+				MovePPal ();
+
+				if (cutSceneLerp < 1.0f) {
+				
+					cutSceneLerp += Time.deltaTime * EGCamSpeed;
+
+					cameraMain.transform.position = Vector3.Lerp (EGStartPos, EGEndPos, cutSceneLerp);
+					cameraMain.transform.LookAt (Vector3.Lerp (EGStartLookAtPos, pocketPal.GetLookAtPosition (), cutSceneLerp));
+
+					viewFinder.rectTransform.anchoredPosition = Vector2.Lerp (viewFinder.rectTransform.anchoredPosition, new Vector2 (0.0f, 0.0f), cutSceneLerp);
+					viewFinder.rectTransform.localScale = Vector3.Lerp (viewFinder.rectTransform.localScale, new Vector3 (60.0f, 60.0f, 1.0f), cutSceneLerp);
+
+				} else {
+
+					// Follow the PPal still
+					cameraMain.transform.LookAt (pocketPal.GetLookAtPosition ());
+				}
+
+				// Lock the DOF to the PPal
+				float distance = Vector3.Distance (cameraMain.transform.position, pocketPal.GetLookAtPosition ());
+				cameraMain.SetDepthOfFieldAndFocalLength (distance, pocketPalAperture);
 			}
-
-			// Lock the DOF to the PPal
-			float distance = Vector3.Distance (cameraMain.transform.position, pocketPal.GetLookAtPosition());
-			cameraMain.SetDepthOfFieldAndFocalLength (distance, pocketPalAperture);
 		}
 	}
+
 
 	public void SetTouchStartPosition (Vector2 touchPosition) {
 
