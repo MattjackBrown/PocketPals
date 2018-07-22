@@ -16,6 +16,8 @@ public class CaptureMiniGame : MonoBehaviour {
 	public Text berryCount;
 	public RawImage captureImage;
 
+	public Text PPalName;
+
 	public GameObject miniGameEnvironment;
 	public List<GameObject> miniGamePlayerPositions;
 
