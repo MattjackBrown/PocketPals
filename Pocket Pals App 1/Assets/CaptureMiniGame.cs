@@ -46,7 +46,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	public List<GameObject> patrolPositions;
 	float patrolSpeed = 0.25f;
 	float patrolLerp;
-	Vector3 previousPosition, nextPosition;
+	Vector3 previousPosition, nextPosition, patrolDirection;
 	int patrolIndex;
 
     int numGoodCamera;
@@ -123,6 +123,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Set a randomly chosen endpoint
 		patrolIndex = Random.Range(0, patrolPositions.Count);
 		nextPosition = patrolPositions [patrolIndex].transform.position;
+		patrolDirection = (nextPosition - pocketPal.transform.position).normalized;
 		pocketPal.transform.LookAt (nextPosition);
 
 		// Used to see the inventory for number of berries
@@ -268,9 +269,11 @@ public class CaptureMiniGame : MonoBehaviour {
 
 				// Lerp the viewfinder position towards thetouch location at camMovementSpeed
 				viewFinder.rectTransform.anchoredPosition =
-					new Vector2(
-						Mathf.Clamp (Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.x, targetScreenSpace.x, Time.deltaTime * camMovementSpeed), -screenWidth/2.0f, screenWidth/2.0f),
-						Mathf.Clamp (Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.y, targetScreenSpace.y, Time.deltaTime * camMovementSpeed), -screenHeight/2.0f, screenHeight/2.0f));
+					new Vector2 (
+//						Mathf.Clamp (Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.x, targetScreenSpace.x, Time.deltaTime * camMovementSpeed), -screenWidth/2.0f, screenWidth/2.0f),
+//						Mathf.Clamp (Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.y, targetScreenSpace.y, Time.deltaTime * camMovementSpeed), -screenHeight/2.0f, screenHeight/2.0f));
+					Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.x, targetScreenSpace.x, Time.deltaTime * camMovementSpeed),
+					Mathf.Lerp (viewFinder.rectTransform.anchoredPosition.y, targetScreenSpace.y, Time.deltaTime * camMovementSpeed));
 
 			} else {
 				
@@ -301,7 +304,7 @@ public class CaptureMiniGame : MonoBehaviour {
 				cameraMain.transform.LookAt (Vector3.Lerp (EGStartLookAtPos, pocketPal.GetLookAtPosition(), cutSceneLerp));
 
 				viewFinder.rectTransform.anchoredPosition = Vector2.Lerp (viewFinder.rectTransform.anchoredPosition, new Vector2 (0.0f, 0.0f), cutSceneLerp);
-				viewFinder.rectTransform.localScale = Vector3.Lerp (viewFinder.rectTransform.localScale, new Vector3 (20.0f, 11.0f, 1.0f), cutSceneLerp);
+				viewFinder.rectTransform.localScale = Vector3.Lerp (viewFinder.rectTransform.localScale, new Vector3 (60.0f, 60.0f, 1.0f), cutSceneLerp);
 
 			} else {
 
@@ -341,6 +344,10 @@ public class CaptureMiniGame : MonoBehaviour {
 
 			// Apply that delta to the targetScreenSpace
 			targetScreenSpace += deltatouchScreenSpace;//Vector3.Lerp (targetScreenSpace, deltatouchScreenSpace, Time.deltaTime * camMovementSpeed);
+
+			targetScreenSpace = new Vector3 (
+			Mathf.Clamp (targetScreenSpace.x, -screenWidth / 2.0f, screenWidth / 2.0f),
+			Mathf.Clamp (targetScreenSpace.y, -screenHeight / 2.0f, screenHeight / 2.0f));
 
 			touchStartScreenSpace = newTouchScreenSpace;
 		}
@@ -413,7 +420,8 @@ public class CaptureMiniGame : MonoBehaviour {
 				patrolLerp += Time.deltaTime * patrolSpeed;
 
 			// Set the PPal transform
-			pocketPal.transform.position = Vector3.Lerp (previousPosition, nextPosition, patrolLerp);
+//			pocketPal.transform.position = Vector3.Lerp (previousPosition, nextPosition, patrolLerp);
+			pocketPal.transform.position += patrolDirection * patrolSpeed;
 		}
 
 		viewfinderPosition = viewFinder.rectTransform.anchoredPosition;
@@ -439,6 +447,12 @@ public class CaptureMiniGame : MonoBehaviour {
 			// Finish up
 			// Finish the final stage of the rotation
 			pocketPal.transform.LookAt (nextPosition);
+
+			patrolDirection = (nextPosition - pocketPal.transform.position).normalized;
+
+			// Randomise the movement speed
+			patrolSpeed += Random.Range (-0.1f, 0.1f);
+			patrolSpeed = Mathf.Clamp (patrolSpeed, 0.1f, 0.4f);
 
 			// Tell the update driven function to now move the PPal instead of rotate
 			needToRotate = false;
@@ -505,6 +519,9 @@ public class CaptureMiniGame : MonoBehaviour {
 	void MinigameSuccess () {
 		
 		Time.timeScale = EGTimeScale;
+
+		// Need to disable the animator before being able to manually change the scale
+		viewFinder.GetComponent<viewFinderScaleScript> ().DisableAnimator ();
 
 		// Animate the UI swap out
 //		MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showMinigameCapture", true);
