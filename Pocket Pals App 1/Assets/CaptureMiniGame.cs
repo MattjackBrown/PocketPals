@@ -190,6 +190,8 @@ public class CaptureMiniGame : MonoBehaviour {
 		targetScreenSpace = new Vector3 (0.5f, 0.5f);
 		touchScreenSpace = targetScreenSpace;
 		touchStartScreenSpace = targetScreenSpace;
+
+		animManager.ShowPhoto (false);
 	}
 
 	public void BackButtonPressed () {
@@ -615,7 +617,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	public void TakePhotoButtonPressed () {
 
-//		ScreenCapture.CaptureScreenshot("screenshot.png");
+		ScreenCapture.CaptureScreenshot("screenshot.png");
 
 		Time.timeScale = 1.0f;
 
@@ -634,7 +636,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 
 		#if !UNITY_EDITOR
-/*
+
 		byte[] bytes = System.IO.File.ReadAllBytes (Application.persistentDataPath + "/screenshot.png");
 
 		Texture2D texture = new Texture2D (200, 200);
@@ -642,7 +644,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		texture.LoadImage (bytes);
 
 		captureImage.texture = texture;
-*/
+
 		animManager.ShowPhoto (true);
 
 		//MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showPhoto", true);
