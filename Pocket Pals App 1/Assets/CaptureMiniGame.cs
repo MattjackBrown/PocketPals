@@ -219,6 +219,9 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Set the target pocketPal for this minigame
 		pocketPal = targetPocketPal;
 
+		// Set the text field in the congrats page
+		PPalName.text = pocketPal.name;
+
 		// A passive control scheme waiting for a button press
 		controls.MenuControls ();
 	}
@@ -715,9 +718,5 @@ public class CaptureMiniGame : MonoBehaviour {
 				viewFinder.gameObject.SetActive (true);
             }
         }
-	}
-
-	public void CameraChosen () {
-
 	}
 }
