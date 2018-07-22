@@ -18,6 +18,7 @@ public class EnvironmentChanger : MonoBehaviour
     //Used to reset the camera back in posisition.
     public GameObject player;
     private GPS gps;
+	public TouchHandler controls;
 
 	private int activeIndex;
 
@@ -184,6 +185,8 @@ public class EnvironmentChanger : MonoBehaviour
 
 		// Change the static variable
 		GlobalVariables.currentScene = GlobalVariables.SceneName.Map;
+
+		controls.MapControls ();
 
 		// Starts the virtual garden
 		// This int argument is not being used I think?

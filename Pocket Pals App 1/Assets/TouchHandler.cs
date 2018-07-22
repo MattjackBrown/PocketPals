@@ -51,7 +51,7 @@ public class TouchHandler : MonoBehaviour {
 		Instance = this;
 
 		// Initialise as the menu controls
-		controlScheme = ControlScheme.menu;
+		controlScheme = ControlScheme.map;//menu;
 	}
 	
 	// Update is called once per frame

@@ -91,9 +91,6 @@ public class CaptureMiniGame : MonoBehaviour {
 		screenWidth = Screen.width;
 		screenHeight = Screen.height;
 
-		// Choose a random position for the player
-		miniGamePlayerPosition = miniGamePlayerPositions [Random.Range(0, miniGamePlayerPositions.Count)].transform.position;
-
 		// Choose a random patrol point as the starting PPal location
 		patrolIndex = Random.Range(0, patrolPositions.Count);
 		miniGamePPalPosition = patrolPositions [patrolIndex].transform.position;
@@ -116,6 +113,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Set the Positions for the miniGame
 		pocketPal.transform.position = miniGamePPalPosition;
+		miniGamePlayerPosition = miniGamePlayerPositions [Random.Range (0, miniGamePlayerPositions.Count)].transform.position;
 		controls.cameraController.transform.position = miniGamePlayerPosition;
 		controls.cameraController.transform.LookAt (new Vector3(0.0f, miniGamePPalPosition.y, 0.0f));
 
@@ -522,7 +520,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	}
 
 	// Fuck yeah that's the good stuff
-	IEnumerator Wait ()
+	IEnumerator WaitThenExit ()
 	{
 		yield return new WaitForSeconds(3.0f);
 
@@ -617,7 +615,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	public void TakePhotoButtonPressed () {
 
-		ScreenCapture.CaptureScreenshot("screenshot.png");
+//		ScreenCapture.CaptureScreenshot("screenshot.png");
 
 		Time.timeScale = 1.0f;
 
@@ -636,7 +634,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 
 		#if !UNITY_EDITOR
-
+/*
 		byte[] bytes = System.IO.File.ReadAllBytes (Application.persistentDataPath + "/screenshot.png");
 
 		Texture2D texture = new Texture2D (200, 200);
@@ -644,12 +642,12 @@ public class CaptureMiniGame : MonoBehaviour {
 		texture.LoadImage (bytes);
 
 		captureImage.texture = texture;
-
+*/
 		animManager.ShowPhoto (true);
 
 		//MiniGameUI.gameObject.GetComponentInParent<Animator> ().SetBool ("showPhoto", true);
 
-		StartCoroutine(Wait());
+		StartCoroutine(WaitThenExit());
 
 		#endif
 	}
