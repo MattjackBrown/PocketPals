@@ -83,6 +83,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	float goodCamMovementSpeed = 100.0f;
 	bool specCameraUsed;
 	Vector3 touchScreenSpace, touchStartScreenSpace, targetScreenSpace;
+	bool cameraChosen;
 
 
 	// Use this for initialization
@@ -131,17 +132,17 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Set the number of berries text
 		numberOfBerries = playerProfile.NumberOfBerries ();
-		berryCount.text = numberOfBerries.ToString ();
+		berryCount.text = string.Concat ("x ", numberOfBerries.ToString ());
 
         //set number of strawberries
         numStraw = playerProfile.ItemInv.GetItemFromID(GlobalVariables.StrawBerriesID).numberOwned;
-        strawNumText.text = numStraw.ToString();
+		strawNumText.text = string.Concat ("x ", numStraw.ToString());
 
         numGoodCamera = playerProfile.ItemInv.GetItemFromID(GlobalVariables.ProCameraID).numberOwned;
-        goodCamNumText.text = numGoodCamera.ToString();
+		goodCamNumText.text = string.Concat ("x ", numGoodCamera.ToString());
 
         numMedCamera = playerProfile.ItemInv.GetItemFromID(GlobalVariables.medCameraID).numberOwned;
-        medCamNumText.text = numMedCamera.ToString();
+		medCamNumText.text = string.Concat ("x ", numMedCamera.ToString());
 
         // Hide the berry meter until used
         berryMeter.gameObject.SetActive(false);
@@ -150,8 +151,6 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Adjust the UI
 //		MiniGameMenu.gameObject.SetActive(false);
 		MiniGameUI.gameObject.SetActive(true);
-
-		viewFinder.gameObject.SetActive (true);
 
 		// Initially set the viewport image to the centre of the screen
 		viewFinder.rectTransform.anchoredPosition = Camera.main.ViewportToScreenPoint (new Vector3 (0.0f, 0.0f));
@@ -193,6 +192,8 @@ public class CaptureMiniGame : MonoBehaviour {
 		touchStartScreenSpace = targetScreenSpace;
 
 		animManager.ShowPhoto (false);
+
+		cameraChosen = false;
 	}
 
 	public void BackButtonPressed () {
@@ -424,10 +425,13 @@ public class CaptureMiniGame : MonoBehaviour {
 			pocketPal.transform.position += patrolDirection * patrolSpeed;
 		}
 
-		viewfinderPosition = viewFinder.rectTransform.anchoredPosition;
+		if (cameraChosen) {
 
-		// Funtion sets the depth of field using the touched on position's distance away
-		AdjustPostProcessing (viewfinderPosition);
+			viewfinderPosition = viewFinder.rectTransform.anchoredPosition;
+
+			// Funtion sets the depth of field using the touched on position's distance away
+			AdjustPostProcessing (viewfinderPosition);
+		}
 	}
 
 	void RotatePPal()
@@ -595,7 +599,7 @@ public class CaptureMiniGame : MonoBehaviour {
                 numberOfBerries--;
 
                 // Adjust UI
-                berryCount.text = playerProfile.NumberOfBerries().ToString();
+				berryCount.text = string.Concat ("x ", numberOfBerries.ToString());
             }
             else
             {
@@ -622,7 +626,7 @@ public class CaptureMiniGame : MonoBehaviour {
                 numStraw--;
 
                 // Adjust UI
-                strawNumText.text = numStraw.ToString();
+				strawNumText.text = string.Concat ("x ", numStraw.ToString());
             }
             else
             {
@@ -680,7 +684,11 @@ public class CaptureMiniGame : MonoBehaviour {
                 camMovementSpeed = mediumCamMovementSpeed;
                 specCameraUsed = true;
                 numMedCamera--;
-                medCamNumText.text = numMedCamera.ToString();
+				medCamNumText.text = string.Concat ("x ", numMedCamera.ToString());
+				cameraChosen = true;
+				UIAnimationManager.Instance.CameraChosen ();
+
+				viewFinder.gameObject.SetActive (true);
             }
 		}
 	}
@@ -694,8 +702,16 @@ public class CaptureMiniGame : MonoBehaviour {
                 camMovementSpeed = goodCamMovementSpeed;
                 specCameraUsed = true;
                 numGoodCamera--;
-                goodCamNumText.text = numGoodCamera.ToString();
+				goodCamNumText.text = string.Concat ("x ", numGoodCamera.ToString());
+				cameraChosen = true;
+				UIAnimationManager.Instance.CameraChosen ();
+
+				viewFinder.gameObject.SetActive (true);
             }
         }
+	}
+
+	public void CameraChosen () {
+
 	}
 }
