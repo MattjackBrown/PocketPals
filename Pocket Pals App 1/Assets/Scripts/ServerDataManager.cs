@@ -148,6 +148,11 @@ public class ServerDataManager : MonoBehaviour
         mDatabaseRef.Child("Users").Child(gd.ID).Child("EXP").SetValueAsync(gd.EXP);
     }
 
+    public void AddPocketCoins(int delta)
+    {
+
+    }
+
     public void GetPlayerData(GameData gd)
     {
 
@@ -189,6 +194,10 @@ public class ServerDataManager : MonoBehaviour
 
                             case "id":
                                 gd.ID = (string)obj.Value;
+                                break;
+
+                            case "pocketcoins":
+                                gd.PocketCoins = (int)obj.Value;
                                 break;
 
                         }

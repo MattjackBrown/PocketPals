@@ -19,6 +19,8 @@ public class GameData
 
     public float EXP;
 
+    public int PocketCoins = 0;
+
     public GameData()
     {
         DistanceTravelled = 0.0f;
@@ -42,7 +44,7 @@ public class GameData
 
     public void IncreaseExp(float delta)
     {
-        PopupHandler.Instance.AddPopup(Mathf.RoundToInt(delta) + "exp");
+        PopupHandler.Instance.AddPopup(Mathf.RoundToInt(delta));
         EXP += delta;
     }
 

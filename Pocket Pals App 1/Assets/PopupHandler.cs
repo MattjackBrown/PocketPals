@@ -11,21 +11,34 @@ public class PopupHandler : MonoBehaviour
     public List<PopupData> activePopups = new List<PopupData>();
     public List<Image> poolImage = new List<Image>();
     public List<Text> poolText = new List<Text>();
+    public Color expCol;
 
     public float popupDelay = 1.0f;
     public float speed = 2.0f;
+    public float countSpeed = 1.0f;
 
-    private Vector2 startPos;
-    private Vector2 endPos;
-    public GameObject endObj;
-    public GameObject startObj;
+    private Vector2 rStartPos;
+    private Vector2 rEndPos;
+    public GameObject rEndObj;
+    public GameObject rStartObj;
+
+    private Vector2 cStartPos;
+    private Vector2 cEndPos;
+    public GameObject cStartObj;
+    public GameObject cEndObj;
+
+    public bool debug = false;
 
 	// Use this for initialization
 	void Start ()
     {
         Instance = this;
-        startPos = startObj.transform.position;
-        endPos = endObj.transform.position;
+        rStartPos = rStartObj.transform.position;
+        rEndPos = rEndObj.transform.position;
+
+        cStartPos = cStartObj.transform.position;
+        cEndPos = cEndObj.transform.position;
+
         StartCoroutine(SpawnPopup());
 	}
 
@@ -39,13 +52,27 @@ public class PopupHandler : MonoBehaviour
             pd.Alpha += Time.deltaTime * speed;
             if (pd.ID == 0)
             {
-                pd.img.color = new Color(1, 1, 1, 1 - pd.Alpha);
-                pd.img.transform.position = Vector2.Lerp(startPos, endPos, pd.Alpha);
+                ItemDrop id = (ItemDrop)pd;
+                id.img.color = new Color(1, 1, 1, 1 - pd.Alpha);
+                id.img.transform.position = Vector2.Lerp(rStartPos, rEndPos, pd.Alpha);
             }
-            else if (pd.ID == 1)
+            else if (pd.ID == 1 )
             {
-                pd.text.color = new Color(0, 1,0, 1 - pd.Alpha);
-                pd.text.transform.position = Vector2.Lerp(startPos, endPos, pd.Alpha); 
+                ExpDrop ed = (ExpDrop)pd;
+                if (ed.countAlpha >= 1)
+                {
+                    Color c = new Color(expCol.r,expCol.g, expCol.b, 1);
+                    c.a = 1 - ed.Alpha;
+                    ed.text.color = c;
+                    ed.text.transform.position = Vector2.Lerp(cStartPos, cEndPos, pd.Alpha);
+                    
+                }
+                else
+                {
+                    ed.countAlpha += Time.deltaTime * countSpeed;
+                    ed.Alpha = 0.0f;
+                    ed.SetText();
+                }
             }
             if (pd.Alpha >= 1.0) AddToPool(pd);
         }
@@ -56,56 +83,65 @@ public class PopupHandler : MonoBehaviour
         activePopups.Remove(pd);
         if (pd.ID == 0)
         {
-            poolImage.Add(pd.img);
-            pd.img.color = new Color(1, 1, 1, 1);
-            pd.img.transform.position = startPos;
-            pd.img.gameObject.SetActive(false);
+            ItemDrop id = (ItemDrop)pd;
+            poolImage.Add(id.img);
+            id.img.color = new Color(1, 1, 1, 1);
+            id.img.transform.position = rStartPos;
+            id.img.gameObject.SetActive(false);
         }
         else if(pd.ID == 1)
         {
-            poolText.Add(pd.text);
-            pd.text.color = new Color(1, 1, 1, 1);
-            pd.text.transform.position = startPos;
-            pd.text.gameObject.SetActive(false);
+            ExpDrop ed = (ExpDrop)pd;
+            poolText.Add(ed.text);
+            ed.text.transform.position = cStartPos;
+            ed.text.gameObject.SetActive(false);
         }
     }
 
     public void AddPopup(Sprite spr)
     {
-        Popups.Enqueue(new PopupData(spr));
+        Popups.Enqueue(new ItemDrop(spr));
     }
 
-    public void AddPopup(string str)
+    public void AddPopup(int exp)
     {
-        Popups.Enqueue(new PopupData(str));
+        Popups.Enqueue(new ExpDrop(exp));
     }
 
     private IEnumerator SpawnPopup()
     {
         while (true)
         {
-            if (poolImage.Count >= 1 && Popups.Count >= 1)
+            if(debug)AddPopup(Random.Range(0, 100000));
+            if ( Popups.Count >= 1)
             {
                 PopupData pd = Popups.Dequeue();
-                if (pd.ID == 0)
+                if (pd.ID == 0 && poolImage.Count >= 1)
                 {
-                    pd.img = poolImage[0];
-                    pd.img.sprite = pd.spr;
-                    poolImage.Remove(pd.img);
-                    pd.img.transform.position = startPos;
-                    pd.img.gameObject.SetActive(true);
+                    ItemDrop id = (ItemDrop)pd;
+                    id.img = poolImage[0];
+                    id.img.sprite = id.spr;
+                    poolImage.Remove(id.img);
+                    id.img.transform.position = rStartPos;
+                    id.img.gameObject.SetActive(true);
                     activePopups.Add(pd);
                     SoundEffectHandler.Instance.PlaySound("pop");
                 }
-                else if (pd.ID == 1 && poolText.Count >=1)
+                else if (pd.ID == 1 && poolText.Count >= 4)
                 {
-                    pd.text = poolText[0];
-                    pd.text.text = pd.str;
-                    poolText.Remove(pd.text);
-                    pd.text.transform.position = startPos;
-                    pd.text.gameObject.SetActive(true);
+                    ExpDrop ed = (ExpDrop)pd;
+                    ed.text = poolText[0];
+                    ed.text.color =  new Color(expCol.r, expCol.g, expCol.b, 1);
+                    ed.SetText();
+                    poolText.Remove(ed.text);
+                    ed.text.transform.position = cStartPos;
+                    ed.text.gameObject.SetActive(true);
                     activePopups.Add(pd);
                     SoundEffectHandler.Instance.PlaySound("pop");
+                }
+                else
+                {
+                    Popups.Enqueue(pd);
                 }
                
             }
@@ -113,24 +149,4 @@ public class PopupHandler : MonoBehaviour
         }
     }
 }
-public class PopupData
-{
-    public int ID = 0;
-    public float Alpha = 0.0f;
 
-    public Image img;
-    public Sprite spr;
-
-    public  Text text;
-    public string str;
-    public PopupData(Sprite s)
-    {
-        spr = s;
-        ID = 0;
-    }
-    public PopupData(string t)
-    {
-        str = t;
-        ID = 1;
-    }
-}
