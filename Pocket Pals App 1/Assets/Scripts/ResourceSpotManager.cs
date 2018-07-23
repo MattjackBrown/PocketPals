@@ -35,6 +35,8 @@ public class ResourceSpotManager : MonoBehaviour
 
     public string destination = "/data.dat";
 
+    bool startedSpawning = false;
+
     // Use this for initialization
     void Start()
     {
@@ -49,12 +51,14 @@ public class ResourceSpotManager : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (startedSpawning == false) return;
         for(int i = 0; i<  usedSpots.Count; i++)
         {
             ResourceSpotSave rss = usedSpots[i];
             if (rss.cooldown <= 0.0f)
             {
                 usedSpots.Remove(rss);
+                SaveData();
                 TryUpdateResourceSpot(rss);
             }
             else { rss.cooldown -= Time.deltaTime; }
@@ -89,6 +93,7 @@ public class ResourceSpotManager : MonoBehaviour
 
             if (LatLonPositions != null)
             {
+                startedSpawning = true;
                 DespawnAll();
                 foreach (Vector2 v2 in LatLonPositions)
                 {
@@ -210,6 +215,11 @@ public class ResourceSpotManager : MonoBehaviour
             usedSpots = sd.usedSpots;
             file.Close();
 
+            foreach(ResourceSpotSave rss in sd.usedSpots)
+            {
+                Debug.Log(rss.cooldown);
+            }
+
             if (usedSpots == null)
             {
                 usedSpots = new List<ResourceSpotSave>();
@@ -222,11 +232,6 @@ public class ResourceSpotManager : MonoBehaviour
             Debug.Log("Failed to read exsisting load file. Creating a new one");
             ResetFile();
         }
-    }
-
-    private void OnDestroy()
-    {
-        SaveData();
     }
 }
 [System.Serializable]
