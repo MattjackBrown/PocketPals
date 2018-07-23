@@ -120,6 +120,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		miniGameEnvironment.SetActive (true);
 
 		// Set the Positions for the miniGame
+		// Check if a stationary animal first
 		if (pocketPal.maxPatrolSpeed > 0.0f) {
 
 			// Randomise the movement speed
@@ -130,7 +131,9 @@ public class CaptureMiniGame : MonoBehaviour {
 		} else {
 			patrolSpeed = 0.0f;
 			pocketPal.transform.position = stationaryPPalMinigamePosition;
-			pocketPal.transform.LookAt (new Vector3 (CameraController.Instance.transform.position.x, pocketPal.transform.position.y, CameraController.Instance.transform.position.z));
+			previousPosition = stationaryPPalMinigamePosition;
+			nextPosition = new Vector3 (CameraController.Instance.transform.position.x, pocketPal.transform.position.y, CameraController.Instance.transform.position.z);
+			pocketPal.transform.LookAt (nextPosition);
 		}
 
 		miniGamePlayerPosition = miniGamePlayerPositions [Random.Range (0, miniGamePlayerPositions.Count)].transform.position;
@@ -334,7 +337,7 @@ public class CaptureMiniGame : MonoBehaviour {
 					cameraMain.transform.LookAt (Vector3.Lerp (EGStartLookAtPos, pocketPal.GetLookAtPosition (), cutSceneLerp));
 
 					viewFinder.rectTransform.anchoredPosition = Vector2.Lerp (viewFinder.rectTransform.anchoredPosition, new Vector2 (0.0f, 0.0f), cutSceneLerp);
-					viewFinder.rectTransform.localScale = Vector3.Lerp (viewFinder.rectTransform.localScale, new Vector3 (60.0f, 60.0f, 1.0f), cutSceneLerp);
+					viewFinder.rectTransform.localScale = Vector3.Lerp (viewFinder.rectTransform.localScale, new Vector3 (55.0f, 55.0f, 1.0f), cutSceneLerp);
 
 				} else {
 
@@ -723,7 +726,9 @@ public class CaptureMiniGame : MonoBehaviour {
 
 				viewFinder.gameObject.SetActive (true);
 				centreImage.SetActive (true);
-            }
+			} else {
+				NotificationManager.Instance.InteractError("Find cameras at resource spots, or in the shop.");
+			}
 		}
 	}
 
@@ -731,18 +736,19 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		if (!specCameraUsed)
         {
-            if (playerProfile.ItemInv.UseItemWithID(GlobalVariables.ProCameraID))
-            {
-                camMovementSpeed = goodCamMovementSpeed;
-                specCameraUsed = true;
-                numGoodCamera--;
-				goodCamNumText.text = string.Concat ("x ", numGoodCamera.ToString());
+			if (playerProfile.ItemInv.UseItemWithID (GlobalVariables.ProCameraID)) {
+				camMovementSpeed = goodCamMovementSpeed;
+				specCameraUsed = true;
+				numGoodCamera--;
+				goodCamNumText.text = string.Concat ("x ", numGoodCamera.ToString ());
 				cameraChosen = true;
 				UIAnimationManager.Instance.CameraChosen ();
 
 				viewFinder.gameObject.SetActive (true);
 				centreImage.SetActive (true);
-            }
+			} else {
+				NotificationManager.Instance.InteractError("Find cameras at resource spots, or in the shop.");
+			}
         }
 	}
 }

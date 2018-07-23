@@ -8,6 +8,8 @@ public class PopupHandler : MonoBehaviour
     public static PopupHandler Instance { set; get; }
     private Queue<PopupData> Popups = new Queue<PopupData>();
 
+	public Animator animator;
+
     public List<PopupData> activePopups = new List<PopupData>();
     public List<Image> poolImage = new List<Image>();
     public List<Text> poolText = new List<Text>();
@@ -86,7 +88,9 @@ public class PopupHandler : MonoBehaviour
 			if (hasExp)
 				cBack.SetActive (true);
 			else
-				cBack.SetActive (false);
+				//cBack.SetActive (false);
+				animator.SetBool ("isVisible", false);
+
             if (pd.Alpha >= 1.0) AddToPool(pd);
         }
     }
@@ -141,7 +145,8 @@ public class PopupHandler : MonoBehaviour
                     SoundEffectHandler.Instance.PlaySound("pop");
                 }
                 else if (pd.ID == 1 && poolText.Count >=1 )
-                {
+				{
+					animator.SetBool ("isVisible", true);
                     ExpDrop ed = (ExpDrop)pd;
                     ed.text = poolText[0];
                     ed.text.color =  new Color(expCol.r, expCol.g, expCol.b, 1);
