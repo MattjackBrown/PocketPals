@@ -13,8 +13,9 @@ public class CaptureMiniGame : MonoBehaviour {
 	public Image viewFinder;
 	public Slider captureMeter;
 	public Slider berryMeter;
-	public Text berryCount;
+	public Text berryCount, menuText;
 	public RawImage captureImage;
+	public GameObject centreImage;
 
 	public Text PPalName;
 
@@ -87,6 +88,8 @@ public class CaptureMiniGame : MonoBehaviour {
 	Vector3 touchScreenSpace, touchStartScreenSpace, targetScreenSpace;
 	bool cameraChosen;
 
+	public GameObject stationaryPPalMinigameMarker;
+	Vector3 stationaryPPalMinigamePosition;
 
 	// Use this for initialization
 	void Start () {
@@ -100,6 +103,8 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		cameraMain = controls.cameraController;
 		viewFinderDefaultScale = viewFinder.rectTransform.localScale;
+
+		stationaryPPalMinigamePosition = stationaryPPalMinigameMarker.transform.position;
 	}
 
 	public void PlayButtonPressed () {
@@ -115,19 +120,31 @@ public class CaptureMiniGame : MonoBehaviour {
 		miniGameEnvironment.SetActive (true);
 
 		// Set the Positions for the miniGame
-		pocketPal.transform.position = miniGamePPalPosition;
+		if (pocketPal.maxPatrolSpeed > 0.0f) {
+
+			// Randomise the movement speed
+			patrolSpeed += Random.Range (-0.05f, 0.05f);
+			patrolSpeed = Mathf.Clamp (patrolSpeed, pocketPal.minPatrolSpeed, pocketPal.maxPatrolSpeed);
+			pocketPal.gameObject.transform.position = miniGamePPalPosition;
+
+		} else {
+			patrolSpeed = 0.0f;
+			pocketPal.transform.position = stationaryPPalMinigamePosition;
+			pocketPal.transform.LookAt (new Vector3 (CameraController.Instance.transform.position.x, pocketPal.transform.position.y, CameraController.Instance.transform.position.z));
+		}
+
 		miniGamePlayerPosition = miniGamePlayerPositions [Random.Range (0, miniGamePlayerPositions.Count)].transform.position;
 		controls.cameraController.transform.position = miniGamePlayerPosition;
 		controls.cameraController.transform.LookAt (new Vector3(0.0f, miniGamePPalPosition.y, 0.0f));
 
 		// Store the current position as the starting point 'previousPosition'
-		previousPosition = pocketPal.transform.position;
+		previousPosition = pocketPal.gameObject.transform.position;
 
 		// Set a randomly chosen endpoint
 		patrolIndex = Random.Range(0, patrolPositions.Count);
 		nextPosition = patrolPositions [patrolIndex].transform.position;
-		patrolDirection = (nextPosition - pocketPal.transform.position).normalized;
-		pocketPal.transform.LookAt (nextPosition);
+		patrolDirection = (nextPosition - pocketPal.gameObject.transform.position).normalized;
+		pocketPal.gameObject.transform.LookAt (nextPosition);
 
 		// Used to see the inventory for number of berries
 		playerProfile = LocalDataManager.Instance.GetData ();
@@ -204,7 +221,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		MinigameExit ();
 
 		// Place the uncaptured PPal back in the map
-		pocketPal.transform.position = PPalMapPosition;
+		pocketPal.gameObject.transform.position = PPalMapPosition;
 		pocketPal.InMinigame = false;
 	}
 
@@ -221,9 +238,14 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Set the text field in the congrats page
 		PPalName.text = pocketPal.name;
+		menuText.text = string.Concat ("The ", pocketPal.name, " is here somewhere... Find it, then choose your camera!");
 
 		// A passive control scheme waiting for a button press
 		controls.MenuControls ();
+
+		// Choose a random patrol point as the starting PPal location
+		patrolIndex = Random.Range(0, patrolPositions.Count);
+		miniGamePPalPosition = patrolPositions [patrolIndex].transform.position;
 	}
 
 	public void UpdateTimer () {
@@ -292,7 +314,7 @@ public class CaptureMiniGame : MonoBehaviour {
 					MinigameExit ();
 
 					// Place the uncaptured PPal back in the map
-					pocketPal.transform.position = PPalMapPosition;
+					pocketPal.gameObject.transform.position = PPalMapPosition;
 					pocketPal.InMinigame = false;
 
 					// Change the animation and avatar to the rest style
@@ -372,7 +394,7 @@ public class CaptureMiniGame : MonoBehaviour {
 			patrolLerp = 0.0f;
 
 			// Set the new position values, Don't use old nextPosition as the new start point as it may have overshot that position
-			previousPosition = pocketPal.transform.position;
+			previousPosition = pocketPal.gameObject.transform.position;
 
 			// Pick a random next patrol position that is not the last one. Do by repeatedly picking a random index until it does not match the current index
 			int tempIndex;
@@ -390,20 +412,20 @@ public class CaptureMiniGame : MonoBehaviour {
 
 			// Set up the rotation values
 			// Store the current rotation we will return to it in just a moment
-			Quaternion startRot = pocketPal.transform.rotation;
+			Quaternion startRot = pocketPal.gameObject.transform.rotation;
 
 			// Used to store a local value of the z rotation that is not limited by 0 - 360 bounds like a frame by grame get
 			currentYRotation = startRot.eulerAngles.y;
 
 			// Use the look at function to point the PPal at the target direction. We need to do it this way as each PPal prefab has a shitty and
 			// different rotation applied to it's shitty import transform
-			pocketPal.transform.LookAt (nextPosition);
+			pocketPal.gameObject.transform.LookAt (nextPosition);
 
 			// Store the 'looking at' rotation as the targetYRotation
-			targetYRotation = pocketPal.transform.rotation.eulerAngles.y;
+			targetYRotation = pocketPal.gameObject.transform.rotation.eulerAngles.y;
 
 			// Once we have the values we need, then set the rotation back to where it was
-			pocketPal.transform.rotation = startRot;
+			pocketPal.gameObject.transform.rotation = startRot;
 
 			// Adjust for going round the 360deg -> 0 degrees point, We only want to rotate clockwise
 			while (targetYRotation < currentYRotation)
@@ -431,7 +453,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 			// Set the PPal transform
 //			pocketPal.transform.position = Vector3.Lerp (previousPosition, nextPosition, patrolLerp);
-			pocketPal.transform.position += patrolDirection * patrolSpeed;
+			pocketPal.gameObject.transform.position += patrolDirection * patrolSpeed;
 		}
 
 		if (cameraChosen) {
@@ -459,12 +481,12 @@ public class CaptureMiniGame : MonoBehaviour {
 
 			// Finish up
 			// Finish the final stage of the rotation
-			pocketPal.transform.LookAt (nextPosition);
+			pocketPal.gameObject.transform.LookAt (nextPosition);
 
-			patrolDirection = (nextPosition - pocketPal.transform.position).normalized;
+			patrolDirection = (nextPosition - pocketPal.gameObject.transform.position).normalized;
 
 			// Randomise the movement speed
-			patrolSpeed += Random.Range (-0.1f, 0.1f);
+			patrolSpeed += Random.Range (-0.05f, 0.05f);
 			patrolSpeed = Mathf.Clamp (patrolSpeed, pocketPal.minPatrolSpeed, pocketPal.maxPatrolSpeed);
 
 			// Tell the update driven function to now move the PPal instead of rotate
@@ -549,6 +571,8 @@ public class CaptureMiniGame : MonoBehaviour {
 		endGameSequence = true;
 
 		//StartCoroutine(SlowMo());
+
+		centreImage.SetActive (false);
 	}
 
 	// Fuck yeah that's the good stuff
@@ -698,6 +722,7 @@ public class CaptureMiniGame : MonoBehaviour {
 				UIAnimationManager.Instance.CameraChosen ();
 
 				viewFinder.gameObject.SetActive (true);
+				centreImage.SetActive (true);
             }
 		}
 	}
@@ -716,6 +741,7 @@ public class CaptureMiniGame : MonoBehaviour {
 				UIAnimationManager.Instance.CameraChosen ();
 
 				viewFinder.gameObject.SetActive (true);
+				centreImage.SetActive (true);
             }
         }
 	}
