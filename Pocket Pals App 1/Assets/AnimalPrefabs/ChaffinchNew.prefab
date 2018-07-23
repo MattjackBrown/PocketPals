@@ -1162,14 +1162,16 @@ MonoBehaviour:
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
   maxSpawnExp: 1000
-  averageSpawnSize: 5
-  sizeVariance: 0.5
-  averageAgro: 5
-  agroVariance: 0.5
+  avgWeight: 5
+  weightVar: 0.5
+  avgLength: 5
+  lengthVar: 0.5
   type: 2
   name: Chaffinch
   FactSheet: {fileID: 21300000, guid: 8a421902461509645ac72913d9fa05e2, type: 3}
   Rarity: 3
+  minPatrolSpeed: 0.1
+  maxPatrolSpeed: 0.3
 --- !u!137 &137938593677169372
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

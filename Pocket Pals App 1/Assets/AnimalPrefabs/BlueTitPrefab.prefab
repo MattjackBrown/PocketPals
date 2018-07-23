@@ -1423,14 +1423,16 @@ MonoBehaviour:
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
   maxSpawnExp: 500
-  averageSpawnSize: 5
-  sizeVariance: 0.5
-  averageAgro: 5
-  agroVariance: 0.5
+  avgWeight: 5
+  weightVar: 0.5
+  avgLength: 5
+  lengthVar: 0.5
   type: 2
   name: Bluetit
   FactSheet: {fileID: 21300000, guid: e06ea0169e560e248b28691892cac0d8, type: 3}
   Rarity: 2
+  minPatrolSpeed: 0.1
+  maxPatrolSpeed: 0.3
 --- !u!137 &137126934811431208
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -62,6 +62,9 @@ public class PocketPalParent : MonoBehaviour
     [Tooltip("The rarity of the spawn")]
     public float Rarity = 10.0f;
 
+	public float minPatrolSpeed = 0.0f;
+	public float maxPatrolSpeed = 0.0f;
+
 //	public MovieTexture movieTexture;
 //	public Texture leafTexture;
 //	RawImage leafFlutterRawImage;

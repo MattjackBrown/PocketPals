@@ -1310,14 +1310,16 @@ MonoBehaviour:
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
   maxSpawnExp: 5000
-  averageSpawnSize: 5
-  sizeVariance: 0.5
-  averageAgro: 5
-  agroVariance: 0.5
+  avgWeight: 5
+  weightVar: 0.5
+  avgLength: 5
+  lengthVar: 0.5
   type: 2
   name: Red Deer
   FactSheet: {fileID: 21300000, guid: 5311bd9df774a04438882cd8dbc1fae8, type: 3}
   Rarity: 4
+  minPatrolSpeed: 0.05
+  maxPatrolSpeed: 0.2
 --- !u!137 &137389024616703732
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
