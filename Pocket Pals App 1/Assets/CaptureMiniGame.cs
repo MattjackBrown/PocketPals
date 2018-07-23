@@ -465,7 +465,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 			// Randomise the movement speed
 			patrolSpeed += Random.Range (-0.1f, 0.1f);
-			patrolSpeed = Mathf.Clamp (patrolSpeed, 0.1f, 0.4f);
+			patrolSpeed = Mathf.Clamp (patrolSpeed, 0.1f, 0.3f);
 
 			// Tell the update driven function to now move the PPal instead of rotate
 			needToRotate = false;

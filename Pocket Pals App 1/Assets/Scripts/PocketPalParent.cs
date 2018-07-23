@@ -21,7 +21,7 @@ public enum SpawnType
 }
 
 // Including this script will create a RawImage component
-[RequireComponent(typeof(RawImage))]
+//[RequireComponent(typeof(RawImage))]
 
 public class PocketPalParent : MonoBehaviour
 {
@@ -62,7 +62,7 @@ public class PocketPalParent : MonoBehaviour
 
 //	public MovieTexture movieTexture;
 //	public Texture leafTexture;
-	RawImage leafFlutterRawImage;
+//	RawImage leafFlutterRawImage;
 
     
 	// Use this for initialization
