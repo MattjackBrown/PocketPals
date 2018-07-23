@@ -38,7 +38,7 @@ public class GPS : MonoBehaviour
 	public float fakeLong = -5.126206f;
 
 	//zoom of the map
-	private int zoom = 17;
+	private int zoom = 16;
 
 	//movement variables
 	public float movementSpeed = 1f;

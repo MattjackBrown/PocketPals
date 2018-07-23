@@ -26,6 +26,7 @@ public class PopupHandler : MonoBehaviour
     private Vector2 cEndPos;
     public GameObject cStartObj;
     public GameObject cEndObj;
+	public GameObject cBack;
 
     public bool debug = false;
 
@@ -45,7 +46,11 @@ public class PopupHandler : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (activePopups.Count < 1) return;
+		if (activePopups.Count < 1) {
+			cBack.SetActive (false);
+			return;
+		}
+		bool hasExp = false;
         for(int j = 0; j< activePopups.Count; j++)
         {
             PopupData pd = activePopups[j];
@@ -58,9 +63,13 @@ public class PopupHandler : MonoBehaviour
             }
             else if (pd.ID == 1 )
             {
+				hasExp = true;
                 ExpDrop ed = (ExpDrop)pd;
                 if (ed.countAlpha >= 1)
                 {
+					// Play video here
+
+
                     Color c = new Color(expCol.r,expCol.g, expCol.b, 1);
                     c.a = 1 - ed.Alpha;
                     ed.text.color = c;
@@ -74,6 +83,10 @@ public class PopupHandler : MonoBehaviour
                     ed.SetText();
                 }
             }
+			if (hasExp)
+				cBack.SetActive (true);
+			else
+				cBack.SetActive (false);
             if (pd.Alpha >= 1.0) AddToPool(pd);
         }
     }
@@ -127,7 +140,7 @@ public class PopupHandler : MonoBehaviour
                     activePopups.Add(pd);
                     SoundEffectHandler.Instance.PlaySound("pop");
                 }
-                else if (pd.ID == 1 && poolText.Count >= 4)
+                else if (pd.ID == 1 && poolText.Count >=1 )
                 {
                     ExpDrop ed = (ExpDrop)pd;
                     ed.text = poolText[0];
