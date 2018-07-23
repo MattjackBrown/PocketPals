@@ -11,6 +11,11 @@ public class VGUIManager : MonoBehaviour
 
     public Canvas RoamCanvas;
 
+    public GameObject statBoard;
+    public GameObject factBoard;
+    public Text weight;
+    public Text length;
+
     public Text nameText;
 //    public Text agressionText;
     public Text caughtText;
@@ -40,6 +45,32 @@ public class VGUIManager : MonoBehaviour
 	void Update () {
 		
 	}
+
+    public void Up()
+    {
+        if (!statBoard.activeSelf)
+        {
+            statBoard.SetActive(true);
+        }
+        else
+        {
+            statBoard.SetActive(false);
+        }
+
+    }
+
+    public void Down()
+    {
+        if (!statBoard.activeSelf)
+        {
+            statBoard.SetActive(true);
+        }
+        else
+        {
+            statBoard.SetActive(false);
+        }
+    }
+    
 
     public void ToggleInspect()
     {
@@ -73,6 +104,10 @@ public class VGUIManager : MonoBehaviour
     {
         if (currentDisplayData != null)
         {
+            factBoard.GetComponent<Image>().sprite = AssetManager.Instance.GetFactSheet(currentDisplayData.ID);
+            weight.text = currentDisplayData.GetWeight().ToString() + "Kg";
+            length.text = currentDisplayData.GetLength().ToString() + "cm";
+
             nameText.text = currentDisplayData.name;
 //            agressionText.text = currentDisplayData.GetAgression().ToString();
             caughtText.text = currentDisplayData.numberCaught.ToString();

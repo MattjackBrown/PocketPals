@@ -435,8 +435,8 @@ public class ServerDataManager : MonoBehaviour
                                 case "name":
                                     ppd.name = Convert.ToString(child.Value);
                                     break;
-                                case "size":
-                                    ppd.size = Convert.ToSingle(child.Value);
+                                case "length":
+                                    ppd.length = Convert.ToSingle(child.Value);
                                     break;
                                 case "numbercaught":
                                     ppd.numberCaught = Convert.ToInt32(child.Value);

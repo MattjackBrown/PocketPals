@@ -43,11 +43,11 @@ public class PocketPalParent : MonoBehaviour
 
     public float maxSpawnExp = 1000.0f;
 
-    public float averageSpawnSize = 5.0f;
-    public float sizeVariance = 0.5f;
+    public float avgWeight = 5.0f;
+    public float weightVar = 0.5f;
 
-    public float averageAgro = 5.0f;
-    public float agroVariance = 0.5f;
+    public float avgLength = 5.0f;
+    public float lengthVar = 0.5f;
 
     public SpawnType type = SpawnType.none;
 
@@ -56,6 +56,8 @@ public class PocketPalParent : MonoBehaviour
     public bool InMinigame { set; get; }
 
     private PocketPalData pocketPalData;
+
+    public Sprite FactSheet;
 
     [Tooltip("The rarity of the spawn")]
     public float Rarity = 10.0f;
@@ -112,13 +114,13 @@ public class PocketPalParent : MonoBehaviour
         }
 
         //get random size inbetween points using size variance.
-        float tSizeVar = averageSpawnSize * sizeVariance;
-        float size = Random.Range(averageSpawnSize - tSizeVar, averageSpawnSize + tSizeVar);
+        float tSizeVar = avgWeight * weightVar;
+        float weight = Random.Range(avgWeight - tSizeVar, avgWeight + tSizeVar);
 
-        float tAgroVar = averageAgro * agroVariance;
-        float agro = Random.Range(averageAgro - tAgroVar, averageAgro + tAgroVar);
+        float tAgroVar = avgLength * lengthVar;
+        float length = Random.Range(avgLength - tAgroVar, avgLength + tAgroVar);
 
-        pocketPalData = new PocketPalData(name, PocketPalID,exp, size, Rarity);
+        pocketPalData = new PocketPalData(name, PocketPalID,exp, weight ,length, Rarity);
         return pocketPalData;
     }
 

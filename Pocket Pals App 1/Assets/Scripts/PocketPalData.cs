@@ -10,10 +10,10 @@ public class PocketPalData
     public int ID = 0;
 
     public int numberCaught = 1;
-    public float weight = 0;
     public float EXP = 0;
 
-    public float size = 0;
+    public float weight = 0;
+    public float length = 0;
     public float baseRarity = 0;
 
     public int HasChampion = 0;
@@ -22,20 +22,26 @@ public class PocketPalData
     public string FirstSeen= "";
     public string LastSeen = "";
 
-    public PocketPalData(string str, int id, float exp, float siz, float rare)
+    public PocketPalData(string str, int id, float exp, float w, float l,  float rare)
     {
         name = str;
         ID = id;
         EXP = exp;
-        size = siz;
+        weight = w;
+        length =  l;
         baseRarity = rare;
     }
 
     public PocketPalData() { }
 
-    public float GetSize()
+    public float GetWeight()
     {
-        return (float)Math.Round(size, 1);
+        return (float)Math.Round(weight, 1);
+    }
+
+    public float GetLength()
+    {
+        return (float)Math.Round(length, 1);
     }
 
     public string GetLastSeen()
@@ -81,7 +87,7 @@ public class PocketPalData
     public void MergePocketPal(PocketPalData ppd, float expMultiplier)
     {
         if (weight > ppd.weight) weight = ppd.weight;
-        if (size > ppd.size) size = ppd.size;
+        if (length > ppd.length) length = ppd.length;
         if (name != ppd.name) name = ppd.name;
         if (baseRarity != ppd.baseRarity) baseRarity = ppd.baseRarity;
         if(FirstSeen == "") FirstSeen = DateTime.Now.ToString("dd/MM/yyyy");

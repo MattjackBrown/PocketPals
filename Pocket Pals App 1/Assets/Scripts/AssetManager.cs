@@ -43,6 +43,13 @@ public class AssetManager : MonoBehaviour {
         return null;
     }
 
+    public Sprite GetFactSheet(int id)
+    {
+        GameObject obj = GetPocketPalFromID(id);
+        PocketPalParent ppp = obj.GetComponent<PocketPalParent>();
+        return ppp.FactSheet;
+    }
+
     public List<PocketPalParent> GetRandomPocketpals(int num, int ppalID)
     {
         List<PocketPalParent> ppals = new List<PocketPalParent>();
