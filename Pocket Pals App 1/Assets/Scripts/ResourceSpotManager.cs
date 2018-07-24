@@ -29,6 +29,8 @@ public class ResourceSpotManager : MonoBehaviour
 
     public int number = 15;
 
+	public float MaxNumOfUsedSpots = 15;
+
     public float CoolDownTimeSeconds = 300.0f;
 
     public float checkThreshold = 0.01f;
@@ -52,6 +54,18 @@ public class ResourceSpotManager : MonoBehaviour
     void FixedUpdate()
     {
         if (startedSpawning == false) return;
+
+		float exess = usedSpots.Count - MaxNumOfUsedSpots;
+		if(exess >= 1)
+		{
+			for(int j =0; j < exess; j++)
+			{
+				ResourceSpotSave rss = usedSpots [j];
+				usedSpots.Remove (rss);
+				TryUpdateResourceSpot (rss);
+			}
+			SaveData ();
+		}
         for(int i = 0; i<  usedSpots.Count; i++)
         {
             ResourceSpotSave rss = usedSpots[i];

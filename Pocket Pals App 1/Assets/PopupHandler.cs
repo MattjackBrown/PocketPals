@@ -85,14 +85,15 @@ public class PopupHandler : MonoBehaviour
                     ed.SetText();
                 }
             }
-			if (hasExp)
-				cBack.SetActive (true);
-			else
-				//cBack.SetActive (false);
-				animator.SetBool ("isVisible", false);
+
 
             if (pd.Alpha >= 1.0) AddToPool(pd);
         }
+		if (hasExp)
+			cBack.SetActive (true);
+		else
+			//cBack.SetActive (false);
+			animator.SetBool ("isVisible", false);
     }
 
     private void AddToPool(PopupData pd)

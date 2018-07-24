@@ -5,8 +5,9 @@ using UnityEngine;
 public class CharacterCustomisation : MonoBehaviour {
 
 	public GameObject hairObject;
-	public List<GameObject> hairChoices;
-	int hairIndex = 0;
+	public List<GameObject> freeHairChoices;
+	public List<GameObject> paidHairChoices;
+	int freeThreshold = 0;
 
 	public Material bagMaterial;
 	public List<Texture2D> bagChoices;
@@ -92,4 +93,12 @@ public class CharacterCustomisation : MonoBehaviour {
 	public void SeePreviousBootsChoice () {
 
 	}
+
+	public class CharacterStyleData 
+	{
+		int HairID= 0;
+		int PoseId= 0;
+
+	}
+		
 }
