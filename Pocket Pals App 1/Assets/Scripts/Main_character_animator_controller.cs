@@ -98,4 +98,28 @@ public class Main_character_animator_controller : MonoBehaviour
 			}
         }
     }
+
+	public void ChoosePoseNone () {
+		selectedPose = Pose.None;
+	}
+
+	public void ChoosePoseBins () {
+		selectedPose = Pose.Bins;
+	}
+
+	public void ChoosePoseDab () {
+		selectedPose = Pose.Dab;
+	}
+
+	public void ChoosePoseFloss () {
+		selectedPose = Pose.Floss;
+	}
+
+	public void ChoosePoseNet () {
+		selectedPose = Pose.Net;
+	}
+
+	public void ChoosePoseStar () {
+		selectedPose = Pose.Star;
+	}
 }

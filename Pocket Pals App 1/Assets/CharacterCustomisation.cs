@@ -27,27 +27,27 @@ public class CharacterCustomisation : MonoBehaviour {
 	freeSkinChoices,
 	freeBootsChoices, paidBootsChoices;
 
-	public int hairMeshIndex, hairMatIndex, bagIndex, shirtIndex, shortsIndex, skinIndex, bootsIndex, poseIndex;
+	int hairMeshIndex, hairMatIndex, bagIndex, shirtIndex, shortsIndex, skinIndex, bootsIndex, poseIndex;
 
-	public bool clothesKitUnlocked = false;
+	public bool customisationKitUnlocked = false;
 	public CharacterStyleData CharStyleData;
+
+	public Main_character_animator_controller poseController;
+	public NewCharAnimControllerScript animController;
 
 	public void Start () {
 
 		// Just in case, initialise the var
 		CharStyleData = new CharacterStyleData ();
+
+		UpdateMenuCharacter ();
 	}
-
-
-	// Need to figure out how to best control the pose choice. It's handled in the 'Player' prefab -> Main_Character_Anim_Controller script
-	// Maybe a dictionary?
-
 
 	// Populates the lists further if the add on items have been purchased
 	public void InitChoices () {
 
 		// If clothes kit bought, make sure that the lists contain the unlocked items
-		if (clothesKitUnlocked) {
+		if (customisationKitUnlocked) {
 
 			foreach (Mesh mesh in paidHairChoices) {
 				if (!freeHairChoices.Contains (mesh)) {
@@ -93,6 +93,9 @@ public class CharacterCustomisation : MonoBehaviour {
 
 		// Copy loadout onto the menu avatar
 		UpdateMenuCharacter ();
+
+		// Set as idle anim
+		animController.Idle ();
 	}
 
 	// Used on menu init. Copies the loadout from the map character onto the temporary menu character
@@ -313,6 +316,74 @@ public class CharacterCustomisation : MonoBehaviour {
 		}
 
 		menuBootsMaterial.mainTexture = freeBootsChoices [bootsIndex];
+	}
+
+	// All these just to make the button presses all coordinate through this script
+	// TODO Make the green ticks switch over if successful
+	public void ChoosePoseNone () {
+		if (customisationKitUnlocked) {
+			poseController.ChoosePoseNone ();
+		} else {
+			// Preview? Show message to say buy?
+		}
+
+		// Set the avatar's animation
+		animController.Idle ();
+	}
+
+	public void ChoosePoseBins () {
+		if (customisationKitUnlocked) {
+			poseController.ChoosePoseBins ();
+		} else {
+			// Preview? Show message to say buy?
+		}
+
+		// Set the avatar's animation
+		animController.Bins ();
+	}
+
+	public void ChoosePoseDab () {
+		if (customisationKitUnlocked) {
+			poseController.ChoosePoseDab ();
+		} else {
+			// Preview? Show message to say buy?
+		}
+
+		// Set the avatar's animation
+		animController.Dab ();
+	}
+
+	public void ChoosePoseFloss () {
+		if (customisationKitUnlocked) {
+			poseController.ChoosePoseFloss ();
+		} else {
+			// Preview? Show message to say buy?
+		}
+
+		// Set the avatar's animation
+		animController.Floss ();
+	}
+
+	public void ChoosePoseNet () {
+		if (customisationKitUnlocked) {
+			poseController.ChoosePoseNet ();
+		} else {
+			// Preview? Show message to say buy?
+		}
+
+		// Set the avatar's animation
+		animController.Net ();
+	}
+
+	public void ChoosePoseStar () {
+		if (customisationKitUnlocked) {
+			poseController.ChoosePoseStar ();
+		} else {
+			// Preview? Show message to say buy?
+		}
+
+		// Set the avatar's animation
+		animController.Star ();
 	}
 }
 

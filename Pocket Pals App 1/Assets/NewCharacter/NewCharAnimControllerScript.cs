@@ -17,7 +17,7 @@ public class NewCharAnimControllerScript : MonoBehaviour {
 	string isStar = "isStar";
 
 
-	void ResetPoses () {
+	public void ResetPoses () {
 		animator.SetBool (isBins, false);
 		animator.SetBool (isDab, false);
 		animator.SetBool (isFloss, false);
