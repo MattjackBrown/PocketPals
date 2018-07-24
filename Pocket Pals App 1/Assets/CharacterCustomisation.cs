@@ -4,48 +4,45 @@ using UnityEngine;
 
 public class CharacterCustomisation : MonoBehaviour {
 
-	public GameObject hairObject;
-	public List<GameObject> freeHairChoices;
-	public List<GameObject> paidHairChoices;
-	int freeThreshold = 0;
+	public GameObject menuPlayerObject, realPlayerObject;
+	public MeshFilter menuHairMesh, realHairMesh;
+	public List<Mesh> freeHairChoices, paidHairChoices;
 
-	public Material bagMaterial;
-	public List<Texture2D> bagChoices;
-	int bagIndex = 0;
+	public Material
+	menuHairMaterial, realHairMaterial,
+	menuBagMaterial, realBagMaterial,
+	menuShirtMaterial, realShirtMaterial,
+	menuShortsMaterial, realShortsMaterial,
+	menuSkinMaterial, realSkinMaterial,
+	menuBootsMaterial, realBootsMaterial;
 
-	public Material shirtMaterial;
-	public List<Texture2D> shirtChoices;
-	int shirtIndex = 0;
-
-	public Material shortsMaterial;
-	public List<Texture2D> shortsChoices;
-	int shortsIndex = 0;
-
-	public Material skinMaterial;
-	public List<Texture2D> skinChoices;
-	int skinIndex = 0;
-
-	public Material bootsMaterial;
-	public List<Texture2D> bootsChoices;
-	int bootsIndex = 0;
+	public List<Texture2D>
+	freeHairMatChoices, paidHairMatChoices,
+	freeBagChoices,
+	freeShirtChoices, paidShirtChoices,
+	freeShortsChoices,
+	freeSkinChoices,
+	freeBootsChoices, paidBootsChoices;
 
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+
+	// Hair mesh
+	public void SeeNextHairMeshChoice () {
+
+//		menuHairMesh.mesh = 
 		
 	}
 
-	// Hair
-	public void SeeNextHairChoice () {
-		
+	public void SeePreviousHairMeshChoice () {
+
 	}
 
-	public void SeePreviousHairChoice () {
+	// Hair material
+	public void SeeNextHairMaterialChoice () {
+
+	}
+
+	public void SeePreviousHairMaterialChoice () {
 
 	}
 
@@ -94,10 +91,40 @@ public class CharacterCustomisation : MonoBehaviour {
 
 	}
 
+	public void UpdateMenuCharacter () {
+
+		menuHairMesh = realHairMesh;
+		menuHairMaterial = realHairMaterial;
+		menuBagMaterial = realBagMaterial;
+		menuShirtMaterial = realShirtMaterial;
+		menuShortsMaterial = realShortsMaterial;
+		menuSkinMaterial = realSkinMaterial;
+		menuBootsMaterial = realBootsMaterial;
+	}
+
+	public void UpdateRealCharacter () {
+
+		realHairMesh = menuHairMesh;
+		realHairMaterial = menuHairMaterial;
+		realBagMaterial = menuBagMaterial;
+		realShirtMaterial = menuShirtMaterial;
+		realShortsMaterial = menuShortsMaterial;
+		realSkinMaterial = menuSkinMaterial;
+		realBootsMaterial = menuBootsMaterial;
+	}
+
+
+
 	public class CharacterStyleData 
 	{
-		int HairID= 0;
-		int PoseId= 0;
+		public int HairMeshID = 0;
+		public int HairMatID = 0;
+		public int BagID = 0;
+		public int ShirtID = 0;
+		public int ShortsID = 0;
+		public int SkinID = 0;
+		public int BootsID = 0;
+		public int PoseID = 0;
 
 	}
 		
