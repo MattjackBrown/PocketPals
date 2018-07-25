@@ -15,6 +15,7 @@ public class NewCharAnimControllerScript : MonoBehaviour {
 	string isFloss = "isFloss";
 	string isNet = "isNet";
 	string isStar = "isStar";
+	string isHandsHips = "isHandsHips";
 
 
 	public void ResetPoses () {
@@ -23,6 +24,7 @@ public class NewCharAnimControllerScript : MonoBehaviour {
 		animator.SetBool (isFloss, false);
 		animator.SetBool (isNet, false);
 		animator.SetBool (isStar, false);
+		animator.SetBool (isHandsHips, false);
 
 		net.SetActive (false);
 		bins.SetActive (false);
@@ -75,4 +77,8 @@ public class NewCharAnimControllerScript : MonoBehaviour {
 		animator.SetBool (isStar, true);
 	}
 
+	public void HandsHips () {
+		ResetPoses ();
+		animator.SetBool (isHandsHips, true);
+	}
 }

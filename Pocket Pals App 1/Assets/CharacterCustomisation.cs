@@ -385,6 +385,17 @@ public class CharacterCustomisation : MonoBehaviour {
 		// Set the avatar's animation
 		animController.Star ();
 	}
+
+	public void ChoosePoseHandsHips () {
+		if (customisationKitUnlocked) {
+			poseController.ChoosePoseHandsHips ();
+		} else {
+			// Preview? Show message to say buy?
+		}
+
+		// Set the avatar's animation
+		animController.HandsHips ();
+	}
 }
 
 

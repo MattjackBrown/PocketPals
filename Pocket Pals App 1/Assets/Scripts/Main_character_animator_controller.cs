@@ -19,7 +19,8 @@ public class Main_character_animator_controller : MonoBehaviour
 		Dab,
 		Floss,
 		Net,
-		Star
+		Star,
+		HandsHips
 	}
 
 	public Pose selectedPose = Pose.None;
@@ -90,6 +91,10 @@ public class Main_character_animator_controller : MonoBehaviour
 						newCharAnimator.Star ();
 						break;
 
+					case Pose.HandsHips:
+						newCharAnimator.HandsHips ();
+						break;
+
 					}
 				} else {
 					
@@ -121,5 +126,9 @@ public class Main_character_animator_controller : MonoBehaviour
 
 	public void ChoosePoseStar () {
 		selectedPose = Pose.Star;
+	}
+
+	public void ChoosePoseHandsHips () {
+		selectedPose = Pose.HandsHips;
 	}
 }
