@@ -41,8 +41,8 @@ public class GPS : MonoBehaviour
 	private int zoom = 16;
 
 	//movement variables
-	public float movementSpeed = 1f;
-	public float MovementAccuracy = 0.2f;
+	private float movementSpeed = 1f;
+	public float MovementAccuracy = 0.01f;
 	public float rotationSpeed = 2.0f;
 	public float resetDistance = 2500.0f;
 
@@ -60,10 +60,19 @@ public class GPS : MonoBehaviour
 	private bool IsDebug =false;
     private bool hasStartedCoroutines = false;
 
-	Vector3 destination = new Vector3(0,0,0);
+	public Vector3 destination = new Vector3(0,0,0); 
+	public Vector3 LastDestination = new Vector3(0, 0, 0);
+    public Vector3 DeadReckonPos = new Vector3(0,0,0);
 
-	Vector3 LastDestination = new Vector3(0, 0, 0);
+    public float DeadReckonThreshHold = 0.5f;
+    public float DeadReckonAmount = 0.1f;
+    public float gpsFrequency = 0.0f;
+    public float moveAlpha = 0.0f;
+    public bool ShouldDeadReckon = false;
 
+    public bool fakeGPs = false;
+    public Vector2 fakeLatLonIncrement = new Vector2(0.0001f, 0.0001f);
+    public float fakeDelayTime = 1.0f;
     private float oldDist = 0.0f;
 
     public Material MapMaterial;
@@ -110,6 +119,19 @@ public class GPS : MonoBehaviour
         Debug.Log("Found location services");
 		HasGps = true;
 	}
+
+    private IEnumerator FakeMove()
+    {
+        while (true)
+        {
+            if (fakeGPs)
+            {
+                fakeLat += fakeLatLonIncrement.x;
+                fakeLong += fakeLatLonIncrement.y;
+            }
+            yield return new WaitForSeconds(fakeDelayTime);
+        }
+    }
 
 	//Destroys and creates a new map at the location of the player. 
 	public void UpdateMap()
@@ -247,7 +269,10 @@ public class GPS : MonoBehaviour
 
         if (!hasStartedCoroutines && currentMap != null) StartCoroutines();
 
-		if (HasGps)
+        gpsFrequency += Time.deltaTime;
+
+
+        if (HasGps)
 		{
 			//Set the current position used for seeding
 			CurrentLat = Input.location.lastData.latitude;
@@ -257,11 +282,7 @@ public class GPS : MonoBehaviour
 
 			Vector3 altEnd = GetWorldPos(CurrentLat, CurrentLong);
 
-			SetPlayerMovePoint(altEnd);
-
-			//move
-			MovePlayer();
-
+			StartPlayerMove(altEnd);
 		}
 		else if (IsDebug)
 		{
@@ -274,12 +295,10 @@ public class GPS : MonoBehaviour
 
 			Vector3 altEnd = GetWorldPos(CurrentLat, CurrentLong);
 
-			SetPlayerMovePoint(altEnd);
-
-			//move
-			MovePlayer();
+			StartPlayerMove(altEnd);
 		}
-	}
+        if (Moving)MovePlayer();
+    }
 
     public void ToggleDayNight()
     {
@@ -305,33 +324,89 @@ public class GPS : MonoBehaviour
         fakeLong = (float)latlon.y;
     }
 
-	public void SetPlayerMovePoint(Vector3 endPoint)
+	public void StartPlayerMove(Vector3 endPoint)
 	{
-		LastDestination = destination;
-		destination = endPoint;
+        Vector3 dir = endPoint - destination;
+        Debug.Log("Distance between Updates: " + dir );
 
-        //Get rough distance
-        float nDistance = GetDistanceMeters(StartLat, StartLong, CurrentLat, CurrentLong);
-        float delta = Math.Abs(nDistance - oldDist)/1000;
-        oldDist = nDistance;
-        LocalDataManager.Instance.UpdateDistance(delta);
+        if (Mathf.Abs(Vector3.Magnitude(dir)) >= DeadReckonThreshHold)
+        {
+            if (gpsFrequency <= 1) gpsFrequency = 1;
+            float speed = Vector3.Magnitude(dir) / gpsFrequency;
+            Debug.Log("Speed" + speed);
 
-		Moving = true;
+            dir = dir.normalized * speed * DeadReckonAmount;
+
+            DeadReckonPos = endPoint + dir;
+
+            ShouldDeadReckon = true;
+
+            movementSpeed = gpsFrequency + 1;
+
+            gpsFrequency = 0.0f;
+
+            moveAlpha = 0.0f;
+
+            LastDestination = girl.transform.position;
+            destination = endPoint;
+
+            
+            //Get rough distance
+            float nDistance = GetDistanceMeters(StartLat, StartLong, CurrentLat, CurrentLong);
+            float delta = Math.Abs(nDistance - oldDist) / 1000;
+            oldDist = nDistance;
+            LocalDataManager.Instance.UpdateDistance(delta);
+
+            Moving = true;
+
+        }
+        else
+        {
+            if (!Moving && Vector3.Magnitude(destination-girl.transform.position) > MovementAccuracy)
+            {
+                destination = endPoint;
+                Moving = true;
+                moveAlpha = 0.0f;
+
+            }
+        }
+
+
+
 	}
 
 	private void MovePlayer()
 	{
-		//CalcDistance
-		float distance = Vector3.SqrMagnitude(girl.transform.position - destination);
+
+        Vector3 endPoint;
+        Vector3 startPoint;
+
+
+        if (ShouldDeadReckon)
+        {
+            endPoint = DeadReckonPos;
+            startPoint = LastDestination;
+        }
+
+        else
+        {
+            endPoint = destination;
+            startPoint = DeadReckonPos;
+        }
+        //CalcDistance
+        float distance = Vector3.SqrMagnitude(girl.transform.position - endPoint);
 
 		//move and rotate
-		if (distance > MovementAccuracy)
+		if (moveAlpha < 1)
 		{
 			// Get the start position of the player before applying any movement
 			Vector3 playerStartPosition = girl.transform.position;
 
-			// Apply the movement to the player
-			girl.transform.position = Vector3.Lerp(girl.transform.position, destination, movementSpeed * Time.deltaTime);
+            moveAlpha += Time.deltaTime/movementSpeed;
+
+
+            // Apply the movement to the player
+            girl.transform.position = Vector3.Lerp(startPoint, endPoint,moveAlpha);
 
 			// Don't move the camera if in minigame. There is probably a better place to do this
 			if (controls.CameraShouldFollowGPS ()) {
@@ -341,19 +416,21 @@ public class GPS : MonoBehaviour
 			}
 
 			//calc rotation
-			if (destination != Vector3.zero)
+			if (endPoint != Vector3.zero)
 			{
-				Quaternion targetRotation = Quaternion.LookRotation(destination - transform.position);
+				Quaternion targetRotation = Quaternion.LookRotation(endPoint - startPoint);
 
 				// Rotate the player model
-				girl.transform.rotation = Quaternion.Lerp(girl.transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+				girl.transform.rotation = Quaternion.Lerp(girl.transform.rotation, targetRotation,rotationSpeed * moveAlpha);
 			}
 
 		}
 		else
 		{
+            ShouldDeadReckon = false;
 			Moving = false;
-		}
+            LastDestination = endPoint;
+        }
 	}
 
 	public bool GetMapInit() { return isInitialised; }
@@ -370,6 +447,7 @@ public class GPS : MonoBehaviour
             Debug.Log("Coroutines started");
             StartCoroutine(ResourceSpotManager.Instance.Spawn());
             StartCoroutine(PocketPalSpawnManager.Instance.Spawn());
+            StartCoroutine(FakeMove());
             hasStartedCoroutines = true;
         }
     }

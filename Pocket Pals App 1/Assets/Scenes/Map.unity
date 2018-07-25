@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5219974, g: 0.74003786, b: 0.90433884, a: 1}
+  m_IndirectSpecularColor: {r: 0.51978916, g: 0.7386145, b: 0.90408564, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3546,13 +3546,23 @@ MonoBehaviour:
   Moving: 0
   fakeLat: 50.1726
   fakeLong: -5.126206
-  movementSpeed: 1
-  MovementAccuracy: 1
+  MovementAccuracy: 0.1
   rotationSpeed: 5
   resetDistance: 2500
   distanceText: {fileID: 1087010453}
   latText: {fileID: 874576670}
   lonText: {fileID: 1713641259}
+  destination: {x: 0, y: 0, z: 0}
+  LastDestination: {x: 0, y: 0, z: 0}
+  DeadReckonPos: {x: 0, y: 0, z: 0}
+  DeadReckonThreshHold: 0.2
+  DeadReckonAmount: 1
+  gpsFrequency: 0
+  moveAlpha: 0
+  ShouldDeadReckon: 0
+  fakeGPs: 0
+  fakeLatLonIncrement: {x: 0.0001, y: 0.0001}
+  fakeDelayTime: 3
   MapMaterial: {fileID: 2100000, guid: b9f23e9bce724fa4daac57ecded470b8, type: 2}
   DayFog: {r: 0.19031142, g: 0.58823526, b: 0.4400429, a: 0}
   NightTint: {r: 0.30168685, g: 0.3675725, b: 0.6838235, a: 0.366}
@@ -23677,7 +23687,7 @@ MonoBehaviour:
   virtualGarden: {fileID: 32817350}
   ResourceSpotDistance: 6
   ResourceSpotUpness: 0.5
-  IsDebug: 0
+  IsDebug: 1
   maxCaptureDistance: 12
 --- !u!114 &1331972350
 MonoBehaviour:
