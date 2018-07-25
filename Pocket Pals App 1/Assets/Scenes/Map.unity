@@ -3522,6 +3522,7 @@ MonoBehaviour:
   rotationSpeed: 75
   playerMove: {fileID: 206820443}
   selectedPose: 0
+  runSpeed: 0.6
 --- !u!4 &206820442 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400004, guid: c533162b445f4aa46be382d58e8077c1, type: 3}
@@ -3547,6 +3548,7 @@ MonoBehaviour:
   fakeLat: 50.1726
   fakeLong: -5.126206
   MovementAccuracy: 0.1
+  currentSpeed: 0
   rotationSpeed: 5
   resetDistance: 2500
   distanceText: {fileID: 1087010453}
@@ -23694,7 +23696,7 @@ MonoBehaviour:
   virtualGarden: {fileID: 32817350}
   ResourceSpotDistance: 6
   ResourceSpotUpness: 0.5
-  IsDebug: 1
+  IsDebug: 0
   maxCaptureDistance: 12
 --- !u!114 &1331972350
 MonoBehaviour:

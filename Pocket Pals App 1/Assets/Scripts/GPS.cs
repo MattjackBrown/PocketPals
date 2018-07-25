@@ -43,6 +43,7 @@ public class GPS : MonoBehaviour
 	//movement variables
 	private float movementSpeed = 1f;
 	public float MovementAccuracy = 0.01f;
+    public float currentSpeed =0.0f;
 	public float rotationSpeed = 2.0f;
 	public float resetDistance = 2500.0f;
 
@@ -80,6 +81,8 @@ public class GPS : MonoBehaviour
     public Color NightTint;
     public int Sunset;
     public int SunRise;
+
+    public float GetMsSpeed() { return movementSpeed; }
 
     // Use this for initialization
     void Start ()
@@ -332,10 +335,11 @@ public class GPS : MonoBehaviour
         if (Mathf.Abs(Vector3.Magnitude(dir)) >= DeadReckonThreshHold)
         {
             if (gpsFrequency <= 1) gpsFrequency = 1;
-            float speed = Vector3.Magnitude(dir) / gpsFrequency;
-            Debug.Log("Speed" + speed);
+            currentSpeed = Vector3.Magnitude(dir) / gpsFrequency;
+            Debug.Log("Speed" + currentSpeed);
 
-            dir = dir.normalized * speed * DeadReckonAmount;
+            dir = dir.normalized * currentSpeed * DeadReckonAmount;
+
 
             DeadReckonPos = endPoint + dir;
 
@@ -356,6 +360,8 @@ public class GPS : MonoBehaviour
             float delta = Math.Abs(nDistance - oldDist) / 1000;
             oldDist = nDistance;
             LocalDataManager.Instance.UpdateDistance(delta);
+
+            
 
             Moving = true;
 

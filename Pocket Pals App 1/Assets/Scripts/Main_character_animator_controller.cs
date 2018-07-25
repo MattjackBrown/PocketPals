@@ -27,6 +27,7 @@ public class Main_character_animator_controller : MonoBehaviour
 	float poseTimer;
 	float timeToPose = 2.0f;
 	bool waiting = true;
+    public float runSpeed;
 
 	// Use this for initialization
 	void Start ()
@@ -46,14 +47,21 @@ public class Main_character_animator_controller : MonoBehaviour
         translation *= Time.deltaTime;
         rotation *= Time.deltaTime;
 
+
         transform.Translate (0, 0, translation);
         transform.Rotate (0, rotation, 0); 
 
         if(translation != 0 || playerMove.Moving)
         {
-			
-			newCharAnimator.Walk ();
-			poseTimer = 0.0f;
+            if (playerMove.currentSpeed >= runSpeed)
+            {
+                newCharAnimator.Run();
+            }
+            else
+            {
+                newCharAnimator.Walk();
+            }
+            poseTimer = 0.0f;
 			waiting = true;
 
         } else {
