@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterCustomisation : MonoBehaviour {
 
@@ -29,11 +30,13 @@ public class CharacterCustomisation : MonoBehaviour {
 
 	int hairMeshIndex, hairMatIndex, bagIndex, shirtIndex, shortsIndex, skinIndex, bootsIndex, poseIndex;
 
-	public bool customisationKitUnlocked = false;
+	public bool customisationKitUnlocked = true;
 	public CharacterStyleData CharStyleData;
 
 	public Main_character_animator_controller poseController;
 	public NewCharAnimControllerScript animController;
+
+	public Toggle t_Idle, t_HandsHips, t_Star, t_Bins, t_Net, t_Floss, t_Dab;
 
 	public void Start () {
 
@@ -115,8 +118,6 @@ public class CharacterCustomisation : MonoBehaviour {
 
 		// Update the map character with any changes made
 		UpdateRealCharacter ();
-
-		// Need to swap out the UI, and change controls or anything else
 	}
 
 	// To be called when exiting the customisation pages, updating the actual map character from the temporary model
@@ -321,80 +322,128 @@ public class CharacterCustomisation : MonoBehaviour {
 	// All these just to make the button presses all coordinate through this script
 	// TODO Make the green ticks switch over if successful
 	public void ChoosePoseNone () {
+
+		setAllTogglesFalse ();
+
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseNone ();
+
+			t_Idle.isOn = true;
+
+			// Set the avatar's animation
+			animController.Idle ();
 		} else {
 			// Preview? Show message to say buy?
 		}
-
-		// Set the avatar's animation
-		animController.Idle ();
 	}
 
 	public void ChoosePoseBins () {
+
+		setAllTogglesFalse ();
+
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseBins ();
+
+			t_Bins.isOn = true;
+
+			// Set the avatar's animation
+			animController.Bins ();
 		} else {
 			// Preview? Show message to say buy?
 		}
-
-		// Set the avatar's animation
-		animController.Bins ();
 	}
 
 	public void ChoosePoseDab () {
+
+		setAllTogglesFalse ();
+
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseDab ();
+
+			t_Dab.isOn = true;
+
+			// Set the avatar's animation
+			animController.Dab ();
 		} else {
 			// Preview? Show message to say buy?
 		}
-
-		// Set the avatar's animation
-		animController.Dab ();
 	}
 
 	public void ChoosePoseFloss () {
+
+		setAllTogglesFalse ();
+
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseFloss ();
+
+			t_Floss.isOn = true;
+
+			// Set the avatar's animation
+			animController.Floss ();
 		} else {
 			// Preview? Show message to say buy?
 		}
-
-		// Set the avatar's animation
-		animController.Floss ();
 	}
 
 	public void ChoosePoseNet () {
+
+		setAllTogglesFalse ();
+
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseNet ();
+
+			t_Net.isOn = true;
+
+			// Set the avatar's animation
+			animController.Net ();
 		} else {
 			// Preview? Show message to say buy?
 		}
-
-		// Set the avatar's animation
-		animController.Net ();
 	}
 
 	public void ChoosePoseStar () {
+
+		setAllTogglesFalse ();
+
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseStar ();
+
+			t_Star.isOn = true;
+
+			// Set the avatar's animation
+			animController.Star ();
+
 		} else {
 			// Preview? Show message to say buy?
 		}
-
-		// Set the avatar's animation
-		animController.Star ();
 	}
 
 	public void ChoosePoseHandsHips () {
+
+		setAllTogglesFalse ();
+
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseHandsHips ();
+
+			t_HandsHips.isOn = true;
+
+			// Set the avatar's animation
+			animController.HandsHips ();
+
 		} else {
 			// Preview? Show message to say buy?
 		}
+	}
 
-		// Set the avatar's animation
-		animController.HandsHips ();
+	// Toggle stuff for poses
+	void setAllTogglesFalse () {
+		t_Idle.isOn = false;
+		t_HandsHips.isOn = false;
+		t_Star.isOn = false;
+		t_Bins.isOn = false;
+		t_Net.isOn = false;
+		t_Floss.isOn = false;
+		t_Dab.isOn = false;
 	}
 }
 
@@ -411,6 +460,7 @@ public class CharacterStyleData
 	public int m_BootsID = 0;
 	public int m_PoseID = 0;
 
+	// Constructors
 	public CharacterStyleData () {
 		
 	}
