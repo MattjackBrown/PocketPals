@@ -3185,7 +3185,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &178793549
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7702,9 +7702,16 @@ MonoBehaviour:
   - {fileID: 2800000, guid: e6773fa22d1d540d1929f5f1014f0147, type: 3}
   - {fileID: 2800000, guid: 63c479521c3d74d488ca7f92185b8531, type: 3}
   - {fileID: 2800000, guid: ab21b5f467f7246768653bb49b519329, type: 3}
-  customisationKitUnlocked: 0
+  customisationKitUnlocked: 1
   poseController: {fileID: 206820440}
   animController: {fileID: 458546366}
+  t_Idle: {fileID: 0}
+  t_HandsHips: {fileID: 0}
+  t_Star: {fileID: 0}
+  t_Bins: {fileID: 0}
+  t_Net: {fileID: 0}
+  t_Floss: {fileID: 0}
+  t_Dab: {fileID: 0}
 --- !u!95 &458546365 stripped
 Animator:
   m_PrefabParentObject: {fileID: 9500000, guid: cb0c78c61fecf45b4885556c1c18ab07,
@@ -12174,7 +12181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &701884844
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17099,15 +17106,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_RootOrder
@@ -17167,7 +17174,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 270
+      value: 180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
@@ -24780,6 +24787,28 @@ MonoBehaviour:
       - m_Target: {fileID: 458546364}
         m_MethodName: Exit
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1692252232}
+        m_MethodName: ExitBackToMap
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1692252230}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -33584,9 +33613,31 @@ MonoBehaviour:
           m_StringArgument: clip
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 421776396}
-        m_MethodName: OpenJournal
+      - m_Target: {fileID: 1692252230}
+        m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1692252232}
+        m_MethodName: Init
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 458546364}
+        m_MethodName: InitChoices
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

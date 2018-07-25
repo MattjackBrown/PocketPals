@@ -7,7 +7,8 @@ public class JournalNewScript : MonoBehaviour {
 	public GameObject mainCamera, playerModel, cameraJournalPositionObject, cameraLookAtPositionObject;
 
 	Vector3 cameraJournalPosition, cameraLookAtPosition, playerJournalPosition;
-	Transform cameraMapTransform;
+	Vector3 cameraMapPosition;
+	Quaternion cameraMapRotation;
 
 	// Much trial and error to find this
 	Vector3 playerModelPositionOffset = new Vector3 (-1.82f, 3.85f, 0.0f);
@@ -23,35 +24,47 @@ public class JournalNewScript : MonoBehaviour {
 
 	public void Init () {
 
+		cameraJournalPosition = cameraJournalPositionObject.transform.position;
+		cameraLookAtPosition = cameraLookAtPositionObject.transform.position;
+
+		playerJournalPosition = cameraJournalPosition + playerModelPositionOffset;
+
 		// Record the camera position to return back to after the menu
-		cameraMapTransform = mainCamera.transform;
+		cameraMapPosition = mainCamera.gameObject.transform.position;
+		cameraMapRotation = mainCamera.gameObject.transform.rotation;
 
 		// Position all used assets
-		mainCamera.transform.position = cameraJournalPosition;
-		mainCamera.transform.LookAt (cameraLookAtPosition);
+		mainCamera.gameObject.transform.position = cameraJournalPosition;
+		mainCamera.gameObject.transform.LookAt (cameraLookAtPosition);
 
 		playerModel.SetActive (true);
-		playerModel.transform.position = playerJournalPosition;
-		playerModel.transform.LookAt (cameraJournalPosition);
+		playerModel.gameObject.transform.position = playerJournalPosition;
+		playerModel.gameObject.transform.LookAt (cameraJournalPosition);
+
+		// Stupid gimble lock
+	//	playerModel.transform.Rotate (playerModel.transform.forward, 270.0f);
+
+		// TODO Create new control scheme
+		TouchHandler.Instance.MenuControls ();
 
 	}
 
 	public void ExitBackToMap () {
 
 		// Return the Camera
-		mainCamera.transform.SetPositionAndRotation (cameraMapTransform.position, mainCamera.transform.rotation);
+		mainCamera.gameObject.transform.position = cameraMapPosition;
+		mainCamera.transform.rotation = cameraMapRotation;
 
 		// Deactivate the player model used for the menu
 		playerModel.SetActive (false);
 
-		// TODO Change the control scheme
+		TouchHandler.Instance.MapControls ();
 	}
 
 	void Update () {
 		
 		// TODO Lerp movement between inspect positions
 
-		// TODO Set up menus with buttons for the functions
 		// TODO Buttons trigger camMovement lerps - set up a controlScheme
 		// TODO controlScheme allows rotating player. (prefab.transform.position.z as on it's side)
 		// Message Triss when done to link up to server data, shop bought bool, grey out shop button
