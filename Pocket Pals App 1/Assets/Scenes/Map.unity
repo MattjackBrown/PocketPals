@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.51978916, g: 0.7386145, b: 0.90408564, a: 1}
+  m_IndirectSpecularColor: {r: 0.45701844, g: 0.6570324, b: 0.80693537, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1412,7 +1412,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 66568822}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 100, y: 101, z: 100}
+  m_LocalPosition: {x: 101, y: 100, z: 99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1692252231}
@@ -6901,11 +6901,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0d95ec839532f472988ee4a4f755dc43, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.24581689
+      value: -0.245
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0d95ec839532f472988ee4a4f755dc43, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.005102426
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0d95ec839532f472988ee4a4f755dc43, type: 3}
       propertyPath: m_LocalRotation.x
@@ -13169,6 +13169,10 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &756784550 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 400072, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
+  m_PrefabInternal: {fileID: 957068593}
 --- !u!1 &759217898
 GameObject:
   m_ObjectHideFlags: 0
@@ -17102,15 +17106,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.15
+      value: 854.66
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 573.4
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 98.4
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_LocalRotation.x
@@ -17118,15 +17122,15 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 1
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_RootOrder
@@ -17154,7 +17158,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_Controller
@@ -17186,7 +17190,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cb0c78c61fecf45b4885556c1c18ab07, type: 3}
@@ -23628,6 +23632,7 @@ GameObject:
   - component: {fileID: 1331972351}
   - component: {fileID: 1331972349}
   - component: {fileID: 1331972353}
+  - component: {fileID: 1331972354}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -23720,6 +23725,7 @@ MonoBehaviour:
   VGCentre: {fileID: 36652898}
   cbtp: {fileID: 1514764283}
   animManager: {fileID: 421776396}
+  MenuCharTransform: {fileID: 756784550}
 --- !u!222 &1331972351
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23756,6 +23762,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   profile: {fileID: 11400000, guid: 75a8adad693004a7fb3b4ed8fff2e92c, type: 2}
+--- !u!114 &1331972354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1331972345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ceec55f2292d42ab94754870d38900a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speedMultiplier: 0.29
 --- !u!1 &1333532327
 GameObject:
   m_ObjectHideFlags: 0
@@ -33664,6 +33682,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1331972350}
+        m_MethodName: StopZoomIn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &1780370994
@@ -33932,11 +33961,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0d95ec839532f472988ee4a4f755dc43, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.24581689
+      value: -0.245
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0d95ec839532f472988ee4a4f755dc43, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.005102426
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0d95ec839532f472988ee4a4f755dc43, type: 3}
       propertyPath: m_LocalRotation.x
