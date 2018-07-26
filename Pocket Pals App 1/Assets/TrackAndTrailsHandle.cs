@@ -24,7 +24,8 @@ public class TrackAndTrailsHandle : MonoBehaviour
     public GameObject InspectLayer;
     public Image InspectBar;
     public Image InspectImage;
-
+    public GameObject GuessButton;
+    public GameObject CompleteButton;
 
     public GameObject GuessLayer;
     public GuessClass[] GuessBoxes;
@@ -49,19 +50,31 @@ public class TrackAndTrailsHandle : MonoBehaviour
 
         float cDist = LocalDataManager.Instance.GetData().DistanceTravelled;
 
-        float complete = activeTrack.GetFloatDone(cDist); 
+        float complete = activeTrack.GetFloatDone(cDist);
 
-        if(complete >=1.0)
-        {
-            InspectBar.fillAmount = 1.0f ;
-            return;
-        }
+        complete = Mathf.Clamp01(complete);
+
         InspectBar.fillAmount = complete;
-        
-        InspectImage.sprite = PixelateTexture(InspectImage,(int)((1- activeTrack.GetFloatDone(cDist)) * basePixelate));
+
+        InspectImage.sprite = PixelateTexture(InspectImage, (int)((1 - activeTrack.GetFloatDone(cDist)) * basePixelate));
+
+        CheckForGuess();
 
         InspectLayer.SetActive(true);
 
+    }
+
+    public void CheckForGuess()
+    {
+        if (activeTrack.GuessID != -1)
+        {
+            GuessButton.SetActive(false);
+
+        }
+        else
+        {
+            GuessButton.SetActive(true);
+        }
     }
 
     public void Back()
@@ -112,10 +125,10 @@ public class TrackAndTrailsHandle : MonoBehaviour
         GuessLayer.SetActive(true);
         int correctPPalID = AssetManager.Instance.GetTrackByID(activeTrack.ID).PocketPalID;
         correctPPal = AssetManager.Instance.GetPocketPalFromID(correctPPalID).GetComponent<PocketPalParent>();
-        guessPalIDs = AssetManager.Instance.GetRandomPocketpals(GuessBoxes.Length -1, correctPPalID);
+        guessPalIDs = AssetManager.Instance.GetRandomPocketpals(GuessBoxes.Length - 1, correctPPalID);
         guessPalIDs.Add(correctPPal);
-        guessPalIDs = guessPalIDs.OrderBy(x => UnityEngine.Random.Range(0,100)).ToList();
-        for(int i =0; i < GuessBoxes.Length; i++)
+        guessPalIDs = guessPalIDs.OrderBy(x => UnityEngine.Random.Range(0, 100)).ToList();
+        for (int i = 0; i < GuessBoxes.Length; i++)
         {
             GuessBoxes[i].Init(guessPalIDs[i], i);
         }
@@ -179,7 +192,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
                     int startY = ySquare * pixelateWidth;
                     for (int j = startY; j < startY + pixelateWidth; j++)
                     {
-                        avg = (avg + tex2D.GetPixel(i, j))/2;
+                        avg = (avg + tex2D.GetPixel(i, j)) / 2;
                     }
                 }
 
@@ -200,7 +213,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
 
     public void ToggleGuess(int index)
     {
-        foreach(GuessClass gc in GuessBoxes)
+        foreach (GuessClass gc in GuessBoxes)
         {
             gc.img.sprite = Cross;
         }
@@ -210,17 +223,39 @@ public class TrackAndTrailsHandle : MonoBehaviour
 
     public void Guess()
     {
-        NotificationManager.Instance.QuestionNotification("Are you sure you want to guess " + activeGuess.name.text + "?", Guessed, null);
+        NotificationManager.Instance.QuestionNotification("Are you sure you want to guess " + activeGuess.name.text + "?", LockInGuess, null);
     }
-    public void Guessed()
+
+    public void LockInGuess()
     {
-        if (activeGuess.name.text == correctPPal.name)
+
+
+        float modifier = activeTrack.GetFloatDone(LocalDataManager.Instance.GetData().DistanceTravelled);
+        modifier = 1 / modifier;
+        if (modifier > MaxBonusModifier) modifier = MaxBonusModifier;
+
+        activeTrack.GuessID = activeGuess.ppp.PocketPalID;
+        activeTrack.Multiplier = modifier;
+
+        ServerDataManager.Instance.WriteTrack(LocalDataManager.Instance.GetData(), activeTrack);
+
+        Back();
+        Back();
+    }
+
+    public void Complete()
+    {
+        if (activeTrack.GetFloatDone(LocalDataManager.Instance.GetData().DistanceTravelled) < 1)
+        {
+            NotificationManager.Instance.CustomHeaderNotification("Sorry You Cannot Do This Right Now!!", "You need to fully track this animal before you can claim your reward!");
+            return;
+        }
+        if (activeTrack.GuessID == AssetManager.Instance.GetTrackByID(activeTrack.ID).PocketPalID)
         {
             NotificationManager.Instance.CongratsNotification("Correct! You have tracked the animal!");
-            float modifier = activeTrack.GetFloatDone(LocalDataManager.Instance.GetData().DistanceTravelled);
-            modifier = 1 / modifier;
-            if (modifier > MaxBonusModifier) modifier = MaxBonusModifier;
-            LocalDataManager.Instance.SuccessfulTrack(correctPPal, AssetManager.Instance.GetTrackByID(activeTrack.ID), modifier);
+            
+
+            LocalDataManager.Instance.SuccessfulTrack(correctPPal, AssetManager.Instance.GetTrackByID(activeTrack.ID), activeTrack.Multiplier);
         }
         else
         {
@@ -237,12 +272,13 @@ public class GuessClass
 {
     public Image img;
     public Text name;
+    public PocketPalParent ppp;
     public int index = 0;
 
-    public void Init(PocketPalParent ppp, int i)
+    public void Init(PocketPalParent parent, int i)
     {
         index = i;
         img.sprite = null;
-        name.text = ppp.name;
+        ppp = parent;
     }
 }

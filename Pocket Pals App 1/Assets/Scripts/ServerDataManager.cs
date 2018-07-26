@@ -469,6 +469,9 @@ public class ServerDataManager : MonoBehaviour
                                 case "uid":
                                     td.uID = (string)child.Value;
                                     break;
+                                case "guessid":
+                                    td.GuessID = Convert.ToInt32(child.Value);
+                                    break;
                             }
                         }
 
