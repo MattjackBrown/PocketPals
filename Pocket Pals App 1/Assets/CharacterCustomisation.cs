@@ -36,7 +36,7 @@ public class CharacterCustomisation : MonoBehaviour {
 	public CharacterStyleData CharStyleData;
 
 	public Main_character_animator_controller poseController;
-	public NewCharAnimControllerScript animController;
+	public MenuCharAnimControllerScript animController;
 
 	public Sprite TickImage;
 	public Color untickedColour, tickedColour;
@@ -81,6 +81,40 @@ public class CharacterCustomisation : MonoBehaviour {
 					freeBootsChoices.Add (tex);
 				}
 			}
+
+			switch (poseIndex) {
+
+			case 0:
+				ChoosePoseNone ();
+				break;
+
+			case 1:
+				ChoosePoseHandsHips ();
+				break;
+
+			case 2:
+				ChoosePoseStar ();
+				break;
+
+			case 3:
+				ChoosePoseBins ();
+				break;
+
+			case 4:
+				ChoosePoseNet ();
+				break;
+
+			case 5:
+				ChoosePoseFloss ();
+				break;
+
+			case 6:
+				ChoosePoseDab ();
+				break;
+
+
+
+			}
 		}
 
 		// Just in case, initiate vars
@@ -104,7 +138,7 @@ public class CharacterCustomisation : MonoBehaviour {
 		UpdateMenuCharacter ();
 
 		// Set as idle anim
-		animController.Idle ();
+		animController.DemoIdlePose ();
 	}
 
 	// Used on menu init. Copies the loadout from the map character onto the temporary menu character
@@ -338,13 +372,13 @@ public class CharacterCustomisation : MonoBehaviour {
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseNone ();
 
-//			t_Idle.isOn = true;
 			s_Idle.sprite = TickImage;
 			s_Idle.color = tickedColour;
 
 			// Set the avatar's animation
-			animController.Walk ();
-			animController.Idle ();
+			animController.DemoIdlePose ();
+
+			poseIndex = 0;
 		} else {
 			// Preview? Show message to say buy?
 		}
@@ -357,13 +391,13 @@ public class CharacterCustomisation : MonoBehaviour {
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseBins ();
 
-//			t_Bins.isOn = true;
-			s_Idle.sprite = TickImage;
-			s_Idle.color = tickedColour;
+			s_Bins.sprite = TickImage;
+			s_Bins.color = tickedColour;
 
 			// Set the avatar's animation
-			animController.Walk ();
-			animController.Bins ();
+			animController.DemoBinsPose ();
+
+			poseIndex = 3;
 		} else {
 			// Preview? Show message to say buy?
 		}
@@ -376,13 +410,13 @@ public class CharacterCustomisation : MonoBehaviour {
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseDab ();
 
-//			t_Dab.isOn = true;
 			s_Dab.sprite = TickImage;
 			s_Dab.color = tickedColour;
 
 			// Set the avatar's animation
-			animController.Walk ();
-			animController.Dab ();
+			animController.DemoDabPose ();
+
+			poseIndex = 6;
 		} else {
 			// Preview? Show message to say buy?
 		}
@@ -395,13 +429,13 @@ public class CharacterCustomisation : MonoBehaviour {
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseFloss ();
 
-//			t_Floss.isOn = true;
 			s_Floss.sprite = TickImage;
 			s_Floss.color = tickedColour;
 
 			// Set the avatar's animation
-			animController.Walk ();
-			animController.Floss ();
+			animController.DemoFlossPose ();
+
+			poseIndex = 5;
 		} else {
 			// Preview? Show message to say buy?
 		}
@@ -414,13 +448,13 @@ public class CharacterCustomisation : MonoBehaviour {
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseNet ();
 
-//			t_Net.isOn = true;
 			s_Net.sprite = TickImage;
 			s_Net.color = tickedColour;
 
 			// Set the avatar's animation
-			animController.Walk ();
-			animController.Net ();
+			animController.DemoNetPose ();
+
+			poseIndex = 4;
 		} else {
 			// Preview? Show message to say buy?
 		}
@@ -433,13 +467,13 @@ public class CharacterCustomisation : MonoBehaviour {
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseStar ();
 
-//			t_Star.isOn = true;
 			s_Star.sprite = TickImage;
 			s_Star.color = tickedColour;
 
 			// Set the avatar's animation
-			animController.Walk ();
-			animController.Star ();
+			animController.DemoStarPose ();
+
+			poseIndex = 2;
 
 		} else {
 			// Preview? Show message to say buy?
@@ -453,13 +487,13 @@ public class CharacterCustomisation : MonoBehaviour {
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseHandsHips ();
 
-//			t_HandsHips.isOn = true;
 			s_HandsHips.sprite = TickImage;
 			s_HandsHips.color = tickedColour;
 
 			// Set the avatar's animation
-			animController.Walk ();
-			animController.HandsHips ();
+			animController.DemoHandsPose ();
+
+			poseIndex = 1;
 
 		} else {
 			// Preview? Show message to say buy?
