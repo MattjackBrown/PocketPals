@@ -6,28 +6,21 @@ public class JournalNewScript : MonoBehaviour {
 
 	public GameObject mainCamera, playerModel, cameraJournalPositionObject, cameraLookAtPositionObject;
 
-	Vector3 cameraJournalPosition, cameraLookAtPosition, playerJournalPosition;
+	Vector3 cameraJournalPosition, cameraLookAtPosition;
 	Vector3 cameraMapPosition;
 	Quaternion cameraMapRotation;
-
-	// Much trial and error to find this
-	Vector3 playerModelPositionOffset = new Vector3 (-1.82f, 3.85f, 0.0f);
 
 
 	void Start () {
 
 		cameraJournalPosition = cameraJournalPositionObject.transform.position;
 		cameraLookAtPosition = cameraLookAtPositionObject.transform.position;
-
-		playerJournalPosition = cameraJournalPosition + playerModelPositionOffset;
 	}
 
 	public void Init () {
 
 		cameraJournalPosition = cameraJournalPositionObject.transform.position;
 		cameraLookAtPosition = cameraLookAtPositionObject.transform.position;
-
-		playerJournalPosition = cameraJournalPosition + playerModelPositionOffset;
 
 		// Record the camera position to return back to after the menu
 		cameraMapPosition = mainCamera.gameObject.transform.position;
@@ -38,14 +31,9 @@ public class JournalNewScript : MonoBehaviour {
 		mainCamera.gameObject.transform.LookAt (cameraLookAtPosition);
 
 		playerModel.SetActive (true);
-		playerModel.gameObject.transform.position = playerJournalPosition;
-		playerModel.gameObject.transform.LookAt (cameraJournalPosition);
-
-		// Stupid gimble lock
-	//	playerModel.transform.Rotate (playerModel.transform.forward, 270.0f);
 
 		// TODO Create new control scheme
-		TouchHandler.Instance.MenuControls ();
+		TouchHandler.Instance.CharCustControls ();
 
 	}
 

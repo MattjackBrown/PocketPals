@@ -63,10 +63,15 @@ public class CameraController : MonoBehaviour
 	public UIAnimationManager animManager;
 	bool mapMenuLoaded = false;
 
+	public Transform MenuCharTransform;
+
 	float initialTargetCamZoomDistance = 6.0f;
 	bool initialZoomInComplete = true;
 	public void StartZoomIn () {
 		initialZoomInComplete = false;
+	}
+	public void StopZoomIn () {
+		initialZoomInComplete = true;
 	}
 
 
@@ -702,5 +707,21 @@ public class CameraController : MonoBehaviour
 			// Set the look at transform for the camera
 			transform.LookAt (cameraLookAtPoint);
 		}
+	}
+
+	public void MenuCharRotate(Touch touchZero) {
+
+		// Get the horixontal component of the touch's movement
+		float deltaTouchX = touchZero.deltaPosition.x;
+
+		// Adjust for different device's screen widths. Then multiply by the angles that a total screen width swipe will rotate
+		float finalRotation = deltaTouchX / Screen.width * 360;
+
+		// Apply the rotation to the transform around the player
+		Quaternion tempQ = MenuCharTransform.rotation;
+		Vector3 tempE = tempQ.eulerAngles;
+		tempE.y += finalRotation;
+		MenuCharTransform.rotation = Quaternion.Euler (tempE);
+
 	}
 }

@@ -24,7 +24,8 @@ public class TouchHandler : MonoBehaviour {
 		VirtualGardenInfo,
 		VirtualGardenInfoTransition,
 		ResourceSpotControls,
-		ResourceSpotTransition
+		ResourceSpotTransition,
+		CharCust
 	}
 
 	ControlScheme controlScheme;
@@ -150,6 +151,14 @@ public class TouchHandler : MonoBehaviour {
 				cameraController.UpdateZoomCam ();
 			}
 			break;
+
+		case ControlScheme.CharCust:
+			{
+				if (Input.touches.Length > 0) {
+					cameraController.MenuCharRotate (Input.GetTouch (0));
+				}
+			}
+			break;
 		}
 	}
 
@@ -200,6 +209,10 @@ public class TouchHandler : MonoBehaviour {
 
 	public void ResourceSpotTransition() {
 		controlScheme = ControlScheme.ResourceSpotTransition;
+	}
+
+	public void CharCustControls () {
+		controlScheme = ControlScheme.CharCust;
 	}
 
 	public void InitVirtualGardenControls() {
