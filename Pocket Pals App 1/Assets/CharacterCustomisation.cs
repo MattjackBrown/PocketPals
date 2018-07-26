@@ -120,7 +120,7 @@ public class CharacterCustomisation : MonoBehaviour {
     {
         if (!cData.IsMatch(oldData))
         {
-            NotificationManager.Instance.QuestionNotification("Would You Like To Apply and Save?", ApplyAndSave, UpdateMenuCharacter);
+            NotificationManager.Instance.QuestionNotification("Would You Like To Apply and Save?", ApplyAndSave, CancelSave);
         }
         else
         {
