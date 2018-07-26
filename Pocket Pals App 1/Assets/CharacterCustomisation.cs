@@ -141,10 +141,11 @@ public class CharacterCustomisation : MonoBehaviour {
 	// Updates the map character with the passed in load out. Presumably from a saved file
 	public void LoadSavedLoadOut (CharacterStyleData savedCharStyleData) {
 
-		// Update the Lists
-		InitChoices ();
+        // Update the Lists
+        InitChoices();
 
-		realHairMesh.mesh = freeHairChoices [savedCharStyleData.m_HairMeshID];
+
+        realHairMesh.mesh = freeHairChoices [savedCharStyleData.m_HairMeshID];
 		realHairMaterial.mainTexture = freeHairMatChoices [savedCharStyleData.m_HairMatID];
 		realBagMaterial.mainTexture = freeBagChoices [savedCharStyleData.m_BagID];
 		realShirtMaterial.mainTexture = freeShirtChoices [savedCharStyleData.m_ShirtID];
@@ -152,8 +153,9 @@ public class CharacterCustomisation : MonoBehaviour {
 		realSkinMaterial.mainTexture = freeSkinChoices [savedCharStyleData.m_SkinID];
 		realBootsMaterial.mainTexture = freeBootsChoices [savedCharStyleData.m_BootsID];
 
-		// Might as  well update the other menu model while we're here
-		UpdateMenuCharacter ();
+
+        // Might as  well update the other menu model while we're here
+        UpdateMenuCharacter ();
 	}
 
 	// To be used by the data handler to get the load out to save. Feel free to change all this @Tris

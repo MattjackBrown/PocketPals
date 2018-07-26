@@ -211,7 +211,7 @@ public class ServerDataManager : MonoBehaviour
         mDatabaseRef.Child("Users").Child(gd.ID).Child("PocketCoins").SetValueAsync(gd.PocketCoins);
     }
 
-    private void ProcessCharData(DataSnapshot data)
+    private CharacterStyleData ProcessCharData(DataSnapshot data)
     {
         CharacterStyleData csd = new CharacterStyleData();
         foreach (DataSnapshot ds in data.Children)
@@ -261,12 +261,13 @@ public class ServerDataManager : MonoBehaviour
             }
         }
 
-        charLoadout.LoadSavedLoadOut(csd);
+        return csd;
     }
 
     public void GetPlayerData(GameData gd)
     {
 
+        CharacterStyleData csd = new CharacterStyleData();
         int iter = 0;
 
         if (ErrorText.text != null)
@@ -312,7 +313,7 @@ public class ServerDataManager : MonoBehaviour
                                 break;
                             case "appearance":
                                 {
-                                    ProcessCharData(obj);
+                                    csd = ProcessCharData(obj);
                                     break;
                                 }
                             case "hascostumepack":
@@ -323,6 +324,13 @@ public class ServerDataManager : MonoBehaviour
                                 break;
                         }
                     }
+                    //Load up the character appear
+                    if (LocalDataManager.Instance.HasCP())
+                    {
+                       charLoadout.customisationKitUnlocked = true;
+                        charLoadout.LoadSavedLoadOut(csd);
+                    }
+
                 }
 
                 catch (Exception ex)
@@ -330,6 +338,7 @@ public class ServerDataManager : MonoBehaviour
                     Debug.Log(ex);
                 }
             }
+
 
             GetInventory(gd);
                             
