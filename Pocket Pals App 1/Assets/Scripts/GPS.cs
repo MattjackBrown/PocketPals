@@ -26,19 +26,19 @@ public class GPS : MonoBehaviour
 
 	//50.172600, -5.126206
 	//Hardcoded start lat long, should be up penryn campus50.171115, -5.507848
-	private float StartLat = 50.171115f;
-	private float StartLong = -5.507848f;
+	private float StartLat = 50.12949f;
+	private float StartLong = -5.542262f;
 
 	//the last lat long read from the device.
 	private float CurrentLat = 0;
 	private float CurrentLong = 0;
 
-	//for degbug lat longs
-	public float fakeLat = 50.172600f;
-	public float fakeLong = -5.126206f;
+    //for degbug lat longs-5.542262 50.12949
+    public float fakeLat = 50.12949f;
+	public float fakeLong = -5.542262f;
 
 	//zoom of the map
-	private int zoom = 16;
+	private int zoom = 18;
 
 	//movement variables
 	private float movementSpeed = 1f;
