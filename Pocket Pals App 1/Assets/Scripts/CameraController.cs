@@ -715,7 +715,7 @@ public class CameraController : MonoBehaviour
 		float deltaTouchX = touchZero.deltaPosition.x;
 
 		// Adjust for different device's screen widths. Then multiply by the angles that a total screen width swipe will rotate
-		float finalRotation = deltaTouchX / Screen.width * 360;
+		float finalRotation = -deltaTouchX / Screen.width * 360;
 
 		// Apply the rotation to the transform around the player
 		Quaternion tempQ = MenuCharTransform.rotation;

@@ -48,6 +48,14 @@ public class CharacterCustomisation : MonoBehaviour {
 		CharStyleData = new CharacterStyleData ();
 
 		UpdateMenuCharacter ();
+
+		t_Idle.onValueChanged.AddListener(delegate { ChoosePoseNone (); });
+		t_HandsHips.onValueChanged.AddListener(delegate { ChoosePoseHandsHips () ; });
+		t_Star.onValueChanged.AddListener(delegate { ChoosePoseStar (); });
+		t_Bins.onValueChanged.AddListener(delegate { ChoosePoseBins (); });
+		t_Net.onValueChanged.AddListener(delegate { ChoosePoseNet (); });
+		t_Floss.onValueChanged.AddListener(delegate { ChoosePoseFloss (); });
+		t_Dab.onValueChanged.AddListener(delegate { ChoosePoseDab (); });
 	}
 
 	// Populates the lists further if the add on items have been purchased
@@ -329,7 +337,7 @@ public class CharacterCustomisation : MonoBehaviour {
 
 	// All these just to make the button presses all coordinate through this script
 	// TODO Make the green ticks switch over if successful
-	public void ChoosePoseNone () {
+	void ChoosePoseNone () {
 
 		setAllTogglesFalse ();
 
@@ -345,14 +353,20 @@ public class CharacterCustomisation : MonoBehaviour {
 		}
 	}
 
-	public void ChoosePoseBins () {
+	void ChoosePoseBins () {
+
+		Debug.Log ("1");
 
 		setAllTogglesFalse ();
 
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseBins ();
 
+			Debug.Log ("2");
+
 			t_Bins.isOn = true;
+
+			Debug.Log ("3");
 
 			// Set the avatar's animation
 			animController.Bins ();
@@ -361,7 +375,7 @@ public class CharacterCustomisation : MonoBehaviour {
 		}
 	}
 
-	public void ChoosePoseDab () {
+	void ChoosePoseDab () {
 
 		setAllTogglesFalse ();
 
@@ -377,7 +391,7 @@ public class CharacterCustomisation : MonoBehaviour {
 		}
 	}
 
-	public void ChoosePoseFloss () {
+	void ChoosePoseFloss () {
 
 		setAllTogglesFalse ();
 
@@ -393,7 +407,7 @@ public class CharacterCustomisation : MonoBehaviour {
 		}
 	}
 
-	public void ChoosePoseNet () {
+	void ChoosePoseNet () {
 
 		setAllTogglesFalse ();
 
@@ -409,7 +423,7 @@ public class CharacterCustomisation : MonoBehaviour {
 		}
 	}
 
-	public void ChoosePoseStar () {
+	void ChoosePoseStar () {
 
 		setAllTogglesFalse ();
 
@@ -426,7 +440,7 @@ public class CharacterCustomisation : MonoBehaviour {
 		}
 	}
 
-	public void ChoosePoseHandsHips () {
+	void ChoosePoseHandsHips () {
 
 		setAllTogglesFalse ();
 
