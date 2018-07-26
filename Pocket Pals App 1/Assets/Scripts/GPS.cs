@@ -249,12 +249,13 @@ public class GPS : MonoBehaviour
 
 	public Vector3 GetWorldPos(double lat, double lon)
 	{
-
 		Vector2d end2d = Conversions.GeoToWorldPosition(lat, lon, currentMap.CenterMercator, currentMap.WorldRelativeScale);
 
-		Vector3 pos = new Vector3((float)end2d.x, 0.0f, (float)end2d.y);
+      
 
-		return pos;
+		Vector3 pos = new Vector3((float)end2d.x, 0.0f, (float)end2d.y);
+        pos += currentMap.Root.position;
+        return pos;
 	}
 
 	public Vector2 GetLatLon()

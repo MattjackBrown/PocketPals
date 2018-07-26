@@ -4,8 +4,8 @@
 	using Utils;
 	using Mapbox.Map;
 
-	public class BasicMap : AbstractMap
-	{
+	public class BasicMap : MapAtSpecificLocation
+    {
 		public override void Initialize(Vector2d latLon, int zoom)
 		{
 
