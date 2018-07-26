@@ -10,7 +10,6 @@ public class JournalNewScript : MonoBehaviour {
 	Vector3 cameraMapPosition;
 	Quaternion cameraMapRotation;
 
-
 	void Start () {
 
 		cameraJournalPosition = cameraJournalPositionObject.transform.position;
@@ -34,7 +33,6 @@ public class JournalNewScript : MonoBehaviour {
 
 		// TODO Create new control scheme
 		TouchHandler.Instance.CharCustControls ();
-
 	}
 
 	public void ExitBackToMap () {
@@ -47,6 +45,8 @@ public class JournalNewScript : MonoBehaviour {
 		playerModel.SetActive (false);
 
 		TouchHandler.Instance.MapControls ();
+
+        gameObject.SetActive(false);
 	}
 
 	void Update () {

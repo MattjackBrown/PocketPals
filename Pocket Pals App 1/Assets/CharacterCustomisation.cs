@@ -8,360 +8,319 @@ public class CharacterCustomisation : MonoBehaviour {
 
     public static CharacterCustomisation Instance { set; get; }
 
-	public GameObject menuPlayerObject, realPlayerObject;
-	public MeshFilter menuHairMesh, realHairMesh;
-	public List<Mesh> freeHairChoices, paidHairChoices;
+    public GameObject menuPlayerObject, realPlayerObject;
+    public MeshFilter menuHairMesh, realHairMesh;
 
-	public Material
-	menuHairMaterial, realHairMaterial,
-	menuBagMaterial, realBagMaterial,
-	menuShirtMaterial, realShirtMaterial,
-	menuShortsMaterial, realShortsMaterial,
-	menuSkinMaterial, realSkinMaterial,
-	menuBootsMaterial, realBootsMaterial;
+    public Material
+    menuHairMaterial, realHairMaterial,
+    menuBagMaterial, realBagMaterial,
+    menuShirtMaterial, realShirtMaterial,
+    menuShortsMaterial, realShortsMaterial,
+    menuSkinMaterial, realSkinMaterial,
+    menuBootsMaterial, realBootsMaterial;
 
-	// Poor naming convention of free but I had already created all the references in editor and it took a while.
-	// Read 'free' as 'available to choose from' from here on.
-	public List<Texture2D>
-	freeHairMatChoices, paidHairMatChoices,
-	freeBagChoices,
-	freeShirtChoices, paidShirtChoices,
-	freeShortsChoices,
-	freeSkinChoices,
-	freeBootsChoices, paidBootsChoices;
+    // Poor naming convention of free but I had already created all the references in editor and it took a while.
+    // Read 'free' as 'available to choose from' from here on.
+    public List<TextureType>
+    HairMatChoices,
+    BagChoices,
+    ShirtChoices,
+    ShortsChoices,
+    SkinChoices,
+    BootsChoices;
 
-	int hairMeshIndex, hairMatIndex, bagIndex, shirtIndex, shortsIndex, skinIndex, bootsIndex, poseIndex;
+    public List<MeshType> HairChoices;
 
-	public bool customisationKitUnlocked = false;
-	public CharacterStyleData CharStyleData;
+    public bool customisationKitUnlocked = false;
+    public CharacterStyleData cData;
+    public CharacterStyleData oldData = new CharacterStyleData();
 
-	public Main_character_animator_controller poseController;
-	public MenuCharAnimControllerScript animController;
+    public Main_character_animator_controller poseController;
+    public MenuCharAnimControllerScript animController;
 
-	public Sprite TickImage;
-	public Color untickedColour, tickedColour;
-	public Image s_Idle, s_HandsHips, s_Star, s_Bins, s_Net, s_Floss, s_Dab;
+    public Sprite TickImage;
+    public Color untickedColour, tickedColour;
+    public Image s_Idle, s_HandsHips, s_Star, s_Bins, s_Net, s_Floss, s_Dab;
 
-	public void Start () {
+    public JournalNewScript jns;
+
+    public void Start() {
 
         Instance = this;
 
-		// Just in case, initialise the var
-		CharStyleData = new CharacterStyleData ();
+        // Just in case, initialise the var
+        cData = new CharacterStyleData();
 
-		UpdateMenuCharacter ();
-	}
+        UpdateMenuCharacter();
+    }
 
-	// Populates the lists further if the add on items have been purchased
-	public void InitChoices () {
+    // Populates the lists further if the add on items have been purchased
+    public void LoadPoseChoices()
+    {
 
-		// If clothes kit bought, make sure that the lists contain the unlocked items
-		if (customisationKitUnlocked) {
+        // If clothes kit bought, make sure that the lists contain the unlocked items
+        if (customisationKitUnlocked)
+        {
+            switch (cData.m_PoseID) {
 
-			foreach (Mesh mesh in paidHairChoices) {
-				if (!freeHairChoices.Contains (mesh)) {
-					freeHairChoices.Add (mesh);
-				}
-			}
+                case 0:
+                    ChoosePoseNone();
+                    break;
 
-			foreach (Texture2D tex in paidHairMatChoices) {
-				if (!freeHairMatChoices.Contains (tex)) {
-					freeHairMatChoices.Add (tex);
-				}
-			}
+                case 1:
+                    ChoosePoseHandsHips();
+                    break;
 
-			foreach (Texture2D tex in paidShirtChoices) {
-				if (!freeShirtChoices.Contains (tex)) {
-					freeShirtChoices.Add (tex);
-				}
-			}
+                case 2:
+                    ChoosePoseStar();
+                    break;
 
-			foreach (Texture2D tex in paidBootsChoices) {
-				if (!freeBootsChoices.Contains (tex)) {
-					freeBootsChoices.Add (tex);
-				}
-			}
+                case 3:
+                    ChoosePoseBins();
+                    break;
 
-			switch (poseIndex) {
+                case 4:
+                    ChoosePoseNet();
+                    break;
 
-			case 0:
-				ChoosePoseNone ();
-				break;
+                case 5:
+                    ChoosePoseFloss();
+                    break;
 
-			case 1:
-				ChoosePoseHandsHips ();
-				break;
+                case 6:
+                    ChoosePoseDab();
+                    break;
+            }
+        }
 
-			case 2:
-				ChoosePoseStar ();
-				break;
+        // Set as idle anim
+        animController.DemoIdlePose();
+    }
 
-			case 3:
-				ChoosePoseBins ();
-				break;
+    // Used on menu init. Copies the loadout from the map character onto the temporary menu character
+    public void UpdateMenuCharacter() {
 
-			case 4:
-				ChoosePoseNet ();
-				break;
+        menuHairMesh.mesh = realHairMesh.mesh;
+        menuHairMaterial = realHairMaterial;
+        menuBagMaterial = realBagMaterial;
+        menuShirtMaterial = realShirtMaterial;
+        menuShortsMaterial = realShortsMaterial;
+        menuSkinMaterial = realSkinMaterial;
+        menuBootsMaterial = realBootsMaterial;
+    }
 
-			case 5:
-				ChoosePoseFloss ();
-				break;
-
-			case 6:
-				ChoosePoseDab ();
-				break;
-
-
-
-			}
-		}
-
-		// Just in case, initiate vars
-		hairMeshIndex = 0;
-		hairMatIndex = 0;
-		bagIndex = 0;
-		shirtIndex = 0;
-		shortsIndex = 0;
-		skinIndex = 0;
-		bootsIndex = 0;
-		poseIndex = 0;
-
-		// Update the indexes to the correct current values for the currently equipped load out
-		hairMeshIndex = freeHairChoices.FindIndex (a => a == realHairMesh);
-		hairMatIndex = freeHairMatChoices.FindIndex (b => b == realHairMaterial);
-		bagIndex = freeBagChoices.FindIndex (c => c == realBagMaterial);
-		shirtIndex = freeShirtChoices.FindIndex (d => d == realShirtMaterial);
-		shortsIndex = freeShortsChoices.FindIndex (e => e == realShortsMaterial);
-
-		// Copy loadout onto the menu avatar
-		UpdateMenuCharacter ();
-
-		// Set as idle anim
-		animController.DemoIdlePose ();
-	}
-
-	// Used on menu init. Copies the loadout from the map character onto the temporary menu character
-	public void UpdateMenuCharacter () {
-
-		menuHairMesh.mesh = realHairMesh.mesh;
-		menuHairMaterial = realHairMaterial;
-		menuBagMaterial = realBagMaterial;
-		menuShirtMaterial = realShirtMaterial;
-		menuShortsMaterial = realShortsMaterial;
-		menuSkinMaterial = realSkinMaterial;
-		menuBootsMaterial = realBootsMaterial;
-	}
+    public void Init()
+    {
+        oldData = cData.Clone();
+        UpdateMenuCharacter();
+    }
 
 	// Will be used for the button press to exit menu
-	public void Exit () {
+	public void Exit ()
+    {
+        if (!cData.IsMatch(oldData))
+        {
+            NotificationManager.Instance.QuestionNotification("Would You Like To Apply and Save?", ApplyAndSave, UpdateMenuCharacter);
+        }
+	}
 
-		// Update the map character with any changes made
-		UpdateRealCharacter ();
+    public void ApplyAndSave()
+    {
+        // Update the map character with any changes made
+        UpdateRealCharacter();
 
         ServerDataManager.Instance.UpdateCharacterStyleData(GetCurrentLoadOut());
-	}
+
+        jns.ExitBackToMap();
+    }
 
 	// To be called when exiting the customisation pages, updating the actual map character from the temporary model
-	public void UpdateRealCharacter () {
+	public void UpdateRealCharacter ()
+    {
 
-		realHairMesh.mesh = menuHairMesh.mesh;
-		realHairMaterial = menuHairMaterial;
-		realBagMaterial = menuBagMaterial;
-		realShirtMaterial = menuShirtMaterial;
-		realShortsMaterial = menuShortsMaterial;
-		realSkinMaterial = menuSkinMaterial;
-		realBootsMaterial = menuBootsMaterial;
-	}
+        realHairMesh.mesh = GetMeshType(HairChoices, cData.m_HairMeshID).mesh.sharedMesh;
+        realHairMaterial.mainTexture = GetTextureType(HairMatChoices, cData.m_HairMatID).tex;
+        realBagMaterial.mainTexture = GetTextureType(BagChoices, cData.m_BagID).tex;
+        realShirtMaterial.mainTexture = GetTextureType(ShirtChoices, cData.m_ShirtID).tex;
+        realShortsMaterial.mainTexture = GetTextureType(ShortsChoices, cData.m_ShortsID).tex;
+        realSkinMaterial.mainTexture = GetTextureType(SkinChoices, cData.m_SkinID).tex;
+        realBootsMaterial.mainTexture = GetTextureType(BootsChoices, cData.m_BootsID).tex;
+    }
 
 	// Updates the map character with the passed in load out. Presumably from a saved file
-	public void LoadSavedLoadOut (CharacterStyleData savedCharStyleData) {
+	public void LoadSavedLoadOut (CharacterStyleData savedCharStyleData)
+    {
+        cData = savedCharStyleData;
 
-        // Update the Lists
-        InitChoices();
+        LoadPoseChoices();
 
-
-        realHairMesh.mesh = freeHairChoices [savedCharStyleData.m_HairMeshID];
-		realHairMaterial.mainTexture = freeHairMatChoices [savedCharStyleData.m_HairMatID];
-		realBagMaterial.mainTexture = freeBagChoices [savedCharStyleData.m_BagID];
-		realShirtMaterial.mainTexture = freeShirtChoices [savedCharStyleData.m_ShirtID];
-		realShortsMaterial.mainTexture = freeShortsChoices [savedCharStyleData.m_ShortsID];
-		realSkinMaterial.mainTexture = freeSkinChoices [savedCharStyleData.m_SkinID];
-		realBootsMaterial.mainTexture = freeBootsChoices [savedCharStyleData.m_BootsID];
-
+        UpdateRealCharacter();
 
         // Might as  well update the other menu model while we're here
         UpdateMenuCharacter ();
 	}
 
 	// To be used by the data handler to get the load out to save. Feel free to change all this @Tris
-	public CharacterStyleData GetCurrentLoadOut () {
-		return new CharacterStyleData (hairMeshIndex, hairMatIndex, bagIndex, shirtIndex, shortsIndex, skinIndex, bootsIndex, poseIndex);
+	public CharacterStyleData GetCurrentLoadOut ()
+    {
+        return cData;
 	}
 
+    public TextureType GetTextureType(List<TextureType> arr , int id)
+    {
+    
+        if (arr.Count > id)
+        {
+            return arr[id];
+        }
+        
+        return arr[id];
+    }
+
+    public MeshType GetMeshType(List<MeshType> arr, int id)
+    {
+        if (arr.Count > id)
+        {
+            return arr[id];
+        }
+
+        return arr[id];
+    }
+
+    private Mesh GetNextValidMesh(List<MeshType> arr, ref int iter, int indexChange)
+    {
+        Mesh m = null;
 
 
+        while (m == null)
+        {
+            iter += indexChange;
+            if (iter > arr.Count-1)
+            {
+                iter = 0;
+            }
+            else if(iter < 0)
+            {
+                iter = arr.Count - 1;
+            }
+            MeshType mt = arr[iter];
+            if (!customisationKitUnlocked && mt.IsPaid)
+            {
+                // Player is has cycled to a mesh they have not got. COuld do some money grubbing
+                // stuff here??
+            }
+            else
+            {
+                m = mt.mesh.sharedMesh;
+            }
+        }
+        return m;
+    }
+    private Texture2D GetNextValidTexture(List<TextureType> arr, ref int iter, int indexChange)
+    {
+        Texture2D t = null;
 
-	// Hair mesh
-	public void SeeNextHairMeshChoice () {
 
-		if (hairMeshIndex == freeHairChoices.Count-1) {
-			hairMeshIndex = 0;
-		} else {
-			hairMeshIndex++;
-		}
+        while (t == null)
+        {
+            iter += indexChange;
+            if (iter > arr.Count - 1)
+            {
+                iter = 0;
+            }
+            else if (iter < 0)
+            {
+                iter = arr.Count - 1;
+            }
+            TextureType tt = arr[iter];
+            if (!customisationKitUnlocked && tt.IsPaid)
+            {
+                // Player is has cycled to a mesh they have not got. COuld do some money grubbing
+                // stuff here??
+            }
+            else
+            {
+                t = tt.tex;
+            }
+        }
+        return t;
+    }
 
-		menuHairMesh.mesh = freeHairChoices [hairMeshIndex];
+    // Hair mesh
+    public void SeeNextHairMeshChoice ()
+    {
+		menuHairMesh.mesh = GetNextValidMesh(HairChoices,ref cData.m_HairMeshID, 1);
 	}
 
 	public void SeePreviousHairMeshChoice () {
 
-		if (hairMeshIndex == 0) {
-			hairMeshIndex = freeHairChoices.Count-1;
-		} else {
-			hairMeshIndex--;
-		}
-
-		menuHairMesh.mesh = freeHairChoices [hairMeshIndex];
-	}
+        menuHairMesh.mesh = GetNextValidMesh(HairChoices, ref cData.m_HairMeshID, -1);
+    }
 
 	// Hair material
 	public void SeeNextHairMaterialChoice () {
 
-		if (hairMatIndex == freeHairMatChoices.Count-1) {
-			hairMatIndex = 0;
-		} else {
-			hairMatIndex++;
-		}
-
-		menuHairMaterial.mainTexture = freeHairMatChoices [hairMatIndex];
+        menuHairMaterial.mainTexture = GetNextValidTexture(HairMatChoices, ref cData.m_HairMatID, 1);
 	}
 
 	public void SeePreviousHairMaterialChoice () {
 
-		if (hairMatIndex == 0) {
-			hairMatIndex = freeHairMatChoices.Count-1;
-		} else {
-			hairMatIndex--;
-		}
-
-		menuHairMaterial.mainTexture = freeHairMatChoices [hairMatIndex];
-	}
+        menuHairMaterial.mainTexture = GetNextValidTexture(HairMatChoices, ref cData.m_HairMatID, -1);
+    }
 
 	// Bag
-	public void SeeNextBagChoice () {
-
-		if (bagIndex == freeBagChoices.Count-1) {
-			bagIndex = 0;
-		} else {
-			bagIndex++;
-		}
-
-		menuBagMaterial.mainTexture = freeBagChoices [bagIndex];
+	public void SeeNextBagChoice ()
+    {
+        menuBagMaterial.mainTexture = GetNextValidTexture(BagChoices, ref cData.m_BagID, 1);
 	}
 
 	public void SeePreviousBagChoice () {
-
-		if (bagIndex == 0) {
-			bagIndex = freeBagChoices.Count-1;
-		} else {
-			bagIndex--;
-		}
-
-		menuBagMaterial.mainTexture = freeBagChoices [bagIndex];
-	}
+        menuBagMaterial.mainTexture = GetNextValidTexture(BagChoices, ref cData.m_BagID, -1);
+    }
 
 	// Shirt
 	public void SeeNextShirtChoice () {
-
-		if (shirtIndex == freeShirtChoices.Count-1) {
-			shirtIndex = 0;
-		} else {
-			shirtIndex++;
-		}
-
-		menuShirtMaterial.mainTexture = freeShirtChoices [shirtIndex];
-	}
+		menuShirtMaterial.mainTexture = GetNextValidTexture(ShirtChoices, ref cData.m_ShirtID, 1);
+    }
 
 	public void SeePreviousShirtChoice () {
 
-		if (shirtIndex == 0) {
-			shirtIndex = freeShirtChoices.Count-1;
-		} else {
-			shirtIndex--;
-		}
-
-		menuShirtMaterial.mainTexture = freeShirtChoices [shirtIndex];
-	}
+        menuShirtMaterial.mainTexture = GetNextValidTexture(ShirtChoices, ref cData.m_ShirtID, -1);
+    }
 
 	// Shorts
-	public void SeeNextShortsChoice () {
-
-		if (shortsIndex == freeShortsChoices.Count-1) {
-			shortsIndex = 0;
-		} else {
-			shortsIndex++;
-		}
-
-		menuShortsMaterial.mainTexture = freeShortsChoices [shortsIndex];
+	public void SeeNextShortsChoice ()
+    {
+		menuShortsMaterial.mainTexture = GetNextValidTexture(ShortsChoices, ref cData.m_ShortsID, 1);
 	}
 
 	public void SeePreviousShortsChoice () {
 
-		if (shortsIndex == 0) {
-			shortsIndex = freeShortsChoices.Count-1;
-		} else {
-			shortsIndex--;
-		}
-
-		menuShortsMaterial.mainTexture = freeShortsChoices [shortsIndex];
-	}
+        menuShortsMaterial.mainTexture = GetNextValidTexture(ShortsChoices, ref cData.m_ShortsID, -1);
+    }
 
 	// Skin
-	public void SeeNextSkinChoice () {
-
-		if (skinIndex == freeSkinChoices.Count-1) {
-			skinIndex = 0;
-		} else {
-			skinIndex++;
-		}
-
-		menuSkinMaterial.mainTexture = freeSkinChoices [skinIndex];
+	public void SeeNextSkinChoice ()
+    {
+        menuSkinMaterial.mainTexture = GetNextValidTexture(SkinChoices, ref cData.m_SkinID, 1);
 	}
 
-	public void SeePreviousSkinChoice () {
+	public void SeePreviousSkinChoice ()
+    {
 
-		if (skinIndex == 0) {
-			skinIndex = freeSkinChoices.Count-1;
-		} else {
-			skinIndex--;
-		}
-
-		menuSkinMaterial.mainTexture = freeSkinChoices [skinIndex];
-	}
+        menuSkinMaterial.mainTexture = GetNextValidTexture(SkinChoices, ref cData.m_SkinID, -1);
+    }
 
 	// Boots
-	public void SeeNextBootsChoice () {
-
-		if (bootsIndex == freeBootsChoices.Count-1) {
-			bootsIndex = 0;
-		} else {
-			bootsIndex++;
-		}
-
-		menuBootsMaterial.mainTexture = freeBootsChoices [bootsIndex];
-	}
+	public void SeeNextBootsChoice ()
+    {
+		menuBootsMaterial.mainTexture = GetNextValidTexture(BootsChoices, ref cData.m_BootsID, 1);
+    }
 
 	public void SeePreviousBootsChoice () {
 
-		if (bootsIndex == 0) {
-			bootsIndex = freeBootsChoices.Count-1;
-		} else {
-			bootsIndex--;
-		}
-
-		menuBootsMaterial.mainTexture = freeBootsChoices [bootsIndex];
-	}
+        menuBootsMaterial.mainTexture = GetNextValidTexture(BootsChoices, ref cData.m_BootsID, -1);
+    }
 
 	// All these just to make the button presses all coordinate through this script
 	// TODO Make the green ticks switch over if successful
@@ -378,7 +337,7 @@ public class CharacterCustomisation : MonoBehaviour {
 			// Set the avatar's animation
 			animController.DemoIdlePose ();
 
-			poseIndex = 0;
+            cData.m_PoseID = 0;
 		} else {
 			// Preview? Show message to say buy?
 		}
@@ -397,7 +356,7 @@ public class CharacterCustomisation : MonoBehaviour {
 			// Set the avatar's animation
 			animController.DemoBinsPose ();
 
-			poseIndex = 3;
+            cData.m_PoseID = 3;
 		} else {
 			// Preview? Show message to say buy?
 		}
@@ -416,7 +375,7 @@ public class CharacterCustomisation : MonoBehaviour {
 			// Set the avatar's animation
 			animController.DemoDabPose ();
 
-			poseIndex = 6;
+            cData.m_PoseID = 6;
 		} else {
 			// Preview? Show message to say buy?
 		}
@@ -435,7 +394,7 @@ public class CharacterCustomisation : MonoBehaviour {
 			// Set the avatar's animation
 			animController.DemoFlossPose ();
 
-			poseIndex = 5;
+            cData.m_PoseID = 5;
 		} else {
 			// Preview? Show message to say buy?
 		}
@@ -454,7 +413,7 @@ public class CharacterCustomisation : MonoBehaviour {
 			// Set the avatar's animation
 			animController.DemoNetPose ();
 
-			poseIndex = 4;
+            cData.m_PoseID = 4;
 		} else {
 			// Preview? Show message to say buy?
 		}
@@ -473,7 +432,7 @@ public class CharacterCustomisation : MonoBehaviour {
 			// Set the avatar's animation
 			animController.DemoStarPose ();
 
-			poseIndex = 2;
+            cData.m_PoseID = 2;
 
 		} else {
 			// Preview? Show message to say buy?
@@ -493,7 +452,7 @@ public class CharacterCustomisation : MonoBehaviour {
 			// Set the avatar's animation
 			animController.DemoHandsPose ();
 
-			poseIndex = 1;
+            cData.m_PoseID = 1;
 
 		} else {
 			// Preview? Show message to say buy?
@@ -524,14 +483,14 @@ public class CharacterCustomisation : MonoBehaviour {
 // Basically just holds the load out
 public class CharacterStyleData 
 {
-	public int m_HairMeshID = 0;
-	public int m_HairMatID = 0;
-	public int m_BagID = 0;
-	public int m_ShirtID = 0;
-	public int m_ShortsID = 0;
-	public int m_SkinID = 0;
-	public int m_BootsID = 0;
-	public int m_PoseID = 0;
+    public int m_HairMeshID = 0;
+    public int m_HairMatID = 0;
+    public int m_BagID = 0;
+    public int m_ShirtID = 0;
+	public int m_ShortsID=0;
+    public int m_SkinID = 0;
+    public int m_BootsID = 0;
+    public int m_PoseID = 0;
 
 	// Constructors
 	public CharacterStyleData () {
@@ -548,4 +507,22 @@ public class CharacterStyleData
 		m_BootsID = bootsID;
 		m_PoseID = poseID;
 	}
+
+    public CharacterStyleData Clone()
+    {
+        return new CharacterStyleData(m_HairMeshID, m_HairMatID, m_BagID, m_ShirtID, m_ShortsID, m_SkinID, m_BootsID, m_PoseID);
+    }
+
+    public bool IsMatch(CharacterStyleData csd)
+    {
+        if (m_HairMeshID != csd.m_HairMeshID) return false;
+        if (m_HairMatID != csd.m_HairMatID) return false;
+        if (m_BagID != csd.m_BagID) return false;
+        if (m_ShirtID != csd.m_ShirtID) return false;
+        if (m_ShortsID != csd.m_ShortsID) return false;
+        if (m_SkinID != csd.m_SkinID) return false;
+        if (m_BootsID != csd.m_BootsID) return false;
+        if (m_PoseID != csd.m_PoseID) return false;
+        return true;
+    }
 }
