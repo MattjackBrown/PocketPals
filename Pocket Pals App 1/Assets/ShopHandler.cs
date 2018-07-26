@@ -12,14 +12,66 @@ public class ShopHandler : MonoBehaviour
     private GameObject cMenu;
     public Text myCoins;
 
+    public GameObject ARLayer;
+    public Text ARText;
+    public int ARCost = 200;
+
+    public GameObject CostumePackLayer;
+    public Text CPText;
+    public int CostumePackCost = 200;
+
     public void ButtonPressed(string buttonID)
     {
         foreach (ShopData sd in shopItems)
         {
             if (sd.ButtonID == buttonID)
             {
-                NotificationManager.Instance.QuestionNotification("Are you sure you want to buy " + sd.Quantity + "x " + sd.name, sd.Buy, null);
+                NotificationManager.Instance.QuestionNotification("Are you sure you want to buy " + sd.Quantity + "x " + sd.name + "?", sd.Buy, null);
             }
+        }
+    }
+
+    public void UpdateButtons()
+    {
+        if (LocalDataManager.Instance.HasAR()) ARLayer.SetActive(false);
+        if (LocalDataManager.Instance.HasCP()) CostumePackLayer.SetActive(false);
+    }
+
+    public void BuyAR()
+    {
+        NotificationManager.Instance.QuestionNotification("Are you sure you want to buy the AR KIT?",TryBuyAR, null);
+    }
+
+    public void BuyCP()
+    {
+        NotificationManager.Instance.QuestionNotification("Are you sure you want to buy the Extended Costume Pack?", TryBuyCP, null);
+    }
+
+    private void TryBuyAR()
+    {
+        if (!LocalDataManager.Instance.TryBuySomething(ARCost))
+        {
+            NotificationManager.Instance.ErrorNotification("You Dont have enough coins! Please buy more!");
+        }
+        else
+        {
+            LocalDataManager.Instance.BoughtAR();
+            UpdateButtons();
+            NotificationManager.Instance.CongratsNotification("You have bought the Augmented Reality KIT!");
+        }
+    }
+
+    private void TryBuyCP()
+    {
+        if (!LocalDataManager.Instance.TryBuySomething(CostumePackCost))
+        {
+            NotificationManager.Instance.ErrorNotification("You Dont have enough coins! Please buy more!");
+        }
+        else
+        {
+            LocalDataManager.Instance.BoughtCP();
+            UpdateButtons();
+            NotificationManager.Instance.CongratsNotification("You have bought the Extended Costume Pack!");
         }
     }
 
@@ -60,7 +112,9 @@ public class ShopHandler : MonoBehaviour
         {
             sd.SetText();
         }
-	}
+        ARText.text = ARCost.ToString();
+        CPText.text = CostumePackCost.ToString();
+    }
 
     public void RefreshCoins()
     {

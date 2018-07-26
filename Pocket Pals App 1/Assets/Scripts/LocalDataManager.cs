@@ -133,6 +133,31 @@ public class LocalDataManager : MonoBehaviour {
         return localData.TryUseCoins(cost);
     }
 
+    public void BoughtAR()
+    {
+        localData.HasAR = 1;
+        ServerDataManager.Instance.UpdateHasAR(localData.HasAR);
+    }
+
+    public void BoughtCP()
+    {
+        localData.HasCostumePack = 1;
+        ServerDataManager.Instance.UpdateHasCostumePack(localData.HasCostumePack);
+        CharacterCustomisation.Instance.customisationKitUnlocked = true;
+    }
+
+    public bool HasAR()
+    {
+        if (localData.HasAR == 1) return true;
+        return false;
+    }
+
+    public bool HasCP()
+    {
+        if (localData.HasCostumePack == 1) return true;
+        return false;
+    }
+
     //try and get a players pocketpal. If player does not own Pocket pal with ID returns null
     public PocketPalData TryGetPocketPal(int ID)
     {

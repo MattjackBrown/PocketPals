@@ -1146,7 +1146,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &57285021
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11076,8 +11076,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1827159123}
-        m_MethodName: ButtonPressed
-        m_Mode: 5
+        m_MethodName: BuyAR
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -26173,12 +26173,12 @@ GameObject:
   - component: {fileID: 1442095926}
   - component: {fileID: 1442095925}
   m_Layer: 5
-  m_Name: 2Cost
+  m_Name: CostumePack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1442095924
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26237,8 +26237,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1827159123}
-        m_MethodName: ButtonPressed
-        m_Mode: 5
+        m_MethodName: BuyCP
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -26268,7 +26268,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 4c31091dc55033647b8fa059c9ce47b4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a89567caa3048445db590c6b999c5632, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -33065,6 +33065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d67aacfe3b3dd84da125d026f66c172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  charLoadout: {fileID: 458546364}
   ErrorText: {fileID: 1200489145}
   canvasParent: {fileID: 421776396}
   loadingScreen: {fileID: 1525070895}
@@ -34907,17 +34908,17 @@ MonoBehaviour:
     PocketCoinsCost: 200
     Quantity: 3
     costText: {fileID: 910781563}
-  - name: Augmented
-    ItemID: -1
-    ButtonID: ar
-    PocketCoinsCost: 200
-    Quantity: 1
-    costText: {fileID: 793423586}
   Menus:
   - {fileID: 23778586}
   - {fileID: 57139320}
   - {fileID: 57285020}
   myCoins: {fileID: 569366977}
+  ARLayer: {fileID: 1456700695}
+  ARText: {fileID: 793423586}
+  ARCost: 200
+  CostumePackLayer: {fileID: 1495677664}
+  CPText: {fileID: 877115720}
+  CostumePackCost: 200
 --- !u!114 &1827159124
 MonoBehaviour:
   m_ObjectHideFlags: 0

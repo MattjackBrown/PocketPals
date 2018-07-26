@@ -11,6 +11,8 @@ public class ServerDataManager : MonoBehaviour
 
     public static ServerDataManager Instance { get; set; }
 
+    public CharacterCustomisation charLoadout;
+
     private bool FirebaseInitialised = false;
 
     //Database reference used to call up the server and the local copy that firebase provides
@@ -175,6 +177,26 @@ public class ServerDataManager : MonoBehaviour
         }); 
     }
 
+    public void UpdateCharacterStyleData(CharacterStyleData csd)
+    {
+        string json = JsonUtility.ToJson(csd);
+        Debug.Log("Updated");
+        GameData gd = LocalDataManager.Instance.GetData();
+        mDatabaseRef.Child("Users").Child(gd.ID).Child("Appearance").SetRawJsonValueAsync(json);
+    }
+
+    public void UpdateHasCostumePack(int i)
+    {
+        GameData gd = LocalDataManager.Instance.GetData();
+        mDatabaseRef.Child("Users").Child(gd.ID).Child("HasCostumePack").SetValueAsync(i);
+    }
+
+    public void UpdateHasAR(int i)
+    {
+        GameData gd = LocalDataManager.Instance.GetData();
+        mDatabaseRef.Child("Users").Child(gd.ID).Child("HasAR").SetValueAsync(i);
+    }
+
     public void AddPocketCoins(GameData gd, int delta)
     {
         RefreshCoins(gd);
@@ -189,6 +211,59 @@ public class ServerDataManager : MonoBehaviour
         mDatabaseRef.Child("Users").Child(gd.ID).Child("PocketCoins").SetValueAsync(gd.PocketCoins);
     }
 
+    private void ProcessCharData(DataSnapshot data)
+    {
+        CharacterStyleData csd = new CharacterStyleData();
+        foreach (DataSnapshot ds in data.Children)
+        {
+            switch (ds.Key.ToLower())
+            {
+                case "m_hairmeshid":
+                    {
+                        csd.m_HairMeshID = Convert.ToInt32(ds.Value);
+                        break;
+                    }
+                case "m_hairmatid":
+                    {
+                        csd.m_HairMatID = Convert.ToInt32(ds.Value);
+                        break;
+                    }
+                case "m_bagid":
+                    {
+                        csd.m_BagID = Convert.ToInt32(ds.Value);
+                        break;
+                    }
+                case "m_shirtsid":
+                    {
+                        csd.m_ShirtID = Convert.ToInt32(ds.Value);
+                        break;
+                    }
+                case "m_shortsid":
+                    {
+                        csd.m_ShortsID = Convert.ToInt32(ds.Value);
+                        break;
+                    }
+                case "m_skinid":
+                    {
+                        csd.m_SkinID = Convert.ToInt32(ds.Value);
+                        break;
+                    }
+                case "m_bootsid":
+                    {
+                        csd.m_BootsID = Convert.ToInt32(ds.Value);
+                        break;
+                    }
+                case "m_poseid":
+                    {
+                        csd.m_PoseID = Convert.ToInt32(ds.Value);
+                        break;
+                    }
+            }
+        }
+
+        charLoadout.LoadSavedLoadOut(csd);
+    }
+
     public void GetPlayerData(GameData gd)
     {
 
@@ -201,7 +276,7 @@ public class ServerDataManager : MonoBehaviour
         mDatabaseRef.Child("Users").Child(gd.ID).GetValueAsync().ContinueWith(task => {
             if (task.IsFaulted)
             {
-                Debug.Log("Failed Getting user from databse Writing new user");
+                Debug.Log("Failed Getting user from databse");
 
             }
             else if (task.IsCompleted)
@@ -235,7 +310,17 @@ public class ServerDataManager : MonoBehaviour
                             case "pocketcoins":
                                 gd.PocketCoins = Convert.ToInt32(obj.Value);
                                 break;
-
+                            case "appearance":
+                                {
+                                    ProcessCharData(obj);
+                                    break;
+                                }
+                            case "hascostumepack":
+                                gd.HasCostumePack = Convert.ToInt32(obj.Value);
+                                break;
+                            case "hasar":
+                                gd.HasAR = Convert.ToInt32(obj.Value);
+                                break;
                         }
                     }
                 }
@@ -245,17 +330,14 @@ public class ServerDataManager : MonoBehaviour
                     Debug.Log(ex);
                 }
             }
-            //If iter a new user Write it to the server... This is a bad fix but the only one 
-            //that seems to work consistently
-            if (iter < 5)
-            {
-                WriteNewUser(gd);
-            }
+
             GetInventory(gd);
                             
             ShouldUpdatePlayer = true;
         });
     }
+
+
 
     //----------- Item Inventory Stuff -------------\\
 

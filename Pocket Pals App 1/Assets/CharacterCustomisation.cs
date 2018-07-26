@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class CharacterCustomisation : MonoBehaviour {
 
+    public static CharacterCustomisation Instance { set; get; }
+
 	public GameObject menuPlayerObject, realPlayerObject;
 	public MeshFilter menuHairMesh, realHairMesh;
 	public List<Mesh> freeHairChoices, paidHairChoices;
@@ -30,7 +32,7 @@ public class CharacterCustomisation : MonoBehaviour {
 
 	int hairMeshIndex, hairMatIndex, bagIndex, shirtIndex, shortsIndex, skinIndex, bootsIndex, poseIndex;
 
-	public bool customisationKitUnlocked = true;
+	public bool customisationKitUnlocked = false;
 	public CharacterStyleData CharStyleData;
 
 	public Main_character_animator_controller poseController;
@@ -39,6 +41,8 @@ public class CharacterCustomisation : MonoBehaviour {
 	public Toggle t_Idle, t_HandsHips, t_Star, t_Bins, t_Net, t_Floss, t_Dab;
 
 	public void Start () {
+
+        Instance = this;
 
 		// Just in case, initialise the var
 		CharStyleData = new CharacterStyleData ();
@@ -118,6 +122,8 @@ public class CharacterCustomisation : MonoBehaviour {
 
 		// Update the map character with any changes made
 		UpdateRealCharacter ();
+
+        ServerDataManager.Instance.UpdateCharacterStyleData(GetCurrentLoadOut());
 	}
 
 	// To be called when exiting the customisation pages, updating the actual map character from the temporary model

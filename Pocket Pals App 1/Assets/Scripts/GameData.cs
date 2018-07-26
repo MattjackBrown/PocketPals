@@ -21,6 +21,10 @@ public class GameData
 
     public int PocketCoins = 0;
 
+    public int HasCostumePack = 0;
+
+    public int HasAR = 0;
+
     public GameData()
     {
         DistanceTravelled = 0.0f;

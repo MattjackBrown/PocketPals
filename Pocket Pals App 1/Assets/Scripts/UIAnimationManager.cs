@@ -135,6 +135,7 @@ public class UIAnimationManager : MonoBehaviour {
 			if (controls.IsInMapControls ()) {
 				
 				PlayerProfileHandler.Instance.RefreshStats();
+                CharacterCustomisation.Instance.customisationKitUnlocked = LocalDataManager.Instance.HasCP();
 				canvasAnimator.SetBool ("openJournal", show);
 				controls.MenuControls ();
 			}
@@ -163,11 +164,13 @@ public class UIAnimationManager : MonoBehaviour {
 		}
 	}
 
-	public void OpenShop (bool show) {
+	public void OpenShop (bool show)
+    {
 
         ServerDataManager.Instance.RefreshCoins(LocalDataManager.Instance.GetData());
         ShopHandler.Instance.RefreshCoins();
-		canvasAnimator.SetBool ("openShop", show);
+        ShopHandler.Instance.UpdateButtons();
+        canvasAnimator.SetBool ("openShop", show);
 	}
 
 	public void ShowVG (bool show) {
