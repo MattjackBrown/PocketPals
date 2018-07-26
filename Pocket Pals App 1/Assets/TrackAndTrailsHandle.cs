@@ -10,8 +10,6 @@ public class TrackAndTrailsHandle : MonoBehaviour
 {
     public static TrackAndTrailsHandle Instance { set; get; }
 
-    public Text distanceTravelledText;
-
     public int basePixelate = 100;
     public float MaxBonusModifier = 5.0f;
 
@@ -26,6 +24,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
     public Image InspectImage;
     public GameObject GuessButton;
     public GameObject CompleteButton;
+    public Text DistanceLeft;
 
     public GameObject GuessLayer;
     public GuessClass[] GuessBoxes;
@@ -55,6 +54,8 @@ public class TrackAndTrailsHandle : MonoBehaviour
         complete = Mathf.Clamp01(complete);
 
         InspectBar.fillAmount = complete;
+
+        DistanceLeft.text = Math.Round(activeTrack.GetDistanceLeft(cDist), 1).ToString()+ " Km Left";
 
         InspectImage.sprite = PixelateTexture(InspectImage, (int)((1 - activeTrack.GetFloatDone(cDist)) * basePixelate));
 

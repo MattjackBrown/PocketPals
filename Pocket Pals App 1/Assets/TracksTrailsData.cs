@@ -29,6 +29,12 @@ public class TrackData
         float delta = (currentDistance - startDistance)*1000;
         return delta / distTarget;
     }
+
+    public float GetDistanceLeft(float currenDistance)
+    {
+
+        return (startDistance + (distTarget / 1000)) - currenDistance;
+    }
 }
 [System.Serializable]
 public class TracksAndTrailsPreset

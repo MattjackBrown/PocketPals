@@ -38,7 +38,9 @@ public class CharacterCustomisation : MonoBehaviour {
 	public Main_character_animator_controller poseController;
 	public NewCharAnimControllerScript animController;
 
-	public Toggle t_Idle, t_HandsHips, t_Star, t_Bins, t_Net, t_Floss, t_Dab;
+	public Sprite TickImage;
+	public Color untickedColour, tickedColour;
+	public Image s_Idle, s_HandsHips, s_Star, s_Bins, s_Net, s_Floss, s_Dab;
 
 	public void Start () {
 
@@ -48,14 +50,6 @@ public class CharacterCustomisation : MonoBehaviour {
 		CharStyleData = new CharacterStyleData ();
 
 		UpdateMenuCharacter ();
-
-		t_Idle.onValueChanged.AddListener(delegate { ChoosePoseNone (); });
-		t_HandsHips.onValueChanged.AddListener(delegate { ChoosePoseHandsHips () ; });
-		t_Star.onValueChanged.AddListener(delegate { ChoosePoseStar (); });
-		t_Bins.onValueChanged.AddListener(delegate { ChoosePoseBins (); });
-		t_Net.onValueChanged.AddListener(delegate { ChoosePoseNet (); });
-		t_Floss.onValueChanged.AddListener(delegate { ChoosePoseFloss (); });
-		t_Dab.onValueChanged.AddListener(delegate { ChoosePoseDab (); });
 	}
 
 	// Populates the lists further if the add on items have been purchased
@@ -337,102 +331,114 @@ public class CharacterCustomisation : MonoBehaviour {
 
 	// All these just to make the button presses all coordinate through this script
 	// TODO Make the green ticks switch over if successful
-	void ChoosePoseNone () {
+	public void ChoosePoseNone () {
 
 		setAllTogglesFalse ();
 
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseNone ();
 
-			t_Idle.isOn = true;
+//			t_Idle.isOn = true;
+			s_Idle.sprite = TickImage;
+			s_Idle.color = tickedColour;
 
 			// Set the avatar's animation
+			animController.Walk ();
 			animController.Idle ();
 		} else {
 			// Preview? Show message to say buy?
 		}
 	}
 
-	void ChoosePoseBins () {
-
-		Debug.Log ("1");
+	public void ChoosePoseBins () {
 
 		setAllTogglesFalse ();
 
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseBins ();
 
-			Debug.Log ("2");
-
-			t_Bins.isOn = true;
-
-			Debug.Log ("3");
+//			t_Bins.isOn = true;
+			s_Idle.sprite = TickImage;
+			s_Idle.color = tickedColour;
 
 			// Set the avatar's animation
+			animController.Walk ();
 			animController.Bins ();
 		} else {
 			// Preview? Show message to say buy?
 		}
 	}
 
-	void ChoosePoseDab () {
+	public void ChoosePoseDab () {
 
 		setAllTogglesFalse ();
 
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseDab ();
 
-			t_Dab.isOn = true;
+//			t_Dab.isOn = true;
+			s_Dab.sprite = TickImage;
+			s_Dab.color = tickedColour;
 
 			// Set the avatar's animation
+			animController.Walk ();
 			animController.Dab ();
 		} else {
 			// Preview? Show message to say buy?
 		}
 	}
 
-	void ChoosePoseFloss () {
+	public void ChoosePoseFloss () {
 
 		setAllTogglesFalse ();
 
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseFloss ();
 
-			t_Floss.isOn = true;
+//			t_Floss.isOn = true;
+			s_Floss.sprite = TickImage;
+			s_Floss.color = tickedColour;
 
 			// Set the avatar's animation
+			animController.Walk ();
 			animController.Floss ();
 		} else {
 			// Preview? Show message to say buy?
 		}
 	}
 
-	void ChoosePoseNet () {
+	public void ChoosePoseNet () {
 
 		setAllTogglesFalse ();
 
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseNet ();
 
-			t_Net.isOn = true;
+//			t_Net.isOn = true;
+			s_Net.sprite = TickImage;
+			s_Net.color = tickedColour;
 
 			// Set the avatar's animation
+			animController.Walk ();
 			animController.Net ();
 		} else {
 			// Preview? Show message to say buy?
 		}
 	}
 
-	void ChoosePoseStar () {
+	public void ChoosePoseStar () {
 
 		setAllTogglesFalse ();
 
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseStar ();
 
-			t_Star.isOn = true;
+//			t_Star.isOn = true;
+			s_Star.sprite = TickImage;
+			s_Star.color = tickedColour;
 
 			// Set the avatar's animation
+			animController.Walk ();
 			animController.Star ();
 
 		} else {
@@ -440,16 +446,19 @@ public class CharacterCustomisation : MonoBehaviour {
 		}
 	}
 
-	void ChoosePoseHandsHips () {
+	public void ChoosePoseHandsHips () {
 
 		setAllTogglesFalse ();
 
 		if (customisationKitUnlocked) {
 			poseController.ChoosePoseHandsHips ();
 
-			t_HandsHips.isOn = true;
+//			t_HandsHips.isOn = true;
+			s_HandsHips.sprite = TickImage;
+			s_HandsHips.color = tickedColour;
 
 			// Set the avatar's animation
+			animController.Walk ();
 			animController.HandsHips ();
 
 		} else {
@@ -459,13 +468,21 @@ public class CharacterCustomisation : MonoBehaviour {
 
 	// Toggle stuff for poses
 	void setAllTogglesFalse () {
-		t_Idle.isOn = false;
-		t_HandsHips.isOn = false;
-		t_Star.isOn = false;
-		t_Bins.isOn = false;
-		t_Net.isOn = false;
-		t_Floss.isOn = false;
-		t_Dab.isOn = false;
+		s_Idle.sprite = null;
+		s_HandsHips.sprite = null;
+		s_Star.sprite = null;
+		s_Bins.sprite = null;
+		s_Net.sprite = null;
+		s_Floss.sprite = null;
+		s_Dab.sprite = null;
+
+		s_Idle.color = untickedColour;
+		s_HandsHips.color = untickedColour;
+		s_Star.color = untickedColour;
+		s_Bins.color = untickedColour;
+		s_Net.color = untickedColour;
+		s_Floss.color = untickedColour;
+		s_Dab.color = untickedColour;
 	}
 }
 
