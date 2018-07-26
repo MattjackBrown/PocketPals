@@ -33,6 +33,8 @@ public class JournalNewScript : MonoBehaviour {
 
 		// TODO Create new control scheme
 		TouchHandler.Instance.CharCustControls ();
+
+        CharacterCustomisation.Instance.Init();
 	}
 
 	public void ExitBackToMap () {

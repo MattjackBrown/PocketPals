@@ -122,6 +122,10 @@ public class CharacterCustomisation : MonoBehaviour {
         {
             NotificationManager.Instance.QuestionNotification("Would You Like To Apply and Save?", ApplyAndSave, UpdateMenuCharacter);
         }
+        else
+        {
+            jns.ExitBackToMap();
+        }
 	}
 
     public void ApplyAndSave()
