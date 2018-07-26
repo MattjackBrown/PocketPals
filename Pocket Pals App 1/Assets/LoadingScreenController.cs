@@ -20,7 +20,14 @@ public class LoadingScreenController : MonoBehaviour {
 		loadingStarted = false;
 
 	}
-	
+
+    public void ResetBar()
+    {
+        loadingStarted = false;
+        isLoggedIn = false;
+        loadingBarValue = 0;
+    }
+
 	// Update is called once per frame
 	void Update ()
     {

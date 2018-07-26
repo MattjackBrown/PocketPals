@@ -335,6 +335,7 @@ public class ServerDataManager : MonoBehaviour
 
                 catch (Exception ex)
                 {
+                    LogOut();
                     Debug.Log(ex);
                 }
             }
@@ -483,6 +484,7 @@ public class ServerDataManager : MonoBehaviour
                 }
                 catch (Exception ex)
                 {
+                    LogOut();
                     Debug.Log(ex);
                 }
                 GetItemInventory(gd);
@@ -699,11 +701,12 @@ public class ServerDataManager : MonoBehaviour
 
     public void LogOut()
     {
-        NotificationManager.Instance.LogoutNotification("Come Back Soon!!!");
+
+        NotificationManager.Instance.LogoutNotification("Login Failed Please Check connection");
         auth.SignOut();
         newUser = null;
-        //LoginScreen.SetActive(true);
-		canvasParent.GetComponent<Animator>().SetBool("logOut", true);
+        UIAnimationManager.Instance.IntroFinished();
+        loadingScreen.ResetBar();
     }
 
     void OnDestroy()
