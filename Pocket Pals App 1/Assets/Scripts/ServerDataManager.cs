@@ -472,6 +472,9 @@ public class ServerDataManager : MonoBehaviour
                                 case "guessid":
                                     td.GuessID = Convert.ToInt32(child.Value);
                                     break;
+                                case "multiplier":
+                                    td.Multiplier = Convert.ToSingle(child.Value);
+                                    break;
                             }
                         }
 

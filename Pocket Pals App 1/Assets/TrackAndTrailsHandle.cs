@@ -69,11 +69,12 @@ public class TrackAndTrailsHandle : MonoBehaviour
         if (activeTrack.GuessID != -1)
         {
             GuessButton.SetActive(false);
-
+            CompleteButton.SetActive(true);
         }
         else
         {
             GuessButton.SetActive(true);
+            CompleteButton.SetActive(false);
         }
     }
 
@@ -237,6 +238,8 @@ public class TrackAndTrailsHandle : MonoBehaviour
         activeTrack.GuessID = activeGuess.ppp.PocketPalID;
         activeTrack.Multiplier = modifier;
 
+        NotificationManager.Instance.CustomHeaderNotification("Guess Confimed!", "You have guessed this track belongs too a " + activeGuess.name.text + " If you're right, you will receive an exp modifier of: " + Math.Round(activeTrack.Multiplier, 1) + "x EXP");
+
         ServerDataManager.Instance.WriteTrack(LocalDataManager.Instance.GetData(), activeTrack);
 
         Back();
@@ -253,9 +256,10 @@ public class TrackAndTrailsHandle : MonoBehaviour
         if (activeTrack.GuessID == AssetManager.Instance.GetTrackByID(activeTrack.ID).PocketPalID)
         {
             NotificationManager.Instance.CongratsNotification("Correct! You have tracked the animal!");
-            
 
-            LocalDataManager.Instance.SuccessfulTrack(correctPPal, AssetManager.Instance.GetTrackByID(activeTrack.ID), activeTrack.Multiplier);
+            PocketPalParent ppp = AssetManager.Instance.GetPocketPalFromID(activeTrack.GuessID).GetComponent<PocketPalParent>();
+
+            LocalDataManager.Instance.SuccessfulTrack(ppp, AssetManager.Instance.GetTrackByID(activeTrack.ID), activeTrack.Multiplier);
         }
         else
         {
@@ -280,5 +284,6 @@ public class GuessClass
         index = i;
         img.sprite = null;
         ppp = parent;
+        name.text = parent.name;
     }
 }

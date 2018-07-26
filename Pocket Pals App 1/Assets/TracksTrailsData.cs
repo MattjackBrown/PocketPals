@@ -7,7 +7,7 @@ public class TrackData
 {
     public float distTarget = 1000.0f;
     public float startDistance = 0.0f;
-    public float Multiplier = 0.0f;
+    public float Multiplier = 1.0f;
     public int ID = 0;
     public int GuessID = -1;
     public string uID = "";
