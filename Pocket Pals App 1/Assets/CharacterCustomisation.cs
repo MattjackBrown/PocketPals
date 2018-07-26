@@ -138,6 +138,12 @@ public class CharacterCustomisation : MonoBehaviour {
         jns.ExitBackToMap();
     }
 
+    public void CancelSave()
+    {
+        cData = oldData;
+        UpdateMenuCharacter();
+    }
+
 	// To be called when exiting the customisation pages, updating the actual map character from the temporary model
 	public void UpdateRealCharacter ()
     {
