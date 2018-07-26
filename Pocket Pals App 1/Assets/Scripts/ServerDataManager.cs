@@ -328,8 +328,9 @@ public class ServerDataManager : MonoBehaviour
                     if (LocalDataManager.Instance.HasCP())
                     {
                        charLoadout.customisationKitUnlocked = true;
-                        charLoadout.LoadSavedLoadOut(csd);
+                        
                     }
+                    charLoadout.LoadSavedLoadOut(csd);
 
                 }
 
@@ -705,7 +706,7 @@ public class ServerDataManager : MonoBehaviour
         NotificationManager.Instance.LogoutNotification("Login Failed Please Check connection");
         auth.SignOut();
         newUser = null;
-        UIAnimationManager.Instance.IntroFinished();
+        UIAnimationManager.Instance.OpenLogin();
         loadingScreen.ResetBar();
     }
 

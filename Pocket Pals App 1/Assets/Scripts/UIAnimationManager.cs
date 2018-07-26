@@ -29,6 +29,12 @@ public class UIAnimationManager : MonoBehaviour {
 		canvasAnimator.SetBool ("showSettings", show);
 	}
 
+    public void OpenLogin()
+    {
+        canvasAnimator.Play("LoginOpen");
+        canvasAnimator.SetBool("closeLogin", false);
+    }
+
 	public void ShowInventory (bool show)
     {
         if(show)InventoryHandler.Instance.Enabled();
