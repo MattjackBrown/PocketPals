@@ -1337,14 +1337,16 @@ MonoBehaviour:
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
   maxSpawnExp: 1000
-  averageSpawnSize: 5
-  sizeVariance: 0.5
-  averageAgro: 5
-  agroVariance: 0.5
+  minWeight: 0.25
+  maxWeight: 0.34
+  minLength: 19
+  maxLength: 23
   type: 2
   name: Red Squirrel
   FactSheet: {fileID: 21300000, guid: 0d7dd0314e27b194aa7daf69fdf1e49b, type: 3}
   Rarity: 6
+  minPatrolSpeed: 0
+  maxPatrolSpeed: 0
 --- !u!137 &137988180757440892
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

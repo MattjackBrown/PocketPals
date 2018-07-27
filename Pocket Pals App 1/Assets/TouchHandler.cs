@@ -324,8 +324,13 @@ public class TouchHandler : MonoBehaviour {
         ResourceSpotParent rsp = gd.GetComponent<ResourceSpotParent>();
         if (rsp.IsUsed())
         {
-            NotificationManager.Instance.ResourceSpotUsed(ResourceSpotManager.Instance.GetTimeOfCoolDown(rsp));
-            return;
+            float timeleft = ResourceSpotManager.Instance.GetTimeOfCoolDown(rsp);
+            if (timeleft > 0)
+            {
+                NotificationManager.Instance.ResourceSpotUsed(timeleft);
+                return;
+            }
+            
         }
         //set the sign to be facing the player
         Quaternion targetRotation = Quaternion.LookRotation(GPS.Insatance.girl.transform.position - gd.transform.position);

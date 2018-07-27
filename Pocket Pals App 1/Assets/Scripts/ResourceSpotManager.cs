@@ -178,6 +178,7 @@ public class ResourceSpotManager : MonoBehaviour
         {
             if (rss.IsMatch(rsp.spawnLoc, checkThreshold)) return rss.cooldown;
         }
+        rsp.ActiveAgain();
         return 0.0f;
     }
 
@@ -229,9 +230,10 @@ public class ResourceSpotManager : MonoBehaviour
             usedSpots = sd.usedSpots;
             file.Close();
 
-            foreach(ResourceSpotSave rss in sd.usedSpots)
+            if (sd.ShouldScanPPals)
             {
-                Debug.Log(rss.cooldown);
+               
+                sd.ShouldScanPPals = false;
             }
 
             if (usedSpots == null)
@@ -251,6 +253,7 @@ public class ResourceSpotManager : MonoBehaviour
 [System.Serializable]
 public class Savedata
 {
+    public bool ShouldScanPPals = true;
     public List<ResourceSpotSave> usedSpots;
     public Savedata(List<ResourceSpotSave>rs) { usedSpots = rs; }
 }

@@ -1220,10 +1220,10 @@ MonoBehaviour:
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
   maxSpawnExp: 1000
-  avgWeight: 5
-  weightVar: 0.5
-  avgLength: 5
-  lengthVar: 0.5
+  minWeight: 0.385
+  maxWeight: 0.8
+  minLength: 37
+  maxLength: 46
   type: 3
   name: Owl
   FactSheet: {fileID: 21300000, guid: fbebdd48ace164d4da24dc9d4e8fa81d, type: 3}

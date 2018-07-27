@@ -1423,10 +1423,10 @@ MonoBehaviour:
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
   maxSpawnExp: 500
-  avgWeight: 5
-  weightVar: 0.5
-  avgLength: 5
-  lengthVar: 0.5
+  minWeight: 0.0009
+  maxWeight: 0.00125
+  minLength: 10.5
+  maxLength: 12
   type: 2
   name: Bluetit
   FactSheet: {fileID: 21300000, guid: e06ea0169e560e248b28691892cac0d8, type: 3}

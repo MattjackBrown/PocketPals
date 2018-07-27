@@ -1088,10 +1088,10 @@ MonoBehaviour:
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
   maxSpawnExp: 1000
-  avgWeight: 12
-  weightVar: 0.5
-  avgLength: 75
-  lengthVar: 0.5
+  minWeight: 7
+  maxWeight: 17
+  minLength: 60
+  maxLength: 90
   type: 3
   name: Badger
   FactSheet: {fileID: 21300000, guid: e3b26529c420d55469f52105094c4af1, type: 3}

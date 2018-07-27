@@ -1453,12 +1453,12 @@ MonoBehaviour:
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
   maxSpawnExp: 1000
-  avgWeight: 5
-  weightVar: 0.5
-  avgLength: 5
-  lengthVar: 0.5
+  minWeight: 1
+  maxWeight: 2.2
+  minLength: 46
+  maxLength: 54
   type: 3
-  name: Pinemarten
+  name: Pine Marten
   FactSheet: {fileID: 21300000, guid: 7bf9a55e53ef86d4ca9ef1302fe23f81, type: 3}
   Rarity: 8
   minPatrolSpeed: 0.05

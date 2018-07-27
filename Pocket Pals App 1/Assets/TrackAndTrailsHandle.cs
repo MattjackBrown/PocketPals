@@ -55,7 +55,11 @@ public class TrackAndTrailsHandle : MonoBehaviour
 
         InspectBar.fillAmount = complete;
 
-        DistanceLeft.text = Math.Round(activeTrack.GetDistanceLeft(cDist), 1).ToString()+ " Km Left";
+        double dist = Math.Round(activeTrack.GetDistanceLeft(cDist), 1);
+
+        if (dist < 0) dist = 0;
+
+        DistanceLeft.text = dist.ToString()+ " Km Left";
 
         InspectImage.sprite = PixelateTexture(InspectImage, (int)((1 - activeTrack.GetFloatDone(cDist)) * basePixelate));
 
@@ -215,11 +219,15 @@ public class TrackAndTrailsHandle : MonoBehaviour
 
     public void ToggleGuess(int index)
     {
+        Color c = new Color(1,1,1,1);
         foreach (GuessClass gc in GuessBoxes)
         {
-            gc.img.sprite = Cross;
+            c = gc.img.color;
+            gc.img.sprite = null;
+            gc.img.color = new Color(c.r, c.g, c.b, 0);
         }
         GuessBoxes[index].img.sprite = Tick;
+        GuessBoxes[index].img.color = new Color(c.r, c.g, c.b, 1);
         activeGuess = GuessBoxes[index];
     }
 

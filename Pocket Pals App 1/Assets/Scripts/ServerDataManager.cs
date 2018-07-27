@@ -569,6 +569,7 @@ public class ServerDataManager : MonoBehaviour
                 {
                     Debug.Log(ex);
                 }
+                LocalDataManager.Instance.GetData().ScanInventoryForBadStats();
                 GetTrackData(gd);
             }
         });

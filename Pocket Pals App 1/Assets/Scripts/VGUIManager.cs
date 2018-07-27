@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -70,7 +71,11 @@ public class VGUIManager : MonoBehaviour
             statBoard.SetActive(false);
         }
     }
-    
+
+    public void AnimalCall()
+    {
+        SoundEffectHandler.Instance.PlayAnimalSound(currentDisplayData.ID.ToString());
+    }
 
     public void ToggleInspect()
     {
@@ -94,6 +99,34 @@ public class VGUIManager : MonoBehaviour
         }
     }
 
+    public void SetWeight()
+    {
+        string str = "";
+        if (currentDisplayData.weight < 1)
+        {
+            str = Math.Round((currentDisplayData.weight * 1000), 1).ToString() + "g";
+        }
+        else
+        {
+            str = currentDisplayData.GetRoundedWeight().ToString() + "kg";
+        }
+        weight.text = str;
+    }
+
+    public void SetLength()
+    {
+        string str = "";
+        if (currentDisplayData.weight < 1)
+        {
+            str = Math.Round((currentDisplayData.length * 10), 1).ToString() + "mm";
+        }
+        else
+        {
+            str = currentDisplayData.GetRoundedLength().ToString() + "cm";
+        }
+        length.text = str;
+    }
+
     public void SetInspectData(PocketPalData ppd)
     {
         currentDisplayData = ppd;
@@ -105,8 +138,8 @@ public class VGUIManager : MonoBehaviour
         if (currentDisplayData != null)
         {
             factBoard.GetComponent<Image>().sprite = AssetManager.Instance.GetFactSheet(currentDisplayData.ID);
-            weight.text = currentDisplayData.GetWeight().ToString() + "Kg";
-            length.text = currentDisplayData.GetLength().ToString() + "cm";
+            SetWeight();
+            SetLength();
 
             nameText.text = currentDisplayData.name;
 //            agressionText.text = currentDisplayData.GetAgression().ToString();

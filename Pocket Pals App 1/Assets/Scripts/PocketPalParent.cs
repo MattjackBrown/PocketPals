@@ -43,11 +43,11 @@ public class PocketPalParent : MonoBehaviour
 
     public float maxSpawnExp = 1000.0f;
 
-    public float avgWeight = 5.0f;
-    public float weightVar = 0.5f;
+    public float minWeight = 0.0f;
+    public float maxWeight = 5.5f;
 
-    public float avgLength = 5.0f;
-    public float lengthVar = 0.5f;
+    public float minLength = 0.0f;
+    public float maxLength = 5.5f;
 
     public SpawnType type = SpawnType.none;
 
@@ -102,6 +102,26 @@ public class PocketPalParent : MonoBehaviour
         	PocketPalSpawnManager.Instance.PocketpalCollected(gameObject);
     }
 
+
+    public float CheckNewLength(float l)
+    {
+        if (l > maxLength ||l < minLength)
+        {
+            return Random.Range(minLength, maxLength);
+        }
+        else return l;
+    }
+
+    public float CheckNewWeight(float w)
+    {
+        if (w > maxWeight || w < minWeight)
+        {
+            return Random.Range(minWeight, maxWeight);
+        }
+        else return w;
+    }
+
+
     //called on the pocketPalSpawnManager after a new clone is made of the original asset.
     public PocketPalData GenerateAnimalData(float expMin = -1, float expMax = -1)
     {
@@ -117,11 +137,9 @@ public class PocketPalParent : MonoBehaviour
         }
 
         //get random size inbetween points using size variance.
-        float tSizeVar = avgWeight * weightVar;
-        float weight = Random.Range(avgWeight - tSizeVar, avgWeight + tSizeVar);
+        float weight = Random.Range(minWeight, maxWeight);
 
-        float tAgroVar = avgLength * lengthVar;
-        float length = Random.Range(avgLength - tAgroVar, avgLength + tAgroVar);
+        float length = Random.Range(minLength, maxLength);
 
         pocketPalData = new PocketPalData(name, PocketPalID,exp, weight ,length, Rarity);
         return pocketPalData;

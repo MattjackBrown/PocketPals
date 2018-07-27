@@ -1481,10 +1481,10 @@ MonoBehaviour:
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
   maxSpawnExp: 500
-  avgWeight: 5
-  weightVar: 0.5
-  avgLength: 5
-  lengthVar: 0.5
+  minWeight: 0.0016
+  maxWeight: 0.0022
+  minLength: 12.5
+  maxLength: 14
   type: 2
   name: Robin
   FactSheet: {fileID: 21300000, guid: 4041d9902d97bb7409f5fd80d9c8fff1, type: 3}

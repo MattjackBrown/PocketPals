@@ -34,12 +34,12 @@ public class PocketPalData
 
     public PocketPalData() { }
 
-    public float GetWeight()
+    public float GetRoundedWeight()
     {
         return (float)Math.Round(weight, 1);
     }
 
-    public float GetLength()
+    public float GetRoundedLength()
     {
         return (float)Math.Round(length, 1);
     }

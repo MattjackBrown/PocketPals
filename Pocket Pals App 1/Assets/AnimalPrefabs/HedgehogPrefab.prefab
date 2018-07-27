@@ -1472,10 +1472,10 @@ MonoBehaviour:
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0, z: 0}
   maxSpawnExp: 1000
-  avgWeight: 5
-  weightVar: 0.5
-  avgLength: 5
-  lengthVar: 0.5
+  minWeight: 0.8
+  maxWeight: 1.1
+  minLength: 12
+  maxLength: 28
   type: 3
   name: Hedgehog
   FactSheet: {fileID: 21300000, guid: db8e918eb02b9d147a82e16b3587e174, type: 3}
