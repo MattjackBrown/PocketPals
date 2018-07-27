@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class JournalNewScript : MonoBehaviour {
 
@@ -9,8 +10,11 @@ public class JournalNewScript : MonoBehaviour {
 	Vector3 cameraJournalPosition, cameraLookAtPosition;
 	Vector3 cameraMapPlayerOffset, playerMapCharPosition;
 	Quaternion cameraMapRotation;
+    public Image xpSlider;
+    public Text xpText;
+    public Text level;
 
-	void Start () {
+    void Start () {
 
 		cameraJournalPosition = cameraJournalPositionObject.transform.position;
 		cameraLookAtPosition = cameraLookAtPositionObject.transform.position;
@@ -33,6 +37,10 @@ public class JournalNewScript : MonoBehaviour {
 
 		// TODO Create new control scheme
 		TouchHandler.Instance.CharCustControls ();
+
+        xpSlider.fillAmount = LocalDataManager.Instance.GetData().GetPercentageExp();
+        xpText.text = LocalDataManager.Instance.GetData().EXP.ToString();
+        level.text = LocalDataManager.Instance.GetData().GetLevel().ToString();
 
         CharacterCustomisation.Instance.Init();
 	}
