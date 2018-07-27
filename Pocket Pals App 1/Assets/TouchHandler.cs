@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TouchHandler : MonoBehaviour {
 	
-	public GameObject player;
+	public GameObject player, buttonBlocker;
 	public CameraController cameraController;
 	public CaptureMiniGame miniGame;
 	public VirtualSceneParent virtualGarden;
@@ -169,21 +169,25 @@ public class TouchHandler : MonoBehaviour {
 		controlScheme = ControlScheme.map;
 		miniGame.animManager.ResetMinigame ();
 		cameraController.EnableJournalButton ();
+		EnableButtons ();
     }
 	
 	public void MapCameraTransition() {
 		controlScheme = ControlScheme.mapCameraTransition;
 		cameraController.DisableJournalButton ();
+		DisableButtons ();
 	}
 
 	public void MenuControls() {
 		controlScheme = ControlScheme.menu;
 		cameraController.DisableJournalButton ();
+		EnableButtons ();
 	}
 
 	public void MiniGameControls() {
 		controlScheme = ControlScheme.miniGame;
 		cameraController.DisableJournalButton ();
+		EnableButtons ();
 	}
 
 	public void VirtualGardenControls() {
@@ -196,36 +200,43 @@ public class TouchHandler : MonoBehaviour {
 		
 		controlScheme = ControlScheme.VirtualGarden;
 		cameraController.DisableJournalButton ();
+		EnableButtons ();
 	}
 
 	public void VirtualGardenCameraTransitionControls() {
 		controlScheme = ControlScheme.VirtualGardenCameraTransition;
 		cameraController.DisableJournalButton ();
+		EnableButtons ();
 	}
 
 	public void VirtualGardenInfoControls() {
 		controlScheme = ControlScheme.VirtualGardenInfo;
 		cameraController.DisableJournalButton ();
+		EnableButtons ();
 	}
 
 	public void VirtualGardenInfoTransitionControls () {
 		controlScheme = ControlScheme.VirtualGardenInfoTransition;
 		cameraController.DisableJournalButton ();
+		EnableButtons ();
 	}
 
 	public void ResourceSpotControls() {
 		controlScheme = ControlScheme.ResourceSpotControls;
 		cameraController.DisableJournalButton ();
+		DisableButtons ();
 	}
 
 	public void ResourceSpotTransition() {
 		controlScheme = ControlScheme.ResourceSpotTransition;
 		cameraController.DisableJournalButton ();
+		DisableButtons ();
 	}
 
 	public void CharCustControls () {
 		controlScheme = ControlScheme.CharCust;
 		cameraController.DisableJournalButton ();
+		EnableButtons ();
 	}
 
 	public void InitVirtualGardenControls() {
@@ -541,5 +552,13 @@ public class TouchHandler : MonoBehaviour {
 
 	public void Vibrate () {
 		Handheld.Vibrate ();
+	}
+
+	public void DisableButtons () {
+		buttonBlocker.SetActive (true);
+	}
+
+	public void EnableButtons () {
+		buttonBlocker.SetActive (false);
 	}
 }

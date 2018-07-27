@@ -168,7 +168,7 @@ public class CameraController : MonoBehaviour
 		// Get the distance of the camera from the player at the start of this frame
 		currentCameraDistance = (transform.position - playerPosition).magnitude;
 
-		currentCameraDistance = Mathf.Lerp (currentCameraDistance, initialTargetCamZoomDistance, Time.deltaTime);
+		currentCameraDistance = Mathf.Lerp (currentCameraDistance, initialTargetCamZoomDistance, Time.deltaTime * 1.5f);
 
 		// Time the ingame map menu to animate in at a certain point in the initial camera pan in animation
 		if (!mapMenuLoaded && currentCameraDistance - initialTargetCamZoomDistance < 0.4f) {
