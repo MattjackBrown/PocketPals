@@ -221,7 +221,7 @@ public class PocketPalSpawnManager : MonoBehaviour
         return index;
     }
 
-    private void DespawnPocketPal(GameObject obj)
+    public void DespawnPocketPal(GameObject obj)
     {
         spawnedPocketPals.Remove(obj);
         Destroy(obj);

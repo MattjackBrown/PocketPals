@@ -25,6 +25,10 @@ public class GameData
 
     public int HasAR = 0;
 
+	public bool CanAR = false;
+
+	public CharacterStyleData charStyleData = new CharacterStyleData();
+
     public GameData()
     {
         DistanceTravelled = 0.0f;
@@ -71,6 +75,12 @@ public class GameData
     {
         return ItemInv.GetItemFromID(GlobalVariables.BerryID).numberOwned;
 
+	}
+		
+	public void SaveCharacterStyle(CharacterStyleData csd)
+	{
+		charStyleData = csd;
+		ServerDataManager.Instance.UpdateCharacterStyleData (csd);
 	}
 
     public bool TryUseCoins(int Quantity)

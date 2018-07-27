@@ -233,7 +233,7 @@ public class ServerDataManager : MonoBehaviour
                         csd.m_BagID = Convert.ToInt32(ds.Value);
                         break;
                     }
-                case "m_shirtsid":
+                case "m_shirtid":
                     {
                         csd.m_ShirtID = Convert.ToInt32(ds.Value);
                         break;
@@ -330,6 +330,7 @@ public class ServerDataManager : MonoBehaviour
                        charLoadout.customisationKitUnlocked = true;
                         
                     }
+					gd.charStyleData = csd;
                     charLoadout.LoadSavedLoadOut(csd);
 
                 }
@@ -588,6 +589,18 @@ public class ServerDataManager : MonoBehaviour
     }
 
     //---------------- Login Logout Statechanging stuff ------------------\\
+
+	public void OverrideLogin()
+	{
+		if (auth.CurrentUser != null) 
+		{
+			UIAnimationManager.Instance.OverrideLogin ();
+
+			GPS.Insatance.UpdateMap ();
+			LoadingScreenController.Instance.SetBeAwareImage ();
+			LoadingScreenController.Instance.AllowToComplete ();
+		}
+	}
 
     public void CreateUser(string email, string password, Text failedText, GameObject CreateUserScreen)
     {

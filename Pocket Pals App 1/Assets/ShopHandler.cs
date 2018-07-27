@@ -33,7 +33,7 @@ public class ShopHandler : MonoBehaviour
 
     public void UpdateButtons()
     {
-        if (LocalDataManager.Instance.HasAR()) ARLayer.SetActive(false);
+		if (LocalDataManager.Instance.HasAR() || !EnvironmentChanger.IsARSupported()) ARLayer.SetActive(false);
         if (LocalDataManager.Instance.HasCP()) CostumePackLayer.SetActive(false);
     }
 

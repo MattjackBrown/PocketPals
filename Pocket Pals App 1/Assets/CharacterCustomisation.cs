@@ -139,7 +139,7 @@ public class CharacterCustomisation : MonoBehaviour {
         // Update the map character with any changes made
         UpdateRealCharacter();
 
-        ServerDataManager.Instance.UpdateCharacterStyleData(GetCurrentLoadOut());
+		LocalDataManager.Instance.SaveCharStyle(GetCurrentLoadOut());
 
         jns.ExitBackToMap();
     }

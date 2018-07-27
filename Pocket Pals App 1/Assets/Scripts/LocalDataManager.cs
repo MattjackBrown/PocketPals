@@ -13,6 +13,8 @@ public class LocalDataManager : MonoBehaviour {
     private string destination;
     private static GameData localData;
 
+	public bool InAR = false;
+
 	// Use this for initialization
 	void Start ()
     {
@@ -53,6 +55,11 @@ public class LocalDataManager : MonoBehaviour {
             ServerDataManager.Instance.UpdateDistace(localData);
         }
     }
+
+	public void SaveCharStyle(CharacterStyleData csd)
+	{
+		localData.SaveCharacterStyle (csd);
+	}
 
     public void AddPocketPal(GameObject obj)
     {
@@ -158,6 +165,10 @@ public class LocalDataManager : MonoBehaviour {
         return false;
     }
 
+	public bool CanAR()
+	{
+		return EnvironmentChanger.IsARSupported ();
+	}
     //try and get a players pocketpal. If player does not own Pocket pal with ID returns null
     public PocketPalData TryGetPocketPal(int ID)
     {

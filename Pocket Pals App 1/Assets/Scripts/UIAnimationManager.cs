@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UIAnimationManager : MonoBehaviour {
-
 	public GameObject startingUI;
 	public TouchHandler controls;
 
@@ -12,16 +11,26 @@ public class UIAnimationManager : MonoBehaviour {
 	// There is a central animator within this parent that controls specific pairs of UIs
 	Animator canvasAnimator;
 
-    private void Awake()
-    {
-        canvasAnimator = GetComponent<Animator>();
-
-    }
+	void Awake()
+	{
+		canvasAnimator = GetComponent<Animator> ();
+	}
 
     void Start () {
 
 		canvasAnimator = GetComponent<Animator> ();
         Instance = this;
+	}
+
+	IEnumerator TryOverride()
+	{
+		while (canvasAnimator == null) 
+		{
+			canvasAnimator = GetComponent<Animator> ();
+			Debug.Log ("Im trying");
+			yield return new WaitForSeconds (1);
+		}
+		canvasAnimator.SetBool ("AROverride", true);
 	}
 
 	public void ShowSettings (bool show) {
@@ -34,6 +43,11 @@ public class UIAnimationManager : MonoBehaviour {
         canvasAnimator.Play("LoginOpen");
         canvasAnimator.SetBool("closeLogin", false);
     }
+
+	public void OverrideLogin()
+	{
+		StartCoroutine (TryOverride());
+	}
 
 	public void ShowInventory (bool show)
     {

@@ -20,7 +20,11 @@ public class StreamVideo : MonoBehaviour {
 		StartCoroutine (PlayVideo ());
 	}
 
-	IEnumerator PlayVideo () {
+	IEnumerator PlayVideo ()
+	{
+
+
+
         if (!TouchHandler.Instance.IsDebug)
         {
 
@@ -34,6 +38,22 @@ public class StreamVideo : MonoBehaviour {
                 yield return wait;
                 break;
             }
+
+			if (LocalDataManager.Instance != null) {
+				if (LocalDataManager.Instance.InAR) 
+				{
+					LocalDataManager.Instance.InAR = false;
+
+					BackgroundMusic.Instance.StartBackgroundMusic();
+					CameraController.Instance.StartZoomIn();
+
+					ServerDataManager.Instance.OverrideLogin ();
+					this.gameObject.SetActive(false);
+					rawImage.gameObject.SetActive (false);
+
+					yield break;
+				}
+			}
 
             rawImage.texture = videoPlayer.texture;
 

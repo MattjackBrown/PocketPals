@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4152014, g: 0.6019771, b: 0.74117684, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -151,7 +151,7 @@ MonoBehaviour:
   VGInfo: {fileID: 32817350}
   animManager: {fileID: 421776396}
   player: {fileID: 206820439}
-  controls: {fileID: 0}
+  controls: {fileID: 1331972349}
 --- !u!4 &10660633
 Transform:
   m_ObjectHideFlags: 0
@@ -5422,7 +5422,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 55d6cf959f22e6c4689333bcf6ea61cf, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -7924,7 +7924,7 @@ MonoBehaviour:
     ID: 
     tex: {fileID: 2800000, guid: 85a17a759081e445db67a6352df70aac, type: 3}
   BagChoices:
-  - IsPaid: 1
+  - IsPaid: 0
     ID: 
     tex: {fileID: 2800000, guid: cf305f51a0ca74a89862d60ff91cec47, type: 3}
   - IsPaid: 0
@@ -8007,7 +8007,7 @@ MonoBehaviour:
     tex: {fileID: 2800000, guid: fed8578c82c3649d48aa1a43087a7700, type: 3}
   - IsPaid: 0
     ID: 
-    tex: {fileID: 2800000, guid: 5c1f40afc812743db8d3455b7c8d4c02, type: 3}
+    tex: {fileID: 2800000, guid: 263430f9af40544e48d5f5a8b70659d0, type: 3}
   - IsPaid: 0
     ID: 
     tex: {fileID: 2800000, guid: 42759d9c3d6b94faeb0bb9e9ce552bf6, type: 3}
@@ -10341,7 +10341,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 0153fb58acd690c4fa468b65ff894e47, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -33214,6 +33214,7 @@ MonoBehaviour:
   playerModel: {fileID: 458546363}
   cameraJournalPositionObject: {fileID: 59788286}
   cameraLookAtPositionObject: {fileID: 1591819563}
+  mapPlayerObject: {fileID: 1705972391}
 --- !u!1 &1697150505
 GameObject:
   m_ObjectHideFlags: 0
@@ -34182,19 +34183,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0cb8740c02e1a4957aa2d532583fc1c2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.020082612
+      value: 0.020082613
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0cb8740c02e1a4957aa2d532583fc1c2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.12617311
+      value: 0.12617312
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0cb8740c02e1a4957aa2d532583fc1c2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0025548309
+      value: -0.002554831
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0cb8740c02e1a4957aa2d532583fc1c2, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9918016
+      value: 0.9918017
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 0cb8740c02e1a4957aa2d532583fc1c2, type: 3}
       propertyPath: m_RootOrder
@@ -34366,6 +34367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbdf5ca0579e85541a58e6d303fbcd05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InAR: 0
 --- !u!4 &1761681924
 Transform:
   m_ObjectHideFlags: 0
@@ -36230,7 +36232,7 @@ MonoBehaviour:
     costText: {fileID: 1562763483}
   - name: Magnifying Glass
     ItemID: 3
-    ButtonID: m2
+    ButtonID: m1
     PocketCoinsCost: 80
     Quantity: 1
     costText: {fileID: 1596744825}

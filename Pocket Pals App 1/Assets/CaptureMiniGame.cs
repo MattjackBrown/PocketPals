@@ -317,7 +317,8 @@ public class CaptureMiniGame : MonoBehaviour {
 					MinigameExit ();
 
 					// Place the uncaptured PPal back in the map
-					pocketPal.gameObject.transform.position = PPalMapPosition;
+		//			pocketPal.gameObject.transform.position = PPalMapPosition;
+					PocketPalSpawnManager.Instance.DespawnPocketPal(pocketPal.gameObject);
 					pocketPal.InMinigame = false;
 
 					// Change the animation and avatar to the rest style
@@ -475,9 +476,9 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		if (berryUsed)
 			// arcTan theta = Opp/Adj, take the patrol speed * Tdt * by the std prefab transform offset of 2.0f
-			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * berrySpeedModifier * 2.0f);
+			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * berrySpeedModifier * 4.0f);
 		else
-			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * 2.0f);
+			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * 4.0f);
 		
 		// Check if it will overshoot the target in this frame
 		if (currentYRotation + step > targetYRotation) {

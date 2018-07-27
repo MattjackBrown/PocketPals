@@ -8,16 +8,25 @@ public class LoadingScreenController : MonoBehaviour {
 	public Sprite beAwareImage;
 	public Slider loadingBar;
 	public UIAnimationManager animManager;
+	public static LoadingScreenController Instance { set; get;}
 
 	Image image;
 	bool loadingStarted, isLoggedIn = false;
 	float loadingBarValue = 0.0f;
 	float timeToLoad = 32.0f;
 
-	void Start () {
+	void Start(){Instance = this;}
 
+	void Awake () 
+	{
+		
 		image = GetComponent<Image> ();
 		loadingStarted = false;
+
+	}
+
+	void LateUpdate()
+	{
 
 	}
 
@@ -31,11 +40,15 @@ public class LoadingScreenController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
+		
+
         if (TouchHandler.Instance.IsDebug)
         {
             BackgroundMusic.Instance.StartBackgroundMusic();
             CameraController.Instance.StartZoomIn();
-            this.gameObject.SetActive(false);
+
+
+			this.transform.parent.gameObject.SetActive(false);
         }
         if (loadingStarted) {
 

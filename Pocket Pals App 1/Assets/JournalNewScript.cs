@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class JournalNewScript : MonoBehaviour {
 
-	public GameObject mainCamera, playerModel, cameraJournalPositionObject, cameraLookAtPositionObject;
+	public GameObject mainCamera, playerModel, cameraJournalPositionObject, cameraLookAtPositionObject, mapPlayerObject;
 
 	Vector3 cameraJournalPosition, cameraLookAtPosition;
-	Vector3 cameraMapPosition;
+	Vector3 cameraMapPlayerOffset, playerMapCharPosition;
 	Quaternion cameraMapRotation;
 
 	void Start () {
@@ -22,7 +22,7 @@ public class JournalNewScript : MonoBehaviour {
 		cameraLookAtPosition = cameraLookAtPositionObject.transform.position;
 
 		// Record the camera position to return back to after the menu
-		cameraMapPosition = mainCamera.gameObject.transform.position;
+		cameraMapPlayerOffset = mainCamera.gameObject.transform.position - mapPlayerObject.gameObject.transform.position;
 		cameraMapRotation = mainCamera.gameObject.transform.rotation;
 
 		// Position all used assets
@@ -40,7 +40,7 @@ public class JournalNewScript : MonoBehaviour {
 	public void ExitBackToMap () {
 
 		// Return the Camera
-		mainCamera.gameObject.transform.position = cameraMapPosition;
+		mainCamera.gameObject.transform.position = mapPlayerObject.gameObject.transform.position + cameraMapPlayerOffset;
 		mainCamera.transform.rotation = cameraMapRotation;
 
 		// Deactivate the player model used for the menu

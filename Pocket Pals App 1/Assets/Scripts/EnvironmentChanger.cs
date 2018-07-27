@@ -24,17 +24,23 @@ public class EnvironmentChanger : MonoBehaviour
 
 	bool created = false;
 
-/*
+
 	void Awake()
 	{
+		// Don't destroy on load does not stop new instances from being instantiated on scene load. This will check and delete
+		if (FindObjectsOfType(typeof(EnvironmentChanger)).Length > 1)
+		{
+			DestroyImmediate(gameObject);
+		}
+
 		// Global variables! Have to stop this being deleted between scenes
 		if (!created)
 		{
-			DontDestroyOnLoad(this.gameObject);
+			//DontDestroyOnLoad(this.gameObject);
 			created = true;
 		}
 	}
-*/
+
 
 	// Use this for initialization
 	void Start ()
@@ -104,6 +110,8 @@ public class EnvironmentChanger : MonoBehaviour
 			// Get the current looked at PPal in the virtual garden
 			GameObject targetedPPal = VGInfo.GetCurrentPPal ();
 
+
+
 			// If there is a valid PPal to look at in AR, i.e. inventory is not empty
 			if (targetedPPal != null) {
 
@@ -118,12 +126,14 @@ public class EnvironmentChanger : MonoBehaviour
 				GlobalVariables.currentScene = GlobalVariables.SceneName.AR;
 				GlobalVariables.VGCurrentIndex = CameraController.Instance.controls.virtualGarden.GetPPalIndex ();
 
+				LocalDataManager.Instance.InAR = true;
+
 				SceneManager.LoadScene ("SimpleARScene");
 			}
 		}
 	}
 
-	bool IsARSupported () {
+	public static bool IsARSupported () {
 
 		// Check iOS version
 		#if UNITY_IOS

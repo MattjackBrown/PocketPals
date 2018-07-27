@@ -19,6 +19,8 @@ public class DefaultLogin
 	
 public class LoginScreenScript : MonoBehaviour
 {
+	public static LoginScreenScript Instance { get; set; }
+
     // The UI fields
     public InputField email, password;
     public Text error;
@@ -30,6 +32,8 @@ public class LoginScreenScript : MonoBehaviour
 
 		//Load any default login values
 		LoadDefaults ();
+
+		Instance = this;
 	}
 
     public void TryLogin()

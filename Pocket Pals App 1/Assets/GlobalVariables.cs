@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class GlobalVariables {
+public class GlobalVariables : MonoBehaviour {
 
 	public enum SceneName {
 		Map,
