@@ -157,6 +157,8 @@ public class TouchHandler : MonoBehaviour {
 				if (Input.touches.Length > 0) {
 					cameraController.MenuCharRotate (Input.GetTouch (0));
 				}
+
+				cameraController.MenuCCMoveToTargetLocation ();
 			}
 			break;
 		}
@@ -166,18 +168,22 @@ public class TouchHandler : MonoBehaviour {
 	public void MapControls() {
 		controlScheme = ControlScheme.map;
 		miniGame.animManager.ResetMinigame ();
+		cameraController.EnableJournalButton ();
     }
 	
 	public void MapCameraTransition() {
 		controlScheme = ControlScheme.mapCameraTransition;
+		cameraController.DisableJournalButton ();
 	}
 
 	public void MenuControls() {
 		controlScheme = ControlScheme.menu;
+		cameraController.DisableJournalButton ();
 	}
 
 	public void MiniGameControls() {
 		controlScheme = ControlScheme.miniGame;
+		cameraController.DisableJournalButton ();
 	}
 
 	public void VirtualGardenControls() {
@@ -189,30 +195,37 @@ public class TouchHandler : MonoBehaviour {
 			startTouchPosition = Input.GetTouch (0).position;
 		
 		controlScheme = ControlScheme.VirtualGarden;
+		cameraController.DisableJournalButton ();
 	}
 
 	public void VirtualGardenCameraTransitionControls() {
 		controlScheme = ControlScheme.VirtualGardenCameraTransition;
+		cameraController.DisableJournalButton ();
 	}
 
 	public void VirtualGardenInfoControls() {
 		controlScheme = ControlScheme.VirtualGardenInfo;
+		cameraController.DisableJournalButton ();
 	}
 
 	public void VirtualGardenInfoTransitionControls () {
 		controlScheme = ControlScheme.VirtualGardenInfoTransition;
+		cameraController.DisableJournalButton ();
 	}
 
 	public void ResourceSpotControls() {
 		controlScheme = ControlScheme.ResourceSpotControls;
+		cameraController.DisableJournalButton ();
 	}
 
 	public void ResourceSpotTransition() {
 		controlScheme = ControlScheme.ResourceSpotTransition;
+		cameraController.DisableJournalButton ();
 	}
 
 	public void CharCustControls () {
 		controlScheme = ControlScheme.CharCust;
+		cameraController.DisableJournalButton ();
 	}
 
 	public void InitVirtualGardenControls() {

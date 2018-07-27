@@ -44,6 +44,8 @@ public class CharacterCustomisation : MonoBehaviour {
 
     public JournalNewScript jns;
 
+	public Slider xpSlider;
+
     public void Start() {
 
         Instance = this;
@@ -53,6 +55,10 @@ public class CharacterCustomisation : MonoBehaviour {
 
         UpdateMenuCharacter();
     }
+
+	public void UpdateXPBar () {
+		xpSlider.value = LocalDataManager.Instance.GetData ().GetPercentageExp ();
+	}
 
     // Populates the lists further if the add on items have been purchased
     public void LoadPoseChoices()

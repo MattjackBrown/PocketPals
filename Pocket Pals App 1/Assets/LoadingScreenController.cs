@@ -69,5 +69,8 @@ public class LoadingScreenController : MonoBehaviour {
 
 		timeToLoad = 2.0f;
 		isLoggedIn = true;
+
+		// Stops the journal button being clickable during the initial camera swoop in
+		CameraController.Instance.DisableJournalButton ();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mapbox.Unity.Map;
 using UnityEngine.PostProcessing;
+using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class CameraController : MonoBehaviour
 	public GameObject player;
 
 	// The ui compass that will rotate with the view rotation
-	public GameObject compass;
+	public GameObject compass, CCFullViewPositionGameObject, CCHeadViewPositionGameObject;
 	public TouchHandler controls;
 
 	// The camera for which to use the world to screen location to determine swipe map rotation direction
@@ -57,13 +58,14 @@ public class CameraController : MonoBehaviour
 
 	// Used as a central point to calculate virtual garden PPal inspect positions
 	public GameObject VGCentre;
-	Vector3 VGZoomedPosition, VGInfoLookAtPoint, VGInfoCamOffset;
+	Vector3 VGZoomedPosition, VGInfoLookAtPoint, VGInfoCamOffset, CCMenuTargetPosition;
 
     public CameraBoundsTileProvider cbtp;
 	public UIAnimationManager animManager;
 	bool mapMenuLoaded = false;
 
 	public Transform MenuCharTransform;
+	public Button journalButton;
 
 	float initialTargetCamZoomDistance = 6.0f;
 	bool initialZoomInComplete = true;
@@ -71,12 +73,24 @@ public class CameraController : MonoBehaviour
 		initialZoomInComplete = false;
 	}
 	public void StopZoomIn () {
-		initialZoomInComplete = true;
+		// Handled now by just enabling the Journal button when Zoom in complete
+//		initialZoomInComplete = true;
+	}
+
+	public void DisableJournalButton () {
+		journalButton.interactable = false;
+	}
+
+	public void EnableJournalButton () {
+		journalButton.interactable = true;
 	}
 
 
 	// Use this for initialization
 	void Start () {
+
+		// Disable until camera has finished it's intro stuff
+		DisableJournalButton ();
 
         Instance = this;
 
@@ -94,6 +108,8 @@ public class CameraController : MonoBehaviour
 		postProcessing.depthOfField.settings = DOFSettings;
 
 		postProcessing.depthOfField.enabled = false;
+
+		CCMenuTargetPosition = CCFullViewPositionGameObject.gameObject.transform.position;
 	}
 
 	// Update is called once per frame
@@ -164,6 +180,7 @@ public class CameraController : MonoBehaviour
 			currentCameraDistance = initialTargetCamZoomDistance;
 			controls.MapControls ();
 			initialZoomInComplete = true;
+			journalButton.interactable = true;
 		}
 
 		// Calculate the new position of the camera
@@ -723,5 +740,18 @@ public class CameraController : MonoBehaviour
 		tempE.y += finalRotation;
 		MenuCharTransform.rotation = Quaternion.Euler (tempE);
 
+	}
+
+	public void MenuCCMoveToTargetLocation () {
+		// TODO lerp cam to new position
+		transform.position = Vector3.Lerp (transform.position, CCMenuTargetPosition, Time.deltaTime);
+	}
+
+	public void LookAtHead () {
+		CCMenuTargetPosition = CCHeadViewPositionGameObject.gameObject.transform.position;
+	}
+
+	public void LookAtBody () {
+		CCMenuTargetPosition = CCFullViewPositionGameObject.gameObject.transform.position;
 	}
 }

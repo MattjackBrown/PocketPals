@@ -58,6 +58,9 @@ public class JournalNewScript : MonoBehaviour {
 		// TODO Buttons trigger camMovement lerps - set up a controlScheme
 		// TODO controlScheme allows rotating player. (prefab.transform.position.z as on it's side)
 		// Message Triss when done to link up to server data, shop bought bool, grey out shop button
+
+//		mainCamera.gameObject.transform.position = cameraJournalPositionObject.transform.position;
+//		mainCamera.gameObject.transform.LookAt (cameraLookAtPositionObject.gameObject.transform.position);
 		
 	}
 }

@@ -24,8 +24,8 @@ public class Main_character_animator_controller : MonoBehaviour
 	}
 
 	public Pose selectedPose = Pose.None;
-	float poseTimer;
-	float timeToPose = 2.0f;
+	float poseTimer = 0.0f;
+	float timeToPose = 1.0f;
 	bool waiting = true;
     public float runSpeed;
 
@@ -33,9 +33,6 @@ public class Main_character_animator_controller : MonoBehaviour
 	void Start ()
     {
 		poseTimer = 0.0f;
-
-		// For Debugging
-//		selectedPose = Pose.Net;
 	}
 	
 	// Update is called once per frame
@@ -61,14 +58,13 @@ public class Main_character_animator_controller : MonoBehaviour
             {
                 newCharAnimator.Walk();
             }
+
             poseTimer = 0.0f;
 			waiting = true;
 
         } else {
 
 			if (waiting) {
-
-				newCharAnimator.Idle ();
 
 				if (poseTimer > timeToPose) {
 
@@ -105,8 +101,11 @@ public class Main_character_animator_controller : MonoBehaviour
 
 					}
 				} else {
-					
+
 					poseTimer += Time.deltaTime;
+
+					newCharAnimator.Idle ();
+					
 				}
 			}
         }
