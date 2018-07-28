@@ -8,12 +8,14 @@ public class PopupHandler : MonoBehaviour
     public static PopupHandler Instance { set; get; }
     private Queue<PopupData> Popups = new Queue<PopupData>();
 
-	public Animator animator;
-
     public List<PopupData> activePopups = new List<PopupData>();
     public List<Image> poolImage = new List<Image>();
     public List<Text> poolText = new List<Text>();
+    public UIAnimationScript Stars;
+    public GameObject expBack;
     public Color expCol;
+    public Color backColor;
+    public Image cBack;
 
     public float popupDelay = 1.0f;
     public float speed = 2.0f;
@@ -28,7 +30,7 @@ public class PopupHandler : MonoBehaviour
     private Vector2 cEndPos;
     public GameObject cStartObj;
     public GameObject cEndObj;
-	public GameObject cBack;
+
 
     public bool debug = false;
 
@@ -49,7 +51,7 @@ public class PopupHandler : MonoBehaviour
     private void FixedUpdate()
     {
 		if (activePopups.Count < 1) {
-			cBack.SetActive (false);
+			cBack.gameObject.SetActive (false);
 			return;
 		}
 		bool hasExp = false;
@@ -65,35 +67,46 @@ public class PopupHandler : MonoBehaviour
             }
             else if (pd.ID == 1 )
             {
-				hasExp = true;
-                ExpDrop ed = (ExpDrop)pd;
-                if (ed.countAlpha >= 1)
-                {
-					// Play video here
-
-
-                    Color c = new Color(expCol.r,expCol.g, expCol.b, 1);
-                    c.a = 1 - ed.Alpha;
-                    ed.text.color = c;
-                    ed.text.transform.position = Vector2.Lerp(cStartPos, cEndPos, pd.Alpha);
-                    
-                }
-                else
-                {
-                    ed.countAlpha += Time.deltaTime * countSpeed;
-                    ed.Alpha = 0.0f;
-                    ed.SetText();
-                }
+                hasExp = true;
+                ProcessExpDrop(pd);
             }
 
 
             if (pd.Alpha >= 1.0) AddToPool(pd);
         }
 		if (hasExp)
-			cBack.SetActive (true);
-		else
-			//cBack.SetActive (false);
-			animator.SetBool ("isVisible", false);
+            cBack.gameObject.SetActive(true);
+        else
+            cBack.gameObject.SetActive(false);
+
+    }
+
+    public void ProcessExpDrop(PopupData pd)
+    {
+        ExpDrop ed = (ExpDrop)pd;
+        cBack.color = new Color(0, 0, 0, (1 - ed.Alpha) * 0.75f);
+        if (ed.countAlpha >= 1)
+        {
+            if (ed.PlayStars)
+            {
+                // Play video here
+                Stars.Play();
+                ed.PlayStars = false;
+            }
+
+            Color c = new Color(expCol.r, expCol.g, expCol.b, 1);
+            c.a = 1 - ed.Alpha;
+            ed.text.color = c;
+            ed.text.transform.position = Vector2.Lerp(cStartPos, cEndPos, pd.Alpha);
+
+        }
+        else
+        {
+            cBack.color = new Color(0, 0, 0, (ed.countAlpha) * 0.75f);
+            ed.countAlpha += Time.deltaTime * countSpeed;
+            ed.Alpha = 0.0f;
+            ed.SetText();
+        }
     }
 
     private void AddToPool(PopupData pd)
@@ -147,7 +160,6 @@ public class PopupHandler : MonoBehaviour
                 }
                 else if (pd.ID == 1 && poolText.Count >=1 )
 				{
-					animator.SetBool ("isVisible", true);
                     ExpDrop ed = (ExpDrop)pd;
                     ed.text = poolText[0];
                     ed.text.color =  new Color(expCol.r, expCol.g, expCol.b, 1);

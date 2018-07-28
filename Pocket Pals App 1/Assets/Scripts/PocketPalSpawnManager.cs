@@ -12,13 +12,10 @@ public class PocketPalSpawnManager : MonoBehaviour
 
     public static PocketPalSpawnManager Instance { set; get; }
 
-    // How long between each spawn
-    public float avgSpawnTime = 2f;
-
     //Spawn Variance in percent
     [Tooltip("Max percentage change of the avereage spawn time.")]
-    public float spawnTimeVariance = 50.0f;
-    private float normalisedVariance = 0.0f;
+    public float minSpawnTime = 50.0f;
+    public float maxSpawnTime = 0.0f;
 
     // An array of spawn locations Pocket Pals can spawn from.
     public List<Transform> spawnPoints;
@@ -57,9 +54,6 @@ public class PocketPalSpawnManager : MonoBehaviour
         Instance = this;
 
         gpsMap = girl.GetComponent<GPS>();
-
-        //making it percentage based seem easier too understand, but harder to work with.
-        normalisedVariance = spawnTimeVariance*avgSpawnTime;
 
         // Call the Spawn function after a delay of the spawnTime and then continue to call after the same amount of time
 
@@ -103,8 +97,7 @@ public class PocketPalSpawnManager : MonoBehaviour
 
     private float GetSpawnDelay()
     {
-        float f  =Random.Range(avgSpawnTime - normalisedVariance, avgSpawnTime + normalisedVariance);
-        return f;
+        return Random.Range(minSpawnTime, maxSpawnTime);
     }
 
     public List<float> GetSpawnSamples()
@@ -121,7 +114,7 @@ public class PocketPalSpawnManager : MonoBehaviour
             if (StartDelay)
             {
                 StartDelay = false;
-                yield return new WaitForSeconds(GetSpawnDelay());
+                yield return new WaitForSeconds(20);
             }
 
             //check to see if any pps are too far away. If so destroy...
@@ -169,21 +162,7 @@ public class PocketPalSpawnManager : MonoBehaviour
 				// If valid spawn position found then spawn, otherwise wait and repeat
 				if (validSpawnFound)
                 {
-                    GameObject ppal;
-					Quaternion rot = spawnPoints [spawnPointIndex].rotation;
-
-                    //Try and get a synced animals spawn
-                    ppal = GetSyncedPocketPal();
-
-					// Create an instance of the prefab at select pocketpal via rarity 
-					GameObject clone = Instantiate (ppal, spawnPosition, rot);
-                    // Increases the currentPocketPals value by 1
-                    clone.transform.parent = gpsMap.currentMap.transform;
-
-                    spawnedPocketPals.Add (clone);
-                    clone.GetComponent<PocketPalParent>().GenerateAnimalData();
-
-					TouchHandler.Instance.Vibrate ();
+                    SpawnPocketPal(spawnPosition);
 				}
 
                 yield return new WaitForSeconds(GetSpawnDelay());
@@ -256,6 +235,25 @@ public class PocketPalSpawnManager : MonoBehaviour
                 DespawnPocketPal(spawnedPocketPals[i]);
             }
         }
+    }
+
+    public void SpawnPocketPal(Vector3 pos)
+    {
+        GameObject ppal;
+        Quaternion rot = spawnPoints[0].rotation;
+
+        //Try and get a synced animals spawn
+        ppal = GetSyncedPocketPal();
+
+        // Create an instance of the prefab at select pocketpal via rarity 
+        GameObject clone = Instantiate(ppal, pos, rot);
+        // Increases the currentPocketPals value by 1
+        clone.transform.parent = gpsMap.currentMap.transform;
+
+        spawnedPocketPals.Add(clone);
+        clone.GetComponent<PocketPalParent>().GenerateAnimalData();
+
+        TouchHandler.Instance.Vibrate();
     }
 
 	bool DoesNotOverlapExistingPPal (Vector3 spawnPosition) {

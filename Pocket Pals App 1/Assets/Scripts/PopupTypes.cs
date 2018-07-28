@@ -26,6 +26,7 @@ public class ExpDrop : PopupData
     public int exp;
     private string str;
     public float countAlpha;
+    public bool PlayStars = true;
 
     public ExpDrop(int ex)
     {

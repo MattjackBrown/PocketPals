@@ -633,7 +633,7 @@ public class ServerDataManager : MonoBehaviour
         LoginScreenScript lss = CreateUserScreen.GetComponent<CreateUserScript>().LoginScreen.GetComponent<LoginScreenScript>();
         lss.email.text = cus.Email.text;
         lss.password.text = cus.Password.text;
-        CreateUserScreen.SetActive(false);
+        canvasParent.OpenCreate(false);
     }
 
     public void SignIn(string email, string password, Text failedText)
@@ -657,7 +657,6 @@ public class ServerDataManager : MonoBehaviour
             Debug.LogFormat("User signed in successfully: {0} ({1})",
             newUser.DisplayName, newUser.UserId);
 
-			canvasParent.CloseLogin(true);
         });
     }
 
@@ -676,6 +675,7 @@ public class ServerDataManager : MonoBehaviour
                 LocalDataManager.Instance.GetData().ID = newUser.UserId ?? "";
                 LocalDataManager.Instance.GetData().Username = newUser.DisplayName ?? "";
 
+                LoginSequence();
                 GetPlayerData(LocalDataManager.Instance.GetData());
                 GPS.Insatance.UpdateMap();
             }
@@ -685,6 +685,14 @@ public class ServerDataManager : MonoBehaviour
             Debug.Log("Signed out ");
             ErrorText.text = "Signed out";
         }
+    }
+
+    public void LoginSequence()
+    {
+
+        canvasParent.CloseLogin(true);
+        loadingScreen.SetBeAwareImage();
+        TouchHandler.Instance.MapControls();
     }
 
     void SendEmailVerification()
