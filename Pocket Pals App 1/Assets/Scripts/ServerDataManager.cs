@@ -204,6 +204,12 @@ public class ServerDataManager : MonoBehaviour
         WriteCoins(gd);
     }
 
+    public void HasDoneFirstLogin()
+    {
+        GameData gd = LocalDataManager.Instance.GetData();
+        mDatabaseRef.Child("Users").Child(gd.ID).Child("IsFirstLogIn").SetValueAsync(0);
+    }
+
     public void WriteCoins(GameData gd)
     {
         if (!ShouldUpdatePlayer) return;
@@ -322,6 +328,9 @@ public class ServerDataManager : MonoBehaviour
                             case "hasar":
                                 gd.HasAR = Convert.ToInt32(obj.Value);
                                 break;
+                            case "isfirstlogin":
+                                gd.IsFirstLogIn = Convert.ToInt32(obj.Value);
+                                break;
                         }
                     }
                     //Load up the character appear
@@ -408,7 +417,6 @@ public class ServerDataManager : MonoBehaviour
                 {
                     Debug.Log(ex);
                 }
-
                 GlobalVariables.hasLoggedIn = true;
                 loadingScreen.AllowToComplete();
             }
@@ -662,7 +670,10 @@ public class ServerDataManager : MonoBehaviour
 
     void AuthStateChanged(object sender, System.EventArgs eventArgs)
     {
-        if (createUser) return;
+        if (createUser)
+        {
+            return;
+        }
         newUser = auth.CurrentUser;
         if (newUser != null)
         {

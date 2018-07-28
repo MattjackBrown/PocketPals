@@ -80,6 +80,15 @@ public class AssetManager : MonoBehaviour {
         return null;
     }
 
+    public List<ItemData> GetStartItems(int stra, int berr, int cam, int mag)
+    {
+        List<ItemData> st = new List<ItemData>();
+        st.Add(GetItemByID(GlobalVariables.StrawBerriesID).CloneWithNumber(stra));
+        st.Add(GetItemByID(GlobalVariables.BerryID).CloneWithNumber(berr));
+        st.Add(GetItemByID(GlobalVariables.medCameraID).CloneWithNumber(cam));
+        st.Add(GetItemByID(GlobalVariables.MagnifyingGlassID).CloneWithNumber(mag));
+        return st;
+    }
     public ItemData GetRandomItem(int maxFind)
     {
         ItemData id = Items[UnityEngine.Random.Range(0, Items.Length)];

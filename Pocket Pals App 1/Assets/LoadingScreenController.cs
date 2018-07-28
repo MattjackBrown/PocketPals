@@ -59,6 +59,10 @@ public class LoadingScreenController : MonoBehaviour {
 					animManager.LoadingBarFinished ();
 					BackgroundMusic.Instance.StartBackgroundMusic ();
 					CameraController.Instance.StartZoomIn ();
+                    if (LocalDataManager.Instance.GetData().IsFirstLogIn == 1)
+                    {
+                        FirstLogonSequence();
+                    }
 					this.gameObject.SetActive (false);
 
 				} else {
@@ -69,6 +73,16 @@ public class LoadingScreenController : MonoBehaviour {
 			}
 		}
 	}
+
+    public void FirstLogonSequence()
+    {
+        foreach (ItemData id in AssetManager.Instance.GetStartItems(3, 5, 10, 1))
+        {
+            LocalDataManager.Instance.AddItem(id);
+        }
+         TutorialManager.Instance.StartMainTutorial();
+        ServerDataManager.Instance.HasDoneFirstLogin();
+    }
 
 	public void SetBeAwareImage () {
 

@@ -27,6 +27,8 @@ public class GameData
 
 	public bool CanAR = false;
 
+    public int IsFirstLogIn = 1;
+
 	public CharacterStyleData charStyleData = new CharacterStyleData();
 
     public GameData()
