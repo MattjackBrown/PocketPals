@@ -86,7 +86,7 @@ public class SettingsHandler : MonoBehaviour
 
     public void OpenAbout()
     {
-
+        Application.OpenURL("https://www.pocketpalsapp.com/about-1/");
     }
 
     public void OpenCredits()

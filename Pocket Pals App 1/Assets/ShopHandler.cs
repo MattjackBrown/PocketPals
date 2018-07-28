@@ -14,10 +14,16 @@ public class ShopHandler : MonoBehaviour
 
     public GameObject ARLayer;
     public Text ARText;
+    public Image ARImage;
+    private bool hasAR;
     public int ARCost = 200;
+
+    public Color UsedCol;
 
     public GameObject CostumePackLayer;
     public Text CPText;
+    public Image CPImage;
+    private bool hasCP;
     public int CostumePackCost = 200;
 
     public void ButtonPressed(string buttonID)
@@ -33,17 +39,28 @@ public class ShopHandler : MonoBehaviour
 
     public void UpdateButtons()
     {
-		if (LocalDataManager.Instance.HasAR() || !EnvironmentChanger.IsARSupported()) ARLayer.SetActive(false);
-        if (LocalDataManager.Instance.HasCP()) CostumePackLayer.SetActive(false);
+        if (LocalDataManager.Instance.HasAR() || !EnvironmentChanger.IsARSupported())
+        {
+            hasAR = true;
+            ARImage.color = UsedCol;
+        }
+        if (LocalDataManager.Instance.HasCP())
+        {
+            hasCP = true;
+            CPImage.color = UsedCol;
+        }
+        
     }
 
     public void BuyAR()
     {
+        if (hasAR) return;
         NotificationManager.Instance.QuestionNotification("Are you sure you want to buy the AR KIT?",TryBuyAR, null);
     }
 
     public void BuyCP()
     {
+        if (hasCP) return;
         NotificationManager.Instance.QuestionNotification("Are you sure you want to buy the Extended Costume Pack?", TryBuyCP, null);
     }
 

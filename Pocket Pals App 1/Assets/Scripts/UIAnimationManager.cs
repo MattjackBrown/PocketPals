@@ -6,10 +6,14 @@ public class UIAnimationManager : MonoBehaviour {
 	public GameObject startingUI;
 	public TouchHandler controls;
 
+    public GameObject ButtonBlocker;
+
     public static UIAnimationManager Instance { set; get; }
 
 	// There is a central animator within this parent that controls specific pairs of UIs
 	Animator canvasAnimator;
+    public bool CanAnimChange = true;
+
 
 	void Awake()
 	{
@@ -34,12 +38,13 @@ public class UIAnimationManager : MonoBehaviour {
 	}
 
 	public void ShowSettings (bool show) {
-
-		canvasAnimator.SetBool ("showSettings", show);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("showSettings", show);
 	}
 
     public void OpenLogin()
     {
+        if (!CanAnimChange) return;
         canvasAnimator.Play("LoginOpen");
         canvasAnimator.SetBool("closeLogin", false);
     }
@@ -51,22 +56,24 @@ public class UIAnimationManager : MonoBehaviour {
 
 	public void ShowInventory (bool show)
     {
-        if(show)InventoryHandler.Instance.Enabled();
+        if (!CanAnimChange) return;
+        if (show)InventoryHandler.Instance.Enabled();
 		canvasAnimator.SetBool ("showInventory", show);
 	}
 
 	public void ShowMinigameCaptureButton (bool show) {
-
-		canvasAnimator.SetBool ("showMinigameCapture", show);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("showMinigameCapture", show);
 	}
 
 	public void ShowPhoto (bool show) {
-
-		canvasAnimator.SetBool ("showPhoto", show);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("showPhoto", show);
 	}
 
     public void OpenShopFromInventory()
     {
+        if (!CanAnimChange) return;
         ServerDataManager.Instance.RefreshCoins(LocalDataManager.Instance.GetData());
         ShopHandler.Instance.RefreshCoins();
         ShopHandler.Instance.UpdateButtons();
@@ -75,19 +82,19 @@ public class UIAnimationManager : MonoBehaviour {
     }
 
 	public void CloseLogin (bool show) {
-
-		canvasAnimator.SetBool ("closeLogin", show);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("closeLogin", show);
 	}
 
 	public void OpenCreate (bool show) {
-
-		canvasAnimator.SetBool ("openCreate", show);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("openCreate", show);
 	}
 
 	public void OpenMainMenu (bool show) {
-
-		// If opening the mainMenu
-		if (show) {
+        if (!CanAnimChange) return;
+        // If opening the mainMenu
+        if (show) {
 			// Check that the camera is not in a transition state, just the resting map controls allow
 			if (controls.IsInMapControls ()) {
 
@@ -102,8 +109,8 @@ public class UIAnimationManager : MonoBehaviour {
 	}
 
 	public void OpenMinigame (bool show) {
-
-		canvasAnimator.SetBool ("openMinigame", show);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("openMinigame", show);
 		canvasAnimator.SetBool ("minigameAccepted", false);
 		canvasAnimator.SetBool ("minigameDeclined", false);
 		canvasAnimator.SetBool ("minigameSuccess", false);
@@ -114,40 +121,40 @@ public class UIAnimationManager : MonoBehaviour {
 	}
 
 	public void MinigameAccepted () {
-
-		canvasAnimator.SetBool ("minigameAccepted", true);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("minigameAccepted", true);
 		canvasAnimator.SetBool ("openMinigame", false);
 	}
 
 	public void MinigameDeclined () {
-
-		canvasAnimator.SetBool ("minigameDeclined", true);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("minigameDeclined", true);
 		canvasAnimator.SetBool ("openMinigame", false);
 	}
 
 	public void MinigameSuccess () {
-
-		canvasAnimator.SetBool ("minigameSuccess", true);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("minigameSuccess", true);
 		canvasAnimator.SetBool ("minigameAccepted", false);
 		canvasAnimator.SetBool ("minigameDeclined", false);
 	}
 
 	public void MinigameFail () {
-
-		canvasAnimator.SetBool ("minigameFail", true);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("minigameFail", true);
 		canvasAnimator.SetBool ("minigameAccepted", false);
 		canvasAnimator.SetBool ("minigameDeclined", false);
 	}
 
 	public void MinigameToMap () {
-
-		canvasAnimator.SetBool ("minigameToMap", true);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("minigameToMap", true);
 		ResetMinigame ();
 	}
 
 	public void ResetMinigame () {
-		
-		canvasAnimator.SetBool ("openMinigame", false);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("openMinigame", false);
 		canvasAnimator.SetBool ("minigameAccepted", false);
 		canvasAnimator.SetBool ("minigameDeclined", false);
 		canvasAnimator.SetBool ("minigameSuccess", false);
@@ -158,8 +165,9 @@ public class UIAnimationManager : MonoBehaviour {
 
 	public void OpenJournal (bool show)
 	{
-		// If opening the UI
-		if (show) {
+        if (!CanAnimChange) return;
+        // If opening the UI
+        if (show) {
 			// Check that the camera is not in a transition state, just the resting map controls allow
 			if (controls.IsInMapControls ()) {
 				
@@ -176,9 +184,9 @@ public class UIAnimationManager : MonoBehaviour {
 	}
 
 	public void OpenTracks (bool show) {
-
-		// If opening the UI
-		if (show) {
+        if (!CanAnimChange) return;
+        // If opening the UI
+        if (show) {
 			// Check that the camera is not in a transition state, just the resting map controls allow
 			if (controls.IsInMapControls ()) {
 
@@ -195,7 +203,7 @@ public class UIAnimationManager : MonoBehaviour {
 
 	public void OpenShop (bool show)
     {
-
+        if (!CanAnimChange) return;
         ServerDataManager.Instance.RefreshCoins(LocalDataManager.Instance.GetData());
         ShopHandler.Instance.RefreshCoins();
         ShopHandler.Instance.UpdateButtons();
@@ -203,39 +211,46 @@ public class UIAnimationManager : MonoBehaviour {
 	}
 
 	public void ShowVG (bool show) {
-
-		canvasAnimator.SetBool ("showVG", show);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("showVG", show);
 	}
 
 	public void IntroFinished () {
-
-		canvasAnimator.SetBool ("introFinished", true);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("introFinished", true);
 	}
 
 	public void LoadingBarFinished () {
-
-		canvasAnimator.SetBool ("loadingBarFinished", true);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("loadingBarFinished", true);
 	}
 
 	public void CameraChosen () {
-
-		canvasAnimator.SetBool ("cameraChosen", true);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("cameraChosen", true);
 	}
 
 	public void QuitChooseCamera () {
-
-		canvasAnimator.SetBool ("quitChooseCamera", true);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("quitChooseCamera", true);
 	}
 
 	public void OpenMapMenu () {
-
-		canvasAnimator.SetBool ("openMapMenu", true);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("openMapMenu", true);
 	}
 
 	public void ReturnToVirtualGarden () {
-
-		canvasAnimator.SetBool ("startInVG", true);
+        if (!CanAnimChange) return;
+        canvasAnimator.SetBool ("startInVG", true);
 		canvasAnimator.SetBool ("showVG", true);
 		canvasAnimator.SetBool ("openMainMenu", true);
 	}
+
+    private bool CanAnimate()
+    {
+        Input.multiTouchEnabled = false;
+        if (Input.touchCount > 1) return false;
+        return true;
+    }
 }
