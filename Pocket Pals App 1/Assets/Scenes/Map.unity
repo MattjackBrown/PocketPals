@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5130914, g: 0.73004603, b: 0.8939108, a: 1}
+  m_IndirectSpecularColor: {r: 0.51965606, g: 0.7385728, b: 0.90404356, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -5232,8 +5232,8 @@ RectTransform:
   m_Father: {fileID: 21500284}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.033, y: 0.76186526}
-  m_AnchorMax: {x: 0.532, y: 0.9598653}
+  m_AnchorMin: {x: 0.06754401, y: 0.76656747}
+  m_AnchorMax: {x: 0.4915164, y: 0.9598653}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -5258,7 +5258,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: a06681cfc1f2a0b4a866e62e17d2062a, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -6628,9 +6628,9 @@ RectTransform:
   - {fileID: 854037567}
   - {fileID: 701837059}
   - {fileID: 839676560}
+  - {fileID: 759308565}
   - {fileID: 1827159122}
   - {fileID: 869577676}
-  - {fileID: 759308565}
   - {fileID: 1692252231}
   - {fileID: 1167568999}
   - {fileID: 215793040}
@@ -13628,7 +13628,7 @@ RectTransform:
   - {fileID: 438227160}
   - {fileID: 1971106391}
   m_Father: {fileID: 421776395}
-  m_RootOrder: 12
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: -1}
   m_AnchorMax: {x: 1, y: 0}
@@ -14141,8 +14141,8 @@ RectTransform:
   m_Father: {fileID: 1456700696}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.66800004, y: 0.38444734}
-  m_AnchorMax: {x: 0.96500003, y: 0.6444473}
+  m_AnchorMin: {x: 0.6267047, y: 0.38444734}
+  m_AnchorMax: {x: 0.81611407, y: 0.661}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -14178,7 +14178,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 10
+  m_Text: 200
 --- !u!222 &793423587
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15579,7 +15579,7 @@ RectTransform:
   - {fileID: 813995628}
   - {fileID: 775272873}
   m_Father: {fileID: 421776395}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1, y: 0}
   m_AnchorMax: {x: 0, y: 1}
@@ -15844,8 +15844,8 @@ RectTransform:
   m_Father: {fileID: 1495677665}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.66800004, y: 0.38444734}
-  m_AnchorMax: {x: 0.96500003, y: 0.6444473}
+  m_AnchorMin: {x: 0.62513083, y: 0.39534885}
+  m_AnchorMax: {x: 0.85052335, y: 0.64989805}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -15881,7 +15881,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 20
+  m_Text: 200
 --- !u!222 &877115721
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22337,8 +22337,8 @@ RectTransform:
   m_Father: {fileID: 701837059}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.8003113}
-  m_AnchorMax: {x: 0.15400001, y: 1}
+  m_AnchorMin: {x: 0, y: 0.8}
+  m_AnchorMax: {x: 0.12642312, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -22392,12 +22392,12 @@ MonoBehaviour:
           m_StringArgument: clip
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: 
+      - m_Target: {fileID: 421776396}
+        m_MethodName: OpenShopFromInventory
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -22426,7 +22426,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_Sprite: {fileID: 21300000, guid: 3ce4facaaf0f0824b94e5b77e382a854, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -36027,7 +36027,7 @@ RectTransform:
   - {fileID: 749230458}
   - {fileID: 277694176}
   m_Father: {fileID: 421776395}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1, y: 0}
   m_AnchorMax: {x: 0, y: 1}

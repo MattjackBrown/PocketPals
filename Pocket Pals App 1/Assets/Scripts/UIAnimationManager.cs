@@ -65,6 +65,15 @@ public class UIAnimationManager : MonoBehaviour {
 		canvasAnimator.SetBool ("showPhoto", show);
 	}
 
+    public void OpenShopFromInventory()
+    {
+        ServerDataManager.Instance.RefreshCoins(LocalDataManager.Instance.GetData());
+        ShopHandler.Instance.RefreshCoins();
+        ShopHandler.Instance.UpdateButtons();
+        canvasAnimator.SetBool("openShop", true);
+        canvasAnimator.SetBool("showInventory", false);
+    }
+
 	public void CloseLogin (bool show) {
 
 		canvasAnimator.SetBool ("closeLogin", show);
