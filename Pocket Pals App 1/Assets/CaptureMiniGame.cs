@@ -59,7 +59,7 @@ public class CaptureMiniGame : MonoBehaviour {
     int numStraw;
     public Text strawNumText;
 
-	bool berryUsed;
+	bool berryUsed = false;
 	int numberOfBerries;
 	float berryTimer, berryDuration = 5.0f;
 
@@ -76,7 +76,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	float targetYRotation, currentYRotation, deltaY;
 
 	// For the end game
-	bool endGameSequence;
+	bool endGameSequence = false;
 	Vector3 EGStartPos, EGEndPos, EGStartLookAtPos;
 	float cutSceneLerp, EGCamSpeed = 10.0f, EGTimeScale = 0.05f;
 	CameraController cameraMain;
@@ -86,9 +86,9 @@ public class CaptureMiniGame : MonoBehaviour {
 	float camMovementSpeed = 1.0f;
 	float mediumCamMovementSpeed = 10.0f;
 	float goodCamMovementSpeed = 100.0f;
-	bool specCameraUsed;
+	bool specCameraUsed = false;
 	Vector3 touchScreenSpace, touchStartScreenSpace, targetScreenSpace;
-	bool cameraChosen;
+	bool cameraChosen = false;
 
 	public GameObject stationaryPPalMinigameMarker, stationaryPPalPlayerMarker;
 	Vector3 stationaryPPalMinigamePosition, stationaryPPalPlayerPosition;
@@ -254,7 +254,7 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		// Set the text field in the congrats page
 		PPalName.text = pocketPal.name;
-		menuText.text = string.Concat ("The ", pocketPal.name, " is here somewhere... Find it, then choose your camera!");
+		menuText.text = string.Concat ("The Pocket Pal is here somewhere... Find it, then choose your camera!");
 
 		// A passive control scheme waiting for a button press
 		controls.MenuControls ();
@@ -504,9 +504,9 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		if (berryUsed)
 			// arcTan theta = Opp/Adj, take the patrol speed * Tdt * by the std prefab transform offset of 2.0f
-			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * berrySpeedModifier * 6.0f);
+			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * berrySpeedModifier * 10.0f);
 		else
-			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * 6.0f);
+			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * 10.0f);
 		
 		// Check if it will overshoot the target in this frame
 		if (currentYRotation + step > targetYRotation) {

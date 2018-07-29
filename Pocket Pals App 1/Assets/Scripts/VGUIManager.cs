@@ -77,6 +77,8 @@ public class VGUIManager : MonoBehaviour
     public void AnimalCall()
     {
         SoundEffectHandler.Instance.PlayAnimalSound(currentDisplayData.ID.ToString());
+
+		BackgroundMusic.Instance.LowerBackgroundMusic ();
     }
 
     public void FindOutMore()

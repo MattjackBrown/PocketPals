@@ -143,7 +143,7 @@ public class EnvironmentChanger : MonoBehaviour
 		// Check for minimum iOS software version of 11
 		float.TryParse(UnityEngine.iOS.Device.systemVersion, out iosVersion);
 
-		if (iosVersion < 11.0f) {
+		if (iosVersion != null && iosVersion < 11.0f) {
 			return false;
 		}
 

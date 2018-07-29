@@ -34,4 +34,19 @@ public class BackgroundMusic : MonoBehaviour {
     {
         Instance.backgroundMusic.Stop();
     }
+
+	public void LowerBackgroundMusic () {
+
+		backgroundMusic.volume = 0.2f;
+
+		StartCoroutine (WaitThenFullSound());
+
+	}
+
+	IEnumerator WaitThenFullSound () {
+
+		yield return new WaitForSeconds(5.0f);
+
+		backgroundMusic.volume = 1.0f;
+	}
 }
