@@ -12,7 +12,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	public Canvas MiniGameUI;
 	public Image viewFinder;
 	public Slider captureMeter;
-	public Slider berryMeter;
+	public Slider berryMeter, strawbMeter;
 	public Text berryCount, menuText;
 	public RawImage captureImage;
 	public GameObject centreImage;
@@ -47,7 +47,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	Vector3 viewFinderDefaultScale;
 
 	public List<GameObject> patrolPositions;
-	float patrolSpeed = 0.25f;
+	float patrolSpeed = 0.15f;
 	float patrolLerp;
 	Vector3 previousPosition, nextPosition, patrolDirection;
 	int patrolIndex;
@@ -64,7 +64,9 @@ public class CaptureMiniGame : MonoBehaviour {
 	float berryTimer, berryDuration = 5.0f;
 
 	// Speed multiplier if berry used
-	float berrySpeedModifier = 0.3f;
+	float berrySpeedModifier = 0.2f;
+	float regularBerrySpeedModifier = 0.5f;
+	float strawberrySpeedModifier = 0.2f;
 
 	// Used to see the inventory for number of berries
 	GameData playerProfile;
@@ -82,14 +84,16 @@ public class CaptureMiniGame : MonoBehaviour {
 	public UIAnimationManager animManager;
 
 	float camMovementSpeed = 1.0f;
-	float mediumCamMovementSpeed = 20.0f;
+	float mediumCamMovementSpeed = 10.0f;
 	float goodCamMovementSpeed = 100.0f;
 	bool specCameraUsed;
 	Vector3 touchScreenSpace, touchStartScreenSpace, targetScreenSpace;
 	bool cameraChosen;
 
-	public GameObject stationaryPPalMinigameMarker;
-	Vector3 stationaryPPalMinigamePosition;
+	public GameObject stationaryPPalMinigameMarker, stationaryPPalPlayerMarker;
+	Vector3 stationaryPPalMinigamePosition, stationaryPPalPlayerPosition;
+
+	bool wayPointReached = false;
 
 	// Use this for initialization
 	void Start () {
@@ -105,6 +109,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		viewFinderDefaultScale = viewFinder.rectTransform.localScale;
 
 		stationaryPPalMinigamePosition = stationaryPPalMinigameMarker.transform.position;
+		stationaryPPalPlayerPosition = stationaryPPalPlayerMarker.transform.position;
 	}
 
 	public void PlayButtonPressed () {
@@ -128,26 +133,29 @@ public class CaptureMiniGame : MonoBehaviour {
 			patrolSpeed = Mathf.Clamp (patrolSpeed, pocketPal.minPatrolSpeed, pocketPal.maxPatrolSpeed);
 			pocketPal.gameObject.transform.position = miniGamePPalPosition;
 
+			miniGamePlayerPosition = miniGamePlayerPositions [Random.Range (0, miniGamePlayerPositions.Count)].transform.position;
+
+			// Set a randomly chosen endpoint
+			patrolIndex = Random.Range(0, patrolPositions.Count);
+			nextPosition = patrolPositions [patrolIndex].transform.position;
+			pocketPal.gameObject.transform.LookAt (nextPosition);
+
 		} else {
 			patrolSpeed = 0.0f;
 			pocketPal.transform.position = stationaryPPalMinigamePosition;
 			previousPosition = stationaryPPalMinigamePosition;
 			nextPosition = new Vector3 (CameraController.Instance.transform.position.x, pocketPal.transform.position.y, CameraController.Instance.transform.position.z);
-			pocketPal.transform.LookAt (nextPosition);
-		}
+			pocketPal.transform.LookAt (patrolPositions[5].transform.position);
 
-		miniGamePlayerPosition = miniGamePlayerPositions [Random.Range (0, miniGamePlayerPositions.Count)].transform.position;
+			miniGamePlayerPosition = stationaryPPalPlayerPosition;
+		}
+		
 		controls.cameraController.transform.position = miniGamePlayerPosition;
 		controls.cameraController.transform.LookAt (new Vector3(0.0f, miniGamePPalPosition.y, 0.0f));
 
 		// Store the current position as the starting point 'previousPosition'
 		previousPosition = pocketPal.gameObject.transform.position;
-
-		// Set a randomly chosen endpoint
-		patrolIndex = Random.Range(0, patrolPositions.Count);
-		nextPosition = patrolPositions [patrolIndex].transform.position;
 		patrolDirection = (nextPosition - pocketPal.gameObject.transform.position).normalized;
-		pocketPal.gameObject.transform.LookAt (nextPosition);
 
 		// Used to see the inventory for number of berries
 		playerProfile = LocalDataManager.Instance.GetData ();
@@ -216,6 +224,11 @@ public class CaptureMiniGame : MonoBehaviour {
 		animManager.ShowPhoto (false);
 
 		cameraChosen = false;
+
+		wayPointReached = false;
+
+		berryMeter.gameObject.SetActive (false);
+		strawbMeter.gameObject.SetActive (false);
 	}
 
 	public void BackButtonPressed () {
@@ -392,7 +405,9 @@ public class CaptureMiniGame : MonoBehaviour {
 	public void MovePPal () {
 
 		// If arrived at current target lerp will be >= 1.0f
-		if (patrolLerp >= 1.0f) {
+		if (wayPointReached) {//patrolLerp >= 1.0f) {
+
+			wayPointReached = false;
 
 			// Reset the lerp float
 			patrolLerp = 0.0f;
@@ -447,17 +462,30 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		} else {
 
+			Vector3 stepTravelled;
+
 			// Adjust for berry use
-			if (berryUsed)
+			if (berryUsed) {
 				// Step the lerp
 				patrolLerp += Time.deltaTime * patrolSpeed * berrySpeedModifier;
-			else
+				stepTravelled = patrolDirection * patrolSpeed * berrySpeedModifier;
+			} else {
 				// Step the lerp
 				patrolLerp += Time.deltaTime * patrolSpeed;
+				stepTravelled = patrolDirection * patrolSpeed;
+			}
 
-			// Set the PPal transform
-//			pocketPal.transform.position = Vector3.Lerp (previousPosition, nextPosition, patrolLerp);
-			pocketPal.gameObject.transform.position += patrolDirection * patrolSpeed;
+			// Check we don't overstep
+			if (stepTravelled.magnitude > (pocketPal.gameObject.transform.position - nextPosition).magnitude) {
+
+				pocketPal.gameObject.transform.position = nextPosition;
+				wayPointReached = true;
+
+			} else {
+
+				pocketPal.gameObject.transform.position += stepTravelled;
+
+			}
 		}
 
 		if (cameraChosen) {
@@ -476,9 +504,9 @@ public class CaptureMiniGame : MonoBehaviour {
 
 		if (berryUsed)
 			// arcTan theta = Opp/Adj, take the patrol speed * Tdt * by the std prefab transform offset of 2.0f
-			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * berrySpeedModifier * 4.0f);
+			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * berrySpeedModifier * 6.0f);
 		else
-			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * 4.0f);
+			step = Mathf.Rad2Deg * Mathf.Atan (patrolSpeed * Time.deltaTime * 6.0f);
 		
 		// Check if it will overshoot the target in this frame
 		if (currentYRotation + step > targetYRotation) {
@@ -637,6 +665,8 @@ public class CaptureMiniGame : MonoBehaviour {
 
                 // Adjust UI
 				berryCount.text = string.Concat ("x ", numberOfBerries.ToString());
+
+				berrySpeedModifier = regularBerrySpeedModifier;
             }
             else
             {
@@ -652,8 +682,8 @@ public class CaptureMiniGame : MonoBehaviour {
             if (playerProfile.ItemInv.UseItemWithID(GlobalVariables.StrawBerriesID))
             {
                 // Set the slider
-                berryMeter.gameObject.SetActive(true);
-                berryMeter.value = 1.0f;
+                strawbMeter.gameObject.SetActive(true);
+                strawbMeter.value = 1.0f;
 
                 // Set the timer
                 berryTimer = 0.0f;
@@ -664,6 +694,8 @@ public class CaptureMiniGame : MonoBehaviour {
 
                 // Adjust UI
 				strawNumText.text = string.Concat ("x ", numStraw.ToString());
+
+				berrySpeedModifier = strawberrySpeedModifier;
             }
             else
             {

@@ -1,95 +1,81 @@
 fileFormatVersion: 2
-guid: 9ace3f5ee101747ef87d116b2793993a
-timeCreated: 1532129330
+guid: f4bc928afde694d1aa8de60e33cbfc8c
+timeCreated: 1532868555
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: head_base
-    100002: head_mid
-    100004: L_arm_ankle
-    100006: L_arm_elbow
-    100008: L_arm_hoof
-    100010: L_arm_hoof_end
-    100012: L_arm_lower_shoulder
-    100014: L_arm_upper_shoulder
-    100016: L_ear_base
-    100018: L_ear_end
-    100020: L_leg_ankle
-    100022: L_leg_hip
-    100024: L_leg_hoof
-    100026: L_leg_hoof_end
-    100028: L_leg_knee
-    100030: lower_jaw_end
-    100032: lower_jaw_joint
-    100034: neck_01_base
-    100036: neck_02
-    100038: neck_03
-    100040: R_arm_ankle
-    100042: R_arm_elbow
-    100044: R_arm_hoof
-    100046: R_arm_hoof_end
-    100048: R_arm_lower_shoulder
-    100050: R_arm_upper_shoulder
-    100052: R_ear_base
-    100054: R_ear_end
-    100056: R_leg_ankle
-    100058: R_leg_hip
-    100060: R_leg_hoof
-    100062: R_leg_hoof_end
-    100064: R_leg_knee
-    100066: //RootNode
-    100068: spine_01
-    100070: spine_02
-    100072: spine_03_hip
-    100074: spine_neck_shoulde_00_
-    100076: tail_base
-    100078: tail_end
-    100080: transform1
-    100082: upper_jaw
-    400000: head_base
-    400002: head_mid
-    400004: L_arm_ankle
-    400006: L_arm_elbow
-    400008: L_arm_hoof
-    400010: L_arm_hoof_end
-    400012: L_arm_lower_shoulder
-    400014: L_arm_upper_shoulder
-    400016: L_ear_base
-    400018: L_ear_end
-    400020: L_leg_ankle
-    400022: L_leg_hip
-    400024: L_leg_hoof
-    400026: L_leg_hoof_end
-    400028: L_leg_knee
-    400030: lower_jaw_end
-    400032: lower_jaw_joint
-    400034: neck_01_base
-    400036: neck_02
-    400038: neck_03
-    400040: R_arm_ankle
-    400042: R_arm_elbow
-    400044: R_arm_hoof
-    400046: R_arm_hoof_end
-    400048: R_arm_lower_shoulder
-    400050: R_arm_upper_shoulder
-    400052: R_ear_base
-    400054: R_ear_end
-    400056: R_leg_ankle
-    400058: R_leg_hip
-    400060: R_leg_hoof
-    400062: R_leg_hoof_end
-    400064: R_leg_knee
-    400066: //RootNode
-    400068: spine_01
-    400070: spine_02
-    400072: spine_03_hip
-    400074: spine_neck_shoulde_00_
-    400076: tail_base
-    400078: tail_end
-    400080: transform1
-    400082: upper_jaw
-    7400000: Idle
+    100000: Beak1
+    100002: Beak2
+    100004: //RootNode
+    100006: FeathersL1
+    100008: FeathersR1
+    100010: group1
+    100012: group2
+    100014: group3
+    100016: Hip
+    100018: joint2
+    100020: joint3
+    100022: joint4
+    100024: joint5
+    100026: joint6
+    100028: joint7
+    100030: joint8
+    100032: joint9
+    100034: LFoot1
+    100036: LLeg1
+    100038: LLeg2
+    100040: LWing1
+    100042: LWing2
+    100044: LWing3
+    100046: Main
+    100048: Neck1
+    100050: Neck2
+    100052: Neck3
+    100054: RFoot1
+    100056: RLeg1
+    100058: RLeg2
+    100060: RWing1
+    100062: RWing2
+    100064: RWing3
+    100066: Tail
+    100068: transform1
+    400000: Beak1
+    400002: Beak2
+    400004: //RootNode
+    400006: FeathersL1
+    400008: FeathersR1
+    400010: group1
+    400012: group2
+    400014: group3
+    400016: Hip
+    400018: joint2
+    400020: joint3
+    400022: joint4
+    400024: joint5
+    400026: joint6
+    400028: joint7
+    400030: joint8
+    400032: joint9
+    400034: LFoot1
+    400036: LLeg1
+    400038: LLeg2
+    400040: LWing1
+    400042: LWing2
+    400044: LWing3
+    400046: Main
+    400048: Neck1
+    400050: Neck2
+    400052: Neck3
+    400054: RFoot1
+    400056: RLeg1
+    400058: RLeg2
+    400060: RWing1
+    400062: RWing2
+    400064: RWing3
+    400066: Tail
+    400068: transform1
+    7400000: Walk
     9500000: //RootNode
   externalObjects: {}
   materials:
@@ -119,10 +105,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Idle
+      name: Walk
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 199
+      lastFrame: 39
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -149,7 +135,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 40
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
