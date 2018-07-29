@@ -29,4 +29,9 @@ public class BackgroundMusic : MonoBehaviour {
 
 		backgroundMusic.Play ();
 	}
+
+    public void StopMusic()
+    {
+        Instance.backgroundMusic.Stop();
+    }
 }

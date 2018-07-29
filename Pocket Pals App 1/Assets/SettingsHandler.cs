@@ -56,11 +56,15 @@ public class SettingsHandler : MonoBehaviour
         if (settings.music)
         {
             settings.music = false;
+            SoundEffectHandler.Instance.PlaySound("clop");
+            BackgroundMusic.Instance.StopMusic();
             musicButton.gameObject.SetActive(false);
         }
         else
         {
             settings.music = true;
+            SoundEffectHandler.Instance.PlaySound("clip");
+            BackgroundMusic.Instance.StartBackgroundMusic();
             musicButton.gameObject.SetActive(true);
         }
     }
@@ -70,11 +74,15 @@ public class SettingsHandler : MonoBehaviour
         if (settings.sound)
         {
             settings.sound = false;
+            SoundEffectHandler.Instance.PlaySound("clop");
+            SoundEffectHandler.Instance.PlayOff();
             soundButton.gameObject.SetActive(false);
         }
         else
         {
             settings.sound = true;
+            SoundEffectHandler.Instance.PlayOn();
+            SoundEffectHandler.Instance.PlaySound("clip");
             soundButton.gameObject.SetActive(true);
         }
     }

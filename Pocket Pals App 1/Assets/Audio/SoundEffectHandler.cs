@@ -10,13 +10,26 @@ public class SoundEffectHandler : MonoBehaviour {
     public List<NamedAudio> animalSounds;
     public AudioSource audioSource;
 
+    private bool playSounds = true;
+
     private void Start()
     {
         Instance = this;
 	}
 
+    public void PlayOn()
+    {
+        playSounds = true;
+    }
+
+    public void PlayOff()
+    {
+        playSounds =false;
+    }
+
     public void PlaySound(string key)
     {
+        if (!playSounds) return;
         AudioClip clip = GetAudioSource(key);
         if (clip == null) return;
 
@@ -27,6 +40,7 @@ public class SoundEffectHandler : MonoBehaviour {
 
     public void PlayAnimalSound(string id)
     {
+        if (!playSounds) return;
         AudioClip clip = GetPPalSound(id);
         if (clip == null) return;
 
