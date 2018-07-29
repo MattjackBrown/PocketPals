@@ -363,7 +363,7 @@ public class TouchHandler : MonoBehaviour {
                     {
                         if (tooFar)
                         {
-                            NotificationManager.Instance.InteractError("Pocket Pal too far away! Get closer for a chance to observe it!");
+                            NotificationManager.Instance.CustomHeaderNotification("Too far away!", "Get close for a chance to observe it!");
                             return;
                         }
 
