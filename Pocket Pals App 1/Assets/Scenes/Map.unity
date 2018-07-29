@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5196284, g: 0.7385646, b: 0.9040369, a: 1}
+  m_IndirectSpecularColor: {r: 0.5051056, g: 0.71963215, b: 0.88159436, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3834,7 +3834,7 @@ MonoBehaviour:
   fakeDelayTime: 3
   MapMaterial: {fileID: 2100000, guid: b9f23e9bce724fa4daac57ecded470b8, type: 2}
   DayFog: {r: 0.19031142, g: 0.58823526, b: 0.4400429, a: 0}
-  NightTint: {r: 0.30168685, g: 0.3675725, b: 0.6838235, a: 0.366}
+  NightTint: {r: 0.38597536, g: 0.47282547, b: 0.8897059, a: 0.366}
   Sunset: 18
   SunRise: 6
 --- !u!1 &207130449
@@ -5049,7 +5049,7 @@ Prefab:
     - target: {fileID: 9500000, guid: 96e7868507b8d5b4c937665ce0e009dc, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: 3729992ca6330894fbe0852226430847, type: 2}
+      objectReference: {fileID: 9100000, guid: cdcb65ceea28b428fa6c053e5af1f3d7, type: 2}
     - target: {fileID: 100000, guid: 96e7868507b8d5b4c937665ce0e009dc, type: 3}
       propertyPath: m_Name
       value: woodBadger
@@ -5893,7 +5893,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100172, guid: c97bc9b8080a3e3408970c62dcc6f4e5, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400170, guid: c97bc9b8080a3e3408970c62dcc6f4e5, type: 3}
       propertyPath: m_RootOrder
@@ -20672,6 +20672,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 8b563e84eefe84f0d80007a48dc9f596, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 749617c003c6e4b8ea774c66a756adcc, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8b563e84eefe84f0d80007a48dc9f596, type: 3}
   m_IsPrefabParent: 0
@@ -42109,7 +42113,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1971106391
 RectTransform:
   m_ObjectHideFlags: 0
