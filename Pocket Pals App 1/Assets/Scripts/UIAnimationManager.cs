@@ -59,6 +59,7 @@ public class UIAnimationManager : MonoBehaviour {
         if (!CanAnimChange) return;
         if (show)InventoryHandler.Instance.Enabled();
 		canvasAnimator.SetBool ("showInventory", show);
+		canvasAnimator.SetBool ("openShop", false);
 	}
 
 	public void ShowMinigameCaptureButton (bool show) {
@@ -78,8 +79,14 @@ public class UIAnimationManager : MonoBehaviour {
         ShopHandler.Instance.RefreshCoins();
         ShopHandler.Instance.UpdateButtons();
         canvasAnimator.SetBool("openShop", true);
-        canvasAnimator.SetBool("showInventory", false);
     }
+
+	public void ExitShop () {
+		if (!CanAnimChange) return;
+		canvasAnimator.SetBool("openShop", false);
+		canvasAnimator.SetBool ("showInventory", false);
+
+	}
 
 	public void CloseLogin (bool show) {
         if (!CanAnimChange) return;
