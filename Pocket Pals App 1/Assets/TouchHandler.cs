@@ -379,7 +379,7 @@ public class TouchHandler : MonoBehaviour {
                     {
                         if (tooFar)
                         {
-                            NotificationManager.Instance.InteractError("Resource spot too far away! Get closer to recieve Items!");
+                            NotificationManager.Instance.CustomHeaderNotification("Too far away!", "Get closer to claim a prize!");
                             return;
                         }
                         TryResourceSpotSequence(hit.transform.gameObject);

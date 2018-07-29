@@ -243,6 +243,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
         float modifier = activeTrack.GetFloatDone(LocalDataManager.Instance.GetData().DistanceTravelled);
         modifier = 1 / modifier;
         if (modifier > MaxBonusModifier) modifier = MaxBonusModifier;
+        if (modifier < 1) modifier = 1;
 
         activeTrack.GuessID = activeGuess.ppp.PocketPalID;
         activeTrack.Multiplier = modifier;
