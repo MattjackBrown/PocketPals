@@ -331,7 +331,6 @@ public class GPS : MonoBehaviour
 	public void StartPlayerMove(Vector3 endPoint)
 	{
         Vector3 dir = endPoint - destination;
-        Debug.Log("Distance between Updates: " + dir );
 
         if (Mathf.Abs(Vector3.Magnitude(dir)) >= DeadReckonThreshHold)
         {

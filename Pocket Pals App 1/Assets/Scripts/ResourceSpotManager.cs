@@ -42,6 +42,7 @@ public class ResourceSpotManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        usedSpots = new List<ResourceSpotSave>();
         gpsMap = girl.GetComponent<GPS>();
         for (int i = 0; i < number + 1; i++)
         {

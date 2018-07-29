@@ -140,6 +140,12 @@ public class LocalDataManager : MonoBehaviour {
         return localData.TryUseCoins(cost);
     }
 
+    public void BuyCoins(int num)
+    {
+        NotificationManager.Instance.CongratsNotification("You Have received " + num + " PocketCoins!!");
+        ServerDataManager.Instance.AddPocketCoins(localData, num);
+    }
+
     public void BoughtAR()
     {
         localData.HasAR = 1;
