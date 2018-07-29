@@ -259,8 +259,10 @@ public class CharacterCustomisation : MonoBehaviour {
     // Hair mesh
     public void SeeNextHairMeshChoice ()
     {
+        Debug.Log("B4: " + cData.m_HairMeshID);
 		menuHairMesh.mesh = GetNextValidMesh(HairChoices,ref cData.m_HairMeshID, 1);
-	}
+        Debug.Log("AF: " + cData.m_HairMeshID);
+    }
 
 	public void SeePreviousHairMeshChoice () {
 
