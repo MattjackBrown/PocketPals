@@ -212,6 +212,8 @@ public class UIAnimationManager : MonoBehaviour {
 
 	public void ShowVG (bool show) {
         if (!CanAnimChange) return;
+
+        VGUIManager.Instance.CheckARButton();
         canvasAnimator.SetBool ("showVG", show);
 	}
 

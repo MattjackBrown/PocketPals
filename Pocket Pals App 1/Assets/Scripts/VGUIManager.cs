@@ -12,6 +12,8 @@ public class VGUIManager : MonoBehaviour
 
     public Canvas RoamCanvas;
 
+    public GameObject ARButton;
+
     public GameObject statBoard;
     public GameObject factBoard;
     public Text weight;
@@ -77,14 +79,32 @@ public class VGUIManager : MonoBehaviour
         SoundEffectHandler.Instance.PlayAnimalSound(currentDisplayData.ID.ToString());
     }
 
+    public void FindOutMore()
+    {
+        Application.OpenURL("https://www.pocketpalsapp.com/");
+    }
+
     public void ToggleInspect()
     {
         if (isInspecting) SwitchToRoam();
         else SwitchToInspect();
     }
 
+    public void CheckARButton()
+    {
+        if (LocalDataManager.Instance.HasAR())
+        {
+            ARButton.SetActive(true);
+        }
+        else
+        {
+            ARButton.SetActive(false);
+        }
+    }
+
     public void SwitchToRoam()
     {
+
         InspectCanvas.transform.gameObject.SetActive(false);
         RoamCanvas.transform.gameObject.SetActive(true);
         isInspecting = false;
