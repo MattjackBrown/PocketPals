@@ -8,7 +8,6 @@ public class UIBaseBehaviour : StateMachineBehaviour {
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
        Input.multiTouchEnabled = false;
-        UIAnimationManager.Instance.ButtonBlocker.SetActive(true);
     }
 
 	//// OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
@@ -21,7 +20,6 @@ public class UIBaseBehaviour : StateMachineBehaviour {
 	// OnStateExit is called before OnStateExit is called on any state inside this state machine
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
         Input.multiTouchEnabled = true;
-        UIAnimationManager.Instance.ButtonBlocker.SetActive(false);
     }
 
 	//// OnStateMove is called before OnStateMove is called on any state inside this state machine
