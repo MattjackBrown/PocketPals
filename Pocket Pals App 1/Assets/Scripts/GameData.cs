@@ -68,7 +68,7 @@ public class GameData
 
     public float GetExpToLevel()
     {
-        return LevelCalculator.GetExpNeeded(EXP);
+        return LevelCalculator.GetExpNeeded(EXP, 2);
     }
 
     public float GetPercentageExp()

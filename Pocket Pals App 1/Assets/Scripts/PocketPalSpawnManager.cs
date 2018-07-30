@@ -74,7 +74,7 @@ public class PocketPalSpawnManager : MonoBehaviour
             activeRarities.Add(o.GetComponent<PocketPalParent>().Rarity);
         }
         AverageRarity = TotalRarity / NumberOfPPals;
-        ContentGenerator.Instance.TryGenerateNewAnimalList("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, NumberOfPPals, activeRarities, true);
+        ContentGenerator.Instance.TryGenerateNewAnimalList("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, maxPocketPals, activeRarities, true);
     }
 
     public void PocketpalCollected(GameObject obj)
@@ -85,7 +85,7 @@ public class PocketPalSpawnManager : MonoBehaviour
 
     private GameObject GetSyncedPocketPal()
     {
-        if (ContentGenerator.Instance.TryGenerateNewAnimalList("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, NumberOfPPals, activeRarities, false))
+        if (ContentGenerator.Instance.TryGenerateNewAnimalList("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, maxPocketPals, activeRarities, false))
         {
             DespawnAll();
         }
@@ -114,7 +114,7 @@ public class PocketPalSpawnManager : MonoBehaviour
             if (StartDelay)
             {
                 StartDelay = false;
-                yield return new WaitForSeconds(20);
+                yield return new WaitForSeconds(GetSpawnDelay());
             }
 
             //check to see if any pps are too far away. If so destroy...

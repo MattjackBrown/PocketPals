@@ -40,6 +40,7 @@ public class VirtualSceneParent : MonoBehaviour
 
 		currentLookedAtPPalIndex = GlobalVariables.VGCurrentIndex;
 
+
 		centreOfMapPosition = centreOfMap.transform.position;
 
         foreach (VirtualGardenSpawn obj in AnimalObjects)
@@ -82,7 +83,16 @@ public class VirtualSceneParent : MonoBehaviour
 
             }
         }
-		if (hasAPocketPal) { 
+		if (hasAPocketPal)
+        {
+            if (!AnimalObjects[currentLookedAtPPalIndex].Used)
+            {
+                for (int i = 0; i < AnimalObjects.Length; i++)
+                {
+                    if (AnimalObjects[i].Used)
+                        currentLookedAtPPalIndex = i;
+                }
+            }
 			// Initialise the idle camera action variables when no touches
 			CameraController.Instance.VGInitLookAtNextPPal (GetCurrentPPal ());
 		} else {

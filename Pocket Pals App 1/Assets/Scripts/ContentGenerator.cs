@@ -101,7 +101,7 @@ public class ContentGenerator : MonoBehaviour
 
 	public int GetNextAnimalID()
 	{
-		if (currentIndex >= GeneratedAnimalsIDs.Count)
+		if (currentIndex > GeneratedAnimalsIDs.Count-1)
 		{
 			currentIndex = 0;
 		}
@@ -121,6 +121,8 @@ public class ContentGenerator : MonoBehaviour
 			//create the random using a seed which is shared by all in the same rough area.
 			System.Random r = new System.Random(ppCurrentSeed);
 
+            GeneratedAnimalsIDs.Clear();
+            currentIndex = 0;
 			//Generate the 5 unique animals to be used for this areas spawns. 
 			for (int i = 0; i < numberOfAnimals; i++)
 			{
