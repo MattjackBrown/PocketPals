@@ -114,6 +114,10 @@ public class CaptureMiniGame : MonoBehaviour {
 
 	public void PlayButtonPressed () {
 
+		// Choose a random patrol point as the starting PPal location
+		patrolIndex = Random.Range(0, patrolPositions.Count);
+		miniGamePPalPosition = patrolPositions [patrolIndex].transform.position;
+
 		// Tell the PPal it is the subject for a minigame
 		pocketPal.InMinigame = true;
 
@@ -135,14 +139,24 @@ public class CaptureMiniGame : MonoBehaviour {
 
 			miniGamePlayerPosition = miniGamePlayerPositions [Random.Range (0, miniGamePlayerPositions.Count)].transform.position;
 
-			// Set a randomly chosen endpoint
-			patrolIndex = Random.Range(0, patrolPositions.Count);
+			// Pick a random next patrol position that is not the last one. Do by repeatedly picking a random index until it does not match the current index
+			int tempIndex;
+			do {
+				tempIndex = Random.Range(0, patrolPositions.Count);
+			} while (tempIndex == patrolIndex);
+
+			// When found, update the stored current index
+			patrolIndex = tempIndex;
+
+			// Get the patrol position from the list at that index
 			nextPosition = patrolPositions [patrolIndex].transform.position;
+
 			pocketPal.gameObject.transform.LookAt (nextPosition);
 
 		} else {
 			patrolSpeed = 0.0f;
 			pocketPal.transform.position = stationaryPPalMinigamePosition;
+			miniGamePPalPosition = stationaryPPalMinigamePosition;
 			previousPosition = stationaryPPalMinigamePosition;
 			nextPosition = new Vector3 (CameraController.Instance.transform.position.x, pocketPal.transform.position.y, CameraController.Instance.transform.position.z);
 			pocketPal.transform.LookAt (patrolPositions[5].transform.position);
