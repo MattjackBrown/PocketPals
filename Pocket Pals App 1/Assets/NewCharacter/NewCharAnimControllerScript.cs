@@ -38,7 +38,7 @@ public class NewCharAnimControllerScript : MonoBehaviour {
 
 	public void Run () {
 		animator.SetBool (isRunning, true);
-//		animator.SetBool (isWalking, false);
+		animator.SetBool (isWalking, true);
 		ResetPoses ();
 	}
 
