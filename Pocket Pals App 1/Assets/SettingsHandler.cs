@@ -13,6 +13,8 @@ public class SettingsHandler : MonoBehaviour
 
     private SettingsSave settings = new SettingsSave();
 
+    public Text vers;
+
     public Image CreditsLayer;
     public Sprite[] credits;
     private int credIter = 0;
@@ -24,6 +26,7 @@ public class SettingsHandler : MonoBehaviour
     {
         soundButton.gameObject.SetActive(settings.sound);
         musicButton.gameObject.SetActive(settings.music);
+        vers.text = UnityEngine.Application.version;
     }
 
     public void Back()
