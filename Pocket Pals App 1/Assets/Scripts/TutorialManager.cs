@@ -18,9 +18,12 @@ public class TutorialManager : MonoBehaviour
 
     public List<Sprite> Tracks;
 
+    public List<Sprite> MiniGame;
+
     public void Start()
     {
         Instance = this;
+        TutorialObj.SetActive(false);
     }
 
     public void StartMainTutorial()
@@ -37,6 +40,14 @@ public class TutorialManager : MonoBehaviour
         iter = 0;
         currentPage.sprite = Tracks[0];
         currentList = Tracks;
+        TutorialObj.SetActive(true);
+    }
+
+    public void StartMiniGame()
+    {
+        iter = 0;
+        currentPage.sprite = MiniGame[0];
+        currentList = MiniGame;
         TutorialObj.SetActive(true);
     }
 
