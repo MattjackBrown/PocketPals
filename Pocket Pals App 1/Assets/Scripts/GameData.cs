@@ -63,12 +63,12 @@ public class GameData
 
     public int GetLevel()
     {
-        return LevelCalculator.CalculateLevel(EXP, 2);
+        return (int)(LevelCalculator.CalculateLevel(EXP)/2);
     }
 
     public float GetExpToLevel()
     {
-        return LevelCalculator.GetExpNeeded(EXP, 2);
+        return LevelCalculator.GetExpNeeded(EXP)*2;
     }
 
     public float GetPercentageExp()

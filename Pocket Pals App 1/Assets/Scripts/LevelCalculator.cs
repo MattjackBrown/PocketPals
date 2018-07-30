@@ -13,19 +13,19 @@ public class LevelCalculator
         return EXP / ExpNeeded;
     }
 
-    public static int CalculateLevel(float EXP, float modifier = 1.0f)
+    public static int CalculateLevel(float EXP)
     {
         float temp = baseExp;
         int lvl = 1;
         while (EXP > temp)
         {
-            temp += baseExp * (lvl * lvl * 0.2f) * (LevelCoefficent * modifier);
+            temp += baseExp * (lvl * lvl * 0.2f) * (LevelCoefficent);
             lvl++;
         }
         return lvl;
     }
 
-    public static float GetExpNeeded(float EXP, float modifier = 1.0f)
+    public static float GetExpNeeded(float EXP)
     {
         float temp = baseExp;
         int lvl = 1;
@@ -37,13 +37,13 @@ public class LevelCalculator
         return temp - EXP;
     }
 
-    public static void SimulateLevels(float maxEXP, float modifier = 1.0f)
+    public static void SimulateLevels(float maxEXP)
     {
         float temp = baseExp;
         int lvl = 1;
         while (maxEXP > temp)
         {
-            temp += baseExp * (lvl*lvl*0.2f)* (LevelCoefficent * modifier);
+            temp += baseExp * (lvl*lvl*0.2f)* (LevelCoefficent);
             lvl++;
         }
     }

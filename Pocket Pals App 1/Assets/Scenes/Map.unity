@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5180915, g: 0.7365936, b: 0.90170383, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4683,11 +4683,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c463fe7ae912784b8d1e71f127a8ab5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  InUse: 0
-  starbursts: []
-  levelText: {fileID: 0}
-  backGroundLayer: {fileID: 0}
-  LevelTarget: 0
 --- !u!114 &229124864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28173,7 +28168,7 @@ MonoBehaviour:
   virtualGarden: {fileID: 32817350}
   ResourceSpotDistance: 6
   ResourceSpotUpness: 0.5
-  IsDebug: 0
+  IsDebug: 1
   maxCaptureDistance: 12
 --- !u!114 &1331972350
 MonoBehaviour:
@@ -42509,7 +42504,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1840677863
 RectTransform:
   m_ObjectHideFlags: 0
