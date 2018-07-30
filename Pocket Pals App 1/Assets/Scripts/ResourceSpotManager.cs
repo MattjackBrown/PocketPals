@@ -44,6 +44,7 @@ public class ResourceSpotManager : MonoBehaviour
     {
         usedSpots = new List<ResourceSpotSave>();
         gpsMap = girl.GetComponent<GPS>();
+        LoadData();
         for (int i = 0; i < number + 1; i++)
         {
             ResourceSpotParent rsp = Instantiate(ResourceSpotPrefab).GetComponent<ResourceSpotParent>();
@@ -92,7 +93,6 @@ public class ResourceSpotManager : MonoBehaviour
     {
         Instance = this;
         destination = Application.persistentDataPath + destination;
-        LoadData();
     }
 
     public IEnumerator Spawn()
@@ -230,12 +230,6 @@ public class ResourceSpotManager : MonoBehaviour
             Savedata sd = (Savedata)bf.Deserialize(file);
             usedSpots = sd.usedSpots;
             file.Close();
-
-            if (sd.ShouldScanPPals)
-            {
-               
-                sd.ShouldScanPPals = false;
-            }
 
             if (usedSpots == null)
             {

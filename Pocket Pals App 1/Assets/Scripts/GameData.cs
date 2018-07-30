@@ -54,8 +54,11 @@ public class GameData
 
     public void IncreaseExp(float delta)
     {
-        PopupHandler.Instance.AddPopup(Mathf.RoundToInt(delta));
+        int b4 = GetLevel();
         EXP += delta;
+        int After = GetLevel();
+
+        PopupHandler.Instance.AddPopup(Mathf.RoundToInt(delta), (b4<After));
     }
 
     public int GetLevel()

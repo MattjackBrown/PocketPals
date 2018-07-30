@@ -15,6 +15,9 @@ public class LoadingScreenController : MonoBehaviour {
 	float loadingBarValue = 0.0f;
 	float timeToLoad = 32.0f;
 
+    private bool hasData = false;
+    private bool hasMap = false;
+
 	void Start(){Instance = this;}
 
 	void Awake () 
@@ -34,6 +37,8 @@ public class LoadingScreenController : MonoBehaviour {
     {
         loadingStarted = false;
         isLoggedIn = false;
+        hasMap = false;
+        hasData = false;
         loadingBarValue = 0;
     }
 
@@ -92,7 +97,24 @@ public class LoadingScreenController : MonoBehaviour {
 
 	}
 
-	public void AllowToComplete () {
+    public void DataLoaded()
+    {
+        hasData = true;
+        CheckAllowToComplete();
+    }
+
+    public void MapLoaded()
+    {
+        hasMap = true;
+        CheckAllowToComplete();
+    }
+
+	public void CheckAllowToComplete (bool arSkip = false)
+    {
+        if (!arSkip)
+        {
+            if (!hasData || !hasMap) return;
+        }
 
 		timeToLoad = 2.0f;
 		isLoggedIn = true;

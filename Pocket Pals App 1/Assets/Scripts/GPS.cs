@@ -164,6 +164,12 @@ public class GPS : MonoBehaviour
 			Debug.Log("GPS Initialised at:" + StartLat.ToString()+ ":" + StartLong.ToString());
 		}
 
+        if (IsDebug)
+        {
+            StartLat = fakeLat;
+            StartLong = fakeLong;
+        }
+
         //Check time and set material
         if(System.DateTime.Now.Hour >= Sunset || System.DateTime.Now.Hour < SunRise)
         {
@@ -187,6 +193,8 @@ public class GPS : MonoBehaviour
         //Start the resourcespot manager co routine
 
 		isInitialised = true;
+
+        LoadingScreenController.Instance.MapLoaded();
 	}
 
 	float GetDistanceMeters(float lat1, float lon1, float lat2, float lon2)
@@ -219,6 +227,29 @@ public class GPS : MonoBehaviour
 		lonText.text = "lon: " + CurrentLong.ToString();
 		distanceText.text = "Dist From Strt: " + DistanceTravelled.ToString();
 	}
+
+    public IEnumerator TryUpdateMap()
+    {
+        int iter = 0;
+        float waitTime = 0.5f;
+        float timeOut = 30;
+        if (TouchHandler.Instance.IsDebug) IsDebug = true;
+
+        while (!HasGps && !IsDebug)
+        {
+            iter++;
+            if (iter*waitTime > timeOut)
+            {
+                NotificationManager.Instance.ErrorNotification("GPS could not be found. Please check it is allowed in permissions!");
+                ServerDataManager.Instance.LogOut();
+                yield break;
+            }
+            Debug.Log("Waiting for gps");
+            yield return new WaitForSeconds(waitTime);
+        }
+        UpdateMap();
+        yield break;
+    }
 
 	private Vector3 ManualCalc()
 	{
@@ -274,6 +305,7 @@ public class GPS : MonoBehaviour
         }
 
         if (!hasStartedCoroutines && currentMap != null) StartCoroutines();
+
 
         gpsFrequency += Time.deltaTime;
 
@@ -457,7 +489,6 @@ public class GPS : MonoBehaviour
             Debug.Log("Coroutines started");
             StartCoroutine(ResourceSpotManager.Instance.Spawn());
             StartCoroutine(PocketPalSpawnManager.Instance.Spawn());
-            StartCoroutine(FakeMove());
             hasStartedCoroutines = true;
         }
     }

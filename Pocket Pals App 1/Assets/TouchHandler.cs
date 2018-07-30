@@ -279,8 +279,8 @@ public class TouchHandler : MonoBehaviour {
 
 	void DebugTouch()
 	{
-		//declare a variable of RaycastHit struct
-		RaycastHit hit;
+        //declare a variable of RaycastHit struct
+        RaycastHit hit;
 		//Create a Ray on the tapped / clicked position
 		Ray ray;
 		//for unity editor

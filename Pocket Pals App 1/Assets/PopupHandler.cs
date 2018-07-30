@@ -17,6 +17,8 @@ public class PopupHandler : MonoBehaviour
     public Color backColor;
     public Image cBack;
 
+    public LeveupScript levelScript;
+
     public float popupDelay = 1.0f;
     public float speed = 2.0f;
     public float countSpeed = 1.0f;
@@ -31,6 +33,7 @@ public class PopupHandler : MonoBehaviour
     public GameObject cStartObj;
     public GameObject cEndObj;
 
+    public bool hasEXP;
 
     public bool debug = false;
 
@@ -51,10 +54,12 @@ public class PopupHandler : MonoBehaviour
     private void FixedUpdate()
     {
 		if (activePopups.Count < 1) {
+            hasEXP = false;
 			cBack.gameObject.SetActive (false);
 			return;
 		}
-		bool hasExp = false;
+        hasEXP = false;
+
         for(int j = 0; j< activePopups.Count; j++)
         {
             PopupData pd = activePopups[j];
@@ -65,16 +70,16 @@ public class PopupHandler : MonoBehaviour
                 id.img.color = new Color(1, 1, 1, 1 - pd.Alpha);
                 id.img.transform.position = Vector2.Lerp(rStartPos, rEndPos, pd.Alpha);
             }
-            else if (pd.ID == 1 )
+            else if (pd.ID == 1)
             {
-                hasExp = true;
+                hasEXP = true;
                 ProcessExpDrop(pd);
             }
 
-
             if (pd.Alpha >= 1.0) AddToPool(pd);
         }
-		if (hasExp)
+
+		if (hasEXP)
             cBack.gameObject.SetActive(true);
         else
             cBack.gameObject.SetActive(false);
@@ -126,6 +131,10 @@ public class PopupHandler : MonoBehaviour
             poolText.Add(ed.text);
             ed.text.transform.position = cStartPos;
             ed.text.gameObject.SetActive(false);
+            if(ed.isLevelUp)
+            {
+                StartCoroutine(levelScript.TryLevelup(LocalDataManager.Instance.GetData().GetLevel()));
+                }
         }
     }
 
@@ -134,16 +143,16 @@ public class PopupHandler : MonoBehaviour
         Popups.Enqueue(new ItemDrop(spr));
     }
 
-    public void AddPopup(int exp)
+    public void AddPopup(int exp, bool isLevel)
     {
-        Popups.Enqueue(new ExpDrop(exp));
+        Popups.Enqueue(new ExpDrop(exp, isLevel));
     }
 
     private IEnumerator SpawnPopup()
     {
         while (true)
         {
-            if(debug)AddPopup(Random.Range(0, 100000));
+            if(debug)AddPopup(Random.Range(0, 100000), true);
             if ( Popups.Count >= 1)
             {
                 PopupData pd = Popups.Dequeue();
@@ -158,7 +167,7 @@ public class PopupHandler : MonoBehaviour
                     activePopups.Add(pd);
                     SoundEffectHandler.Instance.PlaySound("pop");
                 }
-                else if (pd.ID == 1 && poolText.Count >=1 )
+                else if (pd.ID == 1 && poolText.Count >=1 &&! levelScript.PlayAnim )
 				{
                     ExpDrop ed = (ExpDrop)pd;
                     ed.text = poolText[0];

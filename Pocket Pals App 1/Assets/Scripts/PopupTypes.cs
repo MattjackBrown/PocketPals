@@ -20,18 +20,23 @@ public class ItemDrop : PopupData
     }
 }
 
+
 public class ExpDrop : PopupData
 {
     public Text text;
     public int exp;
+    public bool isLevelUp;
     private string str;
     public float countAlpha;
     public bool PlayStars = true;
 
-    public ExpDrop(int ex)
+    public ExpDrop() { }
+
+    public ExpDrop(int ex, bool level)
     {
         exp = ex;
         ID = 1;
+        isLevelUp = level;
     }
     public void SetText()
     {
@@ -40,3 +45,4 @@ public class ExpDrop : PopupData
     }
 
 }
+

@@ -418,7 +418,7 @@ public class ServerDataManager : MonoBehaviour
                     Debug.Log(ex);
                 }
                 GlobalVariables.hasLoggedIn = true;
-                loadingScreen.AllowToComplete();
+                LoadingScreenController.Instance.DataLoaded();
             }
 
         });
@@ -607,7 +607,8 @@ public class ServerDataManager : MonoBehaviour
 
 			GPS.Insatance.UpdateMap ();
 			LoadingScreenController.Instance.SetBeAwareImage ();
-			LoadingScreenController.Instance.AllowToComplete ();
+
+			LoadingScreenController.Instance.CheckAllowToComplete (true);
 		}
 	}
 
@@ -688,7 +689,7 @@ public class ServerDataManager : MonoBehaviour
 
                 LoginSequence();
                 GetPlayerData(LocalDataManager.Instance.GetData());
-                GPS.Insatance.UpdateMap();
+                StartCoroutine(GPS.Insatance.TryUpdateMap());
             }
         }
         else
@@ -736,7 +737,7 @@ public class ServerDataManager : MonoBehaviour
     public void LogOut()
     {
 
-        NotificationManager.Instance.LogoutNotification("Login Failed Please Check connection");
+        NotificationManager.Instance.LogoutNotification("You Have been Logged out.");
         auth.SignOut();
         newUser = null;
         UIAnimationManager.Instance.OpenLogin();
