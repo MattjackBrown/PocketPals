@@ -84,6 +84,8 @@ public class GPS : MonoBehaviour
 
     public float GetMsSpeed() { return movementSpeed; }
 
+	public Material daySkyBox, nightSkyBox;
+
     // Use this for initialization
     void Start ()
 	{
@@ -313,12 +315,14 @@ public class GPS : MonoBehaviour
     {
         MapMaterial.SetColor("_Tint", new Color(1, 1, 1, 1));
         RenderSettings.fogColor = DayFog;
+		RenderSettings.skybox = daySkyBox;
     }
 
     public void MakeNight()
     {
         MapMaterial.SetColor("_Tint", NightTint);
         RenderSettings.fogColor = NightTint;
+		RenderSettings.skybox = nightSkyBox;
     }
 
     public void FakeGPSRead(Vector3 worldPos)

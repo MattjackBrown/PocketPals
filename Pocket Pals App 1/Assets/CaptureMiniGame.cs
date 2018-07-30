@@ -84,7 +84,7 @@ public class CaptureMiniGame : MonoBehaviour {
 	public UIAnimationManager animManager;
 
 	float camMovementSpeed = 1.0f;
-	float mediumCamMovementSpeed = 10.0f;
+	float mediumCamMovementSpeed = 4.0f;
 	float goodCamMovementSpeed = 100.0f;
 	bool specCameraUsed = false;
 	Vector3 touchScreenSpace, touchStartScreenSpace, targetScreenSpace;
@@ -303,9 +303,11 @@ public class CaptureMiniGame : MonoBehaviour {
 
 						// Convert to 0-1 range and set the slider 
 						berryMeter.value = 1.0f - berryTimer / berryDuration;
+						strawbMeter.value = 1.0f - berryTimer / berryDuration;
 
 						if (berryTimer > berryDuration) {
 							berryMeter.gameObject.SetActive (false);
+							strawbMeter.gameObject.SetActive (false);
 							berryUsed = false;
 							berryTimer = 0.0f;
 						}
