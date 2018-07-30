@@ -15,8 +15,6 @@ public class SettingsHandler : MonoBehaviour
 
     public Text vers;
 
-    public Image CreditsLayer;
-    public Sprite[] credits;
     private int credIter = 0;
     private bool inCredits = false;
 
@@ -31,27 +29,8 @@ public class SettingsHandler : MonoBehaviour
 
     public void Back()
     {
-        if (inCredits)
-        {
-            CreditsLayer.gameObject.SetActive(false);
-            inCredits = false;
-            return;
-        }
-        else
-        {
             UIAnimationManager.Instance.ShowSettings(false);
             return;
-        }
-    }
-
-    public void NextCred()
-    {
-        credIter++;
-        if (credIter > credits.Length - 1)
-        {
-            credIter = 0;
-        }
-        CreditsLayer.sprite = credits[credIter];
     }
 
     public void ToggleMusic()
@@ -100,11 +79,6 @@ public class SettingsHandler : MonoBehaviour
         Application.OpenURL("https://www.pocketpalsapp.com/about-1/");
     }
 
-    public void OpenCredits()
-    {
-            CreditsLayer.gameObject.SetActive(true);
-            inCredits = true;
-    }
 	
 	// Update is called once per frame
 	void Update () {

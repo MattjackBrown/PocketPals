@@ -15,6 +15,7 @@ public class TutorialManager : MonoBehaviour
 
     public List<Sprite> mainTutorial;
 
+    public List<Sprite> credits;
 
     public List<Sprite> Tracks;
 
@@ -33,6 +34,14 @@ public class TutorialManager : MonoBehaviour
         currentList = mainTutorial;
         TutorialObj.SetActive(true);
 
+    }
+
+    public void StartCredits()
+    {
+        iter = 0;
+        currentPage.sprite = credits[0];
+        currentList = credits;
+        TutorialObj.SetActive(true);
     }
 
     public void StartTracksTutorial()
