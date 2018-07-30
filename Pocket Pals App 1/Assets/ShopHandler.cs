@@ -68,7 +68,7 @@ public class ShopHandler : MonoBehaviour
     {
         if (!LocalDataManager.Instance.TryBuySomething(ARCost))
         {
-            NotificationManager.Instance.ErrorNotification("You Dont have enough coins! Please buy more!");
+            NotificationManager.Instance.ErrorNotification("You dont have enough coins! Please buy more!");
         }
         else
         {
@@ -82,13 +82,13 @@ public class ShopHandler : MonoBehaviour
     {
         if (!LocalDataManager.Instance.TryBuySomething(CostumePackCost))
         {
-            NotificationManager.Instance.ErrorNotification("You Dont have enough coins! Please buy more!");
+            NotificationManager.Instance.ErrorNotification("You dont have enough coins! Please buy more!");
         }
         else
         {
             LocalDataManager.Instance.BoughtCP();
             UpdateButtons();
-            NotificationManager.Instance.CongratsNotification("You have bought the Extended Costume Pack!");
+            NotificationManager.Instance.CongratsNotification("You have bought the extended costume pack!");
         }
     }
 

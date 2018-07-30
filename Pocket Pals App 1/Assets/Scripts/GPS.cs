@@ -335,6 +335,7 @@ public class GPS : MonoBehaviour
 
 			StartPlayerMove(altEnd);
 		}
+
         if (Moving)MovePlayer();
     }
 

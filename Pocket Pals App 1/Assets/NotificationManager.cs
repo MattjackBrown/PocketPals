@@ -49,17 +49,17 @@ public class NotificationManager : MonoBehaviour
 
     public void LoginNotification(string m)
     {
-        AddNotificationToQueue(new Notification("Login Message:", m));
+        AddNotificationToQueue(new Notification("Login message:", m));
     }
 
     public void LoginFailedNotification(string m)
     {
-        AddNotificationToQueue(new Notification("Login Failed:", m));
+        AddNotificationToQueue(new Notification("Login failed:", m));
     }
 
     public void CreateUserErrorNotification(string m)
     {
-        AddNotificationToQueue(new Notification("Create User Failed:", m));
+        AddNotificationToQueue(new Notification("Failed to create user:", m));
     }
 
     public void LogoutNotification(string m)
@@ -77,7 +77,7 @@ public class NotificationManager : MonoBehaviour
         int mintues = Mathf.RoundToInt(timeLeft / 60);
 
         int seconds = Mathf.RoundToInt(timeLeft % 60); 
-        AddNotificationToQueue(new Notification("Resource Is Not Ready!", "You have: " + mintues +  " minutes and: " + seconds +  " Seconds Until it can be used again"));
+        AddNotificationToQueue(new Notification("Resource is not ready!", "You have: " + mintues +  " minutes and: " + seconds +  " seconds until it can be used again"));
     }
 
     public void InteractError(string m)

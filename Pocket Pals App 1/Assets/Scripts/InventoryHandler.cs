@@ -17,6 +17,7 @@ public class InventoryHandler : MonoBehaviour
     private void Start()
     {
         Instance = this;
+        LevelCalculator.SimulateLevels(500000);
     }
 
     public void Enabled()

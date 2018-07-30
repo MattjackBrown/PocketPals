@@ -63,7 +63,7 @@ public class GameData
 
     public int GetLevel()
     {
-        return LevelCalculator.CalculateLevel(EXP);
+        return LevelCalculator.CalculateLevel(EXP, 2);
     }
 
     public float GetExpToLevel()

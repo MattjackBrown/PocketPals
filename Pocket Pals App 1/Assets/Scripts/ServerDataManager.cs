@@ -621,12 +621,12 @@ public class ServerDataManager : MonoBehaviour
         auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWith(task => {
             if (task.IsCanceled)
             {
-                NotificationManager.Instance.CreateUserErrorNotification("Check Internet Connection");
+                NotificationManager.Instance.CreateUserErrorNotification("Check internet connection");
                 return;
             }
             if (task.IsFaulted)
             {
-                NotificationManager.Instance.CreateUserErrorNotification("Email Address Is Already Registered Or It Is Invalid");
+                NotificationManager.Instance.CreateUserErrorNotification("Email address is already registered or it is invalid");
                 return;
             }
             newUser = task.Result;
@@ -636,7 +636,7 @@ public class ServerDataManager : MonoBehaviour
 
     public void UserCreated(GameObject CreateUserScreen)
     {
-        NotificationManager.Instance.LoginNotification("You Have Created An Account!");
+        NotificationManager.Instance.LoginNotification("You have created an account!");
         SendEmailVerification();
         CreateUserScript cus = CreateUserScreen.GetComponent<CreateUserScript>();
         LoginScreenScript lss = CreateUserScreen.GetComponent<CreateUserScript>().LoginScreen.GetComponent<LoginScreenScript>();
@@ -654,12 +654,12 @@ public class ServerDataManager : MonoBehaviour
         auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWith(task => {
             if (task.IsCanceled)
             {
-                NotificationManager.Instance.LoginFailedNotification("Check Internet Connection");
+                NotificationManager.Instance.LoginFailedNotification("Check internet connection");
                 return;
             }
             if (task.IsFaulted)
             {
-                NotificationManager.Instance.LoginFailedNotification("Incorrect Username Or Password");
+                NotificationManager.Instance.LoginFailedNotification("Incorrect username or password");
                 return;
             }
             newUser = task.Result;
@@ -680,7 +680,7 @@ public class ServerDataManager : MonoBehaviour
         {
             if (!newUser.IsEmailVerified)
             {
-                NotificationManager.Instance.LoginFailedNotification("Please Verify Your Email Address Before Playing");
+                NotificationManager.Instance.LoginFailedNotification("Please verify your email address before playing");
             }
             else
             {
@@ -713,17 +713,17 @@ public class ServerDataManager : MonoBehaviour
         {
             if (task.IsCanceled)
             {
-                NotificationManager.Instance.ErrorNotification("Failed to send Verification Email");
+                NotificationManager.Instance.ErrorNotification("Failed to send verification email");
                 return;
             }
             if (task.IsFaulted)
             {
-                NotificationManager.Instance.ErrorNotification("Failed to send Verification Email");
+                NotificationManager.Instance.ErrorNotification("Failed to send verification email");
                 return;
             }
             if (task.IsCompleted)
             {
-                NotificationManager.Instance.LoginNotification("Verification Email has been sent");
+                NotificationManager.Instance.LoginNotification("Verification email has been sent");
             }
         });
         auth.SignOut();
@@ -737,7 +737,7 @@ public class ServerDataManager : MonoBehaviour
     public void LogOut()
     {
 
-        NotificationManager.Instance.LogoutNotification("You Have been Logged out.");
+        NotificationManager.Instance.LogoutNotification("You have been logged out.");
         auth.SignOut();
         newUser = null;
         UIAnimationManager.Instance.OpenLogin();

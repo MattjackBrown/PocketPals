@@ -71,7 +71,7 @@ public class LocalDataManager : MonoBehaviour {
 
     private void SyncPPal(PocketPalData ppd, PocketPalParent pp)
     {
-        NotificationManager.Instance.CongratsNotification("You Have Observed A level " + ppd.GetLevel() + " " + ppd.name);
+        NotificationManager.Instance.CongratsNotification("You have observed a level " + ppd.GetLevel() + " " + ppd.name);
 
         //Add the pocketPal to the players inventory
         localData.Inventory.AddPocketPal(pp);
@@ -109,7 +109,7 @@ public class LocalDataManager : MonoBehaviour {
         TrackData td = AssetManager.Instance.GetNewTrack();
         if (localData.TrackInv.TryAddTrack(td))
         {
-            NotificationManager.Instance.CongratsNotification("You have found a new Trail!");
+            NotificationManager.Instance.CongratsNotification("You have found a new trail!");
             ServerDataManager.Instance.WriteTrack(localData, td);
             return true;
         }
@@ -142,7 +142,7 @@ public class LocalDataManager : MonoBehaviour {
 
     public void BuyCoins(int num)
     {
-        NotificationManager.Instance.CongratsNotification("You Have received " + num + " PocketCoins!!");
+        NotificationManager.Instance.CongratsNotification("You have received " + num + " PocketCoins!!");
         ServerDataManager.Instance.AddPocketCoins(localData, num);
     }
 

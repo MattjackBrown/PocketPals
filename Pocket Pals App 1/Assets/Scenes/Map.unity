@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5196828, g: 0.73858035, b: 0.904051, a: 1}
+  m_IndirectSpecularColor: {r: 0.51313746, g: 0.7301161, b: 0.89399546, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4835,8 +4835,8 @@ MonoBehaviour:
     PocketPalName: Badger
     PocketPalID: 1
     identifier: {fileID: 21300000, guid: 088fc72bab3c582458f90f4d4926f22c, type: 3}
-    expMin: 4000
-    expMax: 6000
+    expMin: 1300
+    expMax: 1800
     rarity: 5
   - ID: 2
     distMin: 1000
@@ -4844,8 +4844,8 @@ MonoBehaviour:
     PocketPalName: Hedgehog
     PocketPalID: 7
     identifier: {fileID: 21300000, guid: e0f9d1c0ee53399449a69f62024e6340, type: 3}
-    expMin: 2000
-    expMax: 3000
+    expMin: 1000
+    expMax: 1800
     rarity: 4
   - ID: 3
     distMin: 1500
@@ -4853,8 +4853,8 @@ MonoBehaviour:
     PocketPalName: Pine Marten
     PocketPalID: 10
     identifier: {fileID: 21300000, guid: 70c97c76db68b4d4f93331cf31375a0d, type: 3}
-    expMin: 4000
-    expMax: 6000
+    expMin: 2000
+    expMax: 2600
     rarity: 8
   - ID: 4
     distMin: 2000
@@ -4862,8 +4862,8 @@ MonoBehaviour:
     PocketPalName: Red Deer
     PocketPalID: 12
     identifier: {fileID: 21300000, guid: c07080f966a56194d889daf7f4fa5728, type: 3}
-    expMin: 2000
-    expMax: 3000
+    expMin: 1300
+    expMax: 1800
     rarity: 4
   - ID: 5
     distMin: 1000
@@ -4871,8 +4871,8 @@ MonoBehaviour:
     PocketPalName: Red Squirrel
     PocketPalID: 14
     identifier: {fileID: 21300000, guid: 3aef79e32ea2b0840abfbd9086610516, type: 3}
-    expMin: 4000
-    expMax: 6000
+    expMin: 1500
+    expMax: 2250
     rarity: 6
   - ID: 6
     distMin: 500
@@ -4880,8 +4880,8 @@ MonoBehaviour:
     PocketPalName: Blue Tit
     PocketPalID: 2
     identifier: {fileID: 21300000, guid: f22ad70383218514786a6e14b195b11b, type: 3}
-    expMin: 500
-    expMax: 1000
+    expMin: 400
+    expMax: 800
     rarity: 2
   - ID: 7
     distMin: 2000
@@ -4889,8 +4889,8 @@ MonoBehaviour:
     PocketPalName: Capercaillie
     PocketPalID: 3
     identifier: {fileID: 21300000, guid: c2ce2ef1bb2e8da419585001aa7470d6, type: 3}
-    expMin: 3000
-    expMax: 4000
+    expMin: 2000
+    expMax: 2750
     rarity: 8
   - ID: 8
     distMin: 2000
@@ -4898,8 +4898,8 @@ MonoBehaviour:
     PocketPalName: Tawny Owl
     PocketPalID: 8
     identifier: {fileID: 21300000, guid: 6cb54922f3c7d474999f5ea73b434a7f, type: 3}
-    expMin: 3000
-    expMax: 4000
+    expMin: 2000
+    expMax: 2500
     rarity: 7
 --- !u!1 &240062785
 GameObject:
@@ -6052,8 +6052,8 @@ RectTransform:
   m_Father: {fileID: 21500284}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.06754401, y: 0.76656747}
-  m_AnchorMax: {x: 0.4915164, y: 0.9598653}
+  m_AnchorMin: {x: 0.119487576, y: 0.7545088}
+  m_AnchorMax: {x: 0.5, y: 0.9598653}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -18347,7 +18347,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basePixelate: 150
-  MaxBonusModifier: 5
+  MaxBonusModifier: 3
   CollectionLayer: {fileID: 21500283}
   Collection:
   - {fileID: 1690521857}
@@ -21135,8 +21135,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.02082919, y: 0.77549124}
   m_AnchorMax: {x: 0.119487576, y: 0.96300006}
-  m_AnchoredPosition: {x: 0, y: 0.000030517578}
-  m_SizeDelta: {x: 0, y: 0.000030517578}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &981477990
 MonoBehaviour:
@@ -39070,7 +39070,7 @@ MonoBehaviour:
     m_BestFit: 1
     m_MinSize: 10
     m_MaxSize: 300
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
