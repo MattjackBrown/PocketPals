@@ -37,7 +37,7 @@ public class BackgroundMusic : MonoBehaviour {
 
 	public void LowerBackgroundMusic () {
 
-		backgroundMusic.volume = 0.2f;
+		backgroundMusic.volume = 0.1f;
 
 		StartCoroutine (WaitThenFullSound());
 
