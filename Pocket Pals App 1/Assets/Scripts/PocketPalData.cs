@@ -91,7 +91,7 @@ public class PocketPalData
         if (name != ppd.name) name = ppd.name;
         if (baseRarity != ppd.baseRarity) baseRarity = ppd.baseRarity;
         if(FirstSeen == "") FirstSeen = DateTime.Now.ToString("dd/MM/yyyy");
-        if(LastSeen == "") LastSeen = DateTime.Now.ToString("dd/MM/yyyy");
+        LastSeen = DateTime.Now.ToString("dd/MM/yyyy");
         numberCaught++;
         EXP += ppd.EXP*expMultiplier;
     }
