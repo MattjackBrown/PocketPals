@@ -44,6 +44,9 @@ public class StreamVideo : MonoBehaviour {
 				{
 					LocalDataManager.Instance.InAR = false;
 
+					// Returning from the AR scene so deactivate the static PPal gameObject
+					GlobalVariables.ARPocketPAl.SetActive (false);
+
 					BackgroundMusic.Instance.StartBackgroundMusic();
 					CameraController.Instance.StartZoomIn();
 
