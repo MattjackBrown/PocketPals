@@ -127,11 +127,10 @@ public class ResourceSpotManager : MonoBehaviour
                         rsp.OldUsed();
                     }
 
-                    rsp.transform.parent = GPS.Insatance.currentMap.transform;
+                    rsp.transform.parent = transform;
                     activeResourceSpots.Add(rsp);
                 }
 
-                ContentGenerator.Instance.WipeResouceSpots();
             }
 
             yield return new WaitForSeconds(4);

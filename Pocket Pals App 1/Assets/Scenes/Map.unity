@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.51505566, g: 0.732586, b: 0.8969237, a: 1}
+  m_IndirectSpecularColor: {r: 0.51809025, g: 0.7365937, b: 0.90170443, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -3946,8 +3946,8 @@ MonoBehaviour:
   mainCamera: {fileID: 1331972345}
   controls: {fileID: 1331972349}
   Moving: 0
-  fakeLat: 50.1726
-  fakeLong: -5.126206
+  fakeLat: 51.476524
+  fakeLong: -0.235407
   MovementAccuracy: 0.1
   currentSpeed: 0
   rotationSpeed: 5
@@ -18970,7 +18970,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &920291791
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23941,8 +23941,8 @@ MonoBehaviour:
   girl: {fileID: 100004, guid: c533162b445f4aa46be382d58e8077c1, type: 3}
   ResourceSpotPrefab: {fileID: 1995170445977998, guid: 1b3d5925e5f30934c829452c871e2487,
     type: 2}
-  spread: 1.3
-  number: 20
+  spread: 1
+  number: 26
   MaxNumOfUsedSpots: 15
   CoolDownTimeSeconds: 600
   checkThreshold: 0.00000001
@@ -39858,6 +39858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentIndex: 0
+  ResourceSpotSeed: Doombar
 --- !u!1 &1763286315
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class ContentGenerator : MonoBehaviour
 	private List<int> GeneratedAnimalsIDs = new List<int>();
 
 	//List of all Resource stops currently in the players area
-	private List<Vector2> ResourceStopLocations = new List<Vector2>();
+	//private List<Vector2> ResourceStopLocations = new List<Vector2>();
 
     //Basically the size of the grids to generate, less equals a greater area.
     public static int DecimalPlacesToRound = 2;
@@ -20,13 +20,13 @@ public class ContentGenerator : MonoBehaviour
 	//current in to look at for the pocketpal
 	public int currentIndex = 0;
 
-    private static string ResourceSpotSeed = "Doombar";
+    public string ResourceSpotSeed = "Doombar";
 
 	//random seeds
 	private int ppCurrentSeed =0;
 	private int ppNewSeed = 0;
 
-    private List<int> rsCurrentSeed = new List<int>();
+    private int rsCurrentSeed = 0;
     private int rsNewSeed = 0;
 
 	void Start()
@@ -41,10 +41,12 @@ public class ContentGenerator : MonoBehaviour
         double roundedLon = System.Math.Round(lon, DecimalPlacesToRound);
         string seed = ResourceSpotSeed + roundedLat + roundedLon;
 
+        if (roundedLat < 0.01 && roundedLat > -0.01 && roundedLon <0.01 && roundedLat > -0.01) return null;
+
         rsNewSeed = seed.GetHashCode();
 
         //If the two seeds are equal (the player has not moved out of this zone) stop generating
-        if (rsCurrentSeed.Contains(rsNewSeed))
+        if (rsCurrentSeed == rsNewSeed)
         {
             return null;
         }
@@ -52,12 +54,13 @@ public class ContentGenerator : MonoBehaviour
         {
         }
 
-        rsCurrentSeed.Add(rsNewSeed);
+        rsCurrentSeed = rsNewSeed;
 
         System.Random r = new System.Random(rsNewSeed);
 
         double maxVariance = Math.Pow(10, -1*(DecimalPlacesToRound));
 
+        List<Vector2> ResourceStopLocations = new List<Vector2>();
         for (int i = 0; i < number; i++)
         {
             Vector2 latLon = new Vector2();
@@ -65,17 +68,9 @@ public class ContentGenerator : MonoBehaviour
             latLon.y = (float)GetRandomBetweenRange(r, maxVariance, roundedLon);
             ResourceStopLocations.Add(latLon);
         }
-
         return ResourceStopLocations;
     }
 
-    public void RemoveFirstSeed()
-    {
-        if (rsCurrentSeed.Count > 1)
-        {
-            rsCurrentSeed.RemoveAt(0);
-        }
-    }
 
     private static int GetSeed(string seed, double lat, double lon)
 	{
@@ -144,8 +139,4 @@ public class ContentGenerator : MonoBehaviour
 
     }
 
-    public void WipeResouceSpots()
-    {
-        ResourceStopLocations.Clear();
-    }
 }
