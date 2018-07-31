@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.5202169, g: 0.7380266, b: 0.90202373, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -8132,6 +8132,8 @@ MonoBehaviour:
   startingUI: {fileID: 2039017364}
   controls: {fileID: 1331972349}
   ButtonBlocker: {fileID: 1167568998}
+  TandTUI: {fileID: 869577675}
+  tAndTHandle: {fileID: 869577679}
   CanAnimChange: 1
 --- !u!95 &421776397
 Animator:
@@ -17943,7 +17945,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &869577676
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17962,8 +17964,8 @@ RectTransform:
   m_Father: {fileID: 421776395}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: -1, y: 0}
-  m_AnchorMax: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

@@ -56,7 +56,7 @@ public class EnvironmentChanger : MonoBehaviour
 
 			// If scene is being initialised from the AR scene then go straight to virtual garden
 			if (GlobalVariables.currentScene == GlobalVariables.SceneName.AR) {
-				StartSceneInVirtualGarden ();
+				//StartSceneInVirtualGarden ();
 			}
 			created = true;
 		}

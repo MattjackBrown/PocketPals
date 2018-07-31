@@ -6,7 +6,8 @@ public class UIAnimationManager : MonoBehaviour {
 	public GameObject startingUI;
 	public TouchHandler controls;
 
-    public GameObject ButtonBlocker;
+    public GameObject ButtonBlocker, TandTUI;
+	public TrackAndTrailsHandle tAndTHandle;
 
     public static UIAnimationManager Instance { set; get; }
 
@@ -197,13 +198,17 @@ public class UIAnimationManager : MonoBehaviour {
 			// Check that the camera is not in a transition state, just the resting map controls allow
 			if (controls.IsInMapControls ()) {
 
-				TrackAndTrailsHandle.Instance.RefreshCollection();
-				canvasAnimator.SetBool ("openTracks", show);
+				TandTUI.SetActive (true);
+				tAndTHandle.RefreshCollection ();
+	//			TrackAndTrailsHandle.Instance.RefreshCollection();
+				//canvasAnimator.SetBool ("openTracks", show);
+				TandTUI.SetActive (true);
 				controls.MenuControls ();
 			}
 		} else {
 			// Removing the UI
-			canvasAnimator.SetBool ("openTracks", show);
+			//canvasAnimator.SetBool ("openTracks", show);
+			TandTUI.SetActive (false);
 			controls.MapControls ();
 		}
 	}
