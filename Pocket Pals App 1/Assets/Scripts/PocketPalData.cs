@@ -66,7 +66,7 @@ public class PocketPalData
 
     public int GetLevel()
     {
-        return LevelCalculator.CalculateLevel(EXP);
+        return LevelCalculator.CalculateLevel(EXP,1);
     }
 
     public float GetRarity()
@@ -76,12 +76,12 @@ public class PocketPalData
 
     public float GetExpToNextLevel()
     {
-        return (float)Math.Round(LevelCalculator.GetExpNeeded(EXP));
+        return (float)Math.Round(LevelCalculator.GetExpNeeded(EXP,1));
     }
 
     public float GetPercentageToNextLevel()
     {
-        return LevelCalculator.GetPercentageToNextLevel(EXP);
+        return LevelCalculator.GetPercentageToNextLevel(EXP,1);
     }
 
     public void MergePocketPal(PocketPalData ppd, float expMultiplier)

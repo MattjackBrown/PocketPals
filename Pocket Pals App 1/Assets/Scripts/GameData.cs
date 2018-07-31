@@ -63,17 +63,17 @@ public class GameData
 
     public int GetLevel()
     {
-        return (int)(LevelCalculator.CalculateLevel(EXP)/2);
+        return (int)(LevelCalculator.CalculateLevel(EXP, 2));
     }
 
     public float GetExpToLevel()
     {
-        return LevelCalculator.GetExpNeeded(EXP)*2;
+        return LevelCalculator.GetExpNeeded(EXP, 2);
     }
 
     public float GetPercentageExp()
     {
-        return LevelCalculator.GetPercentageToNextLevel(EXP);
+        return LevelCalculator.GetPercentageToNextLevel(EXP, 2);
     }
 
 	public int NumberOfBerries ()
