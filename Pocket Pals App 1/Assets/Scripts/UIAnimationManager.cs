@@ -200,15 +200,15 @@ public class UIAnimationManager : MonoBehaviour {
 
 				TandTUI.SetActive (true);
 				tAndTHandle.RefreshCollection ();
-	//			TrackAndTrailsHandle.Instance.RefreshCollection();
-				//canvasAnimator.SetBool ("openTracks", show);
-				TandTUI.SetActive (true);
+				TrackAndTrailsHandle.Instance.RefreshCollection();
+				canvasAnimator.SetBool ("openTracks", show);
+	//			TandTUI.SetActive (true);
 				controls.MenuControls ();
 			}
 		} else {
 			// Removing the UI
-			//canvasAnimator.SetBool ("openTracks", show);
-			TandTUI.SetActive (false);
+			canvasAnimator.SetBool ("openTracks", show);
+	//		TandTUI.SetActive (false);
 			controls.MapControls ();
 		}
 	}
