@@ -10,6 +10,8 @@ public class AssetManager : MonoBehaviour {
     // The Pocket Pal prefabs to be spawned
     public GameObject[] PocketPals;
 
+    public AnimalScreenshots[] screenShots;
+
     public ItemData[] Items;
     private List<float> itemRarities = new List<float>();
 
@@ -39,6 +41,15 @@ public class AssetManager : MonoBehaviour {
             {
                 return obj;
             }
+        }
+        return null;
+    }
+
+    public Sprite GetScreenShot(int id)
+    {
+        foreach (AnimalScreenshots scr in screenShots)
+        {
+            if (scr.ppalID == id) return scr.spr;
         }
         return null;
     }
@@ -162,4 +173,13 @@ public class AssetManager : MonoBehaviour {
 	void Update () {
 		
 	}
+
+
+}
+
+[System.Serializable]
+public class AnimalScreenshots
+{
+    public Sprite spr;
+    public int ppalID;
 }

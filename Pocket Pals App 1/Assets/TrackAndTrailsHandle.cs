@@ -17,13 +17,16 @@ public class TrackAndTrailsHandle : MonoBehaviour
     public GameObject[] Collection;
     public Sprite EmptyGlass;
     public Sprite UsedGlass;
+    public Sprite QuestionMark;
 
+ 
 
     public GameObject InspectLayer;
     public Image InspectBar;
     public Image InspectImage;
     public GameObject GuessButton;
     public GameObject CompleteButton;
+    public Image GuessImage;
     public Text DistanceLeft;
 
     public GameObject GuessLayer;
@@ -74,11 +77,13 @@ public class TrackAndTrailsHandle : MonoBehaviour
         if (activeTrack.GuessID != -1)
         {
             GuessButton.SetActive(false);
+            GuessImage.sprite = AssetManager.Instance.GetScreenShot(activeTrack.GuessID);
             CompleteButton.SetActive(true);
         }
         else
         {
             GuessButton.SetActive(true);
+            GuessImage.sprite = QuestionMark;
             CompleteButton.SetActive(false);
         }
     }
@@ -286,6 +291,7 @@ public class GuessClass
 {
     public Image img;
     public Text name;
+    public Image ppalImg;
     public PocketPalParent ppp;
     public int index = 0;
 
@@ -295,5 +301,6 @@ public class GuessClass
         img.sprite = null;
         ppp = parent;
         name.text = parent.name;
+        ppalImg.sprite = AssetManager.Instance.GetScreenShot(parent.PocketPalID);
     }
 }
