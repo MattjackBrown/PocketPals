@@ -248,7 +248,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
         activeTrack.GuessID = activeGuess.ppp.PocketPalID;
         activeTrack.Multiplier = modifier;
 
-        NotificationManager.Instance.CustomHeaderNotification("Guess Confimed!", "You have guessed this track belongs too a " + activeGuess.name.text + " If you're right, you will receive an exp modifier of: " + Math.Round(activeTrack.Multiplier, 1) + "x EXP");
+        NotificationManager.Instance.CustomHeaderNotification("You have guessed this track", "You will receive extra xp if you're correct!");
 
         ServerDataManager.Instance.WriteTrack(LocalDataManager.Instance.GetData(), activeTrack);
 
@@ -260,7 +260,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
     {
         if (activeTrack.GetFloatDone(LocalDataManager.Instance.GetData().DistanceTravelled) < 1)
         {
-            NotificationManager.Instance.CustomHeaderNotification("Sorry You Cannot Do This Right Now!!", "You need to fully track this animal before you can claim your reward!");
+            NotificationManager.Instance.CustomHeaderNotification("You can only guess once!", "Walk the remaining distance to claim your reward");
             return;
         }
         if (activeTrack.GuessID == AssetManager.Instance.GetTrackByID(activeTrack.ID).PocketPalID)
