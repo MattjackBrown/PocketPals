@@ -387,7 +387,7 @@ public class CameraController : MonoBehaviour
 		transform.position = player.transform.position + returnCamOffsetAfterGarden;
 
 		// Set the transform rotation to look at the player + the look at position offset
-		transform.LookAt (playerPosition + lookAtPlayerPositionOffset);
+		transform.LookAt (player.transform.position + lookAtPlayerPositionOffset);
 
 		// Return the controls to the map scheme
 		controls.MapControls ();
