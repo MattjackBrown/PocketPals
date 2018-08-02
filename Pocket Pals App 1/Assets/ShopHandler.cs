@@ -32,7 +32,7 @@ public class ShopHandler : MonoBehaviour
         {
             if (sd.ButtonID == buttonID)
             {
-                NotificationManager.Instance.QuestionNotification("Are you sure you want to buy " + sd.Quantity + "x " + sd.name + "?", sd.Buy, null);
+                NotificationManager.Instance.QuestionNotification("Are you sure you want to buy " + sd.Quantity + " " + sd.name + "?", sd.Buy, null);
             }
         }
     }
