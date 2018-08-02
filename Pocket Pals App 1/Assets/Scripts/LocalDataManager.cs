@@ -96,7 +96,9 @@ public class LocalDataManager : MonoBehaviour {
 
     public void AddItem(ItemData id)
     {
-        for (int i = 0; i < id.numberOwned; i++)
+        int maxIter = 10;
+        if (id.numberOwned < maxIter) maxIter = id.numberOwned;
+        for (int i = 0; i < maxIter; i++)
         {
             PopupHandler.Instance.AddPopup(id.spr);
         }
