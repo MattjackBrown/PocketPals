@@ -44,6 +44,8 @@ public class CharacterCustomisation : MonoBehaviour {
 
     public JournalNewScript jns;
 
+	public GameObject buyMoreTextObject;
+
     public void Start() {
 
         Instance = this;
@@ -59,39 +61,43 @@ public class CharacterCustomisation : MonoBehaviour {
     {
 
         // If clothes kit bought, make sure that the lists contain the unlocked items
-        if (customisationKitUnlocked)
-        {
-            switch (cData.m_PoseID) {
+		if (customisationKitUnlocked) {
 
-                case 0:
-                    ChoosePoseNone();
-                    break;
+			buyMoreTextObject.SetActive (false);
 
-                case 1:
-                    ChoosePoseHandsHips();
-                    break;
+			switch (cData.m_PoseID) {
 
-                case 2:
-                    ChoosePoseStar();
-                    break;
+			case 0:
+				ChoosePoseNone ();
+				break;
 
-                case 3:
-                    ChoosePoseBins();
-                    break;
+			case 1:
+				ChoosePoseHandsHips ();
+				break;
 
-                case 4:
-                    ChoosePoseNet();
-                    break;
+			case 2:
+				ChoosePoseStar ();
+				break;
 
-                case 5:
-                    ChoosePoseFloss();
-                    break;
+			case 3:
+				ChoosePoseBins ();
+				break;
 
-                case 6:
-                    ChoosePoseDab();
-                    break;
-            }
-        }
+			case 4:
+				ChoosePoseNet ();
+				break;
+
+			case 5:
+				ChoosePoseFloss ();
+				break;
+
+			case 6:
+				ChoosePoseDab ();
+				break;
+			}
+		} else {
+			buyMoreTextObject.SetActive (true);
+		}
 
         // Set as idle anim
         animController.DemoIdlePose();
@@ -338,7 +344,7 @@ public class CharacterCustomisation : MonoBehaviour {
 
 		setAllTogglesFalse ();
 
-		if (customisationKitUnlocked) {
+		if (true/*customisationKitUnlocked*/) {
 			poseController.ChoosePoseNone ();
 
 			s_Idle.sprite = TickImage;
@@ -433,7 +439,7 @@ public class CharacterCustomisation : MonoBehaviour {
 
 		setAllTogglesFalse ();
 
-		if (customisationKitUnlocked) {
+		if (true/*customisationKitUnlocked*/) {
 			poseController.ChoosePoseStar ();
 
 			s_Star.sprite = TickImage;
@@ -453,7 +459,7 @@ public class CharacterCustomisation : MonoBehaviour {
 
 		setAllTogglesFalse ();
 
-		if (customisationKitUnlocked) {
+		if (true/*customisationKitUnlocked*/) {
 			poseController.ChoosePoseHandsHips ();
 
 			s_HandsHips.sprite = TickImage;

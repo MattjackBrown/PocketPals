@@ -267,8 +267,13 @@ public class CaptureMiniGame : MonoBehaviour {
 		pocketPal = targetPocketPal;
 
 		// Set the text field in the congrats page
-		PPalName.text = pocketPal.name;
-		menuText.text = string.Concat ("The Pocket Pal is here somewhere... Find it, then choose your camera!");
+		if (targetPocketPal.name != null || targetPocketPal.name != "none") {
+			PPalName.text = targetPocketPal.name;
+		} else {
+			PPalName.text = "Pocket Pal";
+		}
+
+		menuText.text = "The Pocket Pal is here somewhere... Find it, then choose your camera!";
 
 		// A passive control scheme waiting for a button press
 		controls.MenuControls ();
