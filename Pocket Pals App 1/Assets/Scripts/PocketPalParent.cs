@@ -141,7 +141,7 @@ public class PocketPalParent : MonoBehaviour
 
         float length = Random.Range(minLength, maxLength);
 
-        pocketPalData = new PocketPalData(name, PocketPalID,exp, weight ,length, Rarity);
+        pocketPalData = new PocketPalData(pocketPalName, PocketPalID, exp, weight ,length, Rarity);
         return pocketPalData;
     }
 

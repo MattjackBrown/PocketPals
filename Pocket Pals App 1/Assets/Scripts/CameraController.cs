@@ -38,7 +38,7 @@ public class CameraController : MonoBehaviour
 	float virtualGardenMovementSpeed = 1.5f;
 
 	// To store the game view camera position relative to the player, to return to after the minigame
-	Vector3 returnCamOffsetAfterCapture;
+	Vector3 returnCamOffsetAfterCapture, returnCamOffsetAfterMenu;
 
 	// The positions used to lerp the camera position from map to minigame view
 	Vector3 cameraTargetPosition, cameraLookAtPoint, cameraStartPosition, cameraLookAtStartPosition, targetGameObjectPosition;
@@ -291,7 +291,7 @@ public class CameraController : MonoBehaviour
 
 			// Recalculate the target position as the PPal is circling
 			targetGameObjectPosition = targetPocketPal.GetComponent<PocketPalParent>().GetLookAtPosition();
-			cameraTargetPosition = targetGameObjectPosition + (playerPosition - targetGameObjectPosition).normalized * captureCamDistance;
+			cameraTargetPosition = targetGameObjectPosition + (player.transform.position - targetGameObjectPosition).normalized * captureCamDistance;
 
 			cameraTargetPosition = new Vector3 (cameraTargetPosition.x, lookAtPlayerPositionOffset.y, cameraTargetPosition.z);
 
@@ -754,5 +754,14 @@ public class CameraController : MonoBehaviour
 
 	public void LookAtBody () {
 		CCMenuTargetPosition = CCFullViewPositionGameObject.gameObject.transform.position;
+	}
+
+	public void UpdateOffsetForMenu () {
+		returnCamOffsetAfterMenu = transform.position - player.transform.position;
+	}
+
+	public void UpdateCamPositionFromMenuReturn () {
+		transform.position = player.transform.position + returnCamOffsetAfterMenu;
+		transform.LookAt (player.transform.position + lookAtPlayerPositionOffset);
 	}
 }
