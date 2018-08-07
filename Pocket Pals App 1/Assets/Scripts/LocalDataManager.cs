@@ -144,7 +144,7 @@ public class LocalDataManager : MonoBehaviour {
 
     public void BuyCoins(int num)
     {
-        NotificationManager.Instance.CongratsNotification("You have received " + num + " PocketCoins!!");
+        NotificationManager.Instance.UndissmissableNotification("Processing! Please do not close the app!");
         ServerDataManager.Instance.AddPocketCoins(localData, num);
     }
 

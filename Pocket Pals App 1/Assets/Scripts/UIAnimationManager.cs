@@ -77,7 +77,6 @@ public class UIAnimationManager : MonoBehaviour {
     {
         if (!CanAnimChange) return;
         ServerDataManager.Instance.RefreshCoins(LocalDataManager.Instance.GetData());
-        ShopHandler.Instance.RefreshCoins();
         ShopHandler.Instance.UpdateButtons();
         canvasAnimator.SetBool("openShop", true);
     }
@@ -216,7 +215,6 @@ public class UIAnimationManager : MonoBehaviour {
     {
         if (!CanAnimChange) return;
         ServerDataManager.Instance.RefreshCoins(LocalDataManager.Instance.GetData());
-        ShopHandler.Instance.RefreshCoins();
         ShopHandler.Instance.UpdateButtons();
         canvasAnimator.SetBool ("openShop", show);
 	}

@@ -154,7 +154,6 @@ public class ServerDataManager : MonoBehaviour
 
     public void RefreshCoins(GameData gd)
     {
-        if (!ShouldUpdatePlayer) return;
         mDatabaseRef.Child("Users").Child(gd.ID).Child("PocketCoins").GetValueAsync().ContinueWith(task => {
             if (task.IsFaulted)
             {
@@ -170,7 +169,6 @@ public class ServerDataManager : MonoBehaviour
                 catch (Exception ex)
                 {
                     Debug.Log("Could not read PocketPal Coins writing now.");
-                    WriteCoins(gd);
                 }
                 ShopHandler.Instance.RefreshCoins();
             }
@@ -199,9 +197,32 @@ public class ServerDataManager : MonoBehaviour
 
     public void AddPocketCoins(GameData gd, int delta)
     {
-        RefreshCoins(gd);
-        gd.PocketCoins += delta;
-        WriteCoins(gd);
+        mDatabaseRef.Child("Users").Child(gd.ID).Child("PocketCoins").GetValueAsync().ContinueWith(task => {
+            if (task.IsFaulted)
+            {
+                NotificationManager.Instance.ErrorNotification("Your coins failed to add. This should not happen. Please contact our support to get full compensation");
+            }
+            else if (task.IsCompleted)
+            {
+                DataSnapshot snapshot = task.Result;
+                try
+                {
+                    gd.PocketCoins = Convert.ToInt32(snapshot.Value);
+                }
+                catch (Exception ex)
+                {
+                    Debug.Log("Could not read PocketPal Coins writing now.");
+                }
+
+                gd.PocketCoins += delta;
+                WriteCoins(gd);
+                NotificationManager.Instance.NotificationDismissed(false);
+                NotificationManager.Instance.CongratsNotification("You have received " + delta + " PocketCoins!!");
+                ShopHandler.Instance.RefreshCoins();
+            }
+        });
+
+
     }
 
     public void HasDoneFirstLogin()
@@ -212,7 +233,6 @@ public class ServerDataManager : MonoBehaviour
 
     public void WriteCoins(GameData gd)
     {
-        if (!ShouldUpdatePlayer) return;
         ShopHandler.Instance.RefreshCoins();
         mDatabaseRef.Child("Users").Child(gd.ID).Child("PocketCoins").SetValueAsync(gd.PocketCoins);
     }
