@@ -269,8 +269,8 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Set the text field in the congrats page
 		// Clear it sanity check
 		PPalName.text = "";
-		if (targetPocketPal.name != null && targetPocketPal.name != "none") {
-			PPalName.text = targetPocketPal.name; 
+		if (targetPocketPal.pocketPalName != null && targetPocketPal.pocketPalName != "none") {
+			PPalName.text = targetPocketPal.pocketPalName; 
 		} else { 
 			PPalName.text = "Pocket Pal"; 
 		} 
