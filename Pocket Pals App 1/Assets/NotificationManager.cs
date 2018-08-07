@@ -125,14 +125,22 @@ public class NotificationManager : MonoBehaviour
 
         if (Notifications.Count < 1) NotificationMenu.SetActive(false);
         else
-        {
-            Notification n = Notifications.Dequeue();
-            ApplyNotification(n);
+        {          
+            while (Notifications.Count > 0)
+            {
+                Notification n = Notifications.Dequeue();
+                if (n.id != uID)
+                {
+                    ApplyNotification(n);
+                    return;
+                }
+            }
         }
     }
 
     private void ApplyNotification(Notification n)
     {
+
         switch (n.type)
         {
             case mID:
@@ -172,7 +180,6 @@ public class NotificationManager : MonoBehaviour
             }
         }
 
-
         if (!NotificationMenu.activeSelf)
         {
             NotificationMenu.SetActive(true);
@@ -180,7 +187,14 @@ public class NotificationManager : MonoBehaviour
         }
         else
         {
-            Notifications.Enqueue(n);
+            if (LastNotification != null && LastNotification.id == uID)
+            {
+                ApplyNotification(n);
+            }
+            else
+            {
+                Notifications.Enqueue(n);
+            }
         }
     }
 
