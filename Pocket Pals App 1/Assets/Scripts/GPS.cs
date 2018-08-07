@@ -235,6 +235,8 @@ public class GPS : MonoBehaviour
         float timeOut = 30;
         if (TouchHandler.Instance.IsDebug) IsDebug = true;
 
+        int ticket = LoadingScreenController.Instance.AddLoadingMessage("GPS Location");
+
         while (!HasGps && !IsDebug)
         {
             iter++;
@@ -247,6 +249,7 @@ public class GPS : MonoBehaviour
             Debug.Log("Waiting for gps");
             yield return new WaitForSeconds(waitTime);
         }
+        LoadingScreenController.Instance.TicketLoaded(ticket);
         UpdateMap();
         yield break;
     }
@@ -373,7 +376,6 @@ public class GPS : MonoBehaviour
         {
             if (gpsFrequency <= 1) gpsFrequency = 1;
             currentSpeed = Vector3.Magnitude(dir) / gpsFrequency;
-            Debug.Log("Speed" + currentSpeed);
 
             dir = dir.normalized * currentSpeed * DeadReckonAmount;
 

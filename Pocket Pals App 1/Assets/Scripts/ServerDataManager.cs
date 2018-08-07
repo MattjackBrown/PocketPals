@@ -280,7 +280,12 @@ public class ServerDataManager : MonoBehaviour
         {
             ErrorText.text = "Getting Player Data";
         }
-        mDatabaseRef.Child("Users").Child(gd.ID).GetValueAsync().ContinueWith(task => {
+
+        
+
+        mDatabaseRef.Child("Users").Child(gd.ID).GetValueAsync().ContinueWith(task =>
+        {
+            int ticket = LoadingScreenController.Instance.AddLoadingMessage("Player Data");
             if (task.IsFaulted)
             {
                 Debug.Log("Failed Getting user from databse");
@@ -333,15 +338,8 @@ public class ServerDataManager : MonoBehaviour
                                 break;
                         }
                     }
-                    //Load up the character appear
-                    if (LocalDataManager.Instance.HasCP())
-                    {
-                       charLoadout.customisationKitUnlocked = true;
-                        
-                    }
-					gd.charStyleData = csd;
-                    charLoadout.LoadSavedLoadOut(csd);
 
+                    InitCharacterStyle(gd, csd);
                 }
 
                 catch (Exception ex)
@@ -351,14 +349,24 @@ public class ServerDataManager : MonoBehaviour
                 }
             }
 
-
+            LoadingScreenController.Instance.TicketLoaded(ticket);
             GetInventory(gd);
                             
             ShouldUpdatePlayer = true;
         });
     }
 
+    public void InitCharacterStyle(GameData gd, CharacterStyleData csd)
+    {
+        //Load up the character appear
+        if (LocalDataManager.Instance.HasCP())
+        {
+            charLoadout.customisationKitUnlocked = true;
 
+        }
+        gd.charStyleData = csd;
+        charLoadout.LoadSavedLoadOut(csd);
+    }
 
     //----------- Item Inventory Stuff -------------\\
 
@@ -374,7 +382,9 @@ public class ServerDataManager : MonoBehaviour
     {
         gd.ItemInv.Init();
         //Start a task that will populate the players inventory with their ppals.
-        mDatabaseRef.Child("ItemInventories").Child(gd.ID).GetValueAsync().ContinueWith(task => {
+        mDatabaseRef.Child("ItemInventories").Child(gd.ID).GetValueAsync().ContinueWith(task => 
+        {
+            int ticket = LoadingScreenController.Instance.AddLoadingMessage("Items");
             if (task.IsFaulted)
             {
                 Debug.Log("Failed Getting user from databse Writing new user");
@@ -418,6 +428,7 @@ public class ServerDataManager : MonoBehaviour
                     Debug.Log(ex);
                 }
                 GlobalVariables.hasLoggedIn = true;
+                LoadingScreenController.Instance.TicketLoaded(ticket);
                 LoadingScreenController.Instance.DataLoaded();
             }
 
@@ -449,7 +460,9 @@ public class ServerDataManager : MonoBehaviour
 
     public void GetTrackData(GameData gd)
     {
-        mDatabaseRef.Child("TracksAndTrails").Child(gd.ID).GetValueAsync().ContinueWith(task => {
+        mDatabaseRef.Child("TracksAndTrails").Child(gd.ID).GetValueAsync().ContinueWith(task =>
+        {
+            int ticket = LoadingScreenController.Instance.AddLoadingMessage("Tracks and Trails");
             if (task.IsFaulted)
             {
                 Debug.Log("Failed Getting Tracks And Trails data from server");
@@ -497,6 +510,7 @@ public class ServerDataManager : MonoBehaviour
                     LogOut();
                     Debug.Log(ex);
                 }
+                LoadingScreenController.Instance.TicketLoaded(ticket);
                 GetItemInventory(gd);
             }
 
@@ -513,7 +527,9 @@ public class ServerDataManager : MonoBehaviour
     public void GetInventory(GameData gd)
     {
         //Start a task that will populate the players inventory with their ppals.
-        mDatabaseRef.Child("Inventories").Child(gd.ID).GetValueAsync().ContinueWith(task => {
+        mDatabaseRef.Child("Inventories").Child(gd.ID).GetValueAsync().ContinueWith(task =>
+        {
+            int ticket = LoadingScreenController.Instance.AddLoadingMessage("Pocket Pals");
             if (task.IsFaulted)
             {
                 Debug.Log("Failed Getting user from databse Writing new user");
@@ -577,6 +593,7 @@ public class ServerDataManager : MonoBehaviour
                 {
                     Debug.Log(ex);
                 }
+                LoadingScreenController.Instance.TicketLoaded(ticket);
                 LocalDataManager.Instance.GetData().ScanInventoryForBadStats();
                 GetTrackData(gd);
             }
@@ -603,7 +620,10 @@ public class ServerDataManager : MonoBehaviour
 	{
 		if (auth.CurrentUser != null) 
 		{
+            GameData gd = LocalDataManager.Instance.GetData();
 			UIAnimationManager.Instance.OverrideLogin ();
+
+            InitCharacterStyle(gd, gd.charStyleData);
 
 			GPS.Insatance.UpdateMap ();
 			LoadingScreenController.Instance.SetBeAwareImage ();
@@ -626,7 +646,7 @@ public class ServerDataManager : MonoBehaviour
             }
             if (task.IsFaulted)
             {
-                NotificationManager.Instance.CreateUserErrorNotification("Email address is already registered or it is invalid");
+                NotificationManager.Instance.CreateUserErrorNotification("Email address is already registered or password is invalid");
                 return;
             }
             newUser = task.Result;
@@ -723,10 +743,10 @@ public class ServerDataManager : MonoBehaviour
             }
             if (task.IsCompleted)
             {
-                NotificationManager.Instance.LoginNotification("Verification email has been sent");
+                NotificationManager.Instance.LoginNotification("You must verify before continuing. The email may take a while to reach you.");
             }
         });
-        auth.SignOut();
+        HiddenLogout();
     }
 
     public void TryLogOut()
@@ -734,9 +754,14 @@ public class ServerDataManager : MonoBehaviour
         NotificationManager.Instance.QuestionNotification("Are you sure you want to log out?", LogOut, null);
     }
 
+    private void HiddenLogout()
+    {
+        auth.SignOut();
+        newUser = null;
+    }
+
     public void LogOut()
     {
-
         NotificationManager.Instance.LogoutNotification("You have been logged out.");
         auth.SignOut();
         newUser = null;

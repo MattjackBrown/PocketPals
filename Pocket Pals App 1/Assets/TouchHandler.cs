@@ -379,6 +379,7 @@ public class TouchHandler : MonoBehaviour {
                     {
                         if (tooFar)
                         {
+                            if ((hit.transform.position - player.transform.position).magnitude > maxCaptureDistance * 4) return;
                             NotificationManager.Instance.CustomHeaderNotification("Too far away!", "Get closer to claim a prize!");
                             return;
                         }

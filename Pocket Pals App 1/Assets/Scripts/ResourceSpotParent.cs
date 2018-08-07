@@ -12,6 +12,10 @@ public class ResourceSpotParent : MonoBehaviour
 
     public int maxItemFind = 2;
 
+    public int BasePercent = 95;
+
+    public float iterVar = 0.5f;
+
     public ResourceSpotSave SaveData { set; get; }
 
     private void Start()
@@ -78,15 +82,10 @@ public class ResourceSpotParent : MonoBehaviour
         anim.SetBool("Clicked", false);
         transform.GetChild(0).gameObject.SetActive(false);
 
-        ItemData id = AssetManager.Instance.GetWeightRandomItem();
-        LocalDataManager.Instance.AddItem(id);
-
-        for (int i = 0; i < maxItemFind-1; i++)
-        {
-            if (Random.Range(0, 100) < 50) break;
-
-            id = AssetManager.Instance.GetWeightRandomItem();
-            LocalDataManager.Instance.AddItem(id);
+        int numToAdd = GlobalVariables.GetRandom(BasePercent, iterVar, maxItemFind);
+        for(int i = 0; i < numToAdd; i++)
+        { 
+            LocalDataManager.Instance.AddItem(AssetManager.Instance.GetWeightRandomItem());
         }
         CameraController.Instance.MapZoomOutInit();
 

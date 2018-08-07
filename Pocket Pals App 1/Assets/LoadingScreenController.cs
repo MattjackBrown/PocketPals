@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +15,10 @@ public class LoadingScreenController : MonoBehaviour {
 	bool loadingStarted, isLoggedIn = false;
 	float loadingBarValue = 0.0f;
 	float timeToLoad = 32.0f;
+
+    public Text loadingDescription;
+    private int currentIter = 0;
+    private Dictionary<int, string> loadingMessages= new Dictionary<int, string>();
 
     private bool hasData = false;
     private bool hasMap = false;
@@ -47,14 +52,14 @@ public class LoadingScreenController : MonoBehaviour {
     {
 		
 
-        if (TouchHandler.Instance.IsDebug)
-        {
-            BackgroundMusic.Instance.StartBackgroundMusic();
-            CameraController.Instance.StartZoomIn();
+   //     if (TouchHandler.Instance.IsDebug)
+   //     {
+   //         BackgroundMusic.Instance.StartBackgroundMusic();
+   //         CameraController.Instance.StartZoomIn();
 
 
-			this.transform.parent.gameObject.SetActive(false);
-        }
+			//this.transform.parent.gameObject.SetActive(false);
+   //     }
         if (loadingStarted) {
 
 			if (isLoggedIn || (!isLoggedIn && loadingBarValue < 0.8f)) {
@@ -78,6 +83,39 @@ public class LoadingScreenController : MonoBehaviour {
 			}
 		}
 	}
+
+    public int AddLoadingMessage(string message)
+    {
+        currentIter++;
+        loadingMessages.Add(currentIter, message);
+        UpdateLoadingText();
+        return currentIter;
+    }
+
+    public void TicketLoaded(int ticket)
+    {
+        loadingMessages.Remove(ticket);       
+        UpdateLoadingText();
+    }
+
+    public void UpdateLoadingText()
+    {
+
+        string loadmessage = "Loading: ";
+
+        if (loadingMessages.Count <1)
+        {
+            return;
+        }
+
+        for (int i =0; i <  loadingMessages.Count -1; i++)
+        {
+            string s = loadingMessages.ElementAt(i).Value;
+            loadmessage += s + ", ";
+        }
+        loadmessage += loadingMessages.ElementAt(loadingMessages.Count - 1).Value + "...";
+        loadingDescription.text = loadmessage;
+    }
 
     public void FirstLogonSequence()
     {
@@ -116,7 +154,9 @@ public class LoadingScreenController : MonoBehaviour {
             if (!hasData || !hasMap) return;
         }
 
-		timeToLoad = 2.0f;
+        loadingDescription.text = "Finalising...";
+
+        timeToLoad = 2.0f;
 		isLoggedIn = true;
 
 		// Stops the journal button being clickable during the initial camera swoop in

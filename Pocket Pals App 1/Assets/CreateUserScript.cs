@@ -30,7 +30,7 @@ public class CreateUserScript : MonoBehaviour
         }
         else
         {
-            Error.text = "Passwords Dont Match";
+            NotificationManager.Instance.CreateUserErrorNotification("Passwords do not match!");
         }
     }
 

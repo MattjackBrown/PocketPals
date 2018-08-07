@@ -30,4 +30,23 @@ public class GlobalVariables : MonoBehaviour {
 
 	// Stores the index of the virtual garden current looked at 
 	public static int VGCurrentIndex = 0;
+
+    public static int GetRandom(int basePercent, float iterVar, int maxNumber )
+    {
+       
+        int rand = Random.Range(0, 100);
+
+        if (rand > basePercent) return 1;
+
+        int i;
+        for ( i = 2; i < maxNumber; i++)
+        {
+            float x = basePercent * 1/(i*i*iterVar);
+            if (rand > x)
+            {
+                return i;
+            }
+        }
+        return i;
+    }
 }

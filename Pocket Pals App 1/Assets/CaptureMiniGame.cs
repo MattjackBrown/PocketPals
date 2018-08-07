@@ -785,7 +785,7 @@ public class CaptureMiniGame : MonoBehaviour {
 				viewFinder.gameObject.SetActive (true);
 				centreImage.SetActive (true);
 			} else {
-				NotificationManager.Instance.InteractError("Find cameras at resource spots, or in the shop.");
+				NotificationManager.Instance.CustomHeaderNotification("Not enough cameras!", "Find cameras at resource spots, or in the shop.");
 			}
 		}
 	}

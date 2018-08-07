@@ -87,7 +87,7 @@ public class NotificationManager : MonoBehaviour
         int mintues = Mathf.RoundToInt(timeLeft / 60);
 
         int seconds = Mathf.RoundToInt(timeLeft % 60); 
-        AddNotificationToQueue(new Notification("Resource is not ready!", "You have: " + mintues +  " minutes and: " + seconds +  " seconds until it can be used again"));
+        AddNotificationToQueue(new Notification("Resource is not ready!", "You have: " + mintues +  " minutes and: " + seconds +  " seconds until it can be used again", 1));
     }
 
     public void InteractError(string m)
@@ -161,6 +161,18 @@ public class NotificationManager : MonoBehaviour
 
     private void AddNotificationToQueue(Notification n)
     {
+
+        //Check to stop spamming notifications of certain typees
+        if (n.id != -1)
+        {
+            if (LastNotification != null && NotificationMenu.activeSelf &&  LastNotification.id == n.id) return;
+            foreach (Notification not in Notifications)
+            {
+                if (not.id == n.id) return;
+            }
+        }
+
+
         if (!NotificationMenu.activeSelf)
         {
             NotificationMenu.SetActive(true);
@@ -181,6 +193,7 @@ public class NotificationManager : MonoBehaviour
 
 public class Notification
 {
+    public int id = -1;
     public int type =0;
     public string header, message;
     public delegate void del();
@@ -197,6 +210,13 @@ public class Notification
     {
         type = t;
         message = m;
+    }
+
+    public Notification(string h, string m, int i)
+    {
+        header = h;
+        message = m;
+        id = i;
     }
 
     public Notification(int t, string q, del pos, del neg)
