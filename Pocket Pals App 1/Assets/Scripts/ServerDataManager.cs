@@ -308,7 +308,8 @@ public class ServerDataManager : MonoBehaviour
             int ticket = LoadingScreenController.Instance.AddLoadingMessage("Player Data");
             if (task.IsFaulted)
             {
-                Debug.Log("Failed Getting user from databse");
+                NotificationManager.Instance.ErrorNotification("Failed to get Player data, Check Internet Connection");
+                LogOut();
 
             }
             else if (task.IsCompleted)
@@ -407,8 +408,8 @@ public class ServerDataManager : MonoBehaviour
             int ticket = LoadingScreenController.Instance.AddLoadingMessage("Items");
             if (task.IsFaulted)
             {
-                Debug.Log("Failed Getting user from databse Writing new user");
-                WriteItemInventory(gd);
+                NotificationManager.Instance.ErrorNotification("Failed to get Items Check Internet Connection");
+                LogOut();
             }
             else if (task.IsCompleted)
             {
@@ -485,8 +486,8 @@ public class ServerDataManager : MonoBehaviour
             int ticket = LoadingScreenController.Instance.AddLoadingMessage("Tracks and Trails");
             if (task.IsFaulted)
             {
-                Debug.Log("Failed Getting Tracks And Trails data from server");
-                WriteTracks(gd);
+                NotificationManager.Instance.ErrorNotification("Failed to get tracks, Check Internet Connection");
+                LogOut();
             }
             else if (task.IsCompleted)
             {
@@ -552,8 +553,8 @@ public class ServerDataManager : MonoBehaviour
             int ticket = LoadingScreenController.Instance.AddLoadingMessage("Pocket Pals");
             if (task.IsFaulted)
             {
-                Debug.Log("Failed Getting user from databse Writing new user");
-                WriteInventory(gd);
+                NotificationManager.Instance.ErrorNotification("Failed to get PocketPals Check Internet Connection");
+                LogOut();
             }
             else if (task.IsCompleted)
             {
@@ -720,7 +721,8 @@ public class ServerDataManager : MonoBehaviour
         {
             if (!newUser.IsEmailVerified)
             {
-                NotificationManager.Instance.LoginFailedNotification("Please verify your email address before playing");
+                NotificationManager.Instance.LoginFailedNotification("Please verify your account, make sure to check your junk folder");
+                HiddenLogout();
             }
             else
             {
@@ -764,9 +766,10 @@ public class ServerDataManager : MonoBehaviour
             if (task.IsCompleted)
             {
                 NotificationManager.Instance.LoginNotification("You must verify before continuing. The email may take a while to reach you.");
+                HiddenLogout();
             }
         });
-        HiddenLogout();
+
     }
 
     public void TryLogOut()
