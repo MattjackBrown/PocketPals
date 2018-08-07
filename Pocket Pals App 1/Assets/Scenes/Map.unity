@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.5176552, g: 0.73457766, b: 0.8978886, a: 1}
+  m_IndirectSpecularColor: {r: 0.51977074, g: 0.7393524, b: 0.90304357, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4919,17 +4919,17 @@ MonoBehaviour:
     ID: 3
     spr: {fileID: 21300000, guid: ed98ad97f6a5db14d8da3e6656aa90f6, type: 3}
     numberOwned: 0
-    rarity: 20
+    rarity: 15
   - name: Pro Camera
     ID: 4
     spr: {fileID: 21300000, guid: 041f2e4229bdd6448aacf432da10f0ae, type: 3}
     numberOwned: 0
-    rarity: 15
+    rarity: 7
   - name: Good Camera
     ID: 5
     spr: {fileID: 21300000, guid: 31af0ea92dcec7145becf602d8f19d9a, type: 3}
     numberOwned: 0
-    rarity: 5
+    rarity: 3
   TracksAndTrails:
   - ID: 1
     distMin: 3000
@@ -28108,7 +28108,7 @@ MonoBehaviour:
   virtualGarden: {fileID: 32817350}
   ResourceSpotDistance: 6
   ResourceSpotUpness: 0.5
-  IsDebug: 0
+  IsDebug: 1
   maxCaptureDistance: 12
 --- !u!114 &1331972350
 MonoBehaviour:
