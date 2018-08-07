@@ -163,7 +163,7 @@ public class VGUIManager : MonoBehaviour
             SetWeight();
             SetLength();
 
-            nameText.text = currentDisplayData.name;
+            nameText.text = currentDisplayData.pocketPalName;
 //            agressionText.text = currentDisplayData.GetAgression().ToString();
             caughtText.text = currentDisplayData.numberCaught.ToString();
             rarityText.text = currentDisplayData.GetRarity().ToString();

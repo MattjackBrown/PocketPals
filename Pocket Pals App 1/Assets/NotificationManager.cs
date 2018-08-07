@@ -44,7 +44,7 @@ public class NotificationManager : MonoBehaviour
 
     public void CongratsNotification(string m)
     {
-        AddNotificationToQueue(new Notification("Congrats!", m));
+        AddNotificationToQueue(new Notification("Congratulations!", m));
     }
 
     public void LoginNotification(string m)
@@ -64,13 +64,23 @@ public class NotificationManager : MonoBehaviour
 
     public void LogoutNotification(string m)
     {
-        AddNotificationToQueue(new Notification("Signed Out", m));
+        AddNotificationToQueue(new Notification("Signed out", m));
     }
 
     public void ItemFailedNotification(string m)
     {
-        AddNotificationToQueue(new Notification("None Left!!", m));
+        AddNotificationToQueue(new Notification("None left!!", m));
     }
+
+	public void MiniGameFailedNotification(string m) {
+
+		AddNotificationToQueue(new Notification("You ran out of time", m));
+	}
+
+	public void CharCustLockedNotification(string m) {
+
+		AddNotificationToQueue(new Notification("Locked!", m));
+	}
 
     public void ResourceSpotUsed(float timeLeft)
     {

@@ -371,6 +371,7 @@ public class CharacterCustomisation : MonoBehaviour {
             cData.m_PoseID = 3;
 		} else {
 			// Show message to say 'This item is in the character customisation package, found in the Pocket Pals shop'
+			NotificationManager.Instance.CharCustLockedNotification("This item is in the character customisation package, found in the Pocket Pals shop.");
 		}
 	}
 
@@ -390,6 +391,7 @@ public class CharacterCustomisation : MonoBehaviour {
             cData.m_PoseID = 6;
 		} else {
 			// Show message to say 'This item is in the character customisation package, found in the Pocket Pals shop'
+			NotificationManager.Instance.CharCustLockedNotification("This item is in the character customisation package, found in the Pocket Pals shop.");
 		}
 	}
 
@@ -409,6 +411,7 @@ public class CharacterCustomisation : MonoBehaviour {
             cData.m_PoseID = 5;
 		} else {
 			// Show message to say 'This item is in the character customisation package, found in the Pocket Pals shop'
+			NotificationManager.Instance.CharCustLockedNotification("This item is in the character customisation package, found in the Pocket Pals shop.");
 		}
 	}
 
@@ -428,6 +431,7 @@ public class CharacterCustomisation : MonoBehaviour {
             cData.m_PoseID = 4;
 		} else {
 			// Show message to say 'This item is in the character customisation package, found in the Pocket Pals shop'
+			NotificationManager.Instance.CharCustLockedNotification("This item is in the character customisation package, found in the Pocket Pals shop.");
 		}
 	}
 

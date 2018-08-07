@@ -51,7 +51,7 @@ public class PocketPalParent : MonoBehaviour
 
     public SpawnType type = SpawnType.none;
 
-    public string name = "none";
+    public string pocketPalName = "none";
 
     public bool InMinigame { set; get; }
 

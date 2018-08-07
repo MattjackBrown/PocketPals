@@ -71,7 +71,7 @@ public class LocalDataManager : MonoBehaviour {
 
     private void SyncPPal(PocketPalData ppd, PocketPalParent pp)
     {
-        NotificationManager.Instance.CongratsNotification("You have observed a level " + ppd.GetLevel() + " " + ppd.name);
+        NotificationManager.Instance.CongratsNotification("You have observed a level " + ppd.GetLevel() + " " + ppd.pocketPalName);
 
         //Add the pocketPal to the players inventory
         localData.Inventory.AddPocketPal(pp);
