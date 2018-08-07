@@ -6,7 +6,7 @@ using System;
 [System.Serializable]
 public class PocketPalData
 {
-    public string name = "none";
+    public string pocketPalName = "none";
     public int ID = 0;
 
     public int numberCaught = 1;
@@ -24,7 +24,7 @@ public class PocketPalData
 
     public PocketPalData(string str, int id, float exp, float w, float l,  float rare)
     {
-        name = str;
+        pocketPalName = str;
         ID = id;
         EXP = exp;
         weight = w;
@@ -88,7 +88,7 @@ public class PocketPalData
     {
         if (weight > ppd.weight) weight = ppd.weight;
         if (length > ppd.length) length = ppd.length;
-        if (name != ppd.name) name = ppd.name;
+        if (pocketPalName != ppd.pocketPalName) pocketPalName = ppd.pocketPalName;
         if (baseRarity != ppd.baseRarity) baseRarity = ppd.baseRarity;
         if(FirstSeen == "") FirstSeen = DateTime.Now.ToString("dd/MM/yyyy");
         LastSeen = DateTime.Now.ToString("dd/MM/yyyy");

@@ -40,13 +40,13 @@ public class PlayerProfileHandler : MonoBehaviour
         //Try and get the most caught pocket pal and set the name. 
         //TO DO: Implement a picture of the animal rather than name.
         PocketPalData mostCaught = gd.Inventory.GetMostCaught();
-        if (mostCaught != null) mostCaughtText.text = mostCaught.name;
+        if (mostCaught != null) mostCaughtText.text = mostCaught.pocketPalName;
         else mostCaughtText.text = "None";
 
         //Try and get the highest level pocket pal and set the name. 
         //TO DO: Implement a picture of the animal rather than name.
         PocketPalData highestLevel = gd.Inventory.GetHighestLevel();
-        if (highestLevel != null) highestLevelText.text = highestLevel.name;
+        if (highestLevel != null) highestLevelText.text = highestLevel.pocketPalName;
         else highestLevelText.text = "None";
 
         //Set the exp part of the canvas.
