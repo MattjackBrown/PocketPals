@@ -267,11 +267,13 @@ public class CaptureMiniGame : MonoBehaviour {
 		pocketPal = targetPocketPal;
 
 		// Set the text field in the congrats page
-		if (targetPocketPal.name != null || targetPocketPal.name != "none") {
-			PPalName.text = targetPocketPal.name;
-		} else {
-			PPalName.text = "Pocket Pal";
-		}
+		// Clear it sanity check
+		PPalName.text = "";
+		if (targetPocketPal.name != null && targetPocketPal.name != "none") {
+			PPalName.text = targetPocketPal.name; 
+		} else { 
+			PPalName.text = "Pocket Pal"; 
+		} 
 
 		menuText.text = "The Pocket Pal is here somewhere... Find it, then choose your camera!";
 

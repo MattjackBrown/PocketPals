@@ -44,7 +44,7 @@ public class CharacterCustomisation : MonoBehaviour {
 
     public JournalNewScript jns;
 
-	public GameObject buyMoreTextObject;
+	public GameObject buyMoreTextGO;
 
     public void Start() {
 
@@ -62,8 +62,7 @@ public class CharacterCustomisation : MonoBehaviour {
 
         // If clothes kit bought, make sure that the lists contain the unlocked items
 		if (customisationKitUnlocked) {
-
-			buyMoreTextObject.SetActive (false);
+			buyMoreTextGO.SetActive (false);
 
 			switch (cData.m_PoseID) {
 
@@ -96,7 +95,8 @@ public class CharacterCustomisation : MonoBehaviour {
 				break;
 			}
 		} else {
-			buyMoreTextObject.SetActive (true);
+
+			buyMoreTextGO.SetActive (true);
 		}
 
         // Set as idle anim
@@ -344,19 +344,15 @@ public class CharacterCustomisation : MonoBehaviour {
 
 		setAllTogglesFalse ();
 
-		if (true/*customisationKitUnlocked*/) {
-			poseController.ChoosePoseNone ();
+		poseController.ChoosePoseNone ();
 
-			s_Idle.sprite = TickImage;
-			s_Idle.color = tickedColour;
+		s_Idle.sprite = TickImage;
+		s_Idle.color = tickedColour;
 
-			// Set the avatar's animation
-			animController.DemoIdlePose ();
+		// Set the avatar's animation
+		animController.DemoIdlePose ();
 
-            cData.m_PoseID = 0;
-		} else {
-			// Preview? Show message to say buy?
-		}
+		cData.m_PoseID = 0;
 	}
 
 	public void ChoosePoseBins () {
@@ -374,7 +370,7 @@ public class CharacterCustomisation : MonoBehaviour {
 
             cData.m_PoseID = 3;
 		} else {
-			// Preview? Show message to say buy?
+			// Show message to say 'This item is in the character customisation package, found in the Pocket Pals shop'
 		}
 	}
 
@@ -393,7 +389,7 @@ public class CharacterCustomisation : MonoBehaviour {
 
             cData.m_PoseID = 6;
 		} else {
-			// Preview? Show message to say buy?
+			// Show message to say 'This item is in the character customisation package, found in the Pocket Pals shop'
 		}
 	}
 
@@ -412,7 +408,7 @@ public class CharacterCustomisation : MonoBehaviour {
 
             cData.m_PoseID = 5;
 		} else {
-			// Preview? Show message to say buy?
+			// Show message to say 'This item is in the character customisation package, found in the Pocket Pals shop'
 		}
 	}
 
@@ -431,7 +427,7 @@ public class CharacterCustomisation : MonoBehaviour {
 
             cData.m_PoseID = 4;
 		} else {
-			// Preview? Show message to say buy?
+			// Show message to say 'This item is in the character customisation package, found in the Pocket Pals shop'
 		}
 	}
 
@@ -439,40 +435,30 @@ public class CharacterCustomisation : MonoBehaviour {
 
 		setAllTogglesFalse ();
 
-		if (true/*customisationKitUnlocked*/) {
-			poseController.ChoosePoseStar ();
+		poseController.ChoosePoseStar ();
 
-			s_Star.sprite = TickImage;
-			s_Star.color = tickedColour;
+		s_Star.sprite = TickImage;
+		s_Star.color = tickedColour;
 
-			// Set the avatar's animation
-			animController.DemoStarPose ();
+		// Set the avatar's animation
+		animController.DemoStarPose ();
 
-            cData.m_PoseID = 2;
-
-		} else {
-			// Preview? Show message to say buy?
-		}
+		cData.m_PoseID = 2;
 	}
 
 	public void ChoosePoseHandsHips () {
 
 		setAllTogglesFalse ();
 
-		if (true/*customisationKitUnlocked*/) {
-			poseController.ChoosePoseHandsHips ();
+		poseController.ChoosePoseHandsHips ();
 
-			s_HandsHips.sprite = TickImage;
-			s_HandsHips.color = tickedColour;
+		s_HandsHips.sprite = TickImage;
+		s_HandsHips.color = tickedColour;
 
-			// Set the avatar's animation
-			animController.DemoHandsPose ();
+		// Set the avatar's animation
+		animController.DemoHandsPose ();
 
-            cData.m_PoseID = 1;
-
-		} else {
-			// Preview? Show message to say buy?
-		}
+		cData.m_PoseID = 1;
 	}
 
 	// Toggle stuff for poses
