@@ -10,7 +10,7 @@ public class JournalNewScript : MonoBehaviour {
 	Vector3 cameraJournalPosition, cameraLookAtPosition;
 	Vector3 cameraMapPlayerOffset, playerMapCharPosition;
 	Quaternion cameraMapRotation;
-    public Image xpSlider;
+    public Image xpSlider,lastSeen, mostSeen,rarestSeen, highestSeen;
     public Text xpText;
     public Text level;
 
@@ -38,14 +38,27 @@ public class JournalNewScript : MonoBehaviour {
 		// TODO Create new control scheme
 		TouchHandler.Instance.CharCustControls ();
 
+        GameData gd = LocalDataManager.Instance.GetData();
         xpSlider.fillAmount = LocalDataManager.Instance.GetData().GetPercentageExp();
         xpText.text = LocalDataManager.Instance.GetData().EXP.ToString();
         level.text = LocalDataManager.Instance.GetData().GetLevel().ToString();
 
-        CharacterCustomisation.Instance.Init();
-	}
+        ChangeStatsImage(mostSeen, gd.Inventory.GetMostCaught());
+        ChangeStatsImage(highestSeen, gd.Inventory.GetHighestLevel());
+        ChangeStatsImage(rarestSeen, gd.Inventory.GetRarest());
+        ChangeStatsImage(lastSeen, gd.Inventory.GetMostRecentData());
 
-	public void ExitBackToMap () {
+        CharacterCustomisation.Instance.Init();
+    }
+
+    private void ChangeStatsImage(Image i, PocketPalData pd)
+    {
+        if (pd == null) return;
+
+        i.sprite = AssetManager.Instance.GetScreenShot(pd.ID);
+    }
+
+    public void ExitBackToMap () {
 
 		// Return the Camera
 		mainCamera.gameObject.transform.position = mapPlayerObject.gameObject.transform.position + cameraMapPlayerOffset;

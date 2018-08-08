@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 [System.Serializable]
@@ -54,7 +55,20 @@ public class PocketPalInventory
         }
         return null;
     }
-    
+
+    public PocketPalData GetRarest()
+    {
+        PocketPalData rarest = null;
+        foreach (PocketPalData ppd in myPPals)
+        {
+            if (rarest == null || rarest.baseRarity < ppd.baseRarity)
+            {
+                rarest = ppd;
+            }
+        }
+        return rarest;
+    }
+
     public PocketPalData GetMostCaught()
     {
         PocketPalData mostCaught = null;
@@ -88,8 +102,16 @@ public class PocketPalInventory
 
     public GameObject GetMostRecent()
     {
+        if (myPPals.Count < 1) return null;
         //Use the asset manager to look up the gameobject assosiated to that pocketpal ID
         return AssetManager.Instance.GetPocketPalFromID(myPPals[myPPals.Count - 1].ID);
+    }
+
+    public PocketPalData GetMostRecentData()
+    {
+        if (myPPals.Count < 1) return null;
+        //Use the asset manager to look up the gameobject assosiated to that pocketpal ID
+        return myPPals[myPPals.Count - 1];
     }
 
     public List<int> GetUniqueAnimalIDs()
