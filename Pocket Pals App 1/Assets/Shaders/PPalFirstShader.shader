@@ -65,14 +65,14 @@ Shader "Unlit/PPalFirstShader"
 				fixed4 col1 = tex2D(_NoiseTex, i.uv);
 				fixed4 col2 = tex2D(_BlendTex, i.uv);
 				
-				float dist = clamp(distance(i.pos, playerPos), 0, 4);
+				float dist = clamp(distance(i.pos, playerPos), 0.1, 12);
 
-				col1 = col1 * (dist / 4);
-				col1 = 1-clamp(col1, 0.5, 1);
+				col1 = col1 * (dist / 10);
+				col1 = 1-clamp(col1, 0.1, 7);
 				//col2 = col2 *  dist;
 				//col = (col * col1*0.9)+ (col2*0.05);
 
-				col = ((col*2.4) +(col1*0.8)+(col2*0.1))/3;
+				col = ((col*2.5) +(col1*0.45)+(col2*0.05))/3;
 
 				col = col * _Tint;
 
