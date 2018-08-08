@@ -5,8 +5,10 @@ using Mapbox.Unity.Map;
 using Mapbox.Utils;
 using UnityEngine.UI;
 using Mapbox.Unity.Utilities;
+using System.Linq;
 using Mapbox.Unity.MeshGeneration.Factories;
 using System;
+using Mapbox.Unity.MeshGeneration.Data;
 
 public class GPS : MonoBehaviour
 {
@@ -453,8 +455,14 @@ public class GPS : MonoBehaviour
             // Apply the movement to the player
             girl.transform.position = Vector3.Lerp(startPoint, endPoint,moveAlpha);
 
-			// Don't move the camera if in minigame. There is probably a better place to do this
-			if (controls.CameraShouldFollowGPS ()) {
+            //Super bad way to set player position in shaders. Consider changing.
+            foreach (UnityTile ut in currentMap.MapVisualizer.ActiveTiles.Values)
+            {
+                ut.UpdateMaterialProperty(girl.transform.position);
+            }
+
+            // Don't move the camera if in minigame. There is probably a better place to do this
+            if (controls.CameraShouldFollowGPS ()) {
 
 				// Apply the delta position to the camera transform
 				mainCamera.transform.position += girl.transform.position - playerStartPosition;
@@ -467,7 +475,8 @@ public class GPS : MonoBehaviour
 
 				// Rotate the player model
 				girl.transform.rotation = Quaternion.Lerp(girl.transform.rotation, targetRotation,rotationSpeed * moveAlpha);
-			}
+
+            }
 
 		}
 		else

@@ -1,4 +1,6 @@
-﻿Shader "Unlit/PPalFirstShader"
+﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
+
+Shader "Unlit/PPalFirstShader"
 {
 	Properties
 	{
@@ -6,6 +8,7 @@
 		_NoiseTex("NoiseTexture", 2D) = "white" {}
 		_BlendTex("BlendTexture", 2D) = "white" {}
 		_Tint("NightMultiplier", Color) = (1,1,1,1)
+	    playerPos("playerPos", Vector) = (0, 0, 0)
 	}
 	SubShader
 	{
@@ -31,6 +34,7 @@
 			struct v2f
 			{
 				float2 uv : TEXCOORD0;
+				float4 pos : TEXCOORD3;
 				UNITY_FOG_COORDS(1)
 				float4 vertex : SV_POSITION;
 			};
@@ -39,6 +43,7 @@
 			sampler2D _NoiseTex;
 			sampler2D _BlendTex;
 			float4 _MainTex_ST;
+			float4 playerPos;
 			fixed4 _Tint;
 			
 			v2f vert (appdata v)
@@ -46,6 +51,8 @@
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+				o.pos = mul(unity_ObjectToWorld, v.vertex);
+
 
 				UNITY_TRANSFER_FOG(o,o.vertex);
 				return o;
@@ -58,9 +65,14 @@
 				fixed4 col1 = tex2D(_NoiseTex, i.uv);
 				fixed4 col2 = tex2D(_BlendTex, i.uv);
 				
+				float dist = clamp(distance(i.pos, playerPos), 0, 4);
+
+				col1 = col1 * (dist / 4);
+				col1 = 1-clamp(col1, 0.5, 1);
+				//col2 = col2 *  dist;
 				//col = (col * col1*0.9)+ (col2*0.05);
 
-				col = ((col*2.4) + (col1*0.5) + (col2*0.1))/3;
+				col = ((col*2.4) +(col1*0.8)+(col2*0.1))/3;
 
 				col = col * _Tint;
 

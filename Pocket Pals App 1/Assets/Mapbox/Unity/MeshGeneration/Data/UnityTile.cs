@@ -235,6 +235,11 @@ namespace Mapbox.Unity.MeshGeneration.Data
 			return _rasterData;
 		}
 
+        public void UpdateMaterialProperty(Vector4 pos)
+        {
+            MeshRenderer.material.SetVector("playerPos",pos);
+        }
+
 		internal void AddTile(Tile tile)
 		{
 			_tiles.Add(tile);
