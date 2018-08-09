@@ -578,7 +578,7 @@ public class ServerDataManager : MonoBehaviour
                                 case "weight":
                                     ppd.weight = Convert.ToSingle(child.Value);
                                     break;
-                                case "name":
+                                case "pocketPalName":
                                     ppd.pocketPalName = Convert.ToString(child.Value);
                                     break;
                                 case "length":
