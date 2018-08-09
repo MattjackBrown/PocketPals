@@ -9,6 +9,8 @@ public class BackgroundMusic : MonoBehaviour {
 
 	AudioSource backgroundMusic;
 
+    public bool playMusic = true;
+
 	private void Start()
 	{
 		Instance = this;
@@ -25,14 +27,34 @@ public class BackgroundMusic : MonoBehaviour {
 			backgroundMusic = GetComponent<AudioSource> ();
 	}
 
-	public void StartBackgroundMusic () {
-
-		backgroundMusic.Play ();
+	public void StartBackgroundMusic ()
+    {
+        if (playMusic)
+        {
+            backgroundMusic.Play();
+        }
+        else
+        {
+            backgroundMusic.Stop();
+        }
 	}
 
     public void StopMusic()
     {
         Instance.backgroundMusic.Stop();
+    }
+
+    public void Mute()
+    {
+        StopMusic();
+        playMusic = false;
+    }
+
+    public void UnMute()
+    {
+        if(!playMusic) StartBackgroundMusic();
+        playMusic = true;
+
     }
 
 	public void LowerBackgroundMusic () {
