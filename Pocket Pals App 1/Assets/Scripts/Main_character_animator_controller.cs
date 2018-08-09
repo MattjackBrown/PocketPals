@@ -138,4 +138,9 @@ public class Main_character_animator_controller : MonoBehaviour
 	public void ChoosePoseHandsHips () {
 		selectedPose = Pose.HandsHips;
 	}
+
+	public void ResetTimer () {
+		waiting = true;
+		poseTimer = 0.0f;
+	}
 }

@@ -133,6 +133,7 @@ public class CaptureMiniGame : MonoBehaviour {
 		if (pocketPal.maxPatrolSpeed > 0.0f) {
 
 			// Randomise the movement speed
+			patrolSpeed = (pocketPal.minPatrolSpeed + pocketPal.maxPatrolSpeed) / 2.0f;
 			patrolSpeed += Random.Range (-0.05f, 0.05f);
 			patrolSpeed = Mathf.Clamp (patrolSpeed, pocketPal.minPatrolSpeed, pocketPal.maxPatrolSpeed);
 			pocketPal.gameObject.transform.position = miniGamePPalPosition;
