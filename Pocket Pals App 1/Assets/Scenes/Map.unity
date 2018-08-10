@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.51927495, g: 0.7386968, b: 0.9022479, a: 1}
+  m_IndirectSpecularColor: {r: 0.49644548, g: 0.70871645, b: 0.866921, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -8471,8 +8471,8 @@ RectTransform:
   - {fileID: 701837059}
   - {fileID: 839676560}
   - {fileID: 1692252231}
-  - {fileID: 1827159122}
   - {fileID: 759308565}
+  - {fileID: 1827159122}
   - {fileID: 920291791}
   - {fileID: 869577676}
   - {fileID: 1069792711}
@@ -16143,7 +16143,7 @@ RectTransform:
   - {fileID: 438227160}
   - {fileID: 1971106391}
   m_Father: {fileID: 421776395}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: -1}
   m_AnchorMax: {x: 1, y: 0}
@@ -20161,6 +20161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d4f39faf4b14c05901fb2deb659d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playMusic: 1
 --- !u!82 &944240723
 AudioSource:
   m_ObjectHideFlags: 0
@@ -23405,6 +23406,7 @@ MonoBehaviour:
   musicButton: {fileID: 160251234}
   soundButton: {fileID: 193253834}
   vers: {fileID: 1045854793}
+  destination: /settings.dat
   versionNum: {fileID: 1045854793}
 --- !u!1 &1070805406
 GameObject:
@@ -43848,7 +43850,7 @@ RectTransform:
   - {fileID: 749230458}
   - {fileID: 277694176}
   m_Father: {fileID: 421776395}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: -1, y: 0}
   m_AnchorMax: {x: 0, y: 1}
