@@ -238,7 +238,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
 
     public void Guess()
     {
-        NotificationManager.Instance.QuestionNotification("Are you sure you want to guess " + activeGuess.name.text + "?", LockInGuess, null);
+		NotificationManager.Instance.QuestionNotification("Are you sure you want to guess " + activeGuess.PPName.text + "?", LockInGuess, null);
     }
 
     public void LockInGuess()
@@ -278,7 +278,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
         }
         else
         {
-            NotificationManager.Instance.CustomHeaderNotification("You Failed!","I am sorry, But you guessed wrong! You have lost the animals track!");
+            NotificationManager.Instance.CustomHeaderNotification("You Failed!","I am sorry, but you guessed wrong! You have lost the animals track!");
         }
         LocalDataManager.Instance.RemoveTracks(activeTrack);
         Back();
@@ -290,7 +290,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
 public class GuessClass
 {
     public Image img;
-    public Text name;
+    public Text PPName;
     public Image ppalImg;
     public PocketPalParent ppp;
     public int index = 0;
@@ -300,7 +300,7 @@ public class GuessClass
         index = i;
         img.sprite = null;
         ppp = parent;
-        name.text = parent.name;
+		PPName.text = parent.pocketPalName;
         ppalImg.sprite = AssetManager.Instance.GetScreenShot(parent.PocketPalID);
     }
 }
