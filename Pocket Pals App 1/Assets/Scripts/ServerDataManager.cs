@@ -5,13 +5,15 @@ using Firebase.Auth;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public class ServerDataManager : MonoBehaviour
 {
 
     public static ServerDataManager Instance { get; set; }
 
-    public CharacterCustomisation charLoadout;
+	public CharacterCustomisation charLoadout;
 
     private bool FirebaseInitialised = false;
 
@@ -382,6 +384,7 @@ public class ServerDataManager : MonoBehaviour
         //Load up the character appear
         if (LocalDataManager.Instance.HasCP())
         {
+			charLoadout = GameObject.Find ("MenuCharacterModel").GetComponent<CharacterCustomisation> ();
             charLoadout.customisationKitUnlocked = true;
 
         }
@@ -641,16 +644,26 @@ public class ServerDataManager : MonoBehaviour
 	{
 		if (auth.CurrentUser != null) 
 		{
-            GameData gd = LocalDataManager.Instance.GetData();
+			GameData gd = LocalDataManager.Instance.GetData();
+
 			UIAnimationManager.Instance.OverrideLogin ();
 
-            InitCharacterStyle(gd, gd.charStyleData);
+			StartCoroutine (WaitHalfSecond(gd));
+	//		InitCharacterStyle(gd, gd.charStyleData);
 
 			GPS.Insatance.UpdateMap ();
+
 			LoadingScreenController.Instance.SetBeAwareImage ();
 
 			LoadingScreenController.Instance.CheckAllowToComplete (true);
 		}
+	}
+
+	IEnumerator WaitHalfSecond(GameData gd) {
+		
+		yield return new WaitForSeconds(0.5f);
+
+		InitCharacterStyle(gd, gd.charStyleData);
 	}
 
     public void CreateUser(string email, string password, Text failedText, GameObject CreateUserScreen)
