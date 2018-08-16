@@ -22,9 +22,6 @@ public class StreamVideo : MonoBehaviour {
 
 	IEnumerator PlayVideo ()
 	{
-
-
-
         if (!TouchHandler.Instance.IsDebug)
         {
 
@@ -40,6 +37,7 @@ public class StreamVideo : MonoBehaviour {
             }
 
 			if (LocalDataManager.Instance != null) {
+
 				if (LocalDataManager.Instance.InAR) 
 				{
 					LocalDataManager.Instance.InAR = false;
@@ -51,8 +49,10 @@ public class StreamVideo : MonoBehaviour {
 					CameraController.Instance.StartZoomIn();
 
 					ServerDataManager.Instance.OverrideLogin ();
+
+					RemoveVideoImageObject ();
+
 					this.gameObject.SetActive(false);
-					rawImage.gameObject.SetActive (false);
 
 					yield break;
 				}
@@ -92,6 +92,8 @@ public class StreamVideo : MonoBehaviour {
 
 	public void RemoveVideoImageObject () {
 
-		rawImage.gameObject.SetActive (false);
+	//	rawImage.gameObject.SetActive (false);
+		Destroy (rawImage.gameObject);
+		Destroy (videoPlayer.gameObject);
 	}
 }

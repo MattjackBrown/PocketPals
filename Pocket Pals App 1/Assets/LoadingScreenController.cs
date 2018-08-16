@@ -66,7 +66,7 @@ public class LoadingScreenController : MonoBehaviour {
 
 				if (loadingBarValue > 1.2f) {
 
-					animManager.LoadingBarFinished ();
+				//	animManager.LoadingBarFinished ();
 					BackgroundMusic.Instance.StartBackgroundMusic ();
 					CameraController.Instance.StartZoomIn ();
                     if (LocalDataManager.Instance.GetData().IsFirstLogIn == 1)

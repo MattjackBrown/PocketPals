@@ -61,14 +61,17 @@ public class AssetManager : MonoBehaviour {
         return ppp.FactSheet;
     }
 
-    public List<PocketPalParent> GetRandomPocketpals(int num, int ppalID)
+    public List<PocketPalParent> GetRandomPocketpals(int num, int ppalID, PPalType filter = PPalType.All)
     {
         List<PocketPalParent> ppals = new List<PocketPalParent>();
         System.Random r = new System.Random(ppalID);
         while (ppals.Count < num)
         {
            PocketPalParent ppp = PocketPals[r.Next(0, PocketPals.Length)].GetComponent<PocketPalParent>();
-            if (!ppals.Contains(ppp) && ppp.PocketPalID != ppalID) ppals.Add(ppp);
+            if (!ppals.Contains(ppp) && ppp.PocketPalID != ppalID)
+            {
+                if(filter == PPalType.All || ppp.animalType == filter) ppals.Add(ppp);
+            }
         }
         return ppals;
     }

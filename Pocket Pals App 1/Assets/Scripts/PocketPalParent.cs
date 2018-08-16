@@ -19,6 +19,14 @@ public enum SpawnType
     d_Wetland,
     n_Wetland
 }
+[System.Serializable]
+public enum PPalType
+{
+    Insect,
+    Animal,
+    Bird,
+    All
+}
 
 // Including this script will create a RawImage component
 //[RequireComponent(typeof(RawImage))]
@@ -50,6 +58,7 @@ public class PocketPalParent : MonoBehaviour
     public float maxLength = 5.5f;
 
     public SpawnType type = SpawnType.none;
+    public PPalType animalType = PPalType.Animal;
 
     public string pocketPalName = "none";
 
