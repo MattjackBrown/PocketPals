@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.52133423, g: 0.7413337, b: 0.9053612, a: 1}
+  m_IndirectSpecularColor: {r: 0.52153254, g: 0.7413829, b: 0.9053977, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -24981,8 +24981,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e946f5af7bd244b9ba9b0c888ef19532, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minSpawnTime: 30
-  maxSpawnTime: 90
+  minSpawnTime: 1
+  maxSpawnTime: 1
   spawnPoints:
   - {fileID: 1267739198}
   - {fileID: 1597336364}
@@ -25005,7 +25005,7 @@ MonoBehaviour:
   - {fileID: 990544974}
   - {fileID: 470987506}
   girl: {fileID: 206820439}
-  maxPocketPals: 3
+  maxPocketPals: 30
   maxPocketPalDistance: 100
   TrySyncedSpawns: 1
 --- !u!1 &1142967017
@@ -29313,7 +29313,7 @@ MonoBehaviour:
   virtualGarden: {fileID: 32817350}
   ResourceSpotDistance: 6
   ResourceSpotUpness: 0.5
-  IsDebug: 0
+  IsDebug: 1
   maxCaptureDistance: 12
 --- !u!114 &1331972350
 MonoBehaviour:
