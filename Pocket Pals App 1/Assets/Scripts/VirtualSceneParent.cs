@@ -73,7 +73,7 @@ public class VirtualSceneParent : MonoBehaviour
 					gameCamera.ViewportToWorldPoint(new Vector3(0.25f, 0.0f, VGPPalInspectDistance * camDistanceModifier))).magnitude;
 
 				float VGInfoCamOffsetVertical = (gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.5f, VGPPalInspectDistance * camDistanceModifier)) -
-					gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.25f, VGPPalInspectDistance * camDistanceModifier))).magnitude;
+					gameCamera.ViewportToWorldPoint(new Vector3(0.0f, 0.3f, VGPPalInspectDistance * camDistanceModifier))).magnitude;
 
 				obj.camInspectPosition = PPPosition - (PPPosition - centreOfMapPosition).normalized * VGPPalInspectDistance * camDistanceModifier;
 

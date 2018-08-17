@@ -126,7 +126,11 @@ public class VGUIManager : MonoBehaviour
         string str = "";
         if (currentDisplayData.weight < 1)
         {
-            str = Math.Round((currentDisplayData.weight * 1000), 1).ToString() + "g";
+			double tempWeight = Math.Round ((currentDisplayData.weight * 1000), 1);
+			if (tempWeight <= 0.1f)
+				str = "";
+			else
+				str = tempWeight.ToString() + "g";
         }
         else
         {

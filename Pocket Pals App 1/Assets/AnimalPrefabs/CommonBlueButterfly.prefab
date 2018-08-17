@@ -1531,7 +1531,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1682322353414080}
-  m_LocalRotation: {x: 0.30460623, y: 0.6381341, z: 0.63813406, w: -0.30460626}
+  m_LocalRotation: {x: 0.3046062, y: 0.63813406, z: 0.638134, w: -0.30460623}
   m_LocalPosition: {x: -0.018955695, y: -6.848078e-14, z: -7.105427e-17}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2525,8 +2525,8 @@ MonoBehaviour:
   RotationPerSecond: {x: 0, y: 15, z: 0}
   SpawnOffset: {x: 0, y: 0.2, z: 0}
   maxSpawnExp: 400
-  minWeight: 0.0001
-  maxWeight: 0.0001
+  minWeight: 0
+  maxWeight: 0
   minLength: 0.00028
   maxLength: 0.00036
   type: 2
