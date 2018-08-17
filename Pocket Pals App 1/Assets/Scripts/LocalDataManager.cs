@@ -81,6 +81,10 @@ public class LocalDataManager : MonoBehaviour {
         //increas the players EXP
         localData.IncreaseExp(exp);
 
+        localData.LastPPalID = ppd.ID;
+
+        ServerDataManager.Instance.UpdateLastPPal(localData);
+
         //update the server
         ServerDataManager.Instance.WritePocketPal(localData, localData.Inventory.GetDataFromID(ppd.ID));
 

@@ -29,6 +29,8 @@ public class GameData
 
     public int IsFirstLogIn = 1;
 
+    public int LastPPalID = 0;
+
 	public CharacterStyleData charStyleData = new CharacterStyleData();
 
     public GameData()
@@ -45,6 +47,11 @@ public class GameData
     public string GetJson()
     {
         return JsonUtility.ToJson(this);
+    }
+
+    public void PPalAdded(int id)
+    {
+        ServerDataManager.Instance.UpdateLastPPal(this);
     }
 
     public string GetInventoryJson()

@@ -496,6 +496,10 @@ public class GPS : MonoBehaviour
 
     public void StartCoroutines()
     {
+        if (hasStartedCoroutines)
+        {
+            StopCoroutines();
+        }
         if (ResourceSpotManager.Instance != null && PocketPalSpawnManager.Instance != null)
         {
             Debug.Log("Coroutines started");

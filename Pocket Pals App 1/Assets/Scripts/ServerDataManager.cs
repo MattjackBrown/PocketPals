@@ -141,7 +141,11 @@ public class ServerDataManager : MonoBehaviour
         if (!ShouldUpdatePlayer) return;
         mDatabaseRef.Child("Users").Child(gd.ID).Child("DistanceTravelled").SetValueAsync(gd.DistanceTravelled);
     }
-
+    public void UpdateLastPPal(GameData gd)
+    {
+        if (!ShouldUpdatePlayer) return;
+        mDatabaseRef.Child("Users").Child(gd.ID).Child("LastPPalID").SetValueAsync(gd.LastPPalID);
+    }
     public void UpdatePlayerName(GameData gd)
     {
         if (!ShouldUpdatePlayer) return;
@@ -358,6 +362,9 @@ public class ServerDataManager : MonoBehaviour
                                 break;
                             case "isfirstlogin":
                                 gd.IsFirstLogIn = Convert.ToInt32(obj.Value);
+                                break;
+                            case "lastppalid":
+                                gd.LastPPalID = Convert.ToInt32(obj.Value);
                                 break;
                         }
                     }
@@ -652,6 +659,8 @@ public class ServerDataManager : MonoBehaviour
 	//		InitCharacterStyle(gd, gd.charStyleData);
 
 			GPS.Insatance.UpdateMap ();
+
+            GPS.Insatance.StartCoroutines();
 
 			LoadingScreenController.Instance.SetBeAwareImage ();
 

@@ -46,7 +46,7 @@ public class JournalNewScript : MonoBehaviour {
         ChangeStatsImage(mostSeen, gd.Inventory.GetMostCaught());
         ChangeStatsImage(highestSeen, gd.Inventory.GetHighestLevel());
         ChangeStatsImage(rarestSeen, gd.Inventory.GetRarest());
-        ChangeStatsImage(lastSeen, gd.Inventory.GetMostRecentData());
+        ChangeStatsImage(lastSeen, gd.LastPPalID);
 
         CharacterCustomisation.Instance.Init();
     }
@@ -56,6 +56,13 @@ public class JournalNewScript : MonoBehaviour {
         if (pd == null) return;
 
         i.sprite = AssetManager.Instance.GetScreenShot(pd.ID);
+    }
+
+    private void ChangeStatsImage(Image i, int id)
+    {
+        if (id <= 0) id = 1;
+
+        i.sprite = AssetManager.Instance.GetScreenShot(id);
     }
 
     public void ExitBackToMap () {
