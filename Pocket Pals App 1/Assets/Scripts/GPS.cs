@@ -9,6 +9,7 @@ using System.Linq;
 using Mapbox.Unity.MeshGeneration.Factories;
 using System;
 using Mapbox.Unity.MeshGeneration.Data;
+using UnityEngine.SceneManagement;
 
 public class GPS : MonoBehaviour
 {
@@ -163,13 +164,20 @@ public class GPS : MonoBehaviour
 			StartLat = Input.location.lastData.latitude;
 			StartLong = Input.location.lastData.longitude;
 
+            CurrentLat = StartLat;
+            CurrentLong = StartLong;
+
 			Debug.Log("GPS Initialised at:" + StartLat.ToString()+ ":" + StartLong.ToString());
 		}
 
         if (IsDebug)
         {
             StartLat = fakeLat;
+
             StartLong = fakeLong;
+
+            CurrentLat = StartLat;
+            CurrentLong = StartLong;
         }
 
         //Check time and set material
@@ -197,6 +205,7 @@ public class GPS : MonoBehaviour
 		isInitialised = true;
 
         LoadingScreenController.Instance.MapLoaded();
+
 	}
 
 	float GetDistanceMeters(float lat1, float lon1, float lat2, float lon2)
@@ -309,7 +318,7 @@ public class GPS : MonoBehaviour
             return;
         }
 
-        if (!hasStartedCoroutines && currentMap != null) StartCoroutines();
+        if (!hasStartedCoroutines && currentMap != null && isInitialised) StartCoroutines();
 
 
         gpsFrequency += Time.deltaTime;

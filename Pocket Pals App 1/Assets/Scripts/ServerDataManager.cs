@@ -646,8 +646,7 @@ public class ServerDataManager : MonoBehaviour
     }
 
     //---------------- Login Logout Statechanging stuff ------------------\\
-
-	public void OverrideLogin()
+    public void OverrideLogin()
 	{
 		if (auth.CurrentUser != null) 
 		{
@@ -656,11 +655,11 @@ public class ServerDataManager : MonoBehaviour
 			UIAnimationManager.Instance.OverrideLogin ();
 
 			StartCoroutine (WaitHalfSecond(gd));
-	//		InitCharacterStyle(gd, gd.charStyleData);
+            //		InitCharacterStyle(gd, gd.charStyleData);           
+
+            GPS.Insatance.StopCoroutines();
 
 			GPS.Insatance.UpdateMap ();
-
-            GPS.Insatance.StartCoroutines();
 
 			LoadingScreenController.Instance.SetBeAwareImage ();
 

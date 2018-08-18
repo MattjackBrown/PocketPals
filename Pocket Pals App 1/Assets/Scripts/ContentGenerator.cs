@@ -41,7 +41,7 @@ public class ContentGenerator : MonoBehaviour
         double roundedLon = System.Math.Round(lon, DecimalPlacesToRound);
         string seed = ResourceSpotSeed + roundedLat + roundedLon;
 
-        if (roundedLat < 0.01 && roundedLat > -0.01 && roundedLon <0.01 && roundedLat > -0.01) return null;
+        if (roundedLat < 0.001 && roundedLat > -0.001 && roundedLon <0.001 && roundedLat > -0.001) return null;
 
         rsNewSeed = seed.GetHashCode();
 
