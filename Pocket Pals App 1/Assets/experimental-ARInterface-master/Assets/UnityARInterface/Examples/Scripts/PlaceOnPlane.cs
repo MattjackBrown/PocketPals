@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityARInterface;
 
 public class PlaceOnPlane : ARBase
@@ -63,7 +64,7 @@ public class PlaceOnPlane : ARBase
 
 			case TouchPhase.Ended:
 				{
-					if (tapTimer < maxTapTime)
+					if (tapTimer < maxTapTime && !TouchIsOverUIObject(touch))
 						PPalSetLocation (touch);
 				}
 				break;
@@ -75,6 +76,19 @@ public class PlaceOnPlane : ARBase
 				break;
 			}
 		}
+	}
+
+	private bool TouchIsOverUIObject(Touch touch)
+	{
+		PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+
+		eventDataCurrentPosition.position = new Vector2 (touch.position.x, touch.position.y);
+
+		List<RaycastResult> results = new List<RaycastResult>();
+
+		EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+
+		return results.Count > 0;
 	}
 
 	void PPalSetLocation (Touch touch) {

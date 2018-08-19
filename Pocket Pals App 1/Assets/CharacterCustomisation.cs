@@ -113,7 +113,7 @@ public class CharacterCustomisation : MonoBehaviour {
         menuShortsMaterial = realShortsMaterial;
         menuSkinMaterial = realSkinMaterial;
         menuBootsMaterial = realBootsMaterial;
-    }
+	}
 
     public void Init()
     {

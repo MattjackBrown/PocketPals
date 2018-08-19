@@ -13,7 +13,7 @@ namespace UnityARInterface
     public class ARController : MonoBehaviour
     {
 		public Text UIText; 
-		string planeFoundText = "Tap to place"; 
+		string planeFoundText = "Tap, pinch, and swipe to position your Pocket Pal!"; 
 		bool planeFound = false;
 
 		public ARPlaneVisualizer planeDetecter; 
