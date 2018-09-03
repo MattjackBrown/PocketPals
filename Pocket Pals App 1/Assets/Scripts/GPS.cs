@@ -320,7 +320,6 @@ public class GPS : MonoBehaviour
 
         if (!hasStartedCoroutines && currentMap != null && isInitialised) StartCoroutines();
 
-
         gpsFrequency += Time.deltaTime;
 
 

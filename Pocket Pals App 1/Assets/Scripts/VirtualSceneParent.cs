@@ -132,7 +132,7 @@ public class VirtualSceneParent : MonoBehaviour
             {
 
                 //Set the inspect data in the virtual garden UI manager
-                gUIManager.SetInspectData(AnimalObjects[currentLookedAtPPalIndex].GetAnimalData());
+                gUIManager.SetInspectData(AnimalObjects[currentLookedAtPPalIndex]);
 
 				// Update the global variable
 				GlobalVariables.VGCurrentIndex = currentLookedAtPPalIndex;
@@ -161,7 +161,7 @@ public class VirtualSceneParent : MonoBehaviour
 			if (indexVGS.Used) {
 
                 //Set the inspect data in the virtual garden UI manager
-				gUIManager.SetInspectData(AnimalObjects[currentLookedAtPPalIndex].GetAnimalData());
+				gUIManager.SetInspectData(AnimalObjects[currentLookedAtPPalIndex]);
 
 				// Update the global variable
 				GlobalVariables.VGCurrentIndex = currentLookedAtPPalIndex;
@@ -181,7 +181,7 @@ public class VirtualSceneParent : MonoBehaviour
 			if (AnimalObjects [currentLookedAtPPalIndex].Used) {
 
 				//Set the inspect data in the virtual garden UI manager
-				gUIManager.SetInspectData (AnimalObjects [currentLookedAtPPalIndex].GetAnimalData ());
+				gUIManager.SetInspectData (AnimalObjects [currentLookedAtPPalIndex]);
 
 				// Update the global variable
 				GlobalVariables.VGCurrentIndex = currentLookedAtPPalIndex;

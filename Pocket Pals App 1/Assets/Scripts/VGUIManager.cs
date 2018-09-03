@@ -31,7 +31,11 @@ public class VGUIManager : MonoBehaviour
 
     public Image progressBar;
 
+    public GameObject MorphButton;
+    private bool IsMorphed = false;
+
     private PocketPalData currentDisplayData;
+    private VirtualGardenSpawn currentObj;
 
     private bool isInspecting = false;
 
@@ -153,9 +157,14 @@ public class VGUIManager : MonoBehaviour
         length.text = str;
     }
 
-    public void SetInspectData(PocketPalData ppd)
+    public void SetInspectData(VirtualGardenSpawn anim)
     {
+        PocketPalData ppd = anim.GetAnimalData();
+        currentObj = anim;
         currentDisplayData = ppd;
+        PocketPalParent ppp = AssetManager.Instance.GetPocketPalFromID(ppd.ID).GetComponent<PocketPalParent>();
+        if (ppp.CanRareMorph()) MorphButton.SetActive(true);
+        else MorphButton.SetActive(false);
         UpdateUI();
     }
 
@@ -188,4 +197,25 @@ public class VGUIManager : MonoBehaviour
 		mainMenu.gameObject.SetActive (true);
 		this.gameObject.SetActive (false);
 	}
+
+    public void TryToggleMorph()
+    {
+        if (currentDisplayData.HasRare == 0)
+        {
+            NotificationManager.Instance.CustomHeaderNotification("Sorry!", "You have not found the rare version of this animal.");
+        }
+        else
+        {
+            if (IsMorphed)
+            {
+                IsMorphed = false;
+
+            }
+            else
+            {
+                IsMorphed = true;
+            }
+            AssetManager.Instance.GetPocketPalFromID(currentDisplayData.ID).GetComponent<PocketPalParent>().ToggleRare(IsMorphed, currentObj.animalObj.GetComponentInChildren<Renderer>());
+        }
+    }
 }

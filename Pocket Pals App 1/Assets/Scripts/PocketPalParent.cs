@@ -74,6 +74,14 @@ public class PocketPalParent : MonoBehaviour
 	public float minPatrolSpeed = 0.0f;
 	public float maxPatrolSpeed = 0.0f;
 
+    public Texture rareMorph;
+    private Texture defaultTexture;
+    public float RareMorphChance = 0.05f;
+    public float RareMorphBonusMultiplier = 3.0f;
+
+    private bool isRare = false;
+
+
 //	public MovieTexture movieTexture;
 //	public Texture leafTexture;
 //	RawImage leafFlutterRawImage;
@@ -86,6 +94,7 @@ public class PocketPalParent : MonoBehaviour
         InMinigame = false;
 //		animator = GetComponent<Animator>();
         GenerateAnimalData();
+
 
 //		leafFlutterRawImage = GetComponent<RawImage> ();
 
@@ -134,6 +143,7 @@ public class PocketPalParent : MonoBehaviour
     //called on the pocketPalSpawnManager after a new clone is made of the original asset.
     public PocketPalData GenerateAnimalData(float expMin = -1, float expMax = -1)
     {
+
         //get spawn exp
         float exp;
         if (expMin != -1 && expMax != -1)
@@ -145,12 +155,18 @@ public class PocketPalParent : MonoBehaviour
             exp = Random.Range(0, maxSpawnExp);
         }
 
+
         //get random size inbetween points using size variance.
         float weight = Random.Range(minWeight, maxWeight);
 
         float length = Random.Range(minLength, maxLength);
 
         pocketPalData = new PocketPalData(pocketPalName, PocketPalID, exp, weight ,length, Rarity);
+
+        TryForRareMorph();
+
+        if (isRare) exp *= RareMorphBonusMultiplier;
+
         return pocketPalData;
     }
 
@@ -170,4 +186,44 @@ public class PocketPalParent : MonoBehaviour
 		return new Vector3 (PPal.transform.position.x, PPal.transform.position.y + lookAtPointYOffset, PPal.transform.position.z);
 	}
 
+    public bool TryForRareMorph()
+    {
+        if (!CanRareMorph()) return false;
+        else
+        {
+            if (Random.Range(0, 1) < RareMorphChance)
+            {
+                isRare = true;
+                pocketPalData.HasRare = 1;
+                ToggleRare(true, GetComponentInChildren<Renderer>());
+                
+                return true;
+            }
+            return false;
+        }
+    }
+
+    public void ToggleRare(bool b, Renderer  r)
+    {
+
+        if (defaultTexture == null)
+        {
+            defaultTexture = r.material.mainTexture;
+        }
+
+        if (b)
+        {
+            r.material.mainTexture = rareMorph;
+        }
+        else
+        {
+            r.material.mainTexture = defaultTexture;
+        }
+
+    }
+
+    public bool CanRareMorph()
+    {
+        return rareMorph != null;
+    }
 }

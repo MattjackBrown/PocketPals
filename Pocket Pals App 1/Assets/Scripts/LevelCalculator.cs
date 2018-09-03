@@ -8,7 +8,7 @@ public class LevelCalculator
 
     public static float GetPercentageToNextLevel(float EXP, float modifer)
     {
-        float EXPToNextLevel = GetExpNeeded(EXP, modifer);
+        float EXPToNextLevel =  GetExpNeeded(EXP, modifer);
         float EXPToLast = exptolastlevel(EXP, modifer);
         float temp = GetExpNeeded(EXP, modifer) - EXPToLast;
         float temp2 = EXP - EXPToLast;

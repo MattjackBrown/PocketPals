@@ -254,7 +254,6 @@ public class PocketPalSpawnManager : MonoBehaviour
         clone.transform.parent = gpsMap.currentMap.transform;
 
         spawnedPocketPals.Add(clone);
-        clone.GetComponent<PocketPalParent>().GenerateAnimalData();
 
         TouchHandler.Instance.Vibrate();
     }
