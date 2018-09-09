@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TouchHandler : MonoBehaviour {
 	
@@ -430,24 +431,39 @@ public class TouchHandler : MonoBehaviour {
 			// If touch has just begun
 			if (touch.phase.Equals (TouchPhase.Began))
 			{
-				// Raycast from the touch position
-				Ray ray = Camera.main.ScreenPointToRay (touch.position);
+				// Don't continue if user is clicking a button
+				if (!TouchIsOverUIObject (touch)) {
+					
+					// Raycast from the touch position
+					Ray ray = Camera.main.ScreenPointToRay (touch.position);
 
-				// if hit
-				if (Physics.Raycast (ray, out hit))
-				{
-					// This might not be a good way. Need a cast to whatever data structure will be used here
-					// Either PocketPalParent, or look for the int ID component of the VirtualGardenSpawn maybe
-					if (hit.transform.gameObject.GetComponent("VirtualGardenInfo"))
-					{
-						cameraController.VGToggleInspect ();
+					// if hit
+					if (Physics.Raycast (ray, out hit)) {
+						// This might not be a good way. Need a cast to whatever data structure will be used here
+						// Either PocketPalParent, or look for the int ID component of the VirtualGardenSpawn maybe
+						if (hit.transform.gameObject.GetComponent ("VirtualGardenInfo")) {
+							cameraController.VGToggleInspect ();
 
-						// Only need to find one, Don't bother checking other touches after this
-						return;
+							// Only need to find one, Don't bother checking other touches after this
+							return;
+						}
 					}
 				}
 			}
 		}
+	}
+
+	private bool TouchIsOverUIObject(Touch touch)
+	{
+		PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+
+		eventDataCurrentPosition.position = new Vector2 (touch.position.x, touch.position.y);
+
+		List<RaycastResult> results = new List<RaycastResult>();
+
+		EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+
+		return results.Count > 0;
 	}
 
 	void UseVirtualGardenControls() {

@@ -361,7 +361,7 @@ public class CaptureMiniGame : MonoBehaviour {
 					// Change the animation and avatar to the rest style
 					pocketPal.SetMoveAnimation ();
 
-					NotificationManager.Instance.MiniGameFailedNotification (string.Concat("The ", pocketPal.pocketPalName, "is gone, see if you can find another one!"));
+					NotificationManager.Instance.MiniGameFailedNotification (string.Concat("The ", pocketPal.pocketPalName, " is gone, see if you can find another one!"));
 				}
 			} else {
 				// End game Sequence
