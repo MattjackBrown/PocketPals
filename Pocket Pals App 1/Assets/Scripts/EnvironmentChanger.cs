@@ -7,19 +7,17 @@ public class EnvironmentChanger : MonoBehaviour
 {
     EnvironmentChanger Instance { set; get; }
 
-    public GameObject[] playerPositions;
-
     public GameObject[] scenes;
 
 	public GameObject StartLoginUI, VGUI, LoadingScreen;
-	public VirtualSceneParent VGInfo;
 	public UIAnimationManager animManager;
 
     //Used to reset the camera back in posisition.
     public GameObject player;
     private GPS gps;
 	public TouchHandler controls;
-
+	
+	private VirtualSceneParent VGInfo;
 	private int activeIndex;
 
 	bool created = false;
@@ -65,15 +63,19 @@ public class EnvironmentChanger : MonoBehaviour
 
    public void SceneInit(int index)
     {
-        index = activeIndex;
+        activeIndex = index;
 
         //deactivate map stuff and stop gps ticking???
         gps.currentMap.gameObject.SetActive(false);
         gps.gameObject.SetActive(false);
 
+		VGInfo = scenes [index].GetComponent<VirtualSceneParent>();
+
         //set positions and acticate scene.
-        CameraController.Instance.InitVirtualGardenTour(playerPositions[index].transform.position, playerPositions[index].transform.forward + playerPositions[index].transform.position);
-		scenes[index].SetActive(true);
+		CameraController.Instance.InitVirtualGardenTour(VGInfo.centreOfMap.transform.position, VGInfo.centreOfMap.transform.forward + VGInfo.centreOfMap.transform.position);
+		//CameraController.Instance.InitVirtualGardenTour(playerPositions[index].transform.position, playerPositions[index].transform.forward + playerPositions[index].transform.position);
+
+		scenes [index].SetActive(true);
 		scenes [index].GetComponent<VirtualSceneParent> ().InitVGTour ();
         
         //to do start custom scripts depending on scene user story.

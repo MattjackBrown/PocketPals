@@ -6,7 +6,15 @@ using UnityEngine;
 
 public class VirtualSceneParent : MonoBehaviour
 {
-	VirtualSceneParent Instance { set; get; }
+	// More than one instance now
+//	VirtualSceneParent Instance { set; get; }
+
+	public enum EnvironmentType {
+		woodland, wetland, coast
+	}
+
+	public EnvironmentType environmentType;
+
 
 	public VirtualGardenSpawn[] AnimalObjects;
 	public VGUIManager gUIManager;
