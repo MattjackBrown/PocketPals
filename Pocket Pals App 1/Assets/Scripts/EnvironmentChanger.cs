@@ -71,6 +71,9 @@ public class EnvironmentChanger : MonoBehaviour
 
 		VGInfo = scenes [index].GetComponent<VirtualSceneParent>();
 
+		// The touch handler needs a reference to the current VGInfo for available PPals to cycle between
+		TouchHandler.Instance.UpdateCurrentVirtualGarden (VGInfo);
+
         //set positions and acticate scene.
 		CameraController.Instance.InitVirtualGardenTour(VGInfo.centreOfMap.transform.position, VGInfo.centreOfMap.transform.forward + VGInfo.centreOfMap.transform.position);
 		//CameraController.Instance.InitVirtualGardenTour(playerPositions[index].transform.position, playerPositions[index].transform.forward + playerPositions[index].transform.position);
