@@ -219,6 +219,11 @@ public class UIAnimationManager : MonoBehaviour {
         canvasAnimator.SetBool ("openShop", show);
 	}
 
+	public void ShowVGChoice (bool show) {
+		if (!CanAnimChange) return;
+		canvasAnimator.SetBool ("showVGChoice", show);
+	}
+
 	public void ShowVG (bool show) {
         if (!CanAnimChange) return;
 
