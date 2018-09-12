@@ -583,4 +583,8 @@ public class TouchHandler : MonoBehaviour {
 	public void EnableButtons () {
 		buttonBlocker.SetActive (false);
 	}
+
+	public void UpdateCurrentVirtualGarden (VirtualSceneParent _vsc) {
+		virtualGarden = _vsc;
+	}
 }
