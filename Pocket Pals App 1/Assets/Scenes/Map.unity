@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.51791227, g: 0.73494, b: 0.89833146, a: 1}
+  m_IndirectSpecularColor: {r: 0.52153254, g: 0.7413829, b: 0.9053977, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -141,12 +141,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8a144d7f34933479b8be04de6c762f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPositions: []
   scenes:
   - {fileID: 32817349}
   - {fileID: 552640359}
   StartLoginUI: {fileID: 2039017364}
   VGUI: {fileID: 759308564}
   LoadingScreen: {fileID: 1840677862}
+  VGInfo: {fileID: 0}
   animManager: {fileID: 421776396}
   player: {fileID: 206820439}
   controls: {fileID: 1331972349}
@@ -501,7 +503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6537205bba2f64f90776e47e4ee6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  environmentType: 0
   AnimalObjects:
   - ID: 1
     Used: 0
@@ -10043,7 +10044,7 @@ MonoBehaviour:
   SkinChoices:
   - IsPaid: 0
     ID: 
-    tex: {fileID: 2800000, guid: 42759d9c3d6b94faeb0bb9e9ce552bf6, type: 3}
+    tex: {fileID: 2800000, guid: 263430f9af40544e48d5f5a8b70659d0, type: 3}
   - IsPaid: 0
     ID: 
     tex: {fileID: 2800000, guid: 42759d9c3d6b94faeb0bb9e9ce552bf6, type: 3}
@@ -12790,7 +12791,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6537205bba2f64f90776e47e4ee6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  environmentType: 1
   AnimalObjects: []
   gUIManager: {fileID: 759308568}
   centreOfMap: {fileID: 290806506}
