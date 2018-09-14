@@ -1341,7 +1341,8 @@ MonoBehaviour:
   maxWeight: 0.34
   minLength: 19
   maxLength: 23
-  type: 2
+  time: 0
+  spawnType: 0
   animalType: 1
   pocketPalName: Red squirrel
   FactSheet: {fileID: 21300000, guid: 0d7dd0314e27b194aa7daf69fdf1e49b, type: 3}
@@ -1349,6 +1350,7 @@ MonoBehaviour:
   minPatrolSpeed: 0
   maxPatrolSpeed: 0
   rareMorph: {fileID: 2800000, guid: dce292c1b087cb445bdc19ee844ba835, type: 3}
+  defaultTexture: {fileID: 2800000, guid: 38887ed49199adf42986c25b810cffde, type: 3}
   RareMorphChance: 0.05
   RareMorphBonusMultiplier: 3
 --- !u!137 &137988180757440892

@@ -184,12 +184,12 @@ public class GPS : MonoBehaviour
         if(System.DateTime.Now.Hour >= Sunset || System.DateTime.Now.Hour < SunRise)
         {
             MakeNight();
-            PocketPalSpawnManager.Instance.SetSpawnList(SpawnType.n_Woodland);
+            PocketPalSpawnManager.Instance.SetSpawnList(SpawnTime.night);
         }
         else
         {
             MakeDay();
-            PocketPalSpawnManager.Instance.SetSpawnList(SpawnType.d_Woodland);
+            PocketPalSpawnManager.Instance.SetSpawnList(SpawnTime.day);
         }
 
         //Spawn a new map

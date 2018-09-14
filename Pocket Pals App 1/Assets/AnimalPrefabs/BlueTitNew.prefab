@@ -1514,13 +1514,17 @@ MonoBehaviour:
   maxWeight: 0.00125
   minLength: 10.5
   maxLength: 12
-  type: 2
+  time: 0
+  spawnType: 0
   animalType: 2
   pocketPalName: Blue tit
   FactSheet: {fileID: 21300000, guid: e06ea0169e560e248b28691892cac0d8, type: 3}
   Rarity: 2
   minPatrolSpeed: 0.15
   maxPatrolSpeed: 0.25
+  rareMorph: {fileID: 0}
+  RareMorphChance: 0.05
+  RareMorphBonusMultiplier: 3
 --- !u!137 &137966850836735404
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

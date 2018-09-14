@@ -28,10 +28,6 @@ public class PocketPalSpawnManager : MonoBehaviour
     //Ref to the map, to set the parent of the pocketpals once they spawn
     private GPS gpsMap;
 
-    public static float TotalRarity = 0;
-    public static int NumberOfPPals = 0;
-    public static float AverageRarity = 0;
-
     // The max number of Pocket Pals that can spawn at any one time
     public int maxPocketPals = 20;
 
@@ -41,8 +37,7 @@ public class PocketPalSpawnManager : MonoBehaviour
 	// The minimum distance allowed between spawning pocket pals to avoid overlaps
 	float minimumDistanceBetweenSpawns = 4.0f;
 
-    private List<GameObject> activeSpawnList = new List<GameObject>();
-    private List<float> activeRarities = new List<float>();
+    public Dictionary<SpawnType, SpawnList> spawnLists = new Dictionary<SpawnType, SpawnList>();
 
     //List of all the spawned pocketpals
     private List<GameObject> spawnedPocketPals = new List<GameObject>();
@@ -63,22 +58,14 @@ public class PocketPalSpawnManager : MonoBehaviour
 
 	}
 
-    public void SetSpawnList(SpawnType type)
+    public void SetSpawnList(SpawnTime time)
     {
         DespawnAll();
-        activeSpawnList.Clear();
-        activeRarities.Clear();
 
-        activeSpawnList = AssetManager.Instance.GetPocketPalsOfType(type);
-        //Iter throught the PocketPalscripts and set their IDs
-        foreach (GameObject o in activeSpawnList)
-        {
-            TotalRarity += o.GetComponent<PocketPalParent>().Rarity;
-            NumberOfPPals++;
-            activeRarities.Add(o.GetComponent<PocketPalParent>().Rarity);
-        }
-        AverageRarity = TotalRarity / NumberOfPPals;
-        ContentGenerator.Instance.TryGenerateNewAnimalList("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, maxPocketPals, activeRarities, true);
+        //Add a list of animals from each enironment
+        spawnLists.Add(SpawnType.Woodland, new SpawnList(time, SpawnType.Woodland, maxPocketPals)); 
+        spawnLists.Add(SpawnType.Wetland,new SpawnList(time, SpawnType.Wetland, maxPocketPals)); 
+        spawnLists.Add(SpawnType.Coastal, new SpawnList(time, SpawnType.Coastal, maxPocketPals)); 
     }
 
     public void PocketpalCollected(GameObject obj)
@@ -87,26 +74,34 @@ public class PocketPalSpawnManager : MonoBehaviour
         DespawnPocketPal(obj.GetComponentInParent<PocketPalParent>().gameObject);
     }
 
-    private GameObject GetSyncedPocketPal()
+    private GameObject GetSyncedPocketPal(Vector3 pos)
     {
-        if (ContentGenerator.Instance.TryGenerateNewAnimalList("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, maxPocketPals, activeRarities, false))
+        if (ContentGenerator.Instance.CheckForNewAnimalSeed("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y,false))
         {
             DespawnAll();
+
+            foreach (SpawnList list in spawnLists.Values)
+            {
+                list.NewSetOfAnimalsNeeded(maxPocketPals);
+            }
         }
 
-        int index = ContentGenerator.Instance.GetNextAnimalID();
+        switch (screenAnalysis.AnalyseSpawnLocation(pos))
+        {
+            case SpawnType.Wetland:
+                return spawnLists[SpawnType.Wetland].GetNextAnimal();
+            case SpawnType.Woodland:
+                return spawnLists[SpawnType.Woodland].GetNextAnimal();
+            case SpawnType.Coastal:
+                return spawnLists[SpawnType.Coastal].GetNextAnimal();
+        }
 
-        return activeSpawnList[index];
+        return AssetManager.Instance.GetPocketPalFromID(0);
     }
 
     private float GetSpawnDelay()
     {
         return Random.Range(minSpawnTime, maxSpawnTime);
-    }
-
-    public List<float> GetSpawnSamples()
-    {
-        return activeRarities;
     }
 
     public IEnumerator Spawn()
@@ -209,7 +204,8 @@ public class PocketPalSpawnManager : MonoBehaviour
     {
         if (spawnedPocketPals.Contains(obj))
         {
-            spawnedPocketPals.Remove(obj);
+            int i = spawnedPocketPals.IndexOf(obj);
+            spawnedPocketPals.RemoveAt(i);
         }
         Destroy(obj);
     }
@@ -251,7 +247,7 @@ public class PocketPalSpawnManager : MonoBehaviour
         Quaternion rot = spawnPoints[0].rotation;
 
         //Try and get a synced animals spawn
-        ppal = GetSyncedPocketPal();
+        ppal = GetSyncedPocketPal(pos);
 
         // Create an instance of the prefab at select pocketpal via rarity 
         GameObject clone = Instantiate(ppal, pos, rot);

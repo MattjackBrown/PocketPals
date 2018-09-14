@@ -1456,13 +1456,17 @@ MonoBehaviour:
   maxWeight: 0
   minLength: 1.2
   maxLength: 1.4
-  type: 2
+  time: 0
+  spawnType: 0
   animalType: 0
   pocketPalName: Cuckoo bee
   FactSheet: {fileID: 21300000, guid: e19be0d7219124a73b67d41d45adbb49, type: 3}
   Rarity: 3
   minPatrolSpeed: 0.05
   maxPatrolSpeed: 0.12
+  rareMorph: {fileID: 0}
+  RareMorphChance: 0.05
+  RareMorphBonusMultiplier: 3
 --- !u!137 &137557188566918880
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

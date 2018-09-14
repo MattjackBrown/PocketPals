@@ -130,45 +130,22 @@ public class AssetManager : MonoBehaviour {
 
     public List<GameObject> GetPocketPalsOfType(SpawnType type)
     {
-        List<GameObject> pList = new List<GameObject>();
-		foreach (GameObject obj in AllPocketPals)
+        switch (type)
         {
-            if (obj.GetComponent<PocketPalParent>().type == type)
-            {
-                pList.Add(obj);
-            }
-            else
-            {
-                switch (obj.GetComponent<PocketPalParent>().type)
+            case SpawnType.Woodland:
                 {
-                    case SpawnType.a_Woodland:
-                        {
-                            if (type == SpawnType.d_Woodland || type == SpawnType.n_Woodland)
-                            {
-                                pList.Add(obj);
-                            }
-                            break;
-                        }
-                    case SpawnType.a_Wetland:
-                        {
-                            if (type == SpawnType.d_Wetland || type == SpawnType.n_Wetland)
-                            {
-                                pList.Add(obj);
-                            }
-                            break;
-                        }
-					case SpawnType.a_Coastal:
-						{
-							if (type == SpawnType.d_Coastal || type == SpawnType.n_Coastal)
-							{
-								pList.Add(obj);
-							}
-							break;
-						}
+                    return WoodlandPocketPals.ToList() ;
                 }
-            }
+            case SpawnType.Wetland:
+                {
+                    return WetlandPocketPals.ToList();
+                }
+			case SpawnType.Coastal:
+				{
+                    return CoastalPocketPals.ToList();
+				}
         }
-        return pList;
+        return WoodlandPocketPals.ToList();
     }
 
     public TracksAndTrailsPreset GetTrackByID(int ID)

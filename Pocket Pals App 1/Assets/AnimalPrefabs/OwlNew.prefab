@@ -1224,13 +1224,17 @@ MonoBehaviour:
   maxWeight: 0.8
   minLength: 37
   maxLength: 46
-  type: 3
+  time: 1
+  spawnType: 0
   animalType: 2
   pocketPalName: Tawny owl
   FactSheet: {fileID: 21300000, guid: fbebdd48ace164d4da24dc9d4e8fa81d, type: 3}
   Rarity: 5
   minPatrolSpeed: 0.15
   maxPatrolSpeed: 0.25
+  rareMorph: {fileID: 0}
+  RareMorphChance: 0.05
+  RareMorphBonusMultiplier: 3
 --- !u!137 &137895408314672774
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

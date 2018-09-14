@@ -11,16 +11,17 @@ using UnityEngine.UI;
 [System.Serializable]
 public enum SpawnType
 {
-    none, 
-    a_Woodland,
-    d_Woodland,
-    n_Woodland,
-    a_Wetland,
-    d_Wetland,
-    n_Wetland,
-	a_Coastal,
-	d_Coastal,
-	n_Coastal
+    Woodland,
+
+    Wetland,
+
+	Coastal
+        , none
+}
+[System.Serializable]
+public enum SpawnTime
+{
+    day, night, all
 }
 [System.Serializable]
 public enum PPalType
@@ -60,7 +61,8 @@ public class PocketPalParent : MonoBehaviour
     public float minLength = 0.0f;
     public float maxLength = 5.5f;
 
-    public SpawnType type = SpawnType.none;
+    public SpawnTime time = SpawnTime.all;
+    public SpawnType spawnType = SpawnType.Woodland;
     public PPalType animalType = PPalType.Animal;
 
     public string pocketPalName = "none";
@@ -78,7 +80,7 @@ public class PocketPalParent : MonoBehaviour
 	public float maxPatrolSpeed = 0.0f;
 
     public Texture rareMorph;
-    private Texture defaultTexture;
+    public Texture defaultTexture;
     public float RareMorphChance = 0.05f;
     public float RareMorphBonusMultiplier = 3.0f;
 
@@ -202,17 +204,13 @@ public class PocketPalParent : MonoBehaviour
                 
                 return true;
             }
+            ToggleRare(false, GetComponentInChildren<Renderer>());
             return false;
         }
     }
 
     public void ToggleRare(bool b, Renderer  r)
     {
-
-        if (defaultTexture == null)
-        {
-            defaultTexture = r.material.mainTexture;
-        }
 
         if (b)
         {

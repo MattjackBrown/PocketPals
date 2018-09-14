@@ -1369,7 +1369,8 @@ MonoBehaviour:
   maxWeight: 14
   minLength: 45
   maxLength: 90
-  type: 1
+  time: 2
+  spawnType: 0
   animalType: 1
   pocketPalName: Red fox
   FactSheet: {fileID: 21300000, guid: 7ca93517c9c83d84d8ae3dfbb07b946e, type: 3}
@@ -1377,6 +1378,7 @@ MonoBehaviour:
   minPatrolSpeed: 0.1
   maxPatrolSpeed: 0.2
   rareMorph: {fileID: 2800000, guid: ea7cfabe6ff9f7046bceb905ac44ea35, type: 3}
+  defaultTexture: {fileID: 2800000, guid: 3fca11e491433734bbc8371bc241a39e, type: 3}
   RareMorphChance: 0.05
   RareMorphBonusMultiplier: 3
 --- !u!137 &137854817502652636
