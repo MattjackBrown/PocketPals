@@ -17,7 +17,10 @@ public enum SpawnType
     n_Woodland,
     a_Wetland,
     d_Wetland,
-    n_Wetland
+    n_Wetland,
+	a_Coastal,
+	d_Coastal,
+	n_Coastal
 }
 [System.Serializable]
 public enum PPalType

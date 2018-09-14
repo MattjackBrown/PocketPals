@@ -2,13 +2,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class AssetManager : MonoBehaviour {
 
     public static AssetManager Instance { set; get; }
 
     // The Pocket Pal prefabs to be spawned
-    public GameObject[] PocketPals;
+    public GameObject[] WoodlandPocketPals;
+	public GameObject[] WetlandPocketPals;
+	public GameObject[] CoastalPocketPals;
+
+	private GameObject[] AllPocketPals;
 
     public AnimalScreenshots[] screenShots;
 
@@ -23,6 +28,11 @@ public class AssetManager : MonoBehaviour {
     void Start ()
     {
         Instance = this;
+
+		// Combine all the arrays
+		AllPocketPals = WoodlandPocketPals.Concat (WetlandPocketPals).ToArray();
+		AllPocketPals = AllPocketPals.Concat (CoastalPocketPals).ToArray();
+
         foreach (ItemData id in Items)
         {
             itemRarities.Add(id.rarity);
@@ -35,13 +45,13 @@ public class AssetManager : MonoBehaviour {
 
     public GameObject GetPocketPalFromID(int ID)
     {
-        foreach (GameObject obj in PocketPals)
+        foreach (GameObject obj in AllPocketPals)
         {
             if (obj.GetComponent<PocketPalParent>().PocketPalID == ID)
             {
                 return obj;
             }
-        }
+		}
         return null;
     }
 
@@ -61,13 +71,14 @@ public class AssetManager : MonoBehaviour {
         return ppp.FactSheet;
     }
 
+	// This is just for the guessing game right? Have left as WoodlandPocketPals for now
     public List<PocketPalParent> GetRandomPocketpals(int num, int ppalID, PPalType filter = PPalType.All)
     {
         List<PocketPalParent> ppals = new List<PocketPalParent>();
         System.Random r = new System.Random(ppalID);
         while (ppals.Count < num)
         {
-           PocketPalParent ppp = PocketPals[r.Next(0, PocketPals.Length)].GetComponent<PocketPalParent>();
+			PocketPalParent ppp = WoodlandPocketPals[r.Next(0, WoodlandPocketPals.Length)].GetComponent<PocketPalParent>();
             if (!ppals.Contains(ppp) && ppp.PocketPalID != ppalID)
             {
                 if(filter == PPalType.All || ppp.animalType == filter) ppals.Add(ppp);
@@ -120,7 +131,7 @@ public class AssetManager : MonoBehaviour {
     public List<GameObject> GetPocketPalsOfType(SpawnType type)
     {
         List<GameObject> pList = new List<GameObject>();
-        foreach (GameObject obj in PocketPals)
+		foreach (GameObject obj in AllPocketPals)
         {
             if (obj.GetComponent<PocketPalParent>().type == type)
             {
@@ -146,6 +157,14 @@ public class AssetManager : MonoBehaviour {
                             }
                             break;
                         }
+					case SpawnType.a_Coastal:
+						{
+							if (type == SpawnType.d_Coastal || type == SpawnType.n_Coastal)
+							{
+								pList.Add(obj);
+							}
+							break;
+						}
                 }
             }
         }

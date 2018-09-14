@@ -14,24 +14,12 @@ public class ScreenAnalysis : MonoBehaviour {
 	// When checking for water around a blue pixel, this is far it will look
 	int waterSampleDistance = 20;
 
-	GameObject[] landTypes = new GameObject[]{};
-	GameObject[] forestTypes = new GameObject[]{};
-	GameObject[] urbanTypes = new GameObject[]{};
-	GameObject[] seaTypes = new GameObject[]{};
-	GameObject[] riverTypes = new GameObject[]{};
-	GameObject[] waterTypes = new GameObject[]{};
-
 
 	// Use this for initialization
 	void Start () {
 
 		// Set the texture2d to be the same size as the renderTexture
 		cameraTexture.Resize (cameraRender.width, cameraRender.height);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
 	void UpdateTexture () {
@@ -44,7 +32,7 @@ public class ScreenAnalysis : MonoBehaviour {
 	}
 
 	// Will this ever be needed? Whole screen analysis as opposed to single pixel analysis
-	GameObject[] AnalyseScreen () {
+	SpawnType AnalyseScreen () {
 
 		// Update the cameraTexture to the current camera view image
 		UpdateTexture ();
@@ -68,10 +56,10 @@ public class ScreenAnalysis : MonoBehaviour {
 		Vector3 averageColour = accumColour / NSamples;
 
 		// ToDo: do checks on this average colour to see what environment fills the screen
-		return GetAppropriatePalListFromMapColour(averageColour);
+		return GetSpawnTypeFromMapColour (averageColour);
 	}
 
-	GameObject[] AnalyseSpawnLocation (Vector3 worldSpawnLocation) {
+	SpawnType AnalyseSpawnLocation (Vector3 worldSpawnLocation) {
 		// Analyse the pixel colour at the world spawn location to decide which land sea etc pocket pal list to spawn from
 
 		// World to screen location returns the pixel coordinates
@@ -84,17 +72,21 @@ public class ScreenAnalysis : MonoBehaviour {
 		float b = pixelColour.b;
 
 		// Check for green
-		if (r < 0.2f && g > 0.8f && b < 0.2f) return forestTypes;
+		if (r < 0.5f && g > 0.5f && b < 0.5f) return SpawnType.a_Woodland;
 
 		// Check for urban (grey rgb have similar values)
 		if (r - g < 0.2f && r - b < 0.2f
 			// Also check not pure white or black
-			&& r < 0.8f && r > 0.2f) return urbanTypes;
+			&& r < 0.8f && r > 0.2f) return SpawnType.a_Woodland;
 
 		// Check for blue
-		if (r < 0.2f && g < 0.2f && b > 0.8f) {
+		if (r < 0.5f && g < 0.5f && b > 0.5f) {
 
 			// Need to check if sea or inland
+
+			// Just do a water check to begin with (14/11/18 No coastal PPals available yet)
+			return SpawnType.a_Wetland;
+/*
 			// Will need a null check here or some type of off screen
 			Color leftSample = cameraTexture.GetPixel ((int)screenLocation.x - waterSampleDistance, (int)screenLocation.y);
 			Color rightSample = cameraTexture.GetPixel ((int)screenLocation.x + waterSampleDistance, (int)screenLocation.y);
@@ -102,15 +94,18 @@ public class ScreenAnalysis : MonoBehaviour {
 			Color downSample = cameraTexture.GetPixel ((int)screenLocation.x, (int)screenLocation.y - waterSampleDistance);
 			
 			// If inland then pixels on either side will be land
-			if (!isBlue (leftSample) && !isBlue (rightSample)) return riverTypes;
-			if (!isBlue (upSample) && !isBlue (downSample)) return riverTypes;
+			if (!isBlue (leftSample) && !isBlue (rightSample)) return SpawnType.a_Wetland;
+			if (!isBlue (upSample) && !isBlue (downSample)) return SpawnType.a_Wetland;
 
 			// Else is sea 
-			return seaTypes;
+			return SpawnType.a_Coastal;
+*/
+
 		}
 
 		// else return default land types
-		return landTypes;
+		Debug.Log("ScreenAnalysis: Map colour does not match a tolerance");
+		return SpawnType.a_Woodland;
 	}
 
 	bool isBlue(Color colour) {
@@ -120,23 +115,24 @@ public class ScreenAnalysis : MonoBehaviour {
 		return false;
 	}
 
-	GameObject[] GetAppropriatePalListFromMapColour(Vector3 colour) {
+	SpawnType GetSpawnTypeFromMapColour(Vector3 colour) {
 		float r = colour.x;
 		float g = colour.y;
 		float b = colour.z;
 
 		// Check for green
-		if (r < 0.2f && g > 0.8f && b < 0.2f) return forestTypes;
+		if (r < 0.2f && g > 0.8f && b < 0.2f) return SpawnType.a_Woodland;
 
 		// Check for urban (grey rgb have similar values)
 		if (r - g < 0.2f && r - b < 0.2f
 			// Also check not pure white or black
-			&& r < 0.8f && r > 0.2f) return urbanTypes;
+			&& r < 0.8f && r > 0.2f) return SpawnType.a_Woodland;
 
 		// Check for blue
-		if (r < 0.2f && g < 0.2f && b > 0.8f) return waterTypes;
+		if (r < 0.2f && g < 0.2f && b > 0.8f) return SpawnType.a_Wetland;
 
 		// else return default land types
-		return landTypes;
+		Debug.Log("ScreenAnalysis: Map colour does not match a tolerance");
+		return SpawnType.a_Woodland;
 	}
 }

@@ -49,9 +49,13 @@ public class PocketPalSpawnManager : MonoBehaviour
 
     public bool TrySyncedSpawns = true;
 
+	private ScreenAnalysis screenAnalysis;
+
 	void Start ()
 	{
-        Instance = this;
+		Instance = this;
+
+		screenAnalysis = new ScreenAnalysis();
 
         gpsMap = girl.GetComponent<GPS>();
 
@@ -129,7 +133,8 @@ public class PocketPalSpawnManager : MonoBehaviour
             {
                 // Find a random index between zero and one less than the number of spawn points
 
-                int RandomPocketPal = Random.Range(0, AssetManager.Instance.PocketPals.Length);
+				// Commented this next line out as not used?
+//				int RandomPocketPal = Random.Range(0, AssetManager.Instance.WoodlandPocketPals.Length);
 
 				// Even though these are set, the compiler requires them to be initialised here
 				Vector3 spawnPosition = Vector3.zero;
