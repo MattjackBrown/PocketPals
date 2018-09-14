@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.52153254, g: 0.7413829, b: 0.9053977, a: 1}
+  m_IndirectSpecularColor: {r: 0.51533735, g: 0.7316449, b: 0.89442825, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -141,14 +141,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c8a144d7f34933479b8be04de6c762f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPositions: []
   scenes:
   - {fileID: 32817349}
   - {fileID: 552640359}
   StartLoginUI: {fileID: 2039017364}
   VGUI: {fileID: 759308564}
   LoadingScreen: {fileID: 1840677862}
-  VGInfo: {fileID: 0}
   animManager: {fileID: 421776396}
   player: {fileID: 206820439}
   controls: {fileID: 1331972349}
@@ -503,6 +501,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6537205bba2f64f90776e47e4ee6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  environmentType: 0
   AnimalObjects:
   - ID: 1
     Used: 0
@@ -5143,7 +5142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e3f89eaa8325d49a8b9e4881854a36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PocketPals:
+  WoodlandPocketPals:
   - {fileID: 1794521351321068, guid: b20ac99c6032ff44dbbad4d70ff6d16e, type: 2}
   - {fileID: 1710497355784226, guid: cfd39e51ebb21419d9789d594992e643, type: 2}
   - {fileID: 1541897754408016, guid: 463d2a94077d8d2439e8c380316fe936, type: 2}
@@ -5164,6 +5163,12 @@ MonoBehaviour:
   - {fileID: 1304037611370048, guid: f59a2a33fcac843388516ae0e68464e8, type: 2}
   - {fileID: 1460610167286854, guid: 8671283cd12314f72ac9b80b31837aa5, type: 2}
   - {fileID: 1379441688451118, guid: 9bb84aa4ef3614b9988446f21871e28b, type: 2}
+  WetlandPocketPals:
+  - {fileID: 1420182673323664, guid: 27c1e1a418fbc4a19a9e480fe3564147, type: 2}
+  - {fileID: 1334574754671522, guid: eafd1509aad1843a395e108ba1eba47a, type: 2}
+  - {fileID: 1452671761815888, guid: da974ad284f8148c8b39c012e5428825, type: 2}
+  - {fileID: 1504679211607216, guid: fb592a8904f7340a1a00d5c4506ffd40, type: 2}
+  CoastalPocketPals: []
   screenShots:
   - spr: {fileID: 21300000, guid: e6dff787b763e9e4098b307e36d60987, type: 3}
     ppalID: 1
@@ -12791,6 +12796,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6537205bba2f64f90776e47e4ee6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  environmentType: 0
   AnimalObjects: []
   gUIManager: {fileID: 759308568}
   centreOfMap: {fileID: 290806506}
