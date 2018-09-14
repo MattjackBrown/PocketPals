@@ -1,0 +1,241 @@
+fileFormatVersion: 2
+guid: a274bf4e6646b448eb737f43749d1252
+timeCreated: 1536925091
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: ankle_l_jnt
+    100002: ankle_r_jnt
+    100004: beak__end_jnt
+    100006: beak_jnt
+    100008: foot_l_jnt
+    100010: foot_r_jnt
+    100012: GreyHeron
+    100014: //RootNode
+    100016: GreyHeron_Body
+    100018: GreyHeron_WingOne
+    100020: GreyHeron_WingTwo
+    100022: Group
+    100024: head_end_jnt
+    100026: head_jnt
+    100028: hip_jnt
+    100030: knee_l_jnt
+    100032: knee_r_jnt
+    100034: neck_1_jnt
+    100036: neck_2_jnt
+    100038: neck_3_jnt
+    100040: neck_4_jnt
+    100042: neck_5_jnt
+    100044: neck_6_jnt
+    100046: neck_7_jnt
+    100048: neck_8_jnt
+    100050: neck_9_jnt
+    100052: shoulders_jnt
+    100054: tail_1_jnt
+    100056: tail_2_jnt
+    100058: tail_3_jnt
+    100060: tail_end_jnt
+    100062: thigh_l_jnt
+    100064: thigh_r_jnt
+    100066: toe_l1_1_jnt
+    100068: toe_l1_2_jnt
+    100070: toe_l1_end_jnt
+    100072: toe_l2_1_jnt
+    100074: toe_l2_2_jnt
+    100076: toe_l2_end_jnt
+    100078: toe_l3_1_jnt
+    100080: toe_l3_2_jnt
+    100082: toe_l3_end_jnt
+    100084: toe_l4_1_jnt
+    100086: toe_l4_2_jnt
+    100088: toe_l4_end_jnt
+    100090: toe_r1_1_jnt
+    100092: toe_r1_2_jnt
+    100094: toe_r1_end_jnt
+    100096: toe_r2_1_jnt
+    100098: toe_r2_2_jnt
+    100100: toe_r2_end_jnt
+    100102: toe_r3_1_jnt
+    100104: toe_r3_2_jnt
+    100106: toe_r3_end_jnt
+    100108: toe_r4_1_jnt
+    100110: toe_r4_2_jnt
+    100112: toe_r4_end_jnt
+    100114: wing_l_1_jnt
+    100116: wing_l_2_jnt
+    100118: wing_l_3_jnt
+    100120: wing_l_4_jnt
+    100122: wing_l_end_jnt
+    100124: wing_r_1_jnt
+    100126: wing_r_2_jnt
+    100128: wing_r_3_jnt
+    100130: wing_r_4_jnt
+    100132: wing_r_end_jnt
+    400000: ankle_l_jnt
+    400002: ankle_r_jnt
+    400004: beak__end_jnt
+    400006: beak_jnt
+    400008: foot_l_jnt
+    400010: foot_r_jnt
+    400012: //RootNode
+    400014: GreyHeron
+    400016: GreyHeron_Body
+    400018: GreyHeron_WingOne
+    400020: GreyHeron_WingTwo
+    400022: Group
+    400024: head_end_jnt
+    400026: head_jnt
+    400028: hip_jnt
+    400030: knee_l_jnt
+    400032: knee_r_jnt
+    400034: neck_1_jnt
+    400036: neck_2_jnt
+    400038: neck_3_jnt
+    400040: neck_4_jnt
+    400042: neck_5_jnt
+    400044: neck_6_jnt
+    400046: neck_7_jnt
+    400048: neck_8_jnt
+    400050: neck_9_jnt
+    400052: shoulders_jnt
+    400054: tail_1_jnt
+    400056: tail_2_jnt
+    400058: tail_3_jnt
+    400060: tail_end_jnt
+    400062: thigh_l_jnt
+    400064: thigh_r_jnt
+    400066: toe_l1_1_jnt
+    400068: toe_l1_2_jnt
+    400070: toe_l1_end_jnt
+    400072: toe_l2_1_jnt
+    400074: toe_l2_2_jnt
+    400076: toe_l2_end_jnt
+    400078: toe_l3_1_jnt
+    400080: toe_l3_2_jnt
+    400082: toe_l3_end_jnt
+    400084: toe_l4_1_jnt
+    400086: toe_l4_2_jnt
+    400088: toe_l4_end_jnt
+    400090: toe_r1_1_jnt
+    400092: toe_r1_2_jnt
+    400094: toe_r1_end_jnt
+    400096: toe_r2_1_jnt
+    400098: toe_r2_2_jnt
+    400100: toe_r2_end_jnt
+    400102: toe_r3_1_jnt
+    400104: toe_r3_2_jnt
+    400106: toe_r3_end_jnt
+    400108: toe_r4_1_jnt
+    400110: toe_r4_2_jnt
+    400112: toe_r4_end_jnt
+    400114: wing_l_1_jnt
+    400116: wing_l_2_jnt
+    400118: wing_l_3_jnt
+    400120: wing_l_4_jnt
+    400122: wing_l_end_jnt
+    400124: wing_r_1_jnt
+    400126: wing_r_2_jnt
+    400128: wing_r_3_jnt
+    400130: wing_r_4_jnt
+    400132: wing_r_end_jnt
+    4300000: GreyHeron_Body
+    4300002: GreyHeron_WingOne
+    4300004: GreyHeron_WingTwo
+    9500000: //RootNode
+    13700000: GreyHeron_Body
+    13700002: GreyHeron_WingOne
+    13700004: GreyHeron_WingTwo
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GreyHeronTexture
+    second: {fileID: 2100000, guid: 81261dabfb4bd4cbb90a3ce8a9072db7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WingOne
+    second: {fileID: 2100000, guid: 255fd122b640d4fd3843a0a6e07d5c1d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WingTwo
+    second: {fileID: 2100000, guid: b3bd2aca21199415f8cf2d118da1ad5c, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 2
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
