@@ -41,6 +41,12 @@ public class VGUIManager : MonoBehaviour
 
 	public Image mainMenu;
 
+
+    ///---------- Fact Board stuff ------------\\\\\
+    public Image spawnTimeImage;
+    public Sprite dayImage, nightImage;
+
+
     // Use this for initialization
     void Start ()
     {
@@ -115,6 +121,7 @@ public class VGUIManager : MonoBehaviour
         RoamCanvas.transform.gameObject.SetActive(true);
         isInspecting = false;
     }
+
     public void SwitchToInspect()
     {
         if (currentDisplayData != null)
