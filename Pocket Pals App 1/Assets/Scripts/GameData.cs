@@ -119,7 +119,7 @@ public class GameData
     {
         foreach (PocketPalData ppd in Inventory.GetMyPocketPals())
         {
-            PocketPalParent ppp = AssetManager.Instance.GetPocketPalFromID(ppd.ID).GetComponent<PocketPalParent>();
+            PocketPalParent ppp = AssetManager.Instance.GetPocketPalGameObject(ppd.ID).GetComponent<PocketPalParent>();
             ppd.weight = ppp.CheckNewWeight(ppd.weight);
             ppd.length = ppp.CheckNewLength(ppd.length);
         }

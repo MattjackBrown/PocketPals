@@ -104,7 +104,7 @@ public class PocketPalInventory
     {
         if (myPPals.Count < 1) return null;
         //Use the asset manager to look up the gameobject assosiated to that pocketpal ID
-        return AssetManager.Instance.GetPocketPalFromID(myPPals[myPPals.Count - 1].ID);
+        return AssetManager.Instance.GetPocketPalGameObject(myPPals[myPPals.Count - 1].ID);
     }
 
     public PocketPalData GetMostRecentData()
@@ -141,7 +141,7 @@ public class PocketPalInventory
         for (int i = 1; i < x+1; i++)
         {
             //Use the asset manager to look up the gameobject assosiated to that pocketpal ID
-            rList.Add(AssetManager.Instance.GetPocketPalFromID(myPPals[myPPals.Count - i].ID));
+            rList.Add(AssetManager.Instance.GetPocketPalGameObject(myPPals[myPPals.Count - i].ID));
         }
         return rList;
     }

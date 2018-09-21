@@ -135,7 +135,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
     {
         GuessLayer.SetActive(true);
         int correctPPalID = AssetManager.Instance.GetTrackByID(activeTrack.ID).PocketPalID;
-        correctPPal = AssetManager.Instance.GetPocketPalFromID(correctPPalID).GetComponent<PocketPalParent>();
+        correctPPal = AssetManager.Instance.GetPocketPalGameObject(correctPPalID).GetComponent<PocketPalParent>();
         guessPalIDs = AssetManager.Instance.GetRandomPocketpals(GuessBoxes.Length - 1, correctPPalID, correctPPal.GetBaseData().ppalType);
         guessPalIDs.Add(correctPPal);
         guessPalIDs = guessPalIDs.OrderBy(x => UnityEngine.Random.Range(0, 100)).ToList();
@@ -272,7 +272,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
         {
             NotificationManager.Instance.CongratsNotification("Correct! You have tracked the animal!");
 
-            PocketPalParent ppp = AssetManager.Instance.GetPocketPalFromID(activeTrack.GuessID).GetComponent<PocketPalParent>();
+            PocketPalParent ppp = AssetManager.Instance.GetPocketPalGameObject(activeTrack.GuessID).GetComponent<PocketPalParent>();
 
             LocalDataManager.Instance.SuccessfulTrack(ppp, AssetManager.Instance.GetTrackByID(activeTrack.ID), activeTrack.Multiplier);
         }

@@ -13,11 +13,9 @@ public class AssetManager : MonoBehaviour {
 	public GameObject[] WetlandPocketPals;
 	public GameObject[] CoastalPocketPals;
 
-    private List<DefaultPocketPalInfo> defaultValues = new List<DefaultPocketPalInfo>();
-
     public Sprite day, night;
 
-	private GameObject[] AllPocketPals;
+	private Dictionary<int, GameObject> AllPocketPals = new Dictionary<int, GameObject>();
 
     public AnimalScreenshots[] screenShots;
 
@@ -33,9 +31,16 @@ public class AssetManager : MonoBehaviour {
     {
         Instance = this;
 
-		// Combine all the arrays
-		AllPocketPals = WoodlandPocketPals.Concat (WetlandPocketPals).ToArray();
-		AllPocketPals = AllPocketPals.Concat (CoastalPocketPals).ToArray();
+        // Combine all the arrays
+        foreach (GameObject obj in WoodlandPocketPals)
+        {
+            AllPocketPals.Add(obj.GetComponent<PocketPalParent>().PocketPalID, obj);
+        }
+        foreach (GameObject obj in WetlandPocketPals)
+        {
+            AllPocketPals.Add(obj.GetComponent<PocketPalParent>().PocketPalID, obj);
+        }
+
 
         foreach (ItemData id in Items)
         {
@@ -46,33 +51,37 @@ public class AssetManager : MonoBehaviour {
             tntRarities.Add(ttp.rarity);
         }
 
-        defaultValues = DatabaseScanner.ScanFileForInfo((TextAsset)Resources.Load("PPalData"));
+        List<DefaultPocketPalInfo> defaultValues = DatabaseScanner.ScanFileForInfo((TextAsset)Resources.Load("PPalData"));
 
-        foreach (GameObject obj in AllPocketPals)
+        foreach (DefaultPocketPalInfo obj in defaultValues)
         {
-            PocketPalParent ppp = obj.GetComponent<PocketPalParent>(); 
-            DefaultPocketPalInfo info = GetDefaultInfo(ppp.PocketPalID);
-            if (info == null)
+            PocketPalParent ppal = GetBasePocketPal(obj.ID);
+            if (ppal == null)
             {
-                Debug.Log("Cant find Info for ppal: " + ppp.PocketPalID);
+                Debug.Log("Cant find Info for ppal: " + obj.PPalName);
             }
             else
             {
-                ppp.SetBaseData(info);
+                ppal.SetBaseData(obj);
             }
         }
 	}
 
-    public GameObject GetPocketPalFromID(int ID)
+    public GameObject GetPocketPalGameObject(int ID)
     {
-        foreach (GameObject obj in AllPocketPals)
+        if (AllPocketPals.ContainsKey(ID))
         {
-            if (obj.GetComponent<PocketPalParent>().PocketPalID == ID)
-            {
-                return obj;
-            }
-		}
+            return AllPocketPals[ID];
+        }
         return null;
+    }
+
+    public PocketPalParent GetBasePocketPal(int ID)
+    {
+        GameObject obj = GetPocketPalGameObject(ID);
+
+        if (obj != null) return obj.GetComponent<PocketPalParent>();
+        else return null;
     }
 
     public Sprite GetScreenShot(int id)
@@ -80,15 +89,6 @@ public class AssetManager : MonoBehaviour {
         foreach (AnimalScreenshots scr in screenShots)
         {
             if (scr.ppalID == id) return scr.spr;
-        }
-        return null;
-    }
-
-    public DefaultPocketPalInfo GetDefaultInfo(int id)
-    {
-        foreach (DefaultPocketPalInfo p in defaultValues)
-        {
-            if (p.ID == id) return p;
         }
         return null;
     }

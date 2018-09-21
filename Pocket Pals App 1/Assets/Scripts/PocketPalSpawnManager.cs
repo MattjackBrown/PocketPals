@@ -96,7 +96,7 @@ public class PocketPalSpawnManager : MonoBehaviour
                 return spawnLists[SpawnType.Coastal].GetNextAnimal();
         }
 
-        return AssetManager.Instance.GetPocketPalFromID(0);
+        return AssetManager.Instance.GetPocketPalGameObject(0);
     }
 
     private float GetSpawnDelay()

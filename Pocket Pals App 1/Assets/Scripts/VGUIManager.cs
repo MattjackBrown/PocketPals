@@ -137,7 +137,7 @@ public class VGUIManager : MonoBehaviour
 
         if (currentDisplayData.weight <= 0)
         {
-            if (AssetManager.Instance.GetDefaultInfo(currentDisplayData.ID).minLength <= 0)
+            if (AssetManager.Instance.GetBasePocketPal((currentDisplayData.ID)).GetBaseData().minLength <= 0)
             {
                 weight.text = "<1g";
                 return;
@@ -178,7 +178,7 @@ public class VGUIManager : MonoBehaviour
         PocketPalData ppd = anim.GetAnimalData();
         currentObj = anim;
         currentDisplayData = ppd;
-        PocketPalParent ppp = AssetManager.Instance.GetPocketPalFromID(ppd.ID).GetComponent<PocketPalParent>();
+        PocketPalParent ppp = AssetManager.Instance.GetPocketPalGameObject(ppd.ID).GetComponent<PocketPalParent>();
         if (ppp.CanRareMorph()) MorphButton.SetActive(true);
         else MorphButton.SetActive(false);
         UpdateUI();
@@ -188,14 +188,13 @@ public class VGUIManager : MonoBehaviour
     {
         if (currentDisplayData != null)
         {
-            AssetManager.Instance.GetDefaultInfo(currentDisplayData.ID).ApplyStaticInfo(factBoardRefs);
+            AssetManager.Instance.GetBasePocketPal(currentDisplayData.ID).GetBaseData().ApplyStaticInfo(factBoardRefs);
 
 
             SetWeight();
             SetLength();
 
             nameText.text = currentDisplayData.pocketPalName;
-//            agressionText.text = currentDisplayData.GetAgression().ToString();
             caughtText.text = currentDisplayData.numberCaught.ToString();
             rarityText.text = currentDisplayData.GetRarity().ToString();
             expText.text = currentDisplayData.GetExp().ToString();
@@ -233,7 +232,7 @@ public class VGUIManager : MonoBehaviour
             {
                 IsMorphed = true;
             }
-            AssetManager.Instance.GetPocketPalFromID(currentDisplayData.ID).GetComponent<PocketPalParent>().ToggleRare(IsMorphed, currentObj.animalObj.GetComponentInChildren<Renderer>());
+            AssetManager.Instance.GetPocketPalGameObject(currentDisplayData.ID).GetComponent<PocketPalParent>().ToggleRare(IsMorphed, currentObj.animalObj.GetComponentInChildren<Renderer>());
         }
     }
 }
