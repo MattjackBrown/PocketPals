@@ -13,6 +13,10 @@ public class AssetManager : MonoBehaviour {
 	public GameObject[] WetlandPocketPals;
 	public GameObject[] CoastalPocketPals;
 
+    private List<DefaultPocketPalInfo> defaultValues = new List<DefaultPocketPalInfo>();
+
+    public Sprite day, night;
+
 	private GameObject[] AllPocketPals;
 
     public AnimalScreenshots[] screenShots;
@@ -41,6 +45,22 @@ public class AssetManager : MonoBehaviour {
         {
             tntRarities.Add(ttp.rarity);
         }
+
+        defaultValues = DatabaseScanner.ScanFileForInfo((TextAsset)Resources.Load("PPalData"));
+
+        foreach (GameObject obj in AllPocketPals)
+        {
+            PocketPalParent ppp = obj.GetComponent<PocketPalParent>(); 
+            DefaultPocketPalInfo info = GetDefaultInfo(ppp.PocketPalID);
+            if (info == null)
+            {
+                Debug.Log("Cant find Info for ppal: " + ppp.PocketPalID);
+            }
+            else
+            {
+                ppp.SetBaseData(info);
+            }
+        }
 	}
 
     public GameObject GetPocketPalFromID(int ID)
@@ -64,12 +84,15 @@ public class AssetManager : MonoBehaviour {
         return null;
     }
 
-    public Sprite GetFactSheet(int id)
+    public DefaultPocketPalInfo GetDefaultInfo(int id)
     {
-        GameObject obj = GetPocketPalFromID(id);
-        PocketPalParent ppp = obj.GetComponent<PocketPalParent>();
-        return ppp.FactSheet;
+        foreach (DefaultPocketPalInfo p in defaultValues)
+        {
+            if (p.ID == id) return p;
+        }
+        return null;
     }
+
 
 	// This is just for the guessing game right? Have left as WoodlandPocketPals for now
     public List<PocketPalParent> GetRandomPocketpals(int num, int ppalID, PPalType filter = PPalType.All)
@@ -81,7 +104,7 @@ public class AssetManager : MonoBehaviour {
 			PocketPalParent ppp = WoodlandPocketPals[r.Next(0, WoodlandPocketPals.Length)].GetComponent<PocketPalParent>();
             if (!ppals.Contains(ppp) && ppp.PocketPalID != ppalID)
             {
-                if(filter == PPalType.All || ppp.animalType == filter) ppals.Add(ppp);
+                if(filter == PPalType.All || ppp.GetBaseData().ppalType == filter) ppals.Add(ppp);
             }
         }
         return ppals;

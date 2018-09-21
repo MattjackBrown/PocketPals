@@ -136,7 +136,7 @@ public class TrackAndTrailsHandle : MonoBehaviour
         GuessLayer.SetActive(true);
         int correctPPalID = AssetManager.Instance.GetTrackByID(activeTrack.ID).PocketPalID;
         correctPPal = AssetManager.Instance.GetPocketPalFromID(correctPPalID).GetComponent<PocketPalParent>();
-        guessPalIDs = AssetManager.Instance.GetRandomPocketpals(GuessBoxes.Length - 1, correctPPalID, correctPPal.animalType);
+        guessPalIDs = AssetManager.Instance.GetRandomPocketpals(GuessBoxes.Length - 1, correctPPalID, correctPPal.GetBaseData().ppalType);
         guessPalIDs.Add(correctPPal);
         guessPalIDs = guessPalIDs.OrderBy(x => UnityEngine.Random.Range(0, 100)).ToList();
         for (int i = 0; i < GuessBoxes.Length; i++)
@@ -300,7 +300,7 @@ public class GuessClass
         index = i;
         img.sprite = null;
         ppp = parent;
-		PPName.text = parent.pocketPalName;
+		PPName.text = parent.GetBaseData().PPalName;
         ppalImg.sprite = AssetManager.Instance.GetScreenShot(parent.PocketPalID);
     }
 }

@@ -28,10 +28,10 @@ public class SpawnList
         {
             foreach (GameObject obj in AssetManager.Instance.GetPocketPalsOfType(type))
             {
-                if (time == obj.GetComponent<PocketPalParent>().time || obj.GetComponent<PocketPalParent>().time == SpawnTime.all)
+                if (time == obj.GetComponent<PocketPalParent>().GetBaseData().timeActive || obj.GetComponent<PocketPalParent>().GetBaseData().timeActive == SpawnTime.all)
                 {
                     activeSpawnList.Add(obj);
-                    activeRarities.Add(obj.GetComponent<PocketPalParent>().Rarity);
+                    activeRarities.Add(obj.GetComponent<PocketPalParent>().GetBaseData().Rarity);
                 }
             }
             GeneratedAnimalsIDs =  ContentGenerator.Instance.TryGenerateNewAnimalList("doombar", GPS.Insatance.GetLatLon().x, GPS.Insatance.GetLatLon().y, maxUniqueSize, activeRarities, true);

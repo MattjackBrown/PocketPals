@@ -43,8 +43,7 @@ public class VGUIManager : MonoBehaviour
 
 
     ///---------- Fact Board stuff ------------\\\\\
-    public Image spawnTimeImage;
-    public Sprite dayImage, nightImage;
+    public FactSheetFields factBoardRefs;
 
 
     // Use this for initialization
@@ -135,6 +134,16 @@ public class VGUIManager : MonoBehaviour
     public void SetWeight()
     {
         string str = "";
+
+        if (currentDisplayData.weight <= 0)
+        {
+            if (AssetManager.Instance.GetDefaultInfo(currentDisplayData.ID).minLength <= 0)
+            {
+                weight.text = "<1g";
+                return;
+            }
+        }
+
         if (currentDisplayData.weight < 1)
         {
 			double tempWeight = Math.Round ((currentDisplayData.weight * 1000), 1);
@@ -179,7 +188,9 @@ public class VGUIManager : MonoBehaviour
     {
         if (currentDisplayData != null)
         {
-            factBoard.GetComponent<Image>().sprite = AssetManager.Instance.GetFactSheet(currentDisplayData.ID);
+            AssetManager.Instance.GetDefaultInfo(currentDisplayData.ID).ApplyStaticInfo(factBoardRefs);
+
+
             SetWeight();
             SetLength();
 

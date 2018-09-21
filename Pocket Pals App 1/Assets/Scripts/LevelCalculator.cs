@@ -71,7 +71,6 @@ public class LevelCalculator
             temp += baseExp * (lvl*lvl*0.2f)* (LevelCoefficent);
             temp *= 1.1f;
             lvl++;
-            Debug.Log("Level " + lvl + " Requires: " + temp + "exp");
         }
     }
 }

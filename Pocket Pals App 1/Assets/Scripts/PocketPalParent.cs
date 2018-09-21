@@ -16,7 +16,8 @@ public enum SpawnType
     Wetland,
 
 	Coastal
-        , none
+        , none,
+    Meadows
 }
 [System.Serializable]
 public enum SpawnTime
@@ -29,6 +30,9 @@ public enum PPalType
     Insect,
     Animal,
     Bird,
+    Amphibian,
+    Fish,
+    Reptile,
     All
 }
 
@@ -55,26 +59,12 @@ public class PocketPalParent : MonoBehaviour
 
     public float maxSpawnExp = 1000.0f;
 
-    public float minWeight = 0.0f;
-    public float maxWeight = 5.5f;
+    private DefaultPocketPalInfo baseData;
 
-    public float minLength = 0.0f;
-    public float maxLength = 5.5f;
-
-    public SpawnTime time = SpawnTime.all;
-    public SpawnType spawnType = SpawnType.Woodland;
-    public PPalType animalType = PPalType.Animal;
-
-    public string pocketPalName = "none";
 
     public bool InMinigame { set; get; }
 
     private PocketPalData pocketPalData;
-
-    public Sprite FactSheet;
-
-    [Tooltip("The rarity of the spawn")]
-    public float Rarity = 10.0f;
 
 	public float minPatrolSpeed = 0.0f;
 	public float maxPatrolSpeed = 0.0f;
@@ -106,6 +96,16 @@ public class PocketPalParent : MonoBehaviour
 
 	}
 
+    public DefaultPocketPalInfo GetBaseData()
+    {
+        return baseData;
+    }
+
+    public void SetBaseData(DefaultPocketPalInfo info)
+    {
+        baseData = info;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         Destroy(collision.gameObject);
@@ -128,18 +128,18 @@ public class PocketPalParent : MonoBehaviour
 
     public float CheckNewLength(float l)
     {
-        if (l > maxLength ||l < minLength)
+        if (l > baseData.maxLength ||l < baseData.minLength)
         {
-            return Random.Range(minLength, maxLength);
+            return Random.Range(baseData.minLength, baseData.maxLength);
         }
         else return l;
     }
 
     public float CheckNewWeight(float w)
     {
-        if (w > maxWeight || w < minWeight)
+        if (w > baseData.maxWeight || w < baseData.minWeight)
         {
-            return Random.Range(minWeight, maxWeight);
+            return Random.Range(baseData.minWeight, baseData.maxWeight);
         }
         else return w;
     }
@@ -162,11 +162,11 @@ public class PocketPalParent : MonoBehaviour
 
 
         //get random size inbetween points using size variance.
-        float weight = Random.Range(minWeight, maxWeight);
+        float weight = Random.Range(baseData.minWeight, baseData.maxWeight);
 
-        float length = Random.Range(minLength, maxLength);
+        float length = Random.Range(baseData.minLength, baseData.maxLength);
 
-        pocketPalData = new PocketPalData(pocketPalName, PocketPalID, exp, weight ,length, Rarity);
+        pocketPalData = new PocketPalData(baseData.PPalName, PocketPalID, exp, weight ,length, baseData.Rarity);
 
         TryForRareMorph();
 

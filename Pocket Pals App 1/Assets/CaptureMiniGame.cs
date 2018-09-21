@@ -270,8 +270,8 @@ public class CaptureMiniGame : MonoBehaviour {
 		// Set the text field in the congrats page
 		// Clear it sanity check
 		PPalName.text = "";
-		if (targetPocketPal.pocketPalName != null && targetPocketPal.pocketPalName != "none") {
-			PPalName.text = targetPocketPal.pocketPalName; 
+		if (targetPocketPal.GetBaseData().PPalName != null && targetPocketPal.GetBaseData().PPalName != "none") {
+			PPalName.text = targetPocketPal.GetBaseData().PPalName; 
 		} else { 
 			PPalName.text = "Pocket Pal"; 
 		} 
@@ -361,7 +361,7 @@ public class CaptureMiniGame : MonoBehaviour {
 					// Change the animation and avatar to the rest style
 					pocketPal.SetMoveAnimation ();
 
-					NotificationManager.Instance.MiniGameFailedNotification (string.Concat("The ", pocketPal.pocketPalName, " is gone, see if you can find another one!"));
+					NotificationManager.Instance.MiniGameFailedNotification (string.Concat("The ", pocketPal.GetBaseData().PPalName, " is gone, see if you can find another one!"));
 				}
 			} else {
 				// End game Sequence
