@@ -9,7 +9,7 @@ public class ScreenAnalysis : MonoBehaviour {
 
 	public int NSamples = 10;
 
-	Texture2D cameraTexture = new Texture2D(0, 0);
+	Texture2D cameraTexture;
 
 	// When checking for water around a blue pixel, this is far it will look
 	int waterSampleDistance = 20;
@@ -18,14 +18,16 @@ public class ScreenAnalysis : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		cameraTexture = new Texture2D(0, 0);
+
 		// Set the texture2d to be the same size as the renderTexture
-		cameraTexture.Resize (cameraRender.width, cameraRender.height);
+		cameraTexture.Resize (Screen.width, Screen.height);//cameraRender.width, cameraRender.height);
 	}
 
 	void UpdateTexture () {
 		
 		// Copy the renderTexture into the texture2d
-		cameraTexture.ReadPixels (new Rect (0.0f, 0.0f, cameraRender.width, cameraRender.height), 0, 0);
+		cameraTexture.ReadPixels (new Rect (0.0f, 0.0f, Screen.width, Screen.height/*cameraRender.width, cameraRender.height*/), 0, 0);
 
 		// Applies the read pixels to the texture
 		cameraTexture.Apply ();

@@ -672,6 +672,9 @@ public class ServerDataManager : MonoBehaviour
 		yield return new WaitForSeconds(0.5f);
 
 		InitCharacterStyle(gd, gd.charStyleData);
+
+		//	GPS.Insatance.StartCoroutines();
+		// GPS.Insatance.StopCoroutines ();
 	}
 
     public void CreateUser(string email, string password, Text failedText, GameObject CreateUserScreen)

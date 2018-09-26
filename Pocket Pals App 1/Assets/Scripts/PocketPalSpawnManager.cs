@@ -44,13 +44,11 @@ public class PocketPalSpawnManager : MonoBehaviour
 
     public bool TrySyncedSpawns = true;
 
-	private ScreenAnalysis screenAnalysis;
+	public ScreenAnalysis screenAnalysis;
 
 	void Start ()
 	{
 		Instance = this;
-
-		screenAnalysis = new ScreenAnalysis();
 
         gpsMap = girl.GetComponent<GPS>();
 
